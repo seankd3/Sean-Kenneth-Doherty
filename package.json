@@ -1,0 +1,54 @@
+{
+  "name": "SeanKennethDoherty",
+  "version": "0.1.0",
+  "private": true,
+<<<<<<< HEAD
+  "homepage": ".",
+=======
+  "homepage": "https://SeanDohertyPhotos.github.io/seandohertyphotos",
+>>>>>>> 661df0b9b40413ded4980197e2216c537f322dd2
+  "dependencies": {
+    "cra-template": "1.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-lazyload": "^3.2.1",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^4.2.4"
+  },
+  "scripts": {
+<<<<<<< HEAD
+    "start": "react-scripts start",
+    "copy-images": "npx cpx \"src/assets/images/**/*\" public/assets/images -C",
+    "build": "npm run copy-images && react-scripts build",
+=======
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build && xcopy src\\images build\\images /E /I",
+>>>>>>> 661df0b9b40413ded4980197e2216c537f322dd2
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "gh-pages": "^6.3.0"
+  }
+}
