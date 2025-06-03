@@ -1,17 +1,16 @@
 import React from 'react';
 import LazyLoad from 'react-lazyload';
-<<<<<<< HEAD
 import Album from './Album';
 import LoadingSpinner from './LoadingSpinner';
 import './Gallery.css';
 
-const Gallery = ({ 
-  imagesByFolder, 
-  loading, 
-  error, 
-  onImageClick, 
+const Gallery = ({
+  imagesByFolder,
+  loading,
+  error,
+  onImageClick,
   getGlobalIndex,
-  activeSection 
+  activeSection,
 }) => {
   if (loading) {
     return (
@@ -27,10 +26,7 @@ const Gallery = ({
       <div className="gallery-error">
         <h3>Error Loading Gallery</h3>
         <p>We encountered an issue loading the images. Please try refreshing the page.</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          className="error-retry-button"
-        >
+        <button onClick={() => window.location.reload()} className="error-retry-button">
           Retry
         </button>
       </div>
@@ -49,10 +45,10 @@ const Gallery = ({
   return (
     <div className="gallery-container" role="main" aria-label="Photo gallery">
       {Object.entries(imagesByFolder).map(([folderName, images]) => (
-        <LazyLoad 
-          key={folderName} 
-          height={400} 
-          offset={200} 
+        <LazyLoad
+          key={folderName}
+          height={400}
+          offset={200}
           once
           placeholder={
             <div className="album-placeholder">
@@ -68,29 +64,11 @@ const Gallery = ({
             onImageClick={onImageClick}
             getGlobalIndex={getGlobalIndex}
             isActive={activeSection === folderName.replace(/\s+/g, '-')}
-=======
-
-function Gallery({ images, onImageClick }) {
-  return (
-    <div className="gallery">
-      {images.map((image, index) => (
-        <LazyLoad key={index} height={200} offset={100} once>
-          <img
-            src={image}
-            alt={`Gallery image ${index + 1}`}
-            onClick={() => onImageClick(image, index, images)}
->>>>>>> 661df0b9b40413ded4980197e2216c537f322dd2
           />
         </LazyLoad>
       ))}
     </div>
   );
-<<<<<<< HEAD
 };
 
 export default Gallery;
-=======
-}
-
-export default Gallery;
->>>>>>> 661df0b9b40413ded4980197e2216c537f322dd2

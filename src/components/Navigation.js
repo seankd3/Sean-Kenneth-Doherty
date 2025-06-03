@@ -1,12 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 
-const Navigation = ({ 
-  albumNames, 
-  activeSection, 
-  onAlbumClick, 
-  getAlbumImageCount 
-}) => {
+const Navigation = ({ albumNames, activeSection, onAlbumClick, getAlbumImageCount }) => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -45,7 +40,7 @@ const Navigation = ({
           const sectionId = folderName.replace(/\s+/g, '-');
           const isActive = activeSection === sectionId;
           const imageCount = getAlbumImageCount(folderName);
-          
+
           return (
             <li key={folderName}>
               <a
@@ -71,7 +66,7 @@ const Navigation = ({
           );
         })}
       </ul>
-      
+
       {/* Quick stats */}
       <div className="nav-stats" aria-label="Gallery statistics">
         <div className="nav-stat">

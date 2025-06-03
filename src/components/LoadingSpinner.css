@@ -91,8 +91,12 @@
 
 /* Animation */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Reduced motion support */
@@ -101,7 +105,7 @@
   .spinner-inner {
     animation: none;
   }
-  
+
   .spinner-circle {
     border-top-color: transparent;
     border-right-color: #007bff;
@@ -114,11 +118,11 @@
     border-color: rgba(255, 255, 255, 0.1);
     border-top-color: #4dabf7;
   }
-  
+
   .spinner-inner {
     border-top-color: #4dabf7;
   }
-  
+
   .spinner-message {
     color: #ccc;
   }

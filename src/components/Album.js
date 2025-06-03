@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import LazyLoad from 'react-lazyload';
 import './Album.css';
 
-const Album = ({ 
-  folderName, 
-  images, 
-  onImageClick, 
-  getGlobalIndex, 
-  isActive 
-}) => {
+const Album = ({ folderName, images, onImageClick, getGlobalIndex, isActive }) => {
   const [imageLoadErrors, setImageLoadErrors] = useState(new Set());
 
   const handleImageError = (imageIndex) => {
-    setImageLoadErrors(prev => new Set([...prev, imageIndex]));
+    setImageLoadErrors((prev) => new Set([...prev, imageIndex]));
   };
 
   const handleImageLoad = (imageIndex) => {
-    setImageLoadErrors(prev => {
+    setImageLoadErrors((prev) => {
       const newSet = new Set(prev);
       newSet.delete(imageIndex);
       return newSet;
@@ -26,38 +20,27 @@ const Album = ({
   const sectionId = folderName.replace(/\s+/g, '-');
 
   return (
-    <section 
-      id={sectionId} 
+    <section
+      id={sectionId}
       className={`album-section ${isActive ? 'active' : ''}`}
       aria-labelledby={`${sectionId}-title`}
     >
-      <h2 
-        id={`${sectionId}-title`} 
-        className="album-title"
-      >
+      <h2 id={`${sectionId}-title`} className="album-title">
         {folderName}
         <span className="album-count" aria-label={`${images.length} images`}>
           ({images.length})
         </span>
       </h2>
-      
-      <div 
-        className="album-gallery" 
-        role="grid" 
-        aria-label={`${folderName} photo grid`}
-      >
+
+      <div className="album-gallery" role="grid" aria-label={`${folderName} photo grid`}>
         {images.map((image, index) => {
-console.log('Image URL used for src:', image);
+          console.log('Image URL used for src:', image);
           console.log('Rendering image:', image, 'Type:', typeof image);
           const globalIndex = getGlobalIndex(image);
           const hasError = imageLoadErrors.has(index);
-          
+
           return (
-            <div
-              key={`${folderName}-${index}`}
-              className="album-image-container"
-              role="gridcell"
-            >
+            <div key={`${folderName}-${index}`} className="album-image-container" role="gridcell">
               <LazyLoad
                 offset={100}
                 once

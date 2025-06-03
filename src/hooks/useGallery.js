@@ -19,7 +19,7 @@ function useGallery() {
 
         for (const [folder, images] of Object.entries(imageManifest)) {
           // Map each image filename to its full path relative to assets/images
-          const folderImages = images.map(img => `/assets/images/${folder}/${img}`);
+          const folderImages = images.map((img) => `/assets/images/${folder}/${img}`);
           folders[folder] = folderImages;
           allImgs.push(...folderImages);
         }
@@ -64,7 +64,7 @@ function useGallery() {
     loading,
     error,
     getAlbumImageCount,
-    getGlobalIndex
+    getGlobalIndex,
   };
 }
 

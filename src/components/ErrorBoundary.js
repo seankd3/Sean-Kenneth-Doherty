@@ -16,7 +16,7 @@ class ErrorBoundary extends React.Component {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
     this.setState({
       error: error,
-      errorInfo: errorInfo
+      errorInfo: errorInfo,
     });
   }
 
@@ -31,13 +31,17 @@ class ErrorBoundary extends React.Component {
             {process.env.NODE_ENV === 'development' && (
               <details style={{ whiteSpace: 'pre-wrap', marginTop: '20px' }}>
                 <summary>Error Details (Development Only)</summary>
-                <p><strong>Error:</strong> {this.state.error && this.state.error.toString()}</p>
-                <p><strong>Stack Trace:</strong></p>
+                <p>
+                  <strong>Error:</strong> {this.state.error && this.state.error.toString()}
+                </p>
+                <p>
+                  <strong>Stack Trace:</strong>
+                </p>
                 <pre>{this.state.errorInfo.componentStack}</pre>
               </details>
             )}
-            <button 
-              onClick={() => window.location.reload()} 
+            <button
+              onClick={() => window.location.reload()}
               className="error-refresh-button"
               style={{
                 marginTop: '20px',
@@ -46,7 +50,7 @@ class ErrorBoundary extends React.Component {
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
             >
               Refresh Page

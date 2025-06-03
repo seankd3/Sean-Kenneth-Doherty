@@ -4,7 +4,7 @@ const useLightbox = (allImages = []) => {
   const [lightbox, setLightbox] = useState({
     isOpen: false,
     currentImage: null,
-    currentIndex: 0
+    currentIndex: 0,
   });
 
   // Open lightbox with specific image
@@ -12,7 +12,7 @@ const useLightbox = (allImages = []) => {
     setLightbox({
       isOpen: true,
       currentImage: image,
-      currentIndex: index
+      currentIndex: index,
     });
   }, []);
 
@@ -21,51 +21,60 @@ const useLightbox = (allImages = []) => {
     setLightbox({
       isOpen: false,
       currentImage: null,
-      currentIndex: 0
+      currentIndex: 0,
     });
   }, []);
 
   // Navigate to previous image
-  const showPrevImage = useCallback((e) => {
-    if (e) e.stopPropagation();
-    if (allImages.length === 0) return;
+  const showPrevImage = useCallback(
+    (e) => {
+      if (e) e.stopPropagation();
+      if (allImages.length === 0) return;
 
-    const newIndex = (lightbox.currentIndex - 1 + allImages.length) % allImages.length;
-    const newImage = allImages[newIndex];
-    
-    setLightbox(prev => ({
-      ...prev,
-      currentImage: newImage,
-      currentIndex: newIndex
-    }));
-  }, [lightbox.currentIndex, allImages]);
+      const newIndex = (lightbox.currentIndex - 1 + allImages.length) % allImages.length;
+      const newImage = allImages[newIndex];
+
+      setLightbox((prev) => ({
+        ...prev,
+        currentImage: newImage,
+        currentIndex: newIndex,
+      }));
+    },
+    [lightbox.currentIndex, allImages]
+  );
 
   // Navigate to next image
-  const showNextImage = useCallback((e) => {
-    if (e) e.stopPropagation();
-    if (allImages.length === 0) return;
+  const showNextImage = useCallback(
+    (e) => {
+      if (e) e.stopPropagation();
+      if (allImages.length === 0) return;
 
-    const newIndex = (lightbox.currentIndex + 1) % allImages.length;
-    const newImage = allImages[newIndex];
-    
-    setLightbox(prev => ({
-      ...prev,
-      currentImage: newImage,
-      currentIndex: newIndex
-    }));
-  }, [lightbox.currentIndex, allImages]);
+      const newIndex = (lightbox.currentIndex + 1) % allImages.length;
+      const newImage = allImages[newIndex];
+
+      setLightbox((prev) => ({
+        ...prev,
+        currentImage: newImage,
+        currentIndex: newIndex,
+      }));
+    },
+    [lightbox.currentIndex, allImages]
+  );
 
   // Navigate to specific image by index
-  const goToImage = useCallback((index) => {
-    if (index < 0 || index >= allImages.length) return;
-    
-    const image = allImages[index];
-    setLightbox(prev => ({
-      ...prev,
-      currentImage: image,
-      currentIndex: index
-    }));
-  }, [allImages]);
+  const goToImage = useCallback(
+    (index) => {
+      if (index < 0 || index >= allImages.length) return;
+
+      const image = allImages[index];
+      setLightbox((prev) => ({
+        ...prev,
+        currentImage: image,
+        currentIndex: index,
+      }));
+    },
+    [allImages]
+  );
 
   // Handle body scroll lock when lightbox is open
   useEffect(() => {
@@ -85,7 +94,7 @@ const useLightbox = (allImages = []) => {
   useEffect(() => {
     const handleScroll = (e) => {
       if (!lightbox.isOpen) return;
-      
+
       e.preventDefault();
       if (e.deltaY < 0) {
         showPrevImage(e);
@@ -112,7 +121,7 @@ const useLightbox = (allImages = []) => {
     goToImage,
     hasNext: lightbox.currentIndex < allImages.length - 1,
     hasPrev: lightbox.currentIndex > 0,
-    totalImages: allImages.length
+    totalImages: allImages.length,
   };
 };
 
