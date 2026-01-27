@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain } from 'lucide-react';
+import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain, User, Sparkles } from 'lucide-react';
 import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
 
 const Home = () => {
@@ -14,6 +14,8 @@ const Home = () => {
     Rocket,
     Music,
     Mountain,
+    User,
+    Sparkles,
   };
   
   const categoryCards = homeCategoryCards.map(card => ({

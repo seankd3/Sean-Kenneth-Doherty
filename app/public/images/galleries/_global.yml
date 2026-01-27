@@ -3,38 +3,49 @@
 
 heroes:
   home:
-    image: "/images/galleries/starbase-flight-9/_hero.jpg"
+    image: "/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg"
     overlay: "dark"
     align: "center"
     
   weddings:
-    image: "/images/galleries/weddings-lauren-2024/_hero.jpg"
+    image: "/images/galleries/weddings/lauren_elphin-0003.jpg"
     title: "Wedding Photography"
     
   aerospace:
-    image: "/images/galleries/starbase-flight-9/_hero.jpg"
+    image: "/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg"
+    title: "Aerospace Photography"
     
   events:
-    image: "/images/galleries/beach-house-2023/_cover.jpg"
+    image: "/images/galleries/events-beach-house/beach_house_2023_01.jpg"
+    title: "Event Photography"
     
   landscapes:
-    image: "/images/galleries/landscapes-west/_hero.jpg"
+    image: "/images/galleries/landscapes-american-landscapes/american_landscapes_01.jpg"
+    title: "Landscape Photography"
+
+  portraits:
+    image: "/images/galleries/portraits-hillary-astrid/hillary_astrid_01.jpg"
+    title: "Portrait Photography"
 
 # Category cards on home page
 categories:
   weddings:
-    gallery: "weddings-lauren-2024"
+    gallery: "weddings"
     useCover: true
     
   aerospace:
-    gallery: "starbase-flight-9"
+    gallery: "aerospace"
     useHero: true
     
   events:
-    gallery: "beach-house-2023"
+    gallery: "events"
     useCover: true
     
   landscapes:
-    gallery: "landscapes-west"
+    gallery: "landscapes"
     useHero: false
+    useCover: true
+
+  portraits:
+    gallery: "portraits"
     useCover: true

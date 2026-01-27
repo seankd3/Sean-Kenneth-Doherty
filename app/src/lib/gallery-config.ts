@@ -1,38 +1,59 @@
 /**
  * Gallery Configuration
  * 
- * Central location for managing all gallery images.
- * Edit this file to add, remove, or modify photos.
+ * This file re-exports from the auto-generated config.
+ * Run `npm run sync-galleries` to regenerate after adding photos.
  */
 
+import {
+  galleries,
+  globalConfig,
+  getGalleryById,
+  getHeroImage,
+  getAllGalleryIds,
+  type GalleryImage,
+  type GalleryConfig,
+  type GlobalConfig
+} from './gallery-config-auto';
+
+export {
+  galleries,
+  globalConfig,
+  getGalleryById,
+  getHeroImage,
+  getAllGalleryIds,
+  type GalleryImage,
+  type GalleryConfig,
+  type GlobalConfig
+};
+
+// Helper function to get images from a gallery as simple strings
+export function getGalleryImagePaths(galleryId: string): string[] {
+  const gallery = getGalleryById(galleryId);
+  if (!gallery) return [];
+  return gallery.images.map((img: { src: string }) => img.src);
+}
+
+// Helper function to get a hero image from the first available image
+export function getFirstImage(galleryId: string): string | undefined {
+  const gallery = getGalleryById(galleryId);
+  if (!gallery || gallery.images.length === 0) return undefined;
+  return gallery.images[0].src;
+}
+
 // ============================================================================
-// WEDDINGS - 11 Photos
+// WEDDINGS - All 145+ photos
 // ============================================================================
 
-export const weddingGalleryImages = [
-  '/images/weddings/wedding-hero.jpg',
-  '/images/weddings/wedding-1.jpg',
-  '/images/weddings/wedding-2.jpg',
-  '/images/weddings/wedding-3.jpg',
-  '/images/weddings/wedding-4.jpg',
-  '/images/weddings/wedding-5.jpg',
-  '/images/weddings/wedding-6.jpg',
-  '/images/weddings/wedding-7.jpg',
-  '/images/weddings/wedding-8.jpg',
-  '/images/weddings/wedding-9.jpg',
-  '/images/weddings/wedding-10.jpg',
-  '/images/weddings/wedding-11.jpg',
-];
-
-export const weddingHeroImage = '/images/weddings/wedding-hero.jpg';
-
+export const weddingGalleryImages = getGalleryImagePaths('weddings');
+export const weddingHeroImage = getFirstImage('weddings') || '/images/galleries/weddings/lauren_elphin-0003.jpg';
 export const weddingFeatureImages = [
-  '/images/weddings/wedding-1.jpg',
-  '/images/weddings/wedding-3.jpg',
+  getFirstImage('weddings-lauren-2024') || '/images/galleries/weddings-lauren-2024/lauren_elphin.jpg',
+  getFirstImage('weddings') || '/images/galleries/weddings/lauren_elphin-0003.jpg',
 ];
 
 // ============================================================================
-// AEROSPACE - 8 Photos
+// AEROSPACE - All 400+ photos across sub-galleries
 // ============================================================================
 
 export interface AerospaceGalleryImage {
@@ -41,16 +62,32 @@ export interface AerospaceGalleryImage {
   params: string;
 }
 
-export const aerospaceGalleryImages: AerospaceGalleryImage[] = [
-  { src: '/images/aerospace/aerospace-hero.jpg', title: 'STARBASE AT DUSK', params: 'ISO 400 | f/5.6 | 1/250s' },
-  { src: '/images/aerospace/aerospace-1.jpg', title: 'NIGHT LAUNCH', params: 'ISO 800 | f/2.8 | 1/500s' },
-  { src: '/images/aerospace/aerospace-2.jpg', title: 'STARSHIP ON PAD', params: 'ISO 100 | f/8 | 1/250s' },
-  { src: '/images/aerospace/aerospace-3.jpg', title: 'ENGINE TEST', params: 'ISO 400 | f/4 | 1/1000s' },
-  { src: '/images/aerospace/aerospace-4.jpg', title: 'OCEAN LANDING', params: 'ISO 200 | f/5.6 | 1/500s' },
-  { src: '/images/aerospace/aerospace-5.jpg', title: 'STATIC FIRE', params: 'ISO 100 | f/11 | 1/2000s' },
-  { src: '/images/aerospace/aerospace-6.jpg', title: 'FLIGHT 9', params: 'ISO 200 | f/5.6 | 1/1000s' },
-  { src: '/images/aerospace/aerospace-7.jpg', title: 'STARBASE SUNSET', params: 'ISO 100 | f/8 | 1/125s' },
-];
+// Get all aerospace images combined
+function getAllAerospaceImages(): AerospaceGalleryImage[] {
+  const aerospaceGalleries = [
+    getGalleryById('aerospace-starbase'),
+    getGalleryById('aerospace-starbase-film'),
+    getGalleryById('aerospace-astronauts'),
+    getGalleryById('aerospace-astro'),
+    getGalleryById('aerospace-lone-star-rallycross'),
+  ].filter((g): g is GalleryConfig => g !== undefined);
+  
+  const images: AerospaceGalleryImage[] = [];
+  aerospaceGalleries.forEach((g) => {
+    if (g && g.images) {
+      g.images.forEach((img, idx) => {
+        images.push({
+          src: img.src,
+          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ').toUpperCase(),
+          params: `IMG-${String(idx + 1).padStart(3, '0')}`
+        });
+      });
+    }
+  });
+  return images;
+}
+
+export const aerospaceGalleryImages = getAllAerospaceImages();
 
 export interface AerospaceProject {
   designation: string;
@@ -70,7 +107,7 @@ export const aerospaceProjects: AerospaceProject[] = [
     statusColor: 'bg-[#c41e3a]',
     description: 'Full-time documentation of SpaceX Starship program development and launches at Starbase, Texas. Capturing history as it happens.',
     specs: ['4K 120FPS', 'REMOTE CAMERA SYSTEMS', 'OFF-GRID DEPLOYMENTS', '4K 120FPS SLOW-MO'],
-    image: '/images/aerospace/aerospace-hero.jpg',
+    image: getFirstImage('aerospace-starbase') || '/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg',
   },
   {
     designation: 'NSF-LEAD',
@@ -79,23 +116,41 @@ export const aerospaceProjects: AerospaceProject[] = [
     statusColor: 'bg-[#1a3a5c]',
     description: 'Lead cinematographer for major aerospace news media organization. Created content for YouTube, social media, and print.',
     specs: ['YOUTUBE CONTENT', 'SOCIAL MEDIA', 'PRINT MEDIA', 'LIVE COVERAGE'],
-    image: '/images/aerospace/aerospace-2.jpg',
+    image: getFirstImage('aerospace-starbase-film') || '/images/galleries/aerospace-starbase-film/aerospace_starbase_film_01.jpg',
   },
   {
-    designation: 'SPX-TECH',
-    title: 'SPACEX AVIONICS',
-    status: 'COMPLETED',
+    designation: 'ASTRO-LEG',
+    title: 'APOLLO ASTRONAUTS',
+    status: 'DOCUMENTING',
+    statusColor: 'bg-[#c41e3a]',
+    description: 'Portrait sessions with Apollo-era astronauts, preserving the legacy of America\'s lunar pioneers.',
+    specs: ['PORTRAIT', 'HISTORICAL', '35MM FILM', 'ARCHIVAL'],
+    image: getFirstImage('aerospace-astronauts-charlie-duke') || getFirstImage('aerospace-astronauts') || '/images/galleries/aerospace-astronauts/astronauts_01.jpg',
+  },
+  {
+    designation: 'ASTRO-OBS',
+    title: 'ASTRONOMY IMAGING',
+    status: 'ACTIVE',
     statusColor: 'bg-[#1a3a5c]',
-    description: 'Built and tested Starship spacecraft avionics harnesses. Interpreted technical manuals, schematics, and blueprints.',
-    specs: ['MIL-PRF-38535', 'HARNESS ASSEMBLY', 'QUALITY ASSURANCE', 'TECHNICAL DOCS'],
-    image: '/images/aerospace/aerospace-4.jpg',
+    description: 'Deep sky and planetary astrophotography from dark sky locations across the American Southwest.',
+    specs: ['DEEP SKY', 'PLANETARY', 'TRACKING MOUNT', 'LONG EXPOSURE'],
+    image: getFirstImage('aerospace-astro') || '/images/galleries/aerospace-astro/astro_01.jpg',
+  },
+  {
+    designation: 'RACE-TX',
+    title: 'LONE STAR RALLYCROSS',
+    status: 'DOCUMENTING',
+    statusColor: 'bg-[#c41e3a]',
+    description: 'High-speed motorsport photography at rallycross events across Texas.',
+    specs: ['MOTORSPORT', 'PANNING SHOTS', 'RALLY', 'ACTION'],
+    image: getFirstImage('aerospace-lone-star-rallycross') || '/images/galleries/aerospace-lone-star-rallycross/lone_star_rallycross_01.jpg',
   },
 ];
 
-export const aerospaceHeroImage = '/images/aerospace/aerospace-hero.jpg';
+export const aerospaceHeroImage = getFirstImage('aerospace-starbase') || '/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg';
 
 // ============================================================================
-// EVENTS - 5 Photos
+// EVENTS - All 120+ photos
 // ============================================================================
 
 export interface EventGalleryImage {
@@ -104,18 +159,34 @@ export interface EventGalleryImage {
   category: string;
 }
 
-export const eventsGalleryImages: EventGalleryImage[] = [
-  { src: '/images/events/events-hero.jpg', title: 'Beach House Concert', category: 'Concerts' },
-  { src: '/images/events/event-1.jpg', title: 'Live Performance', category: 'Concerts' },
-  { src: '/images/events/event-2.jpg', title: 'Festival Crowd', category: 'Festivals' },
-  { src: '/images/events/event-3.jpg', title: 'Fire Performance', category: 'Performances' },
-  { src: '/images/events/event-4.jpg', title: 'Fire Dancer', category: 'Performances' },
-];
+function getAllEventImages(): EventGalleryImage[] {
+  const eventGalleryConfigs = [
+    { id: 'events-beach-house', category: 'Concerts' },
+    { id: 'events-fire-dancer', category: 'Performances' },
+    { id: 'events', category: 'Events' },
+  ];
+  
+  const images: EventGalleryImage[] = [];
+  eventGalleryConfigs.forEach(({ id, category }) => {
+    const g = getGalleryById(id);
+    if (g && g.images) {
+      g.images.forEach((img: { src: string; filename: string }) => {
+        images.push({
+          src: img.src,
+          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' '),
+          category
+        });
+      });
+    }
+  });
+  return images;
+}
 
-export const eventsHeroImage = '/images/events/events-hero.jpg';
+export const eventsGalleryImages = getAllEventImages();
+export const eventsHeroImage = getFirstImage('events-beach-house') || '/images/galleries/events-beach-house/beach_house_2023_01.jpg';
 
 // ============================================================================
-// LANDSCAPES - 8 Photos
+// LANDSCAPES - All 300+ photos
 // ============================================================================
 
 export interface LandscapeGalleryImage {
@@ -124,23 +195,81 @@ export interface LandscapeGalleryImage {
   location: string;
 }
 
-export const landscapesGalleryImages: LandscapeGalleryImage[] = [
-  { src: '/images/landscapes/landscapes-hero.jpg', title: 'American West', location: 'Arizona/Utah' },
-  { src: '/images/landscapes/landscape-1.jpg', title: 'Desert Vista', location: 'Arizona' },
-  { src: '/images/landscapes/landscape-2.jpg', title: 'Mountain Range', location: 'Utah' },
-  { src: '/images/landscapes/landscape-3.jpg', title: 'Golden Hour', location: 'West Texas' },
-  { src: '/images/landscapes/landscape-4.jpg', title: 'Big Bend', location: 'Texas' },
-  { src: '/images/landscapes/landscape-5.jpg', title: 'Chisos Mountains', location: 'Big Bend, TX' },
-  { src: '/images/landscapes/landscape-6.jpg', title: 'Desert Road', location: 'Texas' },
-  { src: '/images/landscapes/landscape-7.jpg', title: 'Sunset Vista', location: 'Big Bend' },
-];
+function getAllLandscapeImages(): LandscapeGalleryImage[] {
+  const landscapeGalleryConfigs = [
+    { id: 'landscapes-american-landscapes', location: 'American West' },
+    { id: 'landscapes-big-bend-film', location: 'Big Bend, TX' },
+    { id: 'landscapes-costa-rica', location: 'Costa Rica' },
+    { id: 'landscapes-new-york-winter', location: 'New York' },
+    { id: 'landscapes-west', location: 'West' },
+    { id: 'landscapes', location: 'Various' },
+  ];
+  
+  const images: LandscapeGalleryImage[] = [];
+  landscapeGalleryConfigs.forEach(({ id, location }) => {
+    const g = getGalleryById(id);
+    if (g && g.images) {
+      g.images.forEach((img: { src: string; filename: string }) => {
+        images.push({
+          src: img.src,
+          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' '),
+          location
+        });
+      });
+    }
+  });
+  return images;
+}
 
-export const landscapesHeroImage = '/images/landscapes/landscapes-hero.jpg';
-
+export const landscapesGalleryImages = getAllLandscapeImages();
+export const landscapesHeroImage = getFirstImage('landscapes-american-landscapes') || '/images/galleries/landscapes-american-landscapes/american_landscapes_01.jpg';
 export const landscapesFeatureImages = [
-  '/images/landscapes/landscape-1.jpg',
-  '/images/landscapes/landscape-2.jpg',
+  getFirstImage('landscapes-big-bend-film') || '/images/galleries/landscapes-big-bend-film/big_bend_film_01.jpg',
+  getFirstImage('landscapes-costa-rica') || '/images/galleries/landscapes-costa-rica/costa_rica_01.jpg',
 ];
+
+// ============================================================================
+// PORTRAITS - All 150+ photos
+// ============================================================================
+
+export interface PortraitGalleryImage {
+  src: string;
+  title: string;
+  subject: string;
+}
+
+function getAllPortraitImages(): PortraitGalleryImage[] {
+  const portraitGalleryConfigs = [
+    { id: 'portraits-hillary-astrid', subject: 'Portrait' },
+    { id: 'portraits-blackbeltbbj', subject: 'Martial Arts' },
+  ];
+  
+  const images: PortraitGalleryImage[] = [];
+  portraitGalleryConfigs.forEach(({ id, subject }) => {
+    const g = getGalleryById(id);
+    if (g && g.images) {
+      g.images.forEach((img: { src: string; filename: string }) => {
+        images.push({
+          src: img.src,
+          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' '),
+          subject
+        });
+      });
+    }
+  });
+  return images;
+}
+
+export const portraitsGalleryImages = getAllPortraitImages();
+export const portraitsHeroImage = getFirstImage('portraits-hillary-astrid') || '/images/galleries/portraits-hillary-astrid/hillary_astrid_01.jpg';
+
+// ============================================================================
+// ABSTRACT - All 130+ photos
+// ============================================================================
+
+export const abstractGalleryImages = getGalleryImagePaths('abstract');
+export const abstractFromAboveImages = getGalleryImagePaths('abstract-from-above');
+export const abstractHeroImage = getFirstImage('abstract') || '/images/galleries/abstract/abstract_01.jpg';
 
 // ============================================================================
 // HOME PAGE
@@ -183,7 +312,21 @@ export const homeCategoryCards: CategoryCard[] = [
     link: '/landscapes',
     icon: 'Mountain',
   },
+  {
+    title: 'Portraits',
+    description: 'Professional and artistic portrait photography.',
+    image: portraitsHeroImage,
+    link: '/portraits',
+    icon: 'User',
+  },
+  {
+    title: 'Abstract',
+    description: 'Experimental photography exploring form, color, and texture.',
+    image: abstractHeroImage,
+    link: '/abstract',
+    icon: 'Sparkles',
+  },
 ];
 
 export const homeHeroImage = aerospaceHeroImage;
-export const homeAboutImage = '/images/aerospace/aerospace-1.jpg';
+export const homeAboutImage = getFirstImage('aerospace-starbase-film') || aerospaceHeroImage;

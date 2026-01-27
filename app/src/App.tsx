@@ -7,6 +7,8 @@ import Weddings from './pages/Weddings';
 import Aerospace from './pages/Aerospace';
 import Events from './pages/Events';
 import Landscapes from './pages/Landscapes';
+import Portraits from './pages/Portraits';
+import Abstract from './pages/Abstract';
 import Contact from './pages/Contact';
 import './App.css';
 
@@ -22,6 +24,8 @@ function App() {
             <Route path="/aerospace" element={<Aerospace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/landscapes" element={<Landscapes />} />
+            <Route path="/portraits" element={<Portraits />} />
+            <Route path="/abstract" element={<Abstract />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </AnimatePresence>

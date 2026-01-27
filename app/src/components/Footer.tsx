@@ -34,6 +34,8 @@ const Footer = () => {
     { path: '/aerospace', label: 'Aerospace' },
     { path: '/events', label: 'Events' },
     { path: '/landscapes', label: 'Landscapes' },
+    { path: '/portraits', label: 'Portraits' },
+    { path: '/abstract', label: 'Abstract' },
     { path: '/contact', label: 'Contact' },
   ];
 

@@ -49,9 +49,9 @@ const Aerospace = () => {
       
       const targets = {
         launches: 8,
-        photos: 50000,
+        photos: 75000,
         cameras: 6,
-        years: 20,
+        years: 2,
       };
 
       let step = 0;
