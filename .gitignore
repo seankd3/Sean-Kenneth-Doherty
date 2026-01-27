@@ -37,6 +37,10 @@ app/public/images/SKD-West-*.jpg
 # Keep folder structure
 !app/public/images/**/.gitkeep
 
+# Generated gallery config (regenerated on build)
+# Uncomment below if you want to exclude from git:
+# app/src/lib/gallery-config-auto.ts
+
 # Large video files (if any)
 *.mp4
 *.mov

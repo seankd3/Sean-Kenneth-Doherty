@@ -1,0 +1,16 @@
+# Starbase Flight 9 Documentation
+title: "Starbase: Flight 9"
+description: "SpaceX Starship IFT-9 launch documentation"
+
+layout: grid
+gridColumns: 3
+sortBy: dateTaken
+sortDirection: asc
+
+display:
+  metadata: true
+  captions: true
+  exif: true          # Show camera settings for aerospace photos
+
+cover:
+  title: "Night Launch"

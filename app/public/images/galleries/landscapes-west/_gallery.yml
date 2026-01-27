@@ -1,0 +1,15 @@
+# Western Landscapes Collection
+title: "American West"
+description: "Landscapes from Arizona, Utah, and West Texas"
+
+layout: masonry
+sortBy: filename
+sortDirection: asc
+
+display:
+  metadata: true
+  captions: false     # Keep it clean for landscapes
+  exif: false
+
+cover:
+  title: "Desert Vista"

@@ -59,9 +59,10 @@ const Aerospace = () => {
   const galleryImages = aerospaceGalleryImages;
 
   const equipment = [
-    { code: 'CAM-01', name: 'Sony A7S III', type: 'PRIMARY BODY', status: 'ACTIVE' },
-    { code: 'CAM-02', name: 'Canon R5', type: 'SECONDARY BODY', status: 'ACTIVE' },
-    { code: 'LENS-01', name: '24-70mm f/2.8', type: 'STANDARD ZOOM', status: 'ACTIVE' },
+    { code: 'CAM-01', name: 'Canon R5', type: 'PRIMARY BODY', status: 'ACTIVE' },
+    { code: 'CAM-02', name: 'Canon RP', type: 'REMOTE BODY', status: 'ACTIVE' },
+    { code: 'CAM-03', name: 'Canon A-1', type: '35mm Film', status: 'DESTROYED' },
+    { code: 'LENS-01', name: '85mm f/1.2', type: 'PRIME', status: 'ACTIVE' },
     { code: 'LENS-02', name: '70-200mm f/2.8', type: 'TELEPHOTO ZOOM', status: 'ACTIVE' },
     { code: 'LENS-03', name: '400mm f/2.8', type: 'SUPER TELEPHOTO', status: 'ACTIVE' },
     { code: 'LENS-04', name: '14mm f/1.8', type: 'ULTRA WIDE', status: 'ACTIVE' },

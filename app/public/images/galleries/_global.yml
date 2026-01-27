@@ -1,0 +1,40 @@
+# Global Site Configuration
+# Use this to easily change hero images and category thumbnails
+
+heroes:
+  home:
+    image: "/images/galleries/starbase-flight-9/_hero.jpg"
+    overlay: "dark"
+    align: "center"
+    
+  weddings:
+    image: "/images/galleries/weddings-lauren-2024/_hero.jpg"
+    title: "Wedding Photography"
+    
+  aerospace:
+    image: "/images/galleries/starbase-flight-9/_hero.jpg"
+    
+  events:
+    image: "/images/galleries/beach-house-2023/_cover.jpg"
+    
+  landscapes:
+    image: "/images/galleries/landscapes-west/_hero.jpg"
+
+# Category cards on home page
+categories:
+  weddings:
+    gallery: "weddings-lauren-2024"
+    useCover: true
+    
+  aerospace:
+    gallery: "starbase-flight-9"
+    useHero: true
+    
+  events:
+    gallery: "beach-house-2023"
+    useCover: true
+    
+  landscapes:
+    gallery: "landscapes-west"
+    useHero: false
+    useCover: true
