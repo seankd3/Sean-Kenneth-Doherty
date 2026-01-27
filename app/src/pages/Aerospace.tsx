@@ -80,7 +80,7 @@ const Aerospace = () => {
       className="bg-[#e8e6e1] min-h-screen tech-grid"
     >
       {/* Mission Control Header */}
-      <div className="fixed top-16 left-0 right-0 z-30 bg-[#e8e6e1] border-b-2 border-[#1a1a1a]">
+      <div className="fixed top-16 md:top-20 left-0 right-0 z-40 bg-[#e8e6e1] border-b-2 border-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2 text-xs font-aerospace-display tracking-wider">
             <div className="flex items-center space-x-6">
@@ -96,7 +96,7 @@ const Aerospace = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20">
+      <section className="relative min-h-screen flex items-center justify-center pt-40 md:pt-48 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
