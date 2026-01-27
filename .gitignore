@@ -1,0 +1,50 @@
+# Dependencies
+app/node_modules
+app/.pnp
+app/.pnp.js
+
+# Build outputs
+app/dist
+app/dist-ssr
+app/*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Original unoptimized photos
+Photos/
+
+# Large unoptimized images in public (optimize before committing)
+app/public/images/*.jpg
+app/public/images/**/*.jpg
+
+# Keep the folder structure
+!app/public/images/.gitkeep
+!app/public/images/weddings/.gitkeep
+!app/public/images/aerospace/.gitkeep
+!app/public/images/events/.gitkeep
+!app/public/images/landscapes/.gitkeep
+!app/public/images/portraits/.gitkeep
+!app/public/images/abstract/.gitkeep
+
+# Large video files (if any)
+*.mp4
+*.mov
+*.avi
