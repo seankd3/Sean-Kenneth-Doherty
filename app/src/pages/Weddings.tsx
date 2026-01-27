@@ -2,17 +2,34 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, X, ChevronDown } from 'lucide-react';
-import { weddingGalleryImages, weddingHeroImage, getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
+import { weddingHeroImage, getGalleryImagePaths } from '@/lib/gallery-config';
 
-interface SubAlbum {
+interface WeddingAlbum {
   id: string;
-  title: string;
+  couple: string;
   description: string;
   images: string[];
   coverImage: string;
-  location?: string;
   date?: string;
+  location?: string;
 }
+
+// Filter images by couple prefix
+const getCoupleImages = (allImages: string[], prefix: string): string[] => {
+  return allImages.filter(img => {
+    const filename = img.split('/').pop()?.toLowerCase() || '';
+    return filename.startsWith(prefix.toLowerCase());
+  });
+};
+
+// Get generic wedding images (not matching any couple prefix)
+const getGenericWeddingImages = (allImages: string[]): string[] => {
+  const prefixes = ['lauren_elphin', 'rachel _ andrew', 'nicole_kawame'];
+  return allImages.filter(img => {
+    const filename = img.split('/').pop()?.toLowerCase() || '';
+    return !prefixes.some(prefix => filename.startsWith(prefix));
+  });
+};
 
 const Weddings = () => {
   useEffect(() => {
@@ -22,31 +39,53 @@ const Weddings = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const subAlbums: SubAlbum[] = [
+  // Get all wedding images
+  const allWeddingImages = getGalleryImagePaths('weddings');
+  const lauren2024Images = getGalleryImagePaths('weddings-lauren-2024');
+
+  const weddingAlbums: WeddingAlbum[] = [
     {
-      id: 'weddings-collection',
-      title: 'Wedding Stories',
-      description: 'A collection of beautiful moments from various wedding celebrations',
-      images: weddingGalleryImages,
-      coverImage: weddingHeroImage,
-      location: 'Various Locations',
-      date: '2023-2024',
+      id: 'lauren-elphin',
+      couple: 'Lauren & Elphin',
+      description: 'A beautiful celebration of love and commitment',
+      images: getCoupleImages(allWeddingImages, 'Lauren_Elphin'),
+      coverImage: '/images/galleries/weddings/Lauren_Elphin-0003.jpg',
+      date: '2023',
+      location: 'Austin, TX',
     },
     {
-      id: 'lauren-2024',
-      title: 'Lauren & Elphin 2024',
-      description: 'An intimate celebration of love and commitment',
-      images: getGalleryImagePaths('weddings-lauren-2024'),
-      coverImage: getFirstImage('weddings-lauren-2024') || '',
-      location: 'Austin, TX',
-      date: '2024',
+      id: 'rachel-andrew',
+      couple: 'Rachel & Andrew',
+      description: 'An intimate wedding filled with joy and emotion',
+      images: getCoupleImages(allWeddingImages, 'Rachel _ Andrew'),
+      coverImage: '/images/galleries/weddings/Rachel _ Andrew-1.jpg',
+      date: '2023',
+      location: 'Texas',
+    },
+    {
+      id: 'nicole-kawame',
+      couple: 'Nicole & Kawame',
+      description: 'Elegant moments captured on their special day',
+      images: getCoupleImages(allWeddingImages, 'Nicole_Kawame'),
+      coverImage: '/images/galleries/weddings/Nicole_Kawame-0191.jpg',
+      date: '2023',
+      location: 'Texas',
+    },
+    {
+      id: 'wedding-moments',
+      couple: 'Wedding Moments',
+      description: 'A collection of beautiful moments from various celebrations',
+      images: [...getGenericWeddingImages(allWeddingImages), ...lauren2024Images],
+      coverImage: weddingHeroImage,
+      date: '2023-2024',
+      location: 'Various',
     },
   ];
 
   const scrollToGallery = (albumId: string) => {
     const element = galleryRefs.current[albumId];
     if (element) {
-      const offset = 100; // Account for sticky header
+      const offset = 100;
       const top = element.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
@@ -75,7 +114,7 @@ const Weddings = () => {
             alt="Wedding photography"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/30 to-[#0a0a0a]" />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -116,7 +155,7 @@ const Weddings = () => {
             onClick={scrollToGalleries}
             className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
           >
-            <span>Explore Galleries</span>
+            <span>View Galleries</span>
             <ChevronDown size={16} />
           </motion.button>
         </div>
@@ -134,15 +173,15 @@ const Weddings = () => {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Collections</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Wedding Galleries
+              Wedding Stories
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
-              Select a gallery to explore, or scroll to view all collections
+              Each love story is unique. Explore galleries from beautiful couples I've had the honor to photograph.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {subAlbums.map((album, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {weddingAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -152,41 +191,28 @@ const Weddings = () => {
                 onClick={() => scrollToGallery(album.id)}
                 className="group cursor-pointer"
               >
-                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300">
-                  {/* Cover Image */}
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={album.coverImage}
-                      alt={album.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
-                  </div>
-                  
-                  {/* Info Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">
-                        {album.images.length} Photos
-                      </span>
-                      {album.location && (
-                        <>
-                          <span className="text-white/40">•</span>
-                          <span className="text-white/60 text-xs">{album.location}</span>
-                        </>
-                      )}
-                    </div>
-                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
-                      {album.title}
-                    </h3>
-                    <p className="text-[#a0a0a0] text-sm mt-2 line-clamp-2">
-                      {album.description}
+                {/* Cover Image - Original Aspect Ratio */}
+                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300 bg-[#141414]">
+                  <img
+                    src={album.coverImage}
+                    alt={album.couple}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                
+                {/* Text Below Image */}
+                <div className="mt-4 text-center">
+                  <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
+                    {album.images.length} Photos
+                  </p>
+                  <h3 className="font-wedding-display text-xl text-white group-hover:text-[#c9a962] transition-colors">
+                    {album.couple}
+                  </h3>
+                  {album.location && (
+                    <p className="text-[#a0a0a0] text-sm mt-1">
+                      {album.location} {album.date && `• ${album.date}`}
                     </p>
-                    <div className="flex items-center space-x-2 mt-4 text-[#c9a962] text-sm">
-                      <span>View Gallery</span>
-                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -195,7 +221,7 @@ const Weddings = () => {
       </section>
 
       {/* Full Galleries */}
-      {subAlbums.map((album, albumIndex) => (
+      {weddingAlbums.map((album, albumIndex) => (
         <section
           key={album.id}
           ref={(el) => { galleryRefs.current[album.id] = el; }}
@@ -208,22 +234,20 @@ const Weddings = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="px-2 mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+              className="px-2 mb-8 text-center"
             >
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
-                    {String(albumIndex + 1).padStart(2, '0')}
-                  </span>
-                  <div className="h-px w-12 bg-[#c9a962]/30" />
-                  <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
-                </div>
-                <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
-                  {album.title}
-                </h3>
+              <div className="flex items-center justify-center space-x-3 mb-2">
+                <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
+                  {String(albumIndex + 1).padStart(2, '0')}
+                </span>
+                <div className="h-px w-12 bg-[#c9a962]/30" />
+                <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
               </div>
-              {album.date && (
-                <span className="text-[#a0a0a0] text-sm">{album.date}</span>
+              <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
+                {album.couple}
+              </h3>
+              {album.location && (
+                <p className="text-[#a0a0a0] mt-2">{album.location} {album.date && `• ${album.date}`}</p>
               )}
             </motion.div>
 
@@ -242,15 +266,10 @@ const Weddings = () => {
                   <div className="relative overflow-hidden border border-[#2a2a2a] hover:border-[#c9a962] transition-colors">
                     <img
                       src={image}
-                      alt={`${album.title} ${index + 1}`}
+                      alt={`${album.couple} ${index + 1}`}
                       className="w-full h-auto object-cover"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1">
-                        {String(index + 1).padStart(3, '0')}
-                      </span>
-                    </div>
                   </div>
                 </motion.div>
               ))}

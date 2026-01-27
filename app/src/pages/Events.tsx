@@ -26,16 +26,16 @@ const Events = () => {
     {
       id: 'beach-house',
       title: 'Beach House Concerts',
-      description: 'Intimate live music photography capturing the raw energy of performances',
+      description: 'Live music photography capturing the energy of performances',
       images: eventsBeachHouseImages,
-      coverImage: getFirstImage('events-beach-house') || eventsBeachHouseImages[0],
+      coverImage: '/images/galleries/events-beach-house/Beach House Concert-10.jpg',
       location: 'Austin, TX',
       date: '2023-2024',
     },
     {
       id: 'fire-dancer',
       title: 'Fire Dancer Performances',
-      description: 'Dynamic fire performances with dramatic lighting and fluid movement',
+      description: 'Dynamic fire performances with dramatic lighting',
       images: eventsFireDancerImages,
       coverImage: getFirstImage('events-fire-dancer') || eventsFireDancerImages[0],
       location: 'Various Locations',
@@ -46,7 +46,7 @@ const Events = () => {
   const scrollToGallery = (albumId: string) => {
     const element = galleryRefs.current[albumId];
     if (element) {
-      const offset = 100; // Account for sticky header
+      const offset = 100;
       const top = element.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
@@ -75,7 +75,7 @@ const Events = () => {
             alt="Events photography"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/30 to-[#0a0a0a]" />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -123,7 +123,7 @@ const Events = () => {
 
       {/* Album Cover Cards */}
       <section id="galleries-start" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0f0f0f]">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ const Events = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {subAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
@@ -151,41 +151,28 @@ const Events = () => {
                 onClick={() => scrollToGallery(album.id)}
                 className="group cursor-pointer"
               >
-                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300">
-                  {/* Cover Image */}
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={album.coverImage}
-                      alt={album.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
-                  </div>
-                  
-                  {/* Info Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">
-                        {album.images.length} Photos
-                      </span>
-                      {album.location && (
-                        <>
-                          <span className="text-white/40">•</span>
-                          <span className="text-white/60 text-xs">{album.location}</span>
-                        </>
-                      )}
-                    </div>
-                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
-                      {album.title}
-                    </h3>
-                    <p className="text-[#a0a0a0] text-sm mt-2 line-clamp-2">
-                      {album.description}
+                {/* Cover Image - Original Aspect Ratio */}
+                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300 bg-[#141414]">
+                  <img
+                    src={album.coverImage}
+                    alt={album.title}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                
+                {/* Text Below Image */}
+                <div className="mt-4 text-center">
+                  <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
+                    {album.images.length} Photos
+                  </p>
+                  <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
+                    {album.title}
+                  </h3>
+                  {album.location && (
+                    <p className="text-[#a0a0a0] text-sm mt-1">
+                      {album.location} {album.date && `• ${album.date}`}
                     </p>
-                    <div className="flex items-center space-x-2 mt-4 text-[#c9a962] text-sm">
-                      <span>View Gallery</span>
-                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -207,22 +194,20 @@ const Events = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="px-2 mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+              className="px-2 mb-8 text-center"
             >
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
-                    {String(albumIndex + 1).padStart(2, '0')}
-                  </span>
-                  <div className="h-px w-12 bg-[#c9a962]/30" />
-                  <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
-                </div>
-                <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
-                  {album.title}
-                </h3>
+              <div className="flex items-center justify-center space-x-3 mb-2">
+                <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
+                  {String(albumIndex + 1).padStart(2, '0')}
+                </span>
+                <div className="h-px w-12 bg-[#c9a962]/30" />
+                <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
               </div>
-              {album.date && (
-                <span className="text-[#a0a0a0] text-sm">{album.date}</span>
+              <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
+                {album.title}
+              </h3>
+              {album.location && (
+                <p className="text-[#a0a0a0] mt-2">{album.location} {album.date && `• ${album.date}`}</p>
               )}
             </motion.div>
 
@@ -245,11 +230,6 @@ const Events = () => {
                       className="w-full h-auto object-cover"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1">
-                        {String(index + 1).padStart(3, '0')}
-                      </span>
-                    </div>
                   </div>
                 </motion.div>
               ))}

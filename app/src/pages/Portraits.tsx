@@ -77,7 +77,7 @@ const Portraits = () => {
             alt="Portrait photography"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/30 to-[#0a0a0a]" />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -153,41 +153,26 @@ const Portraits = () => {
                 onClick={() => scrollToGallery(album.id)}
                 className="group cursor-pointer"
               >
-                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300">
-                  {/* Cover Image */}
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={album.coverImage}
-                      alt={album.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
-                  </div>
-                  
-                  {/* Info Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">
-                        {album.images.length} Photos
-                      </span>
-                      {album.category && (
-                        <>
-                          <span className="text-white/40">•</span>
-                          <span className="text-white/60 text-xs">{album.category}</span>
-                        </>
-                      )}
-                    </div>
-                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
-                      {album.title}
-                    </h3>
-                    <p className="text-[#a0a0a0] text-sm mt-2 line-clamp-2">
-                      {album.description}
-                    </p>
-                    <div className="flex items-center space-x-2 mt-4 text-[#c9a962] text-sm">
-                      <span>View Gallery</span>
-                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
+                {/* Cover Image - Original Aspect Ratio */}
+                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300 bg-[#141414]">
+                  <img
+                    src={album.coverImage}
+                    alt={album.title}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                
+                {/* Text Below Image */}
+                <div className="mt-4 text-center">
+                  <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
+                    {album.images.length} Photos
+                  </p>
+                  <h3 className="font-wedding-display text-xl text-white group-hover:text-[#c9a962] transition-colors">
+                    {album.title}
+                  </h3>
+                  {album.category && (
+                    <p className="text-[#a0a0a0] text-sm mt-1">{album.category}</p>
+                  )}
                 </div>
               </motion.div>
             ))}
