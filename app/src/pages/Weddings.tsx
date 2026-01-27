@@ -114,13 +114,13 @@ const Weddings = () => {
       transition={{ duration: 0.4 }}
       className="bg-[#0a0a0a] min-h-screen"
     >
-      {/* Hero Section - Native Aspect Ratio */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={weddingHeroImage}
             alt="Wedding photography"
-            className="w-full h-auto object-contain"
+            className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
         </div>
