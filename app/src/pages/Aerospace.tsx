@@ -12,6 +12,28 @@ const Aerospace = () => {
   const statsRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
   
+  // Scroll detection for Mission Control Header
+  const [showMissionControl, setShowMissionControl] = useState(true);
+  const lastScrollY = useRef(0);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      // Hide when scrolling down, show when scrolling up or at top
+      if (currentScrollY < 100) {
+        setShowMissionControl(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        setShowMissionControl(false);
+      } else {
+        setShowMissionControl(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   const [counts, setCounts] = useState({
     launches: 0,
     photos: 0,
@@ -79,8 +101,16 @@ const Aerospace = () => {
       transition={{ duration: 0.4 }}
       className="bg-[#e8e6e1] min-h-screen tech-grid"
     >
-      {/* Mission Control Header */}
-      <div className="fixed top-16 md:top-20 left-0 right-0 z-40 bg-[#e8e6e1] border-b-2 border-[#1a1a1a]">
+      {/* Mission Control Header - Collapses on scroll */}
+      <motion.div 
+        initial={{ y: 0, opacity: 1 }}
+        animate={{ 
+          y: showMissionControl ? 0 : -100,
+          opacity: showMissionControl ? 1 : 0
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="fixed top-16 md:top-20 left-0 right-0 z-40 bg-[#e8e6e1] border-b-2 border-[#1a1a1a]"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2 text-xs font-aerospace-display tracking-wider">
             <div className="flex items-center space-x-6">
@@ -93,7 +123,7 @@ const Aerospace = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-40 md:pt-48 pb-20">
@@ -131,13 +161,13 @@ const Aerospace = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="#projects"
-                className="group flex items-center space-x-2 bg-[#1a1a1a] text-[#e8e6e1] px-8 py-4 font-aerospace-display text-sm tracking-wider hover:bg-[#c41e3a] transition-colors duration-300"
+              <button
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group flex items-center space-x-2 bg-[#1a1a1a] text-[#e8e6e1] px-8 py-4 font-aerospace-display text-sm tracking-wider hover:bg-[#c41e3a] transition-colors duration-300 cursor-pointer"
               >
                 <span>VIEW PROJECTS</span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </button>
               <Link
                 to="/contact"
                 className="group flex items-center space-x-2 border-2 border-[#1a1a1a] text-[#1a1a1a] px-8 py-4 font-aerospace-display text-sm tracking-wider hover:bg-[#1a1a1a] hover:text-[#e8e6e1] transition-colors duration-300"
