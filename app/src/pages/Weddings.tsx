@@ -114,15 +114,15 @@ const Weddings = () => {
       transition={{ duration: 0.4 }}
       className="bg-[#0a0a0a] min-h-screen"
     >
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section - Native Aspect Ratio */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={weddingHeroImage}
             alt="Wedding photography"
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/40 via-[#0a0a0a]/20 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -237,12 +237,12 @@ const Weddings = () => {
               <img
                 src={weddingFeatureImages[0]}
                 alt="Wedding moment"
-                className="w-full aspect-[3/4] object-cover"
+                className="w-full h-auto object-contain"
               />
               <img
                 src={weddingFeatureImages[1]}
                 alt="Wedding details"
-                className="w-full aspect-[3/4] object-cover mt-8"
+                className="w-full h-auto object-contain mt-8"
               />
             </motion.div>
           </div>
@@ -369,7 +369,7 @@ const Weddings = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-auto">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
@@ -377,13 +377,13 @@ const Weddings = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`cursor-pointer overflow-hidden ${index === 0 ? 'col-span-2 md:col-span-2 row-span-2' : ''}`}
+                className={`cursor-pointer overflow-hidden ${index === 0 ? 'col-span-2 md:col-span-2' : ''}`}
                 onClick={() => setLightboxImage(image)}
               >
                 <img
                   src={image}
                   alt={`Wedding ${index + 1}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  className="w-full h-auto object-contain hover:scale-[1.02] transition-transform duration-500"
                 />
               </motion.div>
             ))}

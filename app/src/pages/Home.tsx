@@ -58,7 +58,7 @@ const Home = () => {
           <img
             src={homeHeroImage}
             alt="Hero background"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-auto object-contain opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
         </div>
@@ -162,11 +162,11 @@ const Home = () => {
             {categoryCards.map((card, index) => (
               <motion.div key={card.title} variants={itemVariants}>
                 <Link to={card.link} className="group block relative overflow-hidden">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="overflow-hidden">
                     <img
                       src={card.image}
                       alt={card.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
                   </div>
@@ -249,11 +249,11 @@ const Home = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="aspect-[3/4] overflow-hidden">
+              <div className="overflow-hidden">
                 <img
                   src={homeAboutImage}
                   alt="Sean at work"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto object-contain"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-[#c9a962] text-[#0a0a0a] p-6">

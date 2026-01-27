@@ -36,7 +36,7 @@ const Landscapes = () => {
           <img
             src={landscapesHeroImage}
             alt="Landscape photography"
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
         </div>
@@ -123,14 +123,14 @@ const Landscapes = () => {
                 <img
                   src={landscapesFeatureImages[0]}
                   alt="Landscape"
-                  className="w-full aspect-square object-cover"
+                  className="w-full h-auto object-contain"
                 />
               </div>
               <div className="pt-8">
                 <img
                   src={landscapesFeatureImages[1]}
                   alt="Landscape"
-                  className="w-full aspect-[3/4] object-cover"
+                  className="w-full h-auto object-contain"
                 />
               </div>
             </motion.div>
@@ -154,7 +154,7 @@ const Landscapes = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
@@ -163,14 +163,14 @@ const Landscapes = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`group relative overflow-hidden cursor-pointer ${
-                  index === 0 ? 'md:col-span-2 md:row-span-2' : ''
+                  index === 0 ? 'md:col-span-2' : ''
                 }`}
                 onClick={() => setLightboxImage(image.src)}
               >
                 <img
                   src={image.src}
                   alt={image.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4">

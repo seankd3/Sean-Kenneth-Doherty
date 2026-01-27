@@ -272,11 +272,11 @@ const Aerospace = () => {
                     </Link>
                   </div>
                   
-                  <div className="aspect-video lg:aspect-auto">
+                  <div className="overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </div>
@@ -309,7 +309,7 @@ const Aerospace = () => {
           </motion.div>
 
           {/* Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
@@ -322,7 +322,7 @@ const Aerospace = () => {
                 <img
                   src={image.src}
                   alt={image.title}
-                  className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 
                 {/* Overlay */}

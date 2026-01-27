@@ -43,12 +43,12 @@ const Events = () => {
       className="bg-[#0a0a0a] min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={eventsHeroImage}
             alt="Live events photography"
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
         </div>
@@ -139,7 +139,7 @@ const Events = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-auto">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
@@ -152,7 +152,7 @@ const Events = () => {
                 <img
                   src={image.src}
                   alt={image.title}
-                  className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4">
