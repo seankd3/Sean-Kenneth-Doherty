@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Heart, Calendar, Camera, Star, X } from 'lucide-react';
+import { weddingGalleryImages, weddingHeroImage, weddingFeatureImages } from '@/lib/gallery-config';
 
 const Weddings = () => {
   useEffect(() => {
@@ -67,13 +68,7 @@ const Weddings = () => {
     { name: 'Video Highlight', price: '$800', description: '3-5 minute highlight reel' },
   ];
 
-  const galleryImages = [
-    '/images/wedding-hero.jpg',
-    '/images/wedding-1.jpg',
-    '/images/wedding-2.jpg',
-    '/images/wedding-3.jpg',
-    '/images/wedding-4.jpg',
-  ];
+  const galleryImages = weddingGalleryImages;
 
   const testimonials = [
     {
@@ -123,7 +118,7 @@ const Weddings = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/images/wedding-hero.jpg"
+            src={weddingHeroImage}
             alt="Wedding photography"
             className="w-full h-full object-cover"
           />
@@ -240,12 +235,12 @@ const Weddings = () => {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="/images/wedding-1.jpg"
+                src={weddingFeatureImages[0]}
                 alt="Wedding moment"
                 className="w-full aspect-[3/4] object-cover"
               />
               <img
-                src="/images/wedding-3.jpg"
+                src={weddingFeatureImages[1]}
                 alt="Wedding details"
                 className="w-full aspect-[3/4] object-cover mt-8"
               />

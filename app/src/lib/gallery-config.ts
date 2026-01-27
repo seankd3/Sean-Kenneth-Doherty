@@ -2,26 +2,26 @@
  * Gallery Configuration
  * 
  * Central location for managing all gallery images.
- * 
- * HOW TO ADD YOUR PHOTOS:
- * 1. Add optimized images to app/public/images/[category]/
- * 2. Update the paths below
- * 3. Rebuild and deploy
- * 
- * For Netlify Large Media or external CDN, use full URLs:
- * https://your-cdn.com/image.jpg
+ * Edit this file to add, remove, or modify photos.
  */
 
 // ============================================================================
-// WEDDINGS
+// WEDDINGS - 11 Photos
 // ============================================================================
 
 export const weddingGalleryImages = [
+  '/images/weddings/wedding-hero.jpg',
   '/images/weddings/wedding-1.jpg',
   '/images/weddings/wedding-2.jpg',
   '/images/weddings/wedding-3.jpg',
   '/images/weddings/wedding-4.jpg',
   '/images/weddings/wedding-5.jpg',
+  '/images/weddings/wedding-6.jpg',
+  '/images/weddings/wedding-7.jpg',
+  '/images/weddings/wedding-8.jpg',
+  '/images/weddings/wedding-9.jpg',
+  '/images/weddings/wedding-10.jpg',
+  '/images/weddings/wedding-11.jpg',
 ];
 
 export const weddingHeroImage = '/images/weddings/wedding-hero.jpg';
@@ -32,7 +32,7 @@ export const weddingFeatureImages = [
 ];
 
 // ============================================================================
-// AEROSPACE
+// AEROSPACE - 8 Photos
 // ============================================================================
 
 export interface AerospaceGalleryImage {
@@ -42,12 +42,14 @@ export interface AerospaceGalleryImage {
 }
 
 export const aerospaceGalleryImages: AerospaceGalleryImage[] = [
+  { src: '/images/aerospace/aerospace-hero.jpg', title: 'STARBASE AT DUSK', params: 'ISO 400 | f/5.6 | 1/250s' },
   { src: '/images/aerospace/aerospace-1.jpg', title: 'NIGHT LAUNCH', params: 'ISO 800 | f/2.8 | 1/500s' },
   { src: '/images/aerospace/aerospace-2.jpg', title: 'STARSHIP ON PAD', params: 'ISO 100 | f/8 | 1/250s' },
   { src: '/images/aerospace/aerospace-3.jpg', title: 'ENGINE TEST', params: 'ISO 400 | f/4 | 1/1000s' },
   { src: '/images/aerospace/aerospace-4.jpg', title: 'OCEAN LANDING', params: 'ISO 200 | f/5.6 | 1/500s' },
   { src: '/images/aerospace/aerospace-5.jpg', title: 'STATIC FIRE', params: 'ISO 100 | f/11 | 1/2000s' },
-  { src: '/images/aerospace/aerospace-6.jpg', title: 'STARBASE SUNSET', params: 'ISO 100 | f/8 | 1/125s' },
+  { src: '/images/aerospace/aerospace-6.jpg', title: 'FLIGHT 9', params: 'ISO 200 | f/5.6 | 1/1000s' },
+  { src: '/images/aerospace/aerospace-7.jpg', title: 'STARBASE SUNSET', params: 'ISO 100 | f/8 | 1/125s' },
 ];
 
 export interface AerospaceProject {
@@ -93,7 +95,7 @@ export const aerospaceProjects: AerospaceProject[] = [
 export const aerospaceHeroImage = '/images/aerospace/aerospace-hero.jpg';
 
 // ============================================================================
-// EVENTS
+// EVENTS - 5 Photos
 // ============================================================================
 
 export interface EventGalleryImage {
@@ -103,16 +105,17 @@ export interface EventGalleryImage {
 }
 
 export const eventsGalleryImages: EventGalleryImage[] = [
-  { src: '/images/events/events-hero.jpg', title: 'Arena Concert', category: 'Concerts' },
-  { src: '/images/events/event-1.jpg', title: 'Festival Crowd', category: 'Festivals' },
-  { src: '/images/events/event-2.jpg', title: 'Stage Performance', category: 'Concerts' },
-  { src: '/images/events/event-3.jpg', title: 'Reception Party', category: 'Private Events' },
+  { src: '/images/events/events-hero.jpg', title: 'Beach House Concert', category: 'Concerts' },
+  { src: '/images/events/event-1.jpg', title: 'Live Performance', category: 'Concerts' },
+  { src: '/images/events/event-2.jpg', title: 'Festival Crowd', category: 'Festivals' },
+  { src: '/images/events/event-3.jpg', title: 'Fire Performance', category: 'Performances' },
+  { src: '/images/events/event-4.jpg', title: 'Fire Dancer', category: 'Performances' },
 ];
 
 export const eventsHeroImage = '/images/events/events-hero.jpg';
 
 // ============================================================================
-// LANDSCAPES
+// LANDSCAPES - 8 Photos
 // ============================================================================
 
 export interface LandscapeGalleryImage {
@@ -122,12 +125,14 @@ export interface LandscapeGalleryImage {
 }
 
 export const landscapesGalleryImages: LandscapeGalleryImage[] = [
-  { src: '/images/landscapes/landscapes-hero.jpg', title: 'Monument Valley', location: 'Arizona/Utah Border' },
-  { src: '/images/landscapes/landscape-1.jpg', title: 'Grand Canyon', location: 'Arizona' },
-  { src: '/images/landscapes/landscape-2.jpg', title: 'Desert at Dusk', location: 'Texas' },
+  { src: '/images/landscapes/landscapes-hero.jpg', title: 'American West', location: 'Arizona/Utah' },
+  { src: '/images/landscapes/landscape-1.jpg', title: 'Desert Vista', location: 'Arizona' },
+  { src: '/images/landscapes/landscape-2.jpg', title: 'Mountain Range', location: 'Utah' },
   { src: '/images/landscapes/landscape-3.jpg', title: 'Golden Hour', location: 'West Texas' },
-  { src: '/images/landscapes/landscape-4.jpg', title: 'Night Sky', location: 'Big Bend' },
-  { src: '/images/landscapes/landscape-5.jpg', title: 'Coastal Sunset', location: 'Oregon' },
+  { src: '/images/landscapes/landscape-4.jpg', title: 'Big Bend', location: 'Texas' },
+  { src: '/images/landscapes/landscape-5.jpg', title: 'Chisos Mountains', location: 'Big Bend, TX' },
+  { src: '/images/landscapes/landscape-6.jpg', title: 'Desert Road', location: 'Texas' },
+  { src: '/images/landscapes/landscape-7.jpg', title: 'Sunset Vista', location: 'Big Bend' },
 ];
 
 export const landscapesHeroImage = '/images/landscapes/landscapes-hero.jpg';

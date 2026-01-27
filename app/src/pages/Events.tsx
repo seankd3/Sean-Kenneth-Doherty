@@ -2,18 +2,14 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Music, Calendar, Users, Sparkles } from 'lucide-react';
+import { eventsGalleryImages, eventsHeroImage } from '@/lib/gallery-config';
 
 const Events = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const galleryImages = [
-    { src: '/images/events-hero.jpg', title: 'Arena Concert', category: 'Concerts' },
-    { src: '/images/event-1.jpg', title: 'Festival Crowd', category: 'Festivals' },
-    { src: '/images/aerospace-hero.jpg', title: 'Stage Performance', category: 'Concerts' },
-    { src: '/images/wedding-2.jpg', title: 'Reception Party', category: 'Private Events' },
-  ];
+  const galleryImages = eventsGalleryImages;
 
   const services = [
     {
@@ -50,7 +46,7 @@ const Events = () => {
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/images/events-hero.jpg"
+            src={eventsHeroImage}
             alt="Live events photography"
             className="w-full h-full object-cover"
           />

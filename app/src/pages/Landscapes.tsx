@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Mountain, MapPin, Sun, X } from 'lucide-react';
+import { landscapesGalleryImages, landscapesHeroImage, landscapesFeatureImages } from '@/lib/gallery-config';
 
 const Landscapes = () => {
   useEffect(() => {
@@ -10,14 +11,7 @@ const Landscapes = () => {
 
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  const galleryImages = [
-    { src: '/images/landscapes-hero.jpg', title: 'Monument Valley', location: 'Arizona/Utah Border' },
-    { src: '/images/landscape-1.jpg', title: 'Grand Canyon', location: 'Arizona' },
-    { src: '/images/aerospace-1.jpg', title: 'Desert at Dusk', location: 'Texas' },
-    { src: '/images/wedding-hero.jpg', title: 'Golden Hour', location: 'California' },
-    { src: '/images/aerospace-hero.jpg', title: 'Night Sky', location: 'New Mexico' },
-    { src: '/images/events-hero.jpg', title: 'Coastal Sunset', location: 'Oregon' },
-  ];
+  const galleryImages = landscapesGalleryImages;
 
   const locations = [
     { name: 'Arizona', count: 12 },
@@ -40,7 +34,7 @@ const Landscapes = () => {
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/images/landscapes-hero.jpg"
+            src={landscapesHeroImage}
             alt="Landscape photography"
             className="w-full h-full object-cover"
           />
@@ -127,14 +121,14 @@ const Landscapes = () => {
                   <p className="text-[#a0a0a0] text-sm">Locations</p>
                 </div>
                 <img
-                  src="/images/landscape-1.jpg"
+                  src={landscapesFeatureImages[0]}
                   alt="Landscape"
                   className="w-full aspect-square object-cover"
                 />
               </div>
               <div className="pt-8">
                 <img
-                  src="/images/aerospace-1.jpg"
+                  src={landscapesFeatureImages[1]}
                   alt="Landscape"
                   className="w-full aspect-[3/4] object-cover"
                 />

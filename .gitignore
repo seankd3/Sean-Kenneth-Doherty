@@ -31,18 +31,11 @@ lerna-debug.log*
 # Original unoptimized photos
 Photos/
 
-# Large unoptimized images in public (optimize before committing)
-app/public/images/*.jpg
-app/public/images/**/*.jpg
+# Original unoptimized photos (huge files from camera)
+app/public/images/SKD-West-*.jpg
 
-# Keep the folder structure
-!app/public/images/.gitkeep
-!app/public/images/weddings/.gitkeep
-!app/public/images/aerospace/.gitkeep
-!app/public/images/events/.gitkeep
-!app/public/images/landscapes/.gitkeep
-!app/public/images/portraits/.gitkeep
-!app/public/images/abstract/.gitkeep
+# Keep folder structure
+!app/public/images/**/.gitkeep
 
 # Large video files (if any)
 *.mp4

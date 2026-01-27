@@ -2,42 +2,24 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain } from 'lucide-react';
+import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
 
 const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const categoryCards = [
-    {
-      title: 'Weddings',
-      description: 'Capturing your most precious moments with elegance and emotion.',
-      image: '/images/wedding-hero.jpg',
-      link: '/weddings',
-      icon: Camera,
-    },
-    {
-      title: 'Aerospace',
-      description: 'Documenting humanity\'s reach for the stars.',
-      image: '/images/aerospace-hero.jpg',
-      link: '/aerospace',
-      icon: Rocket,
-    },
-    {
-      title: 'Live Events',
-      description: 'High-energy concert and event photography.',
-      image: '/images/events-hero.jpg',
-      link: '/events',
-      icon: Music,
-    },
-    {
-      title: 'Landscapes',
-      description: 'The beauty of the American Southwest and beyond.',
-      image: '/images/landscapes-hero.jpg',
-      link: '/landscapes',
-      icon: Mountain,
-    },
-  ];
+  const iconMap: Record<string, React.ElementType> = {
+    Camera,
+    Rocket,
+    Music,
+    Mountain,
+  };
+  
+  const categoryCards = homeCategoryCards.map(card => ({
+    ...card,
+    icon: iconMap[card.icon],
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -74,7 +56,7 @@ const Home = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/images/aerospace-hero.jpg"
+            src={homeHeroImage}
             alt="Hero background"
             className="w-full h-full object-cover opacity-40"
           />
@@ -269,7 +251,7 @@ const Home = () => {
             >
               <div className="aspect-[3/4] overflow-hidden">
                 <img
-                  src="/images/aerospace-1.jpg"
+                  src={homeAboutImage}
                   alt="Sean at work"
                   className="w-full h-full object-cover"
                 />
