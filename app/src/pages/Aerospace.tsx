@@ -26,10 +26,10 @@ const Aerospace = () => {
       const interval = duration / steps;
       
       const targets = {
-        launches: 15,
+        launches: 8,
         photos: 50000,
-        cameras: 100,
-        years: 2,
+        cameras: 6,
+        years: 20,
       };
 
       let step = 0;
@@ -61,11 +61,14 @@ const Aerospace = () => {
   const equipment = [
     { code: 'CAM-01', name: 'Canon R5', type: 'PRIMARY BODY', status: 'ACTIVE' },
     { code: 'CAM-02', name: 'Canon RP', type: 'REMOTE BODY', status: 'ACTIVE' },
-    { code: 'CAM-03', name: 'Canon A-1', type: '35mm Film', status: 'DESTROYED' },
-    { code: 'LENS-01', name: '85mm f/1.2', type: 'PRIME', status: 'ACTIVE' },
-    { code: 'LENS-02', name: '70-200mm f/2.8', type: 'TELEPHOTO ZOOM', status: 'ACTIVE' },
-    { code: 'LENS-03', name: '400mm f/2.8', type: 'SUPER TELEPHOTO', status: 'ACTIVE' },
-    { code: 'LENS-04', name: '14mm f/1.8', type: 'ULTRA WIDE', status: 'ACTIVE' },
+    { code: 'CAM-03', name: 'Canon A-1', type: '35MM FILM', status: 'DESTROYED' },
+    { code: 'CAM-04', name: 'Minolta Maxxium 5000', type: '35MM FILM', status: 'ACTIVE' },
+    { code: 'CAM-05', name: 'Polaroid Now+', type: 'INSTANT FILM', status: 'ACTIVE' },
+    { code: 'LENS-01', name: 'RF 85mm f/1.2L', type: 'PRIME', status: 'ACTIVE' },
+    { code: 'LENS-02', name: 'RF 50mm f/1.8', type: 'PRIME', status: 'ACTIVE' },
+    { code: 'LENS-03', name: 'RF 24-105mm f/4L', type: 'STANDARD ZOOM', status: 'ACTIVE' },
+    { code: 'LENS-04', name: 'RF 500mm f/6.3', type: 'SUPER TELEPHOTO', status: 'ACTIVE' },
+    { code: 'LENS-05', name: 'Helios 44-2 f/2', type: 'VINTAGE PRIME', status: 'ACTIVE' },
   ];
 
   return (

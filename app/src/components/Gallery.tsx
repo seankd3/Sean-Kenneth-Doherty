@@ -12,7 +12,6 @@ import type { GalleryConfig, GalleryImage } from '@/lib/gallery-config-auto';
 
 interface GalleryProps {
   gallery?: GalleryConfig;
-  galleryId?: string;
   layout?: GalleryConfig['layout'];
   showMetadata?: boolean;
   className?: string;
@@ -21,7 +20,6 @@ interface GalleryProps {
 
 export const Gallery = ({
   gallery,
-  galleryId,
   layout: layoutOverride,
   showMetadata: metadataOverride,
   className,
@@ -29,8 +27,6 @@ export const Gallery = ({
 }: GalleryProps) => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  // If galleryId provided, would need to fetch from context/props
-  // For now, assume gallery prop is provided
   if (!gallery) {
     return <div className="text-white/50 text-center py-12">Gallery not found</div>;
   }
