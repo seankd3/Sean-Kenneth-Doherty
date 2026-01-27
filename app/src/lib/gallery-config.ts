@@ -153,122 +153,40 @@ export const aerospaceHeroImage = getFirstImage('aerospace-starbase') || '/image
 // EVENTS - All 120+ photos
 // ============================================================================
 
-export interface EventGalleryImage {
-  src: string;
-  title: string;
-  category: string;
-}
-
-function getAllEventImages(): EventGalleryImage[] {
-  const eventGalleryConfigs = [
-    { id: 'events-beach-house', category: 'Concerts' },
-    { id: 'events-fire-dancer', category: 'Performances' },
-    { id: 'events', category: 'Events' },
-  ];
-  
-  const images: EventGalleryImage[] = [];
-  eventGalleryConfigs.forEach(({ id, category }) => {
-    const g = getGalleryById(id);
-    if (g && g.images) {
-      g.images.forEach((img: { src: string; filename: string }) => {
-        images.push({
-          src: img.src,
-          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' '),
-          category
-        });
-      });
-    }
-  });
-  return images;
-}
-
-export const eventsGalleryImages = getAllEventImages();
-export const eventsHeroImage = getFirstImage('events-beach-house') || '/images/galleries/events-beach-house/beach_house_2023_01.jpg';
+// Sub-gallery exports for Events
+export const eventsBeachHouseImages = getGalleryImagePaths('events-beach-house');
+export const eventsFireDancerImages = getGalleryImagePaths('events-fire-dancer');
+export const eventsHeroImage = '/images/galleries/events-beach-house/Beach House Concert-10.jpg';
 
 // ============================================================================
 // LANDSCAPES - All 300+ photos
 // ============================================================================
 
-export interface LandscapeGalleryImage {
-  src: string;
-  title: string;
-  location: string;
-}
-
-function getAllLandscapeImages(): LandscapeGalleryImage[] {
-  const landscapeGalleryConfigs = [
-    { id: 'landscapes-american-landscapes', location: 'American West' },
-    { id: 'landscapes-big-bend-film', location: 'Big Bend, TX' },
-    { id: 'landscapes-costa-rica', location: 'Costa Rica' },
-    { id: 'landscapes-new-york-winter', location: 'New York' },
-    { id: 'landscapes-west', location: 'West' },
-    { id: 'landscapes', location: 'Various' },
-  ];
-  
-  const images: LandscapeGalleryImage[] = [];
-  landscapeGalleryConfigs.forEach(({ id, location }) => {
-    const g = getGalleryById(id);
-    if (g && g.images) {
-      g.images.forEach((img: { src: string; filename: string }) => {
-        images.push({
-          src: img.src,
-          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' '),
-          location
-        });
-      });
-    }
-  });
-  return images;
-}
-
-export const landscapesGalleryImages = getAllLandscapeImages();
+// Sub-gallery exports for Landscapes
+export const landscapesAmericanImages = getGalleryImagePaths('landscapes-american-landscapes');
+export const landscapesBigBendImages = getGalleryImagePaths('landscapes-big-bend-film');
+export const landscapesCostaRicaImages = getGalleryImagePaths('landscapes-costa-rica');
+export const landscapesNewYorkImages = getGalleryImagePaths('landscapes-new-york-winter');
+export const landscapesWestImages = getGalleryImagePaths('landscapes-west');
 export const landscapesHeroImage = getFirstImage('landscapes-american-landscapes') || '/images/galleries/landscapes-american-landscapes/american_landscapes_01.jpg';
-export const landscapesFeatureImages = [
-  getFirstImage('landscapes-big-bend-film') || '/images/galleries/landscapes-big-bend-film/big_bend_film_01.jpg',
-  getFirstImage('landscapes-costa-rica') || '/images/galleries/landscapes-costa-rica/costa_rica_01.jpg',
-];
 
 // ============================================================================
 // PORTRAITS - All 150+ photos
 // ============================================================================
 
-export interface PortraitGalleryImage {
-  src: string;
-  title: string;
-  subject: string;
-}
-
-function getAllPortraitImages(): PortraitGalleryImage[] {
-  const portraitGalleryConfigs = [
-    { id: 'portraits-hillary-astrid', subject: 'Portrait' },
-    { id: 'portraits-blackbeltbbj', subject: 'Martial Arts' },
-  ];
-  
-  const images: PortraitGalleryImage[] = [];
-  portraitGalleryConfigs.forEach(({ id, subject }) => {
-    const g = getGalleryById(id);
-    if (g && g.images) {
-      g.images.forEach((img: { src: string; filename: string }) => {
-        images.push({
-          src: img.src,
-          title: img.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' '),
-          subject
-        });
-      });
-    }
-  });
-  return images;
-}
-
-export const portraitsGalleryImages = getAllPortraitImages();
+// Sub-gallery exports for Portraits
+export const portraitsHillaryAstridImages = getGalleryImagePaths('portraits-hillary-astrid');
+export const portraitsBlackbeltImages = getGalleryImagePaths('portraits-blackbeltbbj');
 export const portraitsHeroImage = getFirstImage('portraits-hillary-astrid') || '/images/galleries/portraits-hillary-astrid/hillary_astrid_01.jpg';
 
 // ============================================================================
 // ABSTRACT - All 130+ photos
 // ============================================================================
 
-export const abstractGalleryImages = getGalleryImagePaths('abstract');
+// Sub-gallery exports for Abstract
+export const abstractMainImages = getGalleryImagePaths('abstract');
 export const abstractFromAboveImages = getGalleryImagePaths('abstract-from-above');
+export const abstractGalleryImages = abstractMainImages; // backward compat
 export const abstractHeroImage = getFirstImage('abstract') || '/images/galleries/abstract/abstract_01.jpg';
 
 // ============================================================================

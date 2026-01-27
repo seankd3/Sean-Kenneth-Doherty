@@ -1,8 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, User, Camera, X } from 'lucide-react';
-import { portraitsGalleryImages, portraitsHeroImage } from '@/lib/gallery-config';
+import { ArrowRight, User, X, ChevronDown } from 'lucide-react';
+import { 
+  portraitsHillaryAstridImages, 
+  portraitsBlackbeltImages, 
+  portraitsHeroImage,
+  getFirstImage 
+} from '@/lib/gallery-config';
+
+interface SubAlbum {
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  coverImage: string;
+  category?: string;
+}
 
 const Portraits = () => {
   useEffect(() => {
@@ -10,8 +24,42 @@ const Portraits = () => {
   }, []);
 
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const galleryImages = portraitsGalleryImages;
+  const subAlbums: SubAlbum[] = [
+    {
+      id: 'hillary-astrid',
+      title: 'Hillary & Astrid',
+      description: 'Artistic portrait session capturing the essence and connection between Hillary and Astrid',
+      images: portraitsHillaryAstridImages,
+      coverImage: getFirstImage('portraits-hillary-astrid') || portraitsHillaryAstridImages[0],
+      category: 'Portrait',
+    },
+    {
+      id: 'blackbeltbbj',
+      title: 'Blackbelt BBJ',
+      description: 'Martial arts photography showcasing dynamic portraits of martial artists in action and focus',
+      images: portraitsBlackbeltImages,
+      coverImage: getFirstImage('portraits-blackbeltbbj') || portraitsBlackbeltImages[0],
+      category: 'Martial Arts',
+    },
+  ];
+
+  const scrollToGallery = (albumId: string) => {
+    const element = galleryRefs.current[albumId];
+    if (element) {
+      const offset = 100; // Account for sticky header
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
+  const scrollToGalleries = () => {
+    const element = document.getElementById('galleries-start');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.div
@@ -22,12 +70,12 @@ const Portraits = () => {
       className="bg-[#0a0a0a] min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={portraitsHeroImage}
             alt="Portrait photography"
-            className="w-full h-auto object-contain"
+            className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#0a0a0a]" />
         </div>
@@ -57,110 +105,87 @@ const Portraits = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto"
+            className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10"
           >
             Professional and artistic portraits that reveal the essence of each subject
           </motion.p>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            onClick={scrollToGalleries}
+            className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
+          >
+            <span>Explore Galleries</span>
+            <ChevronDown size={16} />
+          </motion.button>
         </div>
       </section>
 
-      {/* About */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
+      {/* Album Cover Cards */}
+      <section id="galleries-start" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0f0f0f]">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">The Art of Portraiture</p>
-              <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-                Revealing <span className="text-[#c9a962]">Authenticity</span>
-              </h2>
-              <p className="text-[#a0a0a0] mb-6 leading-relaxed">
-                Every person has a unique story, and my goal is to capture that story through
-                carefully crafted portraits. Whether in the studio or on location, I work to
-                create images that feel genuine and timeless.
-              </p>
-              <p className="text-[#a0a0a0] mb-8 leading-relaxed">
-                From professional headshots to creative editorial work, each session is tailored
-                to bring out the best in every subject.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-[#141414] p-6 text-center">
-                  <Camera size={24} className="text-[#c9a962] mx-auto mb-3" />
-                  <p className="text-white font-wedding-display text-2xl">Studio</p>
-                  <p className="text-[#a0a0a0] text-sm">On Location</p>
-                </div>
-                <div className="bg-[#141414] p-6 text-center">
-                  <User size={24} className="text-[#c9a962] mx-auto mb-3" />
-                  <p className="text-white font-wedding-display text-2xl">Editorial</p>
-                  <p className="text-[#a0a0a0] text-sm">Professional</p>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="grid grid-cols-2 gap-4"
-            >
-              {galleryImages.slice(0, 4).map((image, index) => (
-                <div key={index} className={index % 2 === 1 ? 'pt-8' : ''}>
-                  <img
-                    src={image.src}
-                    alt={image.title}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      <section className="py-20 md:py-32 px-2 sm:px-4 bg-[#141414]">
-        <div className="max-w-[1920px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Gallery</p>
+            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Collections</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Portrait Collection
+              Portrait Galleries
             </h2>
+            <p className="text-[#a0a0a0] max-w-2xl mx-auto">
+              Select a gallery to explore, or scroll to view all collections
+            </p>
           </motion.div>
 
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
-            {galleryImages.map((image, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {subAlbums.map((album, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.2 }}
-                className="break-inside-avoid mb-2 group cursor-pointer"
-                onClick={() => setLightboxImage(image.src)}
+                key={album.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                onClick={() => scrollToGallery(album.id)}
+                className="group cursor-pointer"
               >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={image.src}
-                    alt={image.title}
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-4 left-4">
-                      <p className="text-white/60 text-xs mb-1">{image.subject}</p>
-                      <h3 className="text-white font-wedding-display text-xl">{image.title}</h3>
+                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300">
+                  {/* Cover Image */}
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={album.coverImage}
+                      alt={album.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
+                  </div>
+                  
+                  {/* Info Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">
+                        {album.images.length} Photos
+                      </span>
+                      {album.category && (
+                        <>
+                          <span className="text-white/40">•</span>
+                          <span className="text-white/60 text-xs">{album.category}</span>
+                        </>
+                      )}
+                    </div>
+                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
+                      {album.title}
+                    </h3>
+                    <p className="text-[#a0a0a0] text-sm mt-2 line-clamp-2">
+                      {album.description}
+                    </p>
+                    <div className="flex items-center space-x-2 mt-4 text-[#c9a962] text-sm">
+                      <span>View Gallery</span>
+                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </div>
@@ -169,6 +194,81 @@ const Portraits = () => {
           </div>
         </div>
       </section>
+
+      {/* Full Galleries */}
+      {subAlbums.map((album, albumIndex) => (
+        <section
+          key={album.id}
+          ref={(el) => { galleryRefs.current[album.id] = el; }}
+          className={`py-20 px-2 sm:px-4 ${albumIndex % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}`}
+        >
+          <div className="max-w-[1920px] mx-auto">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="px-2 mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+            >
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
+                    {String(albumIndex + 1).padStart(2, '0')}
+                  </span>
+                  <div className="h-px w-12 bg-[#c9a962]/30" />
+                  <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
+                </div>
+                <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
+                  {album.title}
+                </h3>
+              </div>
+              {album.category && (
+                <span className="text-[#a0a0a0] text-sm">{album.category}</span>
+              )}
+            </motion.div>
+
+            {/* Masonry Grid */}
+            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
+              {album.images.map((image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.2 }}
+                  className="group relative break-inside-avoid mb-2 cursor-pointer"
+                  onClick={() => setLightboxImage(image)}
+                >
+                  <div className="relative overflow-hidden border border-[#2a2a2a] hover:border-[#c9a962] transition-colors">
+                    <img
+                      src={image}
+                      alt={`${album.title} ${index + 1}`}
+                      className="w-full h-auto object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1">
+                        {String(index + 1).padStart(3, '0')}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Back to Top Link */}
+            <div className="mt-12 text-center">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="text-[#a0a0a0] hover:text-[#c9a962] text-sm tracking-wider uppercase transition-colors"
+              >
+                Back to Top
+              </button>
+            </div>
+          </div>
+        </section>
+      ))}
 
       {/* Lightbox */}
       {lightboxImage && (
@@ -194,8 +294,8 @@ const Portraits = () => {
         </motion.div>
       )}
 
-      {/* Booking CTA */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
+      {/* CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

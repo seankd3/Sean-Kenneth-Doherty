@@ -1,8 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, Heart, Calendar, Camera, Star, X } from 'lucide-react';
-import { weddingGalleryImages, weddingHeroImage, weddingFeatureImages } from '@/lib/gallery-config';
+import { ArrowRight, Heart, X, ChevronDown } from 'lucide-react';
+import { weddingGalleryImages, weddingHeroImage, getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
+
+interface SubAlbum {
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  coverImage: string;
+  location?: string;
+  date?: string;
+}
 
 const Weddings = () => {
   useEffect(() => {
@@ -10,101 +20,44 @@ const Weddings = () => {
   }, []);
 
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const packages = [
+  const subAlbums: SubAlbum[] = [
     {
-      name: 'Essential',
-      price: '$1,800',
-      description: 'Perfect for intimate celebrations',
-      features: [
-        '6 hours of coverage',
-        '1 photographer',
-        '300+ edited photos',
-        'Online gallery',
-        'Print release',
-        '2-week delivery',
-      ],
-      popular: false,
+      id: 'weddings-collection',
+      title: 'Wedding Stories',
+      description: 'A collection of beautiful moments from various wedding celebrations',
+      images: weddingGalleryImages,
+      coverImage: weddingHeroImage,
+      location: 'Various Locations',
+      date: '2023-2024',
     },
     {
-      name: 'Classic',
-      price: '$2,800',
-      description: 'Our most popular choice',
-      features: [
-        '8 hours of coverage',
-        '1 photographer',
-        '500+ edited photos',
-        'Online gallery',
-        'Print release',
-        'Engagement session included',
-        '1-week delivery',
-      ],
-      popular: true,
-    },
-    {
-      name: 'Premium',
-      price: '$4,200',
-      description: 'The complete experience',
-      features: [
-        'Full day coverage (up to 12 hours)',
-        '2 photographers',
-        '800+ edited photos',
-        'Online gallery',
-        'Print release',
-        'Engagement session',
-        'Premium photo album',
-        '3-day preview gallery',
-      ],
-      popular: false,
+      id: 'lauren-2024',
+      title: 'Lauren & Elphin 2024',
+      description: 'An intimate celebration of love and commitment',
+      images: getGalleryImagePaths('weddings-lauren-2024'),
+      coverImage: getFirstImage('weddings-lauren-2024') || '',
+      location: 'Austin, TX',
+      date: '2024',
     },
   ];
 
-  const addOns = [
-    { name: 'Second Shooter', price: '$600', description: 'Additional photographer' },
-    { name: 'Extra Hour', price: '$250/hr', description: 'Extend your coverage' },
-    { name: 'Engagement Session', price: '$400', description: '2-hour session' },
-    { name: 'Photo Album', price: '$350', description: 'Premium leather-bound album' },
-    { name: 'Rush Delivery', price: '$300', description: '48-hour delivery' },
-    { name: 'Video Highlight', price: '$800', description: '3-5 minute highlight reel' },
-  ];
+  const scrollToGallery = (albumId: string) => {
+    const element = galleryRefs.current[albumId];
+    if (element) {
+      const offset = 100; // Account for sticky header
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
 
-  const galleryImages = weddingGalleryImages;
-
-  const testimonials = [
-    {
-      quote: "Sean captured our wedding day perfectly. Every emotion, every moment - we couldn't be happier with the photos.",
-      name: "Sarah & Michael",
-      date: "June 2024",
-    },
-    {
-      quote: "Working with Sean was an absolute dream. He made us feel so comfortable and the photos are stunning.",
-      name: "Emily & James",
-      date: "August 2024",
-    },
-  ];
-
-  const faqs = [
-    {
-      question: "How far in advance should we book?",
-      answer: "I recommend booking 6-12 months in advance, especially for peak wedding season (April-October). Popular dates fill up quickly!",
-    },
-    {
-      question: "What's your photography style?",
-      answer: "I specialize in a blend of documentary and fine art photography. I focus on capturing genuine emotions and candid moments while also creating beautiful, timeless portraits.",
-    },
-    {
-      question: "Do you travel for weddings?",
-      answer: "Absolutely! I love destination weddings. Travel fees apply for locations outside of Texas, and I'm always excited to explore new venues.",
-    },
-    {
-      question: "How long until we receive our photos?",
-      answer: "For the Essential package, delivery is within 2 weeks. Classic package includes 1-week delivery, and Premium includes a 3-day preview gallery with full delivery in 1 week.",
-    },
-    {
-      question: "What happens if you're sick on our wedding day?",
-      answer: "I have a network of trusted photographer colleagues who can step in if needed. However, in 5+ years of shooting weddings, I've never missed a wedding due to illness.",
-    },
-  ];
+  const scrollToGalleries = () => {
+    const element = document.getElementById('galleries-start');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.div
@@ -155,102 +108,22 @@ const Weddings = () => {
           >
             Capturing the emotions, the joy, and the unforgettable moments of your most special day
           </motion.p>
-          
-          <motion.div
+
+          <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
+            onClick={scrollToGalleries}
+            className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
           >
-            <Link
-              to="#packages"
-              className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
-            >
-              <span>View Packages</span>
-              <ArrowRight size={16} />
-            </Link>
-          </motion.div>
+            <span>Explore Galleries</span>
+            <ChevronDown size={16} />
+          </motion.button>
         </div>
       </section>
 
-      {/* Introduction */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">My Approach</p>
-              <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-                More Than Just Photos — <span className="text-[#c9a962]">Memories</span>
-              </h2>
-              <p className="text-[#a0a0a0] mb-6 leading-relaxed">
-                Your wedding day is one of the most important days of your life. My goal is to capture 
-                the genuine emotions, the candid moments, and the beautiful details that make your day unique.
-              </p>
-              <p className="text-[#a0a0a0] mb-6 leading-relaxed">
-                I believe in a documentary-style approach with an editorial eye. While I'll guide you 
-                through portraits and key moments, I also focus on capturing the natural, unscripted 
-                moments that tell the true story of your day.
-              </p>
-              <div className="grid grid-cols-2 gap-6 mt-8">
-                <div className="flex items-start space-x-3">
-                  <Camera size={20} className="text-[#c9a962] mt-1" />
-                  <div>
-                    <p className="text-white font-medium">Documentary Style</p>
-                    <p className="text-[#a0a0a0] text-sm">Candid moments</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Star size={20} className="text-[#c9a962] mt-1" />
-                  <div>
-                    <p className="text-white font-medium">Fine Art Edit</p>
-                    <p className="text-[#a0a0a0] text-sm">Timeless quality</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Calendar size={20} className="text-[#c9a962] mt-1" />
-                  <div>
-                    <p className="text-white font-medium">Full Coverage</p>
-                    <p className="text-[#a0a0a0] text-sm">No missed moments</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Heart size={20} className="text-[#c9a962] mt-1" />
-                  <div>
-                    <p className="text-white font-medium">Personal Touch</p>
-                    <p className="text-[#a0a0a0] text-sm">Tailored experience</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="grid grid-cols-2 gap-4"
-            >
-              <img
-                src={weddingFeatureImages[0]}
-                alt="Wedding moment"
-                className="w-full h-auto object-contain"
-              />
-              <img
-                src={weddingFeatureImages[1]}
-                alt="Wedding details"
-                className="w-full h-auto object-contain mt-8"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Packages */}
-      <section id="packages" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#141414]">
+      {/* Album Cover Cards */}
+      <section id="galleries-start" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0f0f0f]">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -259,53 +132,61 @@ const Weddings = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Investment</p>
+            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Collections</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Wedding Packages
+              Wedding Galleries
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
-              Transparent pricing with no hidden fees. Each package is designed to give you 
-              beautiful, timeless memories of your special day.
+              Select a gallery to explore, or scroll to view all collections
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {packages.map((pkg, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {subAlbums.map((album, index) => (
               <motion.div
-                key={pkg.name}
+                key={album.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative ${pkg.popular ? 'md:-mt-4 md:mb-4' : ''}`}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                onClick={() => scrollToGallery(album.id)}
+                className="group cursor-pointer"
               >
-                {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#c9a962] text-[#0a0a0a] px-4 py-1 text-xs tracking-wider uppercase font-medium">
-                    Most Popular
+                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300">
+                  {/* Cover Image */}
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={album.coverImage}
+                      alt={album.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
                   </div>
-                )}
-                <div className={`h-full p-8 ${pkg.popular ? 'bg-[#1a1a1a] border-2 border-[#c9a962]' : 'bg-[#0a0a0a] border border-[#2a2a2a]'}`}>
-                  <h3 className="font-wedding-display text-2xl text-white mb-2">{pkg.name}</h3>
-                  <p className="text-[#a0a0a0] text-sm mb-4">{pkg.description}</p>
-                  <p className="font-wedding-display text-4xl text-[#c9a962] mb-6">{pkg.price}</p>
-                  <ul className="space-y-3 mb-8">
-                    {pkg.features.map((feature) => (
-                      <li key={feature} className="flex items-start space-x-3">
-                        <Check size={16} className="text-[#c9a962] mt-1 flex-shrink-0" />
-                        <span className="text-[#a0a0a0] text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    to="/contact"
-                    className={`block text-center py-4 tracking-wider uppercase text-sm font-medium transition-colors duration-300 ${
-                      pkg.popular
-                        ? 'bg-[#c9a962] text-[#0a0a0a] hover:bg-white'
-                        : 'border border-[#2a2a2a] text-white hover:border-[#c9a962] hover:text-[#c9a962]'
-                    }`}
-                  >
-                    Book Now
-                  </Link>
+                  
+                  {/* Info Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">
+                        {album.images.length} Photos
+                      </span>
+                      {album.location && (
+                        <>
+                          <span className="text-white/40">•</span>
+                          <span className="text-white/60 text-xs">{album.location}</span>
+                        </>
+                      )}
+                    </div>
+                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
+                      {album.title}
+                    </h3>
+                    <p className="text-[#a0a0a0] text-sm mt-2 line-clamp-2">
+                      {album.description}
+                    </p>
+                    <div className="flex items-center space-x-2 mt-4 text-[#c9a962] text-sm">
+                      <span>View Gallery</span>
+                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -313,86 +194,80 @@ const Weddings = () => {
         </div>
       </section>
 
-      {/* Add-ons */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Extras</p>
-            <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Add-Ons & Upgrades
-            </h2>
-            <p className="text-[#a0a0a0] max-w-2xl mx-auto">
-              Customize your package with these additional services
-            </p>
-          </motion.div>
+      {/* Full Galleries */}
+      {subAlbums.map((album, albumIndex) => (
+        <section
+          key={album.id}
+          ref={(el) => { galleryRefs.current[album.id] = el; }}
+          className={`py-20 px-2 sm:px-4 ${albumIndex % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}`}
+        >
+          <div className="max-w-[1920px] mx-auto">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="px-2 mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+            >
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
+                    {String(albumIndex + 1).padStart(2, '0')}
+                  </span>
+                  <div className="h-px w-12 bg-[#c9a962]/30" />
+                  <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
+                </div>
+                <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
+                  {album.title}
+                </h3>
+              </div>
+              {album.date && (
+                <span className="text-[#a0a0a0] text-sm">{album.date}</span>
+              )}
+            </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {addOns.map((addon, index) => (
-              <motion.div
-                key={addon.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
-                className="p-6 border border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300"
+            {/* Masonry Grid */}
+            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
+              {album.images.map((image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.2 }}
+                  className="group relative break-inside-avoid mb-2 cursor-pointer"
+                  onClick={() => setLightboxImage(image)}
+                >
+                  <div className="relative overflow-hidden border border-[#2a2a2a] hover:border-[#c9a962] transition-colors">
+                    <img
+                      src={image}
+                      alt={`${album.title} ${index + 1}`}
+                      className="w-full h-auto object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1">
+                        {String(index + 1).padStart(3, '0')}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Back to Top Link */}
+            <div className="mt-12 text-center">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="text-[#a0a0a0] hover:text-[#c9a962] text-sm tracking-wider uppercase transition-colors"
               >
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-white font-medium">{addon.name}</h3>
-                  <span className="text-[#c9a962] font-wedding-display text-xl">{addon.price}</span>
-                </div>
-                <p className="text-[#a0a0a0] text-sm">{addon.description}</p>
-              </motion.div>
-            ))}
+                Back to Top
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Gallery Preview */}
-      <section className="py-20 md:py-32 px-2 sm:px-4 bg-[#141414]">
-        <div className="max-w-[1920px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.2 }}
-            className="text-center mb-16"
-          >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Portfolio</p>
-            <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Recent Weddings
-            </h2>
-          </motion.div>
-
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
-            {galleryImages.map((image, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.2 }}
-                className="break-inside-avoid mb-2 cursor-pointer"
-                onClick={() => setLightboxImage(image)}
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={image}
-                    alt={`Wedding ${index + 1}`}
-                    className="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-300"
-                    loading="lazy"
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
       {/* Lightbox */}
       {lightboxImage && (
@@ -418,82 +293,8 @@ const Weddings = () => {
         </motion.div>
       )}
 
-      {/* Testimonials */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Testimonials</p>
-            <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Kind Words from Couples
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="p-8 border border-[#2a2a2a]"
-              >
-                <Heart size={24} className="text-[#c9a962] mb-6" />
-                <p className="text-white text-lg italic mb-6 leading-relaxed">
-                  "{testimonial.quote}"
-                </p>
-                <div>
-                  <p className="text-[#c9a962] font-medium">{testimonial.name}</p>
-                  <p className="text-[#a0a0a0] text-sm">{testimonial.date}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#141414]">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">FAQ</p>
-            <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Common Questions
-            </h2>
-          </motion.div>
-
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="border border-[#2a2a2a] p-6"
-              >
-                <h3 className="text-white font-medium mb-3">{faq.question}</h3>
-                <p className="text-[#a0a0a0] text-sm leading-relaxed">{faq.answer}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
