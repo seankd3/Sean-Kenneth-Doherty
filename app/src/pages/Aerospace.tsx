@@ -321,15 +321,15 @@ const Aerospace = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-20 md:py-32 border-y-2 border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 md:py-20 border-y-2 border-[#1a1a1a]">
+        <div className="max-w-[1920px] mx-auto px-2 sm:px-4">
           {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
+            transition={{ duration: 0.3 }}
+            className="mb-8 px-2"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-8 h-px bg-[#1a1a1a]" />
@@ -337,41 +337,44 @@ const Aerospace = () => {
                 ARCHIVE
               </span>
             </div>
-            <h2 className="font-aerospace-display text-4xl md:text-5xl text-[#1a1a1a]">
+            <h2 className="font-aerospace-display text-3xl md:text-5xl text-[#1a1a1a]">
               PHOTO GALLERY
             </h2>
           </motion.div>
 
-          {/* Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
+          {/* Masonry Gallery Grid */}
+          <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative border-2 border-[#1a1a1a] overflow-hidden"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.2 }}
+                className="group relative break-inside-avoid mb-2"
               >
-                <img
-                  src={image.src}
-                  alt={image.title}
-                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-[#1a1a1a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
-                  <p className="font-aerospace-display text-[#e8e6e1] text-lg tracking-wider mb-2">
-                    {image.title}
-                  </p>
-                  <p className="font-aerospace-display text-[#c41e3a] text-xs tracking-wider">
-                    {image.params}
-                  </p>
-                </div>
+                <div className="relative overflow-hidden border-2 border-[#1a1a1a]">
+                  <img
+                    src={image.src}
+                    alt={image.title}
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    loading="lazy"
+                  />
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-[#1a1a1a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center p-4 text-center">
+                    <p className="font-aerospace-display text-[#e8e6e1] text-sm tracking-wider mb-1">
+                      {image.title}
+                    </p>
+                    <p className="font-aerospace-display text-[#c41e3a] text-xs tracking-wider">
+                      {image.params}
+                    </p>
+                  </div>
 
-                {/* Corner Labels */}
-                <div className="absolute top-2 left-2 bg-[#1a1a1a] text-[#e8e6e1] text-xs px-2 py-1 font-aerospace-display">
-                  IMG-{String(index + 1).padStart(3, '0')}
+                  {/* Corner Label */}
+                  <div className="absolute top-1 left-1 bg-[#1a1a1a] text-[#e8e6e1] text-[10px] px-1.5 py-0.5 font-aerospace-display opacity-80 group-hover:opacity-0 transition-opacity">
+                    {String(index + 1).padStart(3, '0')}
+                  </div>
                 </div>
               </motion.div>
             ))}

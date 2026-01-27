@@ -127,13 +127,13 @@ const Abstract = () => {
       </section>
 
       {/* Main Abstract Gallery */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#141414]">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 md:py-32 px-2 sm:px-4 bg-[#141414]">
+        <div className="max-w-[1920px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.2 }}
             className="text-center mb-16"
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Gallery</p>
@@ -142,27 +142,28 @@ const Abstract = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
             {mainImages.map((image, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.03 }}
-                className={`group relative overflow-hidden cursor-pointer ${
-                  index % 5 === 0 ? 'md:col-span-2' : ''
-                }`}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.2 }}
+                className="break-inside-avoid mb-2 group cursor-pointer"
                 onClick={() => setLightboxImage(image)}
               >
-                <img
-                  src={image}
-                  alt={`Abstract ${index + 1}`}
-                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4">
-                    <h3 className="text-white font-wedding-display text-lg">Abstract #{index + 1}</h3>
+                <div className="relative overflow-hidden">
+                  <img
+                    src={image}
+                    alt={`Abstract ${index + 1}`}
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4">
+                      <h3 className="text-white font-wedding-display text-lg">Abstract #{index + 1}</h3>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -173,13 +174,13 @@ const Abstract = () => {
 
       {/* From Above Section */}
       {fromAboveImages.length > 0 && (
-        <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <section className="py-20 md:py-32 px-2 sm:px-4">
+          <div className="max-w-[1920px] mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.2 }}
               className="text-center mb-16"
             >
               <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">From Above</p>
@@ -191,25 +192,28 @@ const Abstract = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
+            <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
               {fromAboveImages.map((image, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.05 }}
-                  className="group relative overflow-hidden cursor-pointer"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.2 }}
+                  className="break-inside-avoid mb-2 group cursor-pointer"
                   onClick={() => setLightboxImage(image)}
                 >
-                  <img
-                    src={image}
-                    alt={`From Above ${index + 1}`}
-                    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-4 left-4">
-                      <h3 className="text-white font-wedding-display text-lg">From Above #{index + 1}</h3>
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={image}
+                      alt={`From Above ${index + 1}`}
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-4 left-4">
+                        <h3 className="text-white font-wedding-display text-lg">From Above #{index + 1}</h3>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
