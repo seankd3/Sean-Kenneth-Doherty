@@ -52,7 +52,7 @@ const Home = () => {
       className="bg-[#0a0a0a] min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-32 pb-20">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -133,14 +133,14 @@ const Home = () => {
       </section>
 
       {/* Portfolio Categories */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10"
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Portfolio</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
@@ -195,7 +195,7 @@ const Home = () => {
       </section>
 
       {/* About Snippet */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#141414]">
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#141414]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div

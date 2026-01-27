@@ -67,7 +67,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/Seankd_photos', label: 'Instagram' },
-    { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'Twitter' },
+    { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'X' },
   ];
 
   const eventTypes = [
@@ -77,7 +77,7 @@ const Contact = () => {
     'Concert/Live Event',
     'Portrait Session',
     'Commercial Project',
-    'Aerospace Documentation',
+    'Aerospace',
     'Other',
   ];
 
