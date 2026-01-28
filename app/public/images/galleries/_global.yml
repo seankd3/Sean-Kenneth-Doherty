@@ -3,28 +3,28 @@
 
 heroes:
   home:
-    image: "/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg"
+    image: "/images/galleries/aerospace/starbase/SKD-Starbase-2025-01-16.jpg"
     overlay: "dark"
     align: "center"
     
   weddings:
-    image: "/images/galleries/weddings/lauren_elphin-0003.jpg"
+    image: "/images/galleries/weddings/Lauren_Elphin-0003.jpg"
     title: "Wedding Photography"
     
   aerospace:
-    image: "/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg"
+    image: "/images/galleries/aerospace/starbase/SKD-Starbase-2025-01-16.jpg"
     title: "Aerospace Photography"
     
   events:
-    image: "/images/galleries/events-beach-house/beach_house_2023_01.jpg"
+    image: "/images/galleries/events/beach-house/Beach House Concert-10.jpg"
     title: "Event Photography"
     
   landscapes:
-    image: "/images/galleries/landscapes-american-landscapes/american_landscapes_01.jpg"
+    image: "/images/galleries/landscapes/20220402-IMG_7403.jpg"
     title: "Landscape Photography"
 
   portraits:
-    image: "/images/galleries/portraits-hillary-astrid/hillary_astrid_01.jpg"
+    image: "/images/galleries/portraits-hillary-astrid/astrid-10.jpg"
     title: "Portrait Photography"
 
 # Category cards on home page

@@ -65,11 +65,11 @@ export interface AerospaceGalleryImage {
 // Get all aerospace images combined
 function getAllAerospaceImages(): AerospaceGalleryImage[] {
   const aerospaceGalleries = [
-    getGalleryById('aerospace-starbase'),
-    getGalleryById('aerospace-starbase-film'),
-    getGalleryById('aerospace-astronauts'),
-    getGalleryById('aerospace-astro'),
-    getGalleryById('aerospace-lone-star-rallycross'),
+    getGalleryById('aerospace/starbase'),
+    getGalleryById('aerospace/astro'),
+    getGalleryById('aerospace/astronauts-charlie-duke'),
+    getGalleryById('aerospace/astronauts-fred-haise'),
+    getGalleryById('aerospace/rallycross'),
   ].filter((g): g is GalleryConfig => g !== undefined);
   
   const images: AerospaceGalleryImage[] = [];
@@ -102,82 +102,77 @@ export interface AerospaceProject {
 export const aerospaceProjects: AerospaceProject[] = [
   {
     designation: 'TX-STARBASE',
-    title: 'STARSHIP FLIGHT TESTS',
-    status: 'DOCUMENTING',
+    title: 'STARBASE OPERATIONS',
+    status: 'ACTIVE',
     statusColor: 'bg-[#c41e3a]',
     description: 'Full-time documentation of SpaceX Starship program development and launches at Starbase, Texas. Capturing history as it happens.',
-    specs: ['4K 120FPS', 'REMOTE CAMERA SYSTEMS', 'OFF-GRID DEPLOYMENTS', '4K 120FPS SLOW-MO'],
-    image: getFirstImage('aerospace-starbase') || '/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg',
-  },
-  {
-    designation: 'NSF-LEAD',
-    title: 'NASASPACEFLIGHT',
-    status: 'COMPLETED',
-    statusColor: 'bg-[#1a3a5c]',
-    description: 'Lead cinematographer for major aerospace news media organization. Created content for YouTube, social media, and print.',
-    specs: ['YOUTUBE CONTENT', 'SOCIAL MEDIA', 'PRINT MEDIA', 'LIVE COVERAGE'],
-    image: getFirstImage('aerospace-starbase-film') || '/images/galleries/aerospace-starbase-film/aerospace_starbase_film_01.jpg',
-  },
-  {
-    designation: 'ASTRO-LEG',
-    title: 'APOLLO ASTRONAUTS',
-    status: 'DOCUMENTING',
-    statusColor: 'bg-[#c41e3a]',
-    description: 'Portrait sessions with Apollo-era astronauts, preserving the legacy of America\'s lunar pioneers.',
-    specs: ['PORTRAIT', 'HISTORICAL', '35MM FILM', 'ARCHIVAL'],
-    image: getFirstImage('aerospace-astronauts-charlie-duke') || getFirstImage('aerospace-astronauts') || '/images/galleries/aerospace-astronauts/astronauts_01.jpg',
+    specs: ['4K VIDEO', 'REMOTE CAMERAS', 'LAUNCH COVERAGE', 'PAD DOCUMENTATION'],
+    image: getFirstImage('aerospace/starbase') || '',
   },
   {
     designation: 'ASTRO-OBS',
     title: 'ASTRONOMY IMAGING',
     status: 'ACTIVE',
-    statusColor: 'bg-[#1a3a5c]',
+    statusColor: 'bg-[#c41e3a]',
     description: 'Deep sky and planetary astrophotography from dark sky locations across the American Southwest.',
     specs: ['DEEP SKY', 'PLANETARY', 'TRACKING MOUNT', 'LONG EXPOSURE'],
-    image: getFirstImage('aerospace-astro') || '/images/galleries/aerospace-astro/astro_01.jpg',
+    image: getFirstImage('aerospace/astro') || '',
+  },
+  {
+    designation: 'NASA-APOLLO-16',
+    title: 'CHARLIE DUKE',
+    status: 'ARCHIVE',
+    statusColor: 'bg-[#1a3a5c]',
+    description: 'Portrait session with Apollo 16 astronaut Charlie Duke, the tenth person to walk on the Moon.',
+    specs: ['PORTRAIT', 'HISTORICAL', '35MM FILM', 'APOLLO 16'],
+    image: getFirstImage('aerospace/astronauts-charlie-duke') || '',
+  },
+  {
+    designation: 'NASA-APOLLO-13',
+    title: 'FRED HAISE',
+    status: 'ARCHIVE',
+    statusColor: 'bg-[#1a3a5c]',
+    description: 'Portrait session with Apollo 13 astronaut Fred Haise.',
+    specs: ['PORTRAIT', 'HISTORICAL', '35MM FILM', 'APOLLO 13'],
+    image: getFirstImage('aerospace/astronauts-fred-haise') || '',
   },
   {
     designation: 'RACE-TX',
     title: 'LONE STAR RALLYCROSS',
     status: 'DOCUMENTING',
-    statusColor: 'bg-[#c41e3a]',
+    statusColor: 'bg-[#1a3a5c]',
     description: 'High-speed motorsport photography at rallycross events across Texas.',
     specs: ['MOTORSPORT', 'PANNING SHOTS', 'RALLY', 'ACTION'],
-    image: getFirstImage('aerospace-lone-star-rallycross') || '/images/galleries/aerospace-lone-star-rallycross/lone_star_rallycross_01.jpg',
+    image: getFirstImage('aerospace/rallycross') || '',
   },
 ];
 
-export const aerospaceHeroImage = getFirstImage('aerospace-starbase') || '/images/galleries/aerospace-starbase/aerospace_starbase_01.jpg';
+export const aerospaceHeroImage = getFirstImage('aerospace/starbase') || '';
 
 // ============================================================================
 // EVENTS - All 120+ photos
 // ============================================================================
 
 // Sub-gallery exports for Events
-export const eventsBeachHouseImages = getGalleryImagePaths('events-beach-house');
-export const eventsFireDancerImages = getGalleryImagePaths('events-fire-dancer');
-export const eventsHeroImage = '/images/galleries/events-beach-house/Beach House Concert-10.jpg';
+export const eventsBeachHouseImages = getGalleryImagePaths('events/beach-house');
+export const eventsFireDancerImages = getGalleryImagePaths('events/fire-dancer');
+export const eventsHeroImage = getFirstImage('events/beach-house') || '/images/galleries/events/beach-house/Beach House Concert-10.jpg';
 
 // ============================================================================
-// LANDSCAPES - All 300+ photos
+// LANDSCAPES - Flat gallery (no sub-folders)
 // ============================================================================
 
-// Sub-gallery exports for Landscapes
-export const landscapesAmericanImages = getGalleryImagePaths('landscapes-american-landscapes');
-export const landscapesBigBendImages = getGalleryImagePaths('landscapes-big-bend-film');
-export const landscapesCostaRicaImages = getGalleryImagePaths('landscapes-costa-rica');
-export const landscapesNewYorkImages = getGalleryImagePaths('landscapes-new-york-winter');
-export const landscapesWestImages = getGalleryImagePaths('landscapes-west');
-export const landscapesHeroImage = getFirstImage('landscapes-american-landscapes') || '/images/galleries/landscapes-american-landscapes/american_landscapes_01.jpg';
+export const landscapesGalleryImages = getGalleryImagePaths('landscapes');
+export const landscapesHeroImage = getFirstImage('landscapes') || '';
 
 // ============================================================================
-// PORTRAITS - All 150+ photos
+// PORTRAITS - Organized by subject
 // ============================================================================
 
-// Sub-gallery exports for Portraits
+// Sub-gallery exports for Portraits (using flat structure until migrated)
 export const portraitsHillaryAstridImages = getGalleryImagePaths('portraits-hillary-astrid');
 export const portraitsBlackbeltImages = getGalleryImagePaths('portraits-blackbeltbbj');
-export const portraitsHeroImage = getFirstImage('portraits-hillary-astrid') || '/images/galleries/portraits-hillary-astrid/hillary_astrid_01.jpg';
+export const portraitsHeroImage = getFirstImage('portraits-hillary-astrid') || '';
 
 // ============================================================================
 // ABSTRACT - All 130+ photos
@@ -247,4 +242,4 @@ export const homeCategoryCards: CategoryCard[] = [
 ];
 
 export const homeHeroImage = aerospaceHeroImage;
-export const homeAboutImage = getFirstImage('aerospace-starbase-film') || aerospaceHeroImage;
+export const homeAboutImage = getFirstImage('aerospace/starbase') || aerospaceHeroImage;

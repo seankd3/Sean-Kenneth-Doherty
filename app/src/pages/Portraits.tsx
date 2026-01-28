@@ -77,7 +77,9 @@ const Portraits = () => {
             alt="Portrait photography"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/30 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0a0a0a]/50 to-[#0f0f0f]" />
+          <div className="absolute inset-0 bg-[#0a0a0a]/30" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/80 to-transparent" />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -87,16 +89,17 @@ const Portraits = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center space-x-2 mb-6"
           >
-            <User size={16} className="text-[#c9a962]" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase">Portrait Photography</span>
-            <User size={16} className="text-[#c9a962]" />
+            <User size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Portrait Photography</span>
+            <User size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
           
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6"
+            className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
+            style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
             Capturing <span className="text-[#c9a962]">Character</span>
           </motion.h1>
@@ -105,7 +108,8 @@ const Portraits = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10"
+            className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
             Professional and artistic portraits that reveal the essence of each subject
           </motion.p>
@@ -123,9 +127,9 @@ const Portraits = () => {
         </div>
       </section>
 
-      {/* Album Cover Cards */}
+      {/* Album Cover Cards - Masonry Grid */}
       <section id="galleries-start" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0f0f0f]">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1920px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +146,8 @@ const Portraits = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Masonry Grid */}
+          <div className="columns-2 md:columns-2 gap-4">
             {subAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
@@ -151,28 +156,28 @@ const Portraits = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 onClick={() => scrollToGallery(album.id)}
-                className="group cursor-pointer"
+                className="group cursor-pointer break-inside-avoid mb-4"
               >
-                {/* Cover Image - Original Aspect Ratio */}
-                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-colors duration-300 bg-[#141414]">
+                <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-all duration-300 bg-[#141414]">
                   <img
                     src={album.coverImage}
                     alt={album.title}
                     className="w-full h-auto object-contain"
                   />
-                </div>
-                
-                {/* Text Below Image */}
-                <div className="mt-4 text-center">
-                  <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
-                    {album.images.length} Photos
-                  </p>
-                  <h3 className="font-wedding-display text-xl text-white group-hover:text-[#c9a962] transition-colors">
-                    {album.title}
-                  </h3>
-                  {album.category && (
-                    <p className="text-[#a0a0a0] text-sm mt-1">{album.category}</p>
-                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                  
+                  {/* Overlay Info */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
+                      {album.images.length} Photos
+                    </p>
+                    <h3 className="font-wedding-display text-xl text-white group-hover:text-[#c9a962] transition-colors">
+                      {album.title}
+                    </h3>
+                    {album.category && (
+                      <p className="text-[#a0a0a0] text-sm mt-1">{album.category}</p>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))}

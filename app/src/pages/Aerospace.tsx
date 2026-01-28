@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink, Target, X } from 'lucide-react';
+import { ArrowRight, ExternalLink, Target, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { 
   getGalleryImagePaths, 
   getFirstImage 
@@ -19,6 +19,76 @@ interface AerospaceAlbum {
   specs: string[];
 }
 
+// Aerospace albums - matching Photos/Aerospace folder structure
+const aerospaceAlbums: AerospaceAlbum[] = [
+  {
+    id: 'starbase',
+    designation: 'TX-STARBASE',
+    title: 'STARBASE',
+    description: 'Full-time documentation of SpaceX Starship program development and launches at Starbase, Texas.',
+    images: getGalleryImagePaths('aerospace/starbase'),
+    coverImage: getFirstImage('aerospace/starbase') || '',
+    status: 'ACTIVE',
+    statusColor: 'bg-[#c41e3a]',
+    specs: ['4K VIDEO', 'REMOTE CAMERAS', 'LAUNCH COVERAGE'],
+  },
+  {
+    id: 'starbase-film',
+    designation: 'TX-FILM',
+    title: 'STARBASE FILM',
+    description: '35mm and 120mm film photography documenting the Starship program through analog photography.',
+    images: getGalleryImagePaths('aerospace-starbase-film'),
+    coverImage: getFirstImage('aerospace-starbase-film') || '',
+    status: 'DOCUMENTING',
+    statusColor: 'bg-[#1a3a5c]',
+    specs: ['35MM FILM', '120MM FILM', 'KODAK', 'PORTRA'],
+  },
+  {
+    id: 'astro',
+    designation: 'ASTRO-OBS',
+    title: 'ASTRO',
+    description: 'Deep sky and planetary astrophotography from dark sky locations across the American Southwest.',
+    images: getGalleryImagePaths('aerospace/astro'),
+    coverImage: getFirstImage('aerospace/astro') || '',
+    status: 'ACTIVE',
+    statusColor: 'bg-[#c41e3a]',
+    specs: ['DEEP SKY', 'PLANETARY', 'TRACKING MOUNT'],
+  },
+  {
+    id: 'charlie-duke',
+    designation: 'NASA-APOLLO-16',
+    title: 'CHARLIE DUKE',
+    description: 'Portrait session with Apollo 16 astronaut Charlie Duke, the tenth person to walk on the Moon.',
+    images: getGalleryImagePaths('aerospace/astronauts-charlie-duke'),
+    coverImage: getFirstImage('aerospace/astronauts-charlie-duke') || '',
+    status: 'ARCHIVE',
+    statusColor: 'bg-[#1a3a5c]',
+    specs: ['PORTRAIT', 'HISTORICAL', 'APOLLO 16'],
+  },
+  {
+    id: 'fred-haise',
+    designation: 'NASA-APOLLO-13',
+    title: 'FRED HAISE',
+    description: 'Portrait session with Apollo 13 astronaut Fred Haise.',
+    images: getGalleryImagePaths('aerospace/astronauts-fred-haise'),
+    coverImage: getFirstImage('aerospace/astronauts-fred-haise') || '',
+    status: 'ARCHIVE',
+    statusColor: 'bg-[#1a3a5c]',
+    specs: ['PORTRAIT', 'HISTORICAL', 'APOLLO 13'],
+  },
+  {
+    id: 'lone-star-rallycross',
+    designation: 'RACE-TX',
+    title: 'LONE STAR RALLYCROSS',
+    description: 'High-speed motorsport photography at rallycross events across Texas.',
+    images: getGalleryImagePaths('aerospace/lone-star-rallycross'),
+    coverImage: getFirstImage('aerospace/lone-star-rallycross') || '',
+    status: 'DOCUMENTING',
+    statusColor: 'bg-[#1a3a5c]',
+    specs: ['MOTORSPORT', 'PANNING SHOTS', 'RALLY'],
+  },
+];
+
 const Aerospace = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,7 +97,8 @@ const Aerospace = () => {
   const statsRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   
   const [showMissionControl, setShowMissionControl] = useState(true);
   const lastScrollY = useRef(0);
@@ -91,64 +162,89 @@ const Aerospace = () => {
     }
   }, [statsInView]);
 
-  // Define sub-albums with the existing project card style
-  const aerospaceAlbums: AerospaceAlbum[] = [
-    {
-      id: 'starbase',
-      designation: 'TX-STARBASE',
-      title: 'STARBASE OPERATIONS',
-      description: 'Full-time documentation of SpaceX Starship program development and launches at Starbase, Texas. Capturing history as it happens from the launch pad to the production line.',
-      images: getGalleryImagePaths('aerospace-starbase'),
-      coverImage: getFirstImage('aerospace-starbase') || '',
-      status: 'ACTIVE',
-      statusColor: 'bg-[#c41e3a]',
-      specs: ['4K VIDEO', 'REMOTE CAMERAS', 'LAUNCH COVERAGE', 'PAD DOCUMENTATION'],
-    },
-    {
-      id: 'starbase-film',
-      designation: 'TX-FILM',
-      title: 'STARBASE ON FILM',
-      description: '35mm film photography documenting the Starship program. A nostalgic look at the future of space exploration through analog photography.',
-      images: getGalleryImagePaths('aerospace-starbase-film'),
-      coverImage: getFirstImage('aerospace-starbase-film') || '',
-      status: 'DOCUMENTING',
-      statusColor: 'bg-[#1a3a5c]',
-      specs: ['35MM FILM', 'KODAK GOLD', 'PORTRA 400', 'CINESTILL'],
-    },
-    {
-      id: 'astronauts',
-      designation: 'NASA-LEGACY',
-      title: 'APOLLO ASTRONAUTS',
-      description: 'Portrait sessions with Apollo-era astronauts, preserving the legacy of America\'s lunar pioneers who paved the way for future exploration.',
-      images: getGalleryImagePaths('aerospace-astronauts'),
-      coverImage: getFirstImage('aerospace-astronauts') || '',
-      status: 'ARCHIVE',
-      statusColor: 'bg-[#1a3a5c]',
-      specs: ['PORTRAIT', 'HISTORICAL', '35MM FILM', 'ARCHIVAL'],
-    },
-    {
-      id: 'astro',
-      designation: 'ASTRO-OBS',
-      title: 'ASTRONOMY IMAGING',
-      description: 'Deep sky and planetary astrophotography from dark sky locations across the American Southwest. Capturing the cosmos in stunning detail.',
-      images: getGalleryImagePaths('aerospace-astro'),
-      coverImage: getFirstImage('aerospace-astro') || '',
-      status: 'ACTIVE',
-      statusColor: 'bg-[#c41e3a]',
-      specs: ['DEEP SKY', 'PLANETARY', 'TRACKING MOUNT', 'LONG EXPOSURE'],
-    },
-    {
-      id: 'rallycross',
-      designation: 'RACE-TX',
-      title: 'LONE STAR RALLYCROSS',
-      description: 'High-speed motorsport photography at rallycross events across Texas. Capturing the thrill and adrenaline of competitive racing.',
-      images: getGalleryImagePaths('aerospace-lone-star-rallycross'),
-      coverImage: getFirstImage('aerospace-lone-star-rallycross') || '',
-      status: 'DOCUMENTING',
-      statusColor: 'bg-[#1a3a5c]',
-      specs: ['MOTORSPORT', 'PANNING SHOTS', 'RALLY', 'ACTION'],
-    },
-  ];
+  // Get current lightbox image
+  const lightboxImage = lightboxState 
+    ? aerospaceAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
+    : null;
+
+  // Preload adjacent images
+  useEffect(() => {
+    if (lightboxState) {
+      const { albumIndex, imageIndex } = lightboxState;
+      const album = aerospaceAlbums[albumIndex];
+      const imagesToPreload = [
+        album.images[imageIndex - 1],
+        album.images[imageIndex + 1]
+      ].filter(Boolean);
+      
+      imagesToPreload.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+  }, [lightboxState]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!lightboxState) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const { albumIndex, imageIndex } = lightboxState;
+      const album = aerospaceAlbums[albumIndex];
+
+      switch (e.key) {
+        case 'ArrowRight':
+          if (imageIndex < album.images.length - 1) {
+            setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
+          } else if (albumIndex < aerospaceAlbums.length - 1) {
+            setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
+          }
+          break;
+        case 'ArrowLeft':
+          if (imageIndex > 0) {
+            setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
+          } else if (albumIndex > 0) {
+            const prevAlbum = aerospaceAlbums[albumIndex - 1];
+            setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
+          }
+          break;
+        case 'Escape':
+          setLightboxState(null);
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxState]);
+
+  const openLightbox = (albumIndex: number, imageIndex: number) => {
+    setLightboxState({ albumIndex, imageIndex });
+  };
+
+  const closeLightbox = () => setLightboxState(null);
+
+  const goToPrev = useCallback(() => {
+    if (!lightboxState) return;
+    const { albumIndex, imageIndex } = lightboxState;
+    if (imageIndex > 0) {
+      setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
+    } else if (albumIndex > 0) {
+      const prevAlbum = aerospaceAlbums[albumIndex - 1];
+      setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
+    }
+  }, [lightboxState]);
+
+  const goToNext = useCallback(() => {
+    if (!lightboxState) return;
+    const { albumIndex, imageIndex } = lightboxState;
+    const album = aerospaceAlbums[albumIndex];
+    if (imageIndex < album.images.length - 1) {
+      setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
+    } else if (albumIndex < aerospaceAlbums.length - 1) {
+      setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
+    }
+  }, [lightboxState]);
 
   const scrollToGallery = (albumId: string) => {
     const element = galleryRefs.current[albumId];
@@ -425,23 +521,30 @@ const Aerospace = () => {
               {album.images.map((image, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
                   className="group relative break-inside-avoid mb-2 cursor-pointer"
-                  onClick={() => setLightboxImage(image)}
+                  onClick={() => openLightbox(albumIndex, index)}
                 >
-                  <div className="relative overflow-hidden border-2 border-[#1a1a1a]">
+                  <div className="relative overflow-hidden border-2 border-[#1a1a1a] bg-[#2a2a2a]">
+                    {/* Loading placeholder */}
+                    {!loadedImages.has(image) && (
+                      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#2a2a2a] via-[#353535] to-[#2a2a2a]" />
+                    )}
                     <img
                       src={image}
                       alt={`${album.title} ${index + 1}`}
-                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      className={`w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-[1.02] ${loadedImages.has(image) ? 'opacity-100' : 'opacity-0'}`}
                       loading="lazy"
+                      onLoad={() => setLoadedImages(prev => new Set(prev).add(image))}
                     />
-                    <div className="absolute top-1 left-1 bg-[#1a1a1a] text-[#e8e6e1] text-[10px] px-1.5 py-0.5 font-aerospace-display opacity-80">
+                    <div className="absolute top-1 left-1 bg-[#1a1a1a] text-[#e8e6e1] text-[10px] px-1.5 py-0.5 font-aerospace-display opacity-80 group-hover:bg-[#c41e3a] transition-colors duration-300">
                       {String(index + 1).padStart(3, '0')}
                     </div>
+                    {/* Hover overlay with subtle gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </motion.div>
               ))}
@@ -461,28 +564,65 @@ const Aerospace = () => {
       ))}
 
       {/* Lightbox */}
-      {lightboxImage && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white/70 hover:text-white"
-            onClick={() => setLightboxImage(null)}
+      <AnimatePresence>
+        {lightboxState && lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeLightbox}
           >
-            <X size={32} />
-          </button>
-          <img
-            src={lightboxImage}
-            alt="Aerospace photo"
-            className="max-w-full max-h-[90vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </motion.div>
-      )}
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors"
+              onClick={closeLightbox}
+            >
+              <X size={32} />
+            </button>
+
+            {/* Navigation arrows */}
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              onClick={(e) => { e.stopPropagation(); goToPrev(); }}
+              disabled={lightboxState.albumIndex === 0 && lightboxState.imageIndex === 0}
+            >
+              <ChevronLeft size={48} />
+            </button>
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              onClick={(e) => { e.stopPropagation(); goToNext(); }}
+              disabled={lightboxState.albumIndex === aerospaceAlbums.length - 1 && lightboxState.imageIndex === aerospaceAlbums[aerospaceAlbums.length - 1].images.length - 1}
+            >
+              <ChevronRight size={48} />
+            </button>
+
+            {/* Image counter */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-wider">
+              {aerospaceAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {aerospaceAlbums[lightboxState.albumIndex].images.length}
+            </div>
+
+            {/* Image with loading state */}
+            <motion.img
+              key={lightboxImage}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              src={lightboxImage}
+              alt="Aerospace photo"
+              className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Keyboard hint */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-wider hidden sm:block">
+              Use ← → arrow keys to navigate, ESC to close
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Equipment Section */}
       <section className="py-20 md:py-32">
