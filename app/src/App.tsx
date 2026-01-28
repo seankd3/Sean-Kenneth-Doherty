@@ -1,37 +1,54 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Weddings from './pages/Weddings';
-import Aerospace from './pages/Aerospace';
-import Events from './pages/Events';
-import Landscapes from './pages/Landscapes';
-import Portraits from './pages/Portraits';
-import Abstract from './pages/Abstract';
-import Contact from './pages/Contact';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
+
+// Lazy load pages for code splitting
+const Home = lazy(() => import('./pages/Home'));
+const Weddings = lazy(() => import('./pages/Weddings'));
+const Aerospace = lazy(() => import('./pages/Aerospace'));
+const Events = lazy(() => import('./pages/Events'));
+const Landscapes = lazy(() => import('./pages/Landscapes'));
+const Portraits = lazy(() => import('./pages/Portraits'));
+const Abstract = lazy(() => import('./pages/Abstract'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Loading fallback
+const PageLoader = () => (
+  <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-[#c9a962] border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen">
-        <Navigation />
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/weddings" element={<Weddings />} />
-            <Route path="/aerospace" element={<Aerospace />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/landscapes" element={<Landscapes />} />
-            <Route path="/portraits" element={<Portraits />} />
-            <Route path="/abstract" element={<Abstract />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </AnimatePresence>
-        <Footer />
-      </div>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <div className="min-h-screen">
+          <Navigation />
+          <AnimatePresence mode="wait">
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/weddings" element={<Weddings />} />
+                <Route path="/aerospace" element={<Aerospace />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/landscapes" element={<Landscapes />} />
+                <Route path="/portraits" element={<Portraits />} />
+                <Route path="/abstract" element={<Abstract />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </AnimatePresence>
+          <Footer />
+        </div>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
