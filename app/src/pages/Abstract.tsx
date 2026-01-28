@@ -32,7 +32,6 @@ const Abstract = () => {
 
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   // Get current lightbox image
   const lightboxImage = lightboxState 
@@ -292,19 +291,14 @@ const Abstract = () => {
                   onClick={() => openLightbox(albumIndex, index)}
                 >
                   <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
-                    {/* Loading placeholder */}
-                    {!loadedImages.has(image) && (
-                      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#1a1a1a] via-[#252525] to-[#1a1a1a]" />
-                    )}
                     <img
                       src={image}
                       alt={`${album.title} ${index + 1}`}
-                      className={`w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110 ${loadedImages.has(image) ? 'opacity-100' : 'opacity-0'}`}
+                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
                       loading="lazy"
-                      onLoad={() => setLoadedImages(prev => new Set(prev).add(image))}
                     />
                     {/* Hover overlay with image number */}
-                    <div className={`absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center ${loadedImages.has(image) ? '' : 'opacity-0'}`}>
+                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                       <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                         {String(index + 1).padStart(3, '0')}
                       </span>

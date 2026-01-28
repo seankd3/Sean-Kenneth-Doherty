@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import { weddingHeroImage, getGalleryImagePaths } from '@/lib/gallery-config';
+import { categories } from '@/lib/gallery-config-auto';
 
 interface WeddingAlbum {
   id: string;
@@ -14,66 +14,41 @@ interface WeddingAlbum {
   location?: string;
 }
 
-// Filter images by couple prefix
-const getCoupleImages = (allImages: string[], prefix: string): string[] => {
-  return allImages.filter(img => {
-    const filename = img.split('/').pop()?.toLowerCase() || '';
-    return filename.startsWith(prefix.toLowerCase());
+// Build wedding albums dynamically from the auto-generated config
+const buildWeddingAlbums = (): WeddingAlbum[] => {
+  const weddingCategory = categories.weddings;
+  if (!weddingCategory || !weddingCategory.albums) return [];
+  
+  return weddingCategory.albums.map(album => {
+    const images = album.images.map(img => img.src);
+    const firstImage = images[0] || '';
+    
+    // Map album IDs to display names
+    const coupleNames: Record<string, string> = {
+      'weddings/catskills-wedding': 'Catskills Wedding',
+      'weddings/hudson-valley-wedding': 'Hudson Valley Wedding',
+      'weddings/lauren-elphin': 'Lauren & Elphin',
+      'weddings/nicole-kawame': 'Nicole & Kawame',
+      'weddings/rachel-andrew': 'Rachel & Andrew',
+    };
+    
+    return {
+      id: album.id.replace('weddings/', ''),
+      couple: coupleNames[album.id] || album.title,
+      description: 'A beautiful celebration of love and commitment',
+      images,
+      coverImage: firstImage,
+      date: '2023-2024',
+      location: 'Various',
+    };
   });
 };
-
-// Get generic wedding images (not matching any couple prefix)
-const getGenericWeddingImages = (allImages: string[]): string[] => {
-  const prefixes = ['lauren_elphin', 'rachel _ andrew', 'nicole_kawame'];
-  return allImages.filter(img => {
-    const filename = img.split('/').pop()?.toLowerCase() || '';
-    return !prefixes.some(prefix => filename.startsWith(prefix));
-  });
-};
-
-// Get all wedding images (defined outside component to avoid re-computation)
-const allWeddingImages = getGalleryImagePaths('weddings');
-const lauren2024Images = getGalleryImagePaths('weddings-lauren-2024');
 
 // Wedding albums data (defined outside for use in lightbox navigation)
-const weddingAlbums: WeddingAlbum[] = [
-  {
-    id: 'lauren-elphin',
-    couple: 'Lauren & Elphin',
-    description: 'A beautiful celebration of love and commitment',
-    images: getCoupleImages(allWeddingImages, 'Lauren_Elphin'),
-    coverImage: '/images/galleries/weddings/Lauren_Elphin-0003.jpg',
-    date: '2023',
-    location: 'Austin, TX',
-  },
-  {
-    id: 'rachel-andrew',
-    couple: 'Rachel & Andrew',
-    description: 'An intimate wedding filled with joy and emotion',
-    images: getCoupleImages(allWeddingImages, 'Rachel _ Andrew'),
-    coverImage: '/images/galleries/weddings/Rachel _ Andrew-1.jpg',
-    date: '2023',
-    location: 'Texas',
-  },
-  {
-    id: 'nicole-kawame',
-    couple: 'Nicole & Kawame',
-    description: 'Elegant moments captured on their special day',
-    images: getCoupleImages(allWeddingImages, 'Nicole_Kawame'),
-    coverImage: '/images/galleries/weddings/Nicole_Kawame-0191.jpg',
-    date: '2023',
-    location: 'Texas',
-  },
-  {
-    id: 'wedding-moments',
-    couple: 'Wedding Moments',
-    description: 'A collection of beautiful moments from various celebrations',
-    images: [...getGenericWeddingImages(allWeddingImages), ...lauren2024Images],
-    coverImage: weddingHeroImage,
-    date: '2023-2024',
-    location: 'Various',
-  },
-];
+const weddingAlbums = buildWeddingAlbums();
+
+// Hero image from first album's first image
+const weddingHeroImage = weddingAlbums[0]?.coverImage || ''; 
 
 const Weddings = () => {
   useEffect(() => {
@@ -82,7 +57,6 @@ const Weddings = () => {
 
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   // Get current lightbox image
   const lightboxImage = lightboxState 
@@ -354,16 +328,11 @@ const Weddings = () => {
                   onClick={() => openLightbox(albumIndex, index)}
                 >
                   <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
-                    {/* Loading placeholder */}
-                    {!loadedImages.has(image) && (
-                      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#1a1a1a] via-[#252525] to-[#1a1a1a]" />
-                    )}
                     <img
                       src={image}
                       alt={`${album.couple} ${index + 1}`}
-                      className={`w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110 ${loadedImages.has(image) ? 'opacity-100' : 'opacity-0'}`}
+                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
                       loading="lazy"
-                      onLoad={() => setLoadedImages(prev => new Set(prev).add(image))}
                     />
                     {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

@@ -98,7 +98,6 @@ const Aerospace = () => {
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   
   const [showMissionControl, setShowMissionControl] = useState(true);
   const lastScrollY = useRef(0);
@@ -529,16 +528,11 @@ const Aerospace = () => {
                   onClick={() => openLightbox(albumIndex, index)}
                 >
                   <div className="relative overflow-hidden border-2 border-[#1a1a1a] bg-[#2a2a2a]">
-                    {/* Loading placeholder */}
-                    {!loadedImages.has(image) && (
-                      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#2a2a2a] via-[#353535] to-[#2a2a2a]" />
-                    )}
                     <img
                       src={image}
                       alt={`${album.title} ${index + 1}`}
-                      className={`w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-[1.02] ${loadedImages.has(image) ? 'opacity-100' : 'opacity-0'}`}
+                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-[1.02]"
                       loading="lazy"
-                      onLoad={() => setLoadedImages(prev => new Set(prev).add(image))}
                     />
                     <div className="absolute top-1 left-1 bg-[#1a1a1a] text-[#e8e6e1] text-[10px] px-1.5 py-0.5 font-aerospace-display opacity-80 group-hover:bg-[#c41e3a] transition-colors duration-300">
                       {String(index + 1).padStart(3, '0')}
