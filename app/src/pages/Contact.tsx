@@ -18,6 +18,7 @@ const Contact = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -26,22 +27,44 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        eventType: '',
-        date: '',
-        message: '',
+    setIsSubmitting(true);
+
+    // Encode form data for Netlify
+    const formDataEncoded = new URLSearchParams();
+    formDataEncoded.append('form-name', 'contact');
+    formDataEncoded.append('bot-field', '');
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataEncoded.append(key, value);
+    });
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formDataEncoded.toString(),
       });
-    }, 3000);
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          eventType: '',
+          date: '',
+          message: '',
+        });
+      } else {
+        alert('There was an error submitting the form. Please try again.');
+      }
+    } catch (error) {
+      alert('There was an error submitting the form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -319,10 +342,20 @@ const Contact = () => {
 
                     <button
                       type="submit"
-                      className="w-full bg-[#c9a962] text-[#0a0a0a] py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300 flex items-center justify-center space-x-2"
+                      disabled={isSubmitting}
+                      className="w-full bg-[#c9a962] text-[#0a0a0a] py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <span>Send Message</span>
-                      <Send size={16} />
+                      {isSubmitting ? (
+                        <>
+                          <span>Sending...</span>
+                          <div className="w-4 h-4 border-2 border-[#0a0a0a] border-t-transparent rounded-full animate-spin" />
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Message</span>
+                          <Send size={16} />
+                        </>
+                      )}
                     </button>
                   </form>
                 )}
