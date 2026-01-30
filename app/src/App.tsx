@@ -17,6 +17,7 @@ const Portraits = lazy(() => import('./pages/Portraits'));
 const Abstract = lazy(() => import('./pages/Abstract'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const OpenReviews = lazy(() => import('./pages/OpenReviews'));
 
 // Loading fallback
 const PageLoader = () => (
@@ -45,6 +46,7 @@ function App() {
                   <Route path="/portraits" element={<Portraits />} />
                   <Route path="/abstract" element={<Abstract />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/openreviews" element={<OpenReviews />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
