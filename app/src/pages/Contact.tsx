@@ -1,12 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check, AlertCircle } from 'lucide-react';
+
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  message?: string;
+}
 
 const Contact = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -19,16 +27,63 @@ const Contact = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+    
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors({ ...errors, [name]: undefined });
+    }
+    setSubmitError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+    
+    if (!validateForm()) {
+      // Focus first field with error
+      const firstErrorField = Object.keys(errors)[0];
+      if (firstErrorField && formRef.current) {
+        const field = formRef.current.querySelector(`[name="${firstErrorField}"]`) as HTMLElement;
+        field?.focus();
+      }
+      return;
+    }
+    
     setIsSubmitting(true);
 
     // Encode form data for Netlify
@@ -58,10 +113,10 @@ const Contact = () => {
           message: '',
         });
       } else {
-        alert('There was an error submitting the form. Please try again.');
+        setSubmitError('There was an error submitting the form. Please try again or email me directly.');
       }
     } catch (error) {
-      alert('There was an error submitting the form. Please try again.');
+      setSubmitError('Unable to submit form. Please check your connection or email me directly at SeanDohertyPhotos@gmail.com');
     } finally {
       setIsSubmitting(false);
     }
@@ -223,85 +278,138 @@ const Contact = () => {
                   </motion.div>
                 ) : (
                   <form 
+                    ref={formRef}
                     name="contact" 
                     method="POST" 
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
+                    noValidate
+                    aria-label="Contact form"
                   >
                     {/* Hidden fields for Netlify Forms */}
                     <input type="hidden" name="form-name" value="contact" />
                     <div hidden>
                       <input name="bot-field" />
                     </div>
+
+                    {/* Submit Error Alert */}
+                    {submitError && (
+                      <div className="mb-6 p-4 bg-red-900/30 border border-red-500/50 flex items-start space-x-3" role="alert">
+                        <AlertCircle className="text-red-400 flex-shrink-0 mt-0.5" size={20} />
+                        <p className="text-red-300 text-sm">{submitError}</p>
+                      </div>
+                    )}
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="block text-[#a0a0a0] text-sm mb-2">
-                          First Name <span className="text-[#c9a962]">*</span>
+                        <label htmlFor="firstName" className="block text-[#a0a0a0] text-sm mb-2">
+                          First Name <span className="text-[#c9a962]" aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
                         </label>
                         <input
                           type="text"
+                          id="firstName"
                           name="firstName"
                           value={formData.firstName}
                           onChange={handleChange}
-                          required
-                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors"
+                          aria-required="true"
+                          aria-invalid={!!errors.firstName}
+                          aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+                          autoComplete="given-name"
+                          className={`w-full bg-[#0a0a0a] border text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors ${
+                            errors.firstName ? 'border-red-500' : 'border-[#2a2a2a] focus:border-[#c9a962]'
+                          }`}
                         />
+                        {errors.firstName && (
+                          <p id="firstName-error" className="mt-1 text-red-400 text-xs flex items-center" role="alert">
+                            <AlertCircle size={12} className="mr-1" />
+                            {errors.firstName}
+                          </p>
+                        )}
                       </div>
                       <div>
-                        <label className="block text-[#a0a0a0] text-sm mb-2">
-                          Last Name <span className="text-[#c9a962]">*</span>
+                        <label htmlFor="lastName" className="block text-[#a0a0a0] text-sm mb-2">
+                          Last Name <span className="text-[#c9a962]" aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
                         </label>
                         <input
                           type="text"
+                          id="lastName"
                           name="lastName"
                           value={formData.lastName}
                           onChange={handleChange}
-                          required
-                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors"
+                          aria-required="true"
+                          aria-invalid={!!errors.lastName}
+                          aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+                          autoComplete="family-name"
+                          className={`w-full bg-[#0a0a0a] border text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors ${
+                            errors.lastName ? 'border-red-500' : 'border-[#2a2a2a] focus:border-[#c9a962]'
+                          }`}
                         />
+                        {errors.lastName && (
+                          <p id="lastName-error" className="mt-1 text-red-400 text-xs flex items-center" role="alert">
+                            <AlertCircle size={12} className="mr-1" />
+                            {errors.lastName}
+                          </p>
+                        )}
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="block text-[#a0a0a0] text-sm mb-2">
-                          Email <span className="text-[#c9a962]">*</span>
+                        <label htmlFor="email" className="block text-[#a0a0a0] text-sm mb-2">
+                          Email <span className="text-[#c9a962]" aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
                         </label>
                         <input
                           type="email"
+                          id="email"
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          required
-                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors"
+                          aria-required="true"
+                          aria-invalid={!!errors.email}
+                          aria-describedby={errors.email ? 'email-error' : undefined}
+                          autoComplete="email"
+                          className={`w-full bg-[#0a0a0a] border text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors ${
+                            errors.email ? 'border-red-500' : 'border-[#2a2a2a] focus:border-[#c9a962]'
+                          }`}
                         />
+                        {errors.email && (
+                          <p id="email-error" className="mt-1 text-red-400 text-xs flex items-center" role="alert">
+                            <AlertCircle size={12} className="mr-1" />
+                            {errors.email}
+                          </p>
+                        )}
                       </div>
                       <div>
-                        <label className="block text-[#a0a0a0] text-sm mb-2">
-                          Phone
+                        <label htmlFor="phone" className="block text-[#a0a0a0] text-sm mb-2">
+                          Phone <span className="text-[#666] text-xs">(optional)</span>
                         </label>
                         <input
                           type="tel"
+                          id="phone"
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors"
+                          autoComplete="tel"
+                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="block text-[#a0a0a0] text-sm mb-2">
-                          Event Type
+                        <label htmlFor="eventType" className="block text-[#a0a0a0] text-sm mb-2">
+                          Event Type <span className="text-[#666] text-xs">(optional)</span>
                         </label>
                         <select
+                          id="eventType"
                           name="eventType"
                           value={formData.eventType}
                           onChange={handleChange}
-                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors"
+                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors"
                         >
                           <option value="">Select an option</option>
                           {eventTypes.map((type) => (
@@ -312,48 +420,66 @@ const Contact = () => {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-[#a0a0a0] text-sm mb-2">
-                          Event Date
+                        <label htmlFor="date" className="block text-[#a0a0a0] text-sm mb-2">
+                          Event Date <span className="text-[#666] text-xs">(optional)</span>
                         </label>
                         <input
                           type="date"
+                          id="date"
                           name="date"
                           value={formData.date}
                           onChange={handleChange}
-                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors"
+                          className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors [color-scheme:dark]"
                         />
                       </div>
                     </div>
 
                     <div className="mb-8">
-                      <label className="block text-[#a0a0a0] text-sm mb-2">
-                        Message <span className="text-[#c9a962]">*</span>
+                      <label htmlFor="message" className="block text-[#a0a0a0] text-sm mb-2">
+                        Message <span className="text-[#c9a962]" aria-hidden="true">*</span>
+                        <span className="sr-only">(required)</span>
                       </label>
                       <textarea
+                        id="message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        required
+                        aria-required="true"
+                        aria-invalid={!!errors.message}
+                        aria-describedby={errors.message ? 'message-error' : 'message-hint'}
                         rows={6}
-                        className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none transition-colors resize-none"
+                        className={`w-full bg-[#0a0a0a] border text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors resize-none ${
+                          errors.message ? 'border-red-500' : 'border-[#2a2a2a] focus:border-[#c9a962]'
+                        }`}
                         placeholder="Tell me about your project..."
                       />
+                      {errors.message ? (
+                        <p id="message-error" className="mt-1 text-red-400 text-xs flex items-center" role="alert">
+                          <AlertCircle size={12} className="mr-1" />
+                          {errors.message}
+                        </p>
+                      ) : (
+                        <p id="message-hint" className="mt-1 text-[#666] text-xs">
+                          Include details about your event, timeline, and any questions you have.
+                        </p>
+                      )}
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#c9a962] text-[#0a0a0a] py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-[#c9a962] text-[#0a0a0a] py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#c9a962] focus:ring-offset-2 focus:ring-offset-[#141414]"
                     >
                       {isSubmitting ? (
                         <>
                           <span>Sending...</span>
-                          <div className="w-4 h-4 border-2 border-[#0a0a0a] border-t-transparent rounded-full animate-spin" />
+                          <div className="w-4 h-4 border-2 border-[#0a0a0a] border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+                          <span className="sr-only">Please wait while your message is being sent</span>
                         </>
                       ) : (
                         <>
                           <span>Send Message</span>
-                          <Send size={16} />
+                          <Send size={16} aria-hidden="true" />
                         </>
                       )}
                     </button>

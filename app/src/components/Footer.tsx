@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Instagram, Twitter, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
@@ -24,8 +24,8 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/Seankd_photos', label: 'Instagram' },
-    { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'Twitter' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
+    { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'X (Twitter)' },
+    // YouTube removed until channel is active
   ];
 
   const navLinks = [

@@ -246,14 +246,16 @@ const Weddings = () => {
           {/* Masonry Grid */}
           <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
             {weddingAlbums.map((album, index) => (
-              <motion.div
+              <motion.button
                 key={album.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 onClick={() => scrollToGallery(album.id)}
-                className="group cursor-pointer break-inside-avoid mb-4"
+                type="button"
+                aria-label={`View ${album.couple} gallery`}
+                className="group cursor-pointer break-inside-avoid mb-4 w-full text-left"
               >
                 <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-all duration-300 bg-[#141414]">
                   <img
@@ -278,7 +280,7 @@ const Weddings = () => {
                     )}
                   </div>
                 </div>
-              </motion.div>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -318,13 +320,15 @@ const Weddings = () => {
             {/* Masonry Grid */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
               {album.images.map((image, index) => (
-                <motion.div
+                <motion.button
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
-                  className="group relative break-inside-avoid mb-2 cursor-pointer"
+                  type="button"
+                  aria-label={`Open ${album.couple} photo ${index + 1}`}
+                  className="group relative break-inside-avoid mb-2 cursor-pointer w-full text-left"
                   onClick={() => openLightbox(albumIndex, index)}
                 >
                   <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
@@ -337,7 +341,7 @@ const Weddings = () => {
                     {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                </motion.div>
+                </motion.button>
               ))}
             </div>
 

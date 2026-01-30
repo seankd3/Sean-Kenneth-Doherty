@@ -66,19 +66,23 @@ const Navigation = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`link-underline text-sm tracking-wider uppercase transition-colors duration-300 ${
-                    location.pathname === link.path ? accentClass : `${textClass} hover:${accentClass}`
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+            <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`link-underline text-sm tracking-wider uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] ${
+                      isActive ? accentClass : `${textClass} hover:${accentClass}`
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
 
             {/* Mobile Menu Button */}
             <button
@@ -101,26 +105,33 @@ const Navigation = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className={`fixed inset-0 z-40 pt-20 ${isAerospace ? 'bg-[#e8e6e1]' : 'bg-[#0a0a0a]'}`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
           >
-            <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    to={link.path}
-                    className={`font-wedding-display text-3xl tracking-wide transition-colors duration-300 ${
-                      location.pathname === link.path ? accentClass : `${textClass} hover:${accentClass}`
-                    }`}
+            <nav className="flex flex-col items-center justify-center h-full space-y-8" aria-label="Mobile navigation">
+              {navLinks.map((link, index) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+                    <Link
+                      to={link.path}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`font-wedding-display text-3xl tracking-wide transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] ${
+                        isActive ? accentClass : `${textClass} hover:${accentClass}`
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

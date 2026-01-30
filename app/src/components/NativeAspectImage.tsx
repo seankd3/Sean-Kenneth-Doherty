@@ -67,6 +67,7 @@ export const GalleryImage = ({
   className,
   onClick,
 }: GalleryImageProps) => {
+  const isClickable = Boolean(onClick);
   return (
     <div 
       className={cn(
@@ -74,6 +75,15 @@ export const GalleryImage = ({
         className
       )}
       onClick={onClick}
+      role={isClickable ? "button" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      onKeyDown={(event) => {
+        if (!onClick) return;
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
     >
       <img
         src={src}
