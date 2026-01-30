@@ -59,8 +59,8 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center">
-              <span className={`font-wedding-display text-xl md:text-2xl font-semibold tracking-wide ${textClass}`}>
+            <Link to="/" className="flex items-center min-w-0">
+              <span className={`font-wedding-display text-base sm:text-xl md:text-2xl font-semibold tracking-wide truncate ${textClass}`}>
                 SEAN <span className={accentClass}>KENNETH</span> DOHERTY
               </span>
             </Link>

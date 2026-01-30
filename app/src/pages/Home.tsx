@@ -259,9 +259,9 @@ const Home = () => {
                   className="w-full h-auto object-contain"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-[#c9a962] text-[#0a0a0a] p-6">
-                <p className="font-wedding-display text-2xl">Austin, TX</p>
-                <p className="text-sm">Available for travel worldwide</p>
+              <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-[#c9a962] text-[#0a0a0a] p-4 sm:p-6 max-w-[calc(100%-1rem)]">
+                <p className="font-wedding-display text-xl sm:text-2xl">Austin, TX</p>
+                <p className="text-xs sm:text-sm">Available for travel worldwide</p>
               </div>
             </motion.div>
           </div>

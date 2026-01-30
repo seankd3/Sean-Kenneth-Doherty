@@ -379,18 +379,20 @@ const Weddings = () => {
 
             {/* Navigation arrows */}
             <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToPrev(); }}
               disabled={lightboxState.albumIndex === 0 && lightboxState.imageIndex === 0}
+              aria-label="Previous image"
             >
-              <ChevronLeft size={48} />
+              <ChevronLeft size={32} className="sm:w-12 sm:h-12" />
             </button>
             <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
               disabled={lightboxState.albumIndex === weddingAlbums.length - 1 && lightboxState.imageIndex === weddingAlbums[weddingAlbums.length - 1].images.length - 1}
+              aria-label="Next image"
             >
-              <ChevronRight size={48} />
+              <ChevronRight size={32} className="sm:w-12 sm:h-12" />
             </button>
 
             {/* Image counter */}
@@ -407,7 +409,7 @@ const Weddings = () => {
               transition={{ duration: 0.2 }}
               src={lightboxImage}
               alt="Wedding photo"
-              className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
+              className="max-w-[calc(100%-80px)] sm:max-w-[calc(100%-120px)] max-h-[80vh] sm:max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
 
