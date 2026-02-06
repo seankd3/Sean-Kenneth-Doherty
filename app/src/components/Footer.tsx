@@ -68,7 +68,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300`}
+                  className={`${textSecondaryClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'} transition-colors duration-300`}
                   aria-label={social.label}
                 >
                   <social.icon size={20} />
@@ -90,7 +90,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     href={link.path}
-                    className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300 text-sm`}
+                    className={`${textSecondaryClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'} transition-colors duration-300 text-sm`}
                   >
                     {link.label}
                   </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
                 <Mail size={16} className={accentClass} />
                 <a
                   href="mailto:SeanDohertyPhotos@gmail.com"
-                  className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300 text-sm`}
+                  className={`${textSecondaryClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'} transition-colors duration-300 text-sm`}
                 >
                   SeanDohertyPhotos@gmail.com
                 </a>
@@ -121,7 +121,7 @@ const Footer = () => {
                 <Phone size={16} className={accentClass} />
                 <a
                   href="tel:+18568036982"
-                  className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300 text-sm`}
+                  className={`${textSecondaryClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'} transition-colors duration-300 text-sm`}
                 >
                   (856) 803-6982
                 </a>

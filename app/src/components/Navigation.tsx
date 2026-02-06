@@ -78,7 +78,9 @@ const Navigation = () => {
                     href={link.path}
                     aria-current={isActive ? 'page' : undefined}
                     className={`link-underline text-sm tracking-wider uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] ${
-                      isActive ? accentClass : `${textClass} hover:${accentClass}`
+                      isActive
+                        ? accentClass
+                        : `${textClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'}`
                     }`}
                   >
                     {link.label}
@@ -126,7 +128,9 @@ const Navigation = () => {
                       href={link.path}
                       aria-current={isActive ? 'page' : undefined}
                       className={`font-wedding-display text-3xl tracking-wide transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] ${
-                        isActive ? accentClass : `${textClass} hover:${accentClass}`
+                        isActive
+                          ? accentClass
+                          : `${textClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'}`
                       }`}
                     >
                       {link.label}

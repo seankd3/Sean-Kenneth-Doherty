@@ -53,6 +53,8 @@ export default function WeddingsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const [showFloatingCta, setShowFloatingCta] = useState(false);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
+  const lightboxCloseRef = useRef<HTMLButtonElement>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
 
   // Show floating CTA after scrolling past hero
   useEffect(() => {
@@ -83,6 +85,20 @@ export default function WeddingsPage() {
         img.src = src;
       });
     }
+  }, [lightboxState]);
+
+  // Lock body scroll and manage focus when lightbox is open
+  useEffect(() => {
+    if (lightboxState) {
+      document.body.style.overflow = 'hidden';
+      // Focus close button after lightbox opens
+      requestAnimationFrame(() => {
+        lightboxCloseRef.current?.focus();
+      });
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
   }, [lightboxState]);
 
   // Keyboard navigation
@@ -563,37 +579,57 @@ export default function WeddingsPage() {
       <AnimatePresence>
         {lightboxState && lightboxImage && (
           <motion.div
+            ref={lightboxRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
             onClick={closeLightbox}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image lightbox"
+            onKeyDown={(e) => {
+              if (e.key === 'Tab' && lightboxRef.current) {
+                const focusable = lightboxRef.current.querySelectorAll<HTMLElement>('button:not([disabled])');
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                  e.preventDefault();
+                  last?.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                  e.preventDefault();
+                  first?.focus();
+                }
+              }
+            }}
           >
             {/* Close button */}
             <button
-              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors"
+              ref={lightboxCloseRef}
+              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors p-2"
               onClick={closeLightbox}
+              aria-label="Close lightbox"
             >
               <X size={32} />
             </button>
 
             {/* Navigation arrows */}
             <button
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-3 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToPrev(); }}
               disabled={lightboxState.albumIndex === 0 && lightboxState.imageIndex === 0}
               aria-label="Previous image"
             >
-              <ChevronLeft size={32} className="sm:w-12 sm:h-12" />
+              <ChevronLeft size={36} className="sm:w-12 sm:h-12" />
             </button>
             <button
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-3 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
               disabled={lightboxState.albumIndex === weddingAlbums.length - 1 && lightboxState.imageIndex === weddingAlbums[weddingAlbums.length - 1].images.length - 1}
               aria-label="Next image"
             >
-              <ChevronRight size={32} className="sm:w-12 sm:h-12" />
+              <ChevronRight size={36} className="sm:w-12 sm:h-12" />
             </button>
 
             {/* Image counter */}
