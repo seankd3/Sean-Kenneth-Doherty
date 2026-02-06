@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain, User, Sparkles } from 'lucide-react';
 import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
 import { homePage } from '@/lib/content';
+import { featuredTestimonials } from '@/lib/testimonials';
+import Testimonials from '@/components/Testimonials';
 
 export default function HomePage() {
   const iconMap: Record<string, React.ElementType> = {
@@ -247,6 +249,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <Testimonials testimonials={featuredTestimonials} />
 
       {/* CTA Section */}
       <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">

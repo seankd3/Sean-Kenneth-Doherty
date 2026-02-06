@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { categories } from '@/lib/gallery-config-auto';
 import { weddingAlbums as weddingAlbumContent, weddingsPage } from '@/lib/content';
+import { testimonials } from '@/lib/testimonials';
+import Testimonials from '@/components/Testimonials';
 
 interface WeddingAlbum {
   id: string;
@@ -407,6 +409,15 @@ export default function WeddingsPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Testimonials */}
+      <div className="border-t border-[#2a2a2a]">
+        <Testimonials
+          testimonials={testimonials}
+          title="Love Letters"
+          subtitle="From Our Couples"
+        />
+      </div>
 
       {/* CTA */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
