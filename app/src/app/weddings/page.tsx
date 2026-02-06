@@ -51,7 +51,17 @@ const weddingHeroImage = weddingAlbums[0]?.coverImage || '';
 
 export default function WeddingsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
+  const [showFloatingCta, setShowFloatingCta] = useState(false);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  // Show floating CTA after scrolling past hero
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowFloatingCta(window.scrollY > 600);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Get current lightbox image
   const lightboxImage = lightboxState
@@ -200,16 +210,28 @@ export default function WeddingsPage() {
             {weddingsPage.hero.description}
           </motion.p>
 
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            onClick={scrollToGalleries}
-            className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <span>View Galleries</span>
-            <ChevronDown size={16} />
-          </motion.button>
+            <a
+              href="#pricing"
+              className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
+            >
+              <span>View Pricing</span>
+              <ArrowRight size={16} />
+            </a>
+            <button
+              onClick={scrollToGalleries}
+              type="button"
+              className="inline-flex items-center space-x-2 border border-white/30 text-white px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:border-[#c9a962] hover:text-[#c9a962] transition-colors duration-300"
+            >
+              <span>View Galleries</span>
+              <ChevronDown size={16} />
+            </button>
+          </motion.div>
         </div>
       </section>
 
@@ -275,152 +297,8 @@ export default function WeddingsPage() {
         </div>
       </section>
 
-      {/* Full Galleries */}
-      {weddingAlbums.map((album, albumIndex) => (
-        <section
-          key={album.id}
-          ref={(el) => { galleryRefs.current[album.id] = el; }}
-          className={`py-20 px-2 sm:px-4 ${albumIndex % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}`}
-        >
-          <div className="max-w-[1920px] mx-auto">
-            {/* Section Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="px-2 mb-8 text-center"
-            >
-              <div className="flex items-center justify-center space-x-3 mb-2">
-                <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
-                  {String(albumIndex + 1).padStart(2, '0')}
-                </span>
-                <div className="h-px w-12 bg-[#c9a962]/30" />
-                <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
-              </div>
-              <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
-                {album.couple}
-              </h3>
-              {album.location && (
-                <p className="text-[#a0a0a0] mt-2">{album.location} {album.date && `• ${album.date}`}</p>
-              )}
-            </motion.div>
-
-            {/* Masonry Grid */}
-            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
-              {album.images.map((image, index) => (
-                <motion.button
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
-                  type="button"
-                  aria-label={`Open ${album.couple} photo ${index + 1}`}
-                  className="group relative break-inside-avoid mb-2 cursor-pointer w-full text-left"
-                  onClick={() => openLightbox(albumIndex, index)}
-                >
-                  <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
-                    <img
-                      src={image}
-                      alt={`${album.couple} ${index + 1}`}
-                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
-                      loading="lazy"
-                    />
-                    {/* Hover overlay with subtle gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Back to Top Link */}
-            <div className="mt-12 text-center">
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="text-[#a0a0a0] hover:text-[#c9a962] text-sm tracking-wider uppercase transition-colors"
-              >
-                Back to Top
-              </button>
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxState && lightboxImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-            onClick={closeLightbox}
-          >
-            {/* Close button */}
-            <button
-              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors"
-              onClick={closeLightbox}
-            >
-              <X size={32} />
-            </button>
-
-            {/* Navigation arrows */}
-            <button
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
-              onClick={(e) => { e.stopPropagation(); goToPrev(); }}
-              disabled={lightboxState.albumIndex === 0 && lightboxState.imageIndex === 0}
-              aria-label="Previous image"
-            >
-              <ChevronLeft size={32} className="sm:w-12 sm:h-12" />
-            </button>
-            <button
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
-              onClick={(e) => { e.stopPropagation(); goToNext(); }}
-              disabled={lightboxState.albumIndex === weddingAlbums.length - 1 && lightboxState.imageIndex === weddingAlbums[weddingAlbums.length - 1].images.length - 1}
-              aria-label="Next image"
-            >
-              <ChevronRight size={32} className="sm:w-12 sm:h-12" />
-            </button>
-
-            {/* Image counter */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-wider">
-              {weddingAlbums[lightboxState.albumIndex].couple} — {lightboxState.imageIndex + 1} / {weddingAlbums[lightboxState.albumIndex].images.length}
-            </div>
-
-            {/* Image with loading state */}
-            <motion.img
-              key={lightboxImage}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              src={lightboxImage}
-              alt="Wedding photo"
-              className="max-w-[calc(100%-80px)] sm:max-w-[calc(100%-120px)] max-h-[80vh] sm:max-h-[85vh] object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
-
-            {/* Keyboard hint */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-wider hidden sm:block">
-              Use ← → arrow keys to navigate, ESC to close
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Testimonials */}
-      <div className="border-t border-[#2a2a2a]">
-        <Testimonials
-          testimonials={testimonials}
-          title="Love Letters"
-          subtitle="From Our Couples"
-        />
-      </div>
-
       {/* Pricing Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
+      <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -609,6 +487,150 @@ export default function WeddingsPage() {
         </div>
       </section>
 
+      {/* Full Galleries */}
+      {weddingAlbums.map((album, albumIndex) => (
+        <section
+          key={album.id}
+          ref={(el) => { galleryRefs.current[album.id] = el; }}
+          className={`py-20 px-2 sm:px-4 ${albumIndex % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}`}
+        >
+          <div className="max-w-[1920px] mx-auto">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="px-2 mb-8 text-center"
+            >
+              <div className="flex items-center justify-center space-x-3 mb-2">
+                <span className="text-[#c9a962] text-sm tracking-[0.2em] uppercase">
+                  {String(albumIndex + 1).padStart(2, '0')}
+                </span>
+                <div className="h-px w-12 bg-[#c9a962]/30" />
+                <span className="text-[#a0a0a0] text-sm">{album.images.length} Photos</span>
+              </div>
+              <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
+                {album.couple}
+              </h3>
+              {album.location && (
+                <p className="text-[#a0a0a0] mt-2">{album.location} {album.date && `• ${album.date}`}</p>
+              )}
+            </motion.div>
+
+            {/* Masonry Grid */}
+            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
+              {album.images.map((image, index) => (
+                <motion.button
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
+                  type="button"
+                  aria-label={`Open ${album.couple} photo ${index + 1}`}
+                  className="group relative break-inside-avoid mb-2 cursor-pointer w-full text-left"
+                  onClick={() => openLightbox(albumIndex, index)}
+                >
+                  <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
+                    <img
+                      src={image}
+                      alt={`${album.couple} ${index + 1}`}
+                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
+                      loading="lazy"
+                    />
+                    {/* Hover overlay with subtle gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Back to Top Link */}
+            <div className="mt-12 text-center">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="text-[#a0a0a0] hover:text-[#c9a962] text-sm tracking-wider uppercase transition-colors"
+              >
+                Back to Top
+              </button>
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxState && lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors"
+              onClick={closeLightbox}
+            >
+              <X size={32} />
+            </button>
+
+            {/* Navigation arrows */}
+            <button
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              onClick={(e) => { e.stopPropagation(); goToPrev(); }}
+              disabled={lightboxState.albumIndex === 0 && lightboxState.imageIndex === 0}
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={32} className="sm:w-12 sm:h-12" />
+            </button>
+            <button
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
+              onClick={(e) => { e.stopPropagation(); goToNext(); }}
+              disabled={lightboxState.albumIndex === weddingAlbums.length - 1 && lightboxState.imageIndex === weddingAlbums[weddingAlbums.length - 1].images.length - 1}
+              aria-label="Next image"
+            >
+              <ChevronRight size={32} className="sm:w-12 sm:h-12" />
+            </button>
+
+            {/* Image counter */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-wider">
+              {weddingAlbums[lightboxState.albumIndex].couple} — {lightboxState.imageIndex + 1} / {weddingAlbums[lightboxState.albumIndex].images.length}
+            </div>
+
+            {/* Image with loading state */}
+            <motion.img
+              key={lightboxImage}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              src={lightboxImage}
+              alt="Wedding photo"
+              className="max-w-[calc(100%-80px)] sm:max-w-[calc(100%-120px)] max-h-[80vh] sm:max-h-[85vh] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Keyboard hint */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-wider hidden sm:block">
+              Use ← → arrow keys to navigate, ESC to close
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Testimonials */}
+      <div className="border-t border-[#2a2a2a]">
+        <Testimonials
+          testimonials={testimonials}
+          title="Love Letters"
+          subtitle="From Our Couples"
+        />
+      </div>
+
       {/* CTA */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-4xl mx-auto text-center">
@@ -635,6 +657,27 @@ export default function WeddingsPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Floating Book Now CTA */}
+      <AnimatePresence>
+        {showFloatingCta && !lightboxState && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-6 right-6 z-40"
+          >
+            <Link
+              href="/contact"
+              className="flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-6 py-3 shadow-lg shadow-black/30 hover:bg-white transition-colors duration-300 font-medium tracking-wider uppercase text-sm"
+            >
+              <span>Book Now</span>
+              <ArrowRight size={16} />
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
