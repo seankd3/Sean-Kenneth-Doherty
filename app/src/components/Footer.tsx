@@ -1,31 +1,33 @@
-import { Link, useLocation } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
-  const location = useLocation();
-  const isAerospace = location.pathname === '/aerospace';
+  const pathname = usePathname();
+  const isAerospace = pathname === '/aerospace';
 
-  const bgClass = isAerospace 
-    ? 'bg-[#d4d0c8] border-[#1a1a1a]' 
+  const bgClass = isAerospace
+    ? 'bg-[#d4d0c8] border-[#1a1a1a]'
     : 'bg-[#141414] border-[#2a2a2a]';
-  
-  const textClass = isAerospace 
-    ? 'text-[#1a1a1a]' 
+
+  const textClass = isAerospace
+    ? 'text-[#1a1a1a]'
     : 'text-white';
-  
-  const textSecondaryClass = isAerospace 
-    ? 'text-[#4a4a4a]' 
+
+  const textSecondaryClass = isAerospace
+    ? 'text-[#4a4a4a]'
     : 'text-[#a0a0a0]';
 
-  const accentClass = isAerospace 
-    ? 'text-[#c41e3a]' 
+  const accentClass = isAerospace
+    ? 'text-[#c41e3a]'
     : 'text-[#c9a962]';
 
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/Seankd_photos', label: 'Instagram' },
     { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'X (Twitter)' },
-    // YouTube removed until channel is active
   ];
 
   const navLinks = [
@@ -50,13 +52,13 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Link to="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-6">
               <span className={`font-wedding-display text-2xl font-semibold ${textClass}`}>
                 SEAN <span className={accentClass}>KENNETH</span> DOHERTY
               </span>
             </Link>
             <p className={`${textSecondaryClass} text-sm leading-relaxed mb-6`}>
-              Photographer & Cinematographer based in Austin, TX. 
+              Photographer & Cinematographer based in Austin, TX.
               Capturing everything from weddings to rocket launches.
             </p>
             <div className="flex space-x-4">
@@ -87,7 +89,7 @@ const Footer = () => {
               {navLinks.map((link) => (
                 <li key={link.path}>
                   <Link
-                    to={link.path}
+                    href={link.path}
                     className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300 text-sm`}
                   >
                     {link.label}
@@ -108,7 +110,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-center space-x-3">
                 <Mail size={16} className={accentClass} />
-                <a 
+                <a
                   href="mailto:SeanDohertyPhotos@gmail.com"
                   className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300 text-sm`}
                 >
@@ -117,7 +119,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={16} className={accentClass} />
-                <a 
+                <a
                   href="tel:+18568036982"
                   className={`${textSecondaryClass} hover:${accentClass} transition-colors duration-300 text-sm`}
                 >
@@ -143,7 +145,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className={`mt-12 pt-8 border-t ${isAerospace ? 'border-[#1a1a1a]/20' : 'border-[#2a2a2a]'} text-center`}>
           <p className={`${textSecondaryClass} text-xs`}>
-            © {new Date().getFullYear()} Sean Kenneth Doherty. All rights reserved.
+            &copy; {new Date().getFullYear()} Sean Kenneth Doherty. All rights reserved.
           </p>
         </div>
       </div>

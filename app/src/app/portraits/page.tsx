@@ -1,12 +1,14 @@
-import { useEffect, useState, useRef } from 'react';
+'use client';
+
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, User, X, ChevronDown } from 'lucide-react';
-import { 
-  portraitsHillaryAstridImages, 
-  portraitsBlackbeltImages, 
+import {
+  portraitsHillaryAstridImages,
+  portraitsBlackbeltImages,
   portraitsHeroImage,
-  getFirstImage 
+  getFirstImage
 } from '@/lib/gallery-config';
 
 interface SubAlbum {
@@ -18,11 +20,7 @@ interface SubAlbum {
   category?: string;
 }
 
-const Portraits = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function PortraitsPage() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
@@ -62,13 +60,7 @@ const Portraits = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -93,7 +85,7 @@ const Portraits = () => {
             <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Portrait Photography</span>
             <User size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -103,7 +95,7 @@ const Portraits = () => {
           >
             Capturing <span className="text-[#c9a962]">Character</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -165,7 +157,7 @@ const Portraits = () => {
                     className="w-full h-auto object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                  
+
                   {/* Overlay Info */}
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
@@ -298,10 +290,10 @@ const Portraits = () => {
               Book a <span className="text-[#c9a962]">Session</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Ready to capture your story? Let's create portraits that you'll treasure for years to come.
+              Ready to capture your story? Let&apos;s create portraits that you&apos;ll treasure for years to come.
             </p>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
               <span>Inquire Now</span>
@@ -310,8 +302,6 @@ const Portraits = () => {
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Portraits;
+}

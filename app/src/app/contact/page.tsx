@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+'use client';
+
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check, AlertCircle } from 'lucide-react';
 
@@ -9,11 +11,7 @@ interface FormErrors {
   message?: string;
 }
 
-const Contact = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -32,27 +30,27 @@ const Contact = () => {
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
+
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required';
     }
-    
+
     if (!formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -73,7 +71,7 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
-    
+
     if (!validateForm()) {
       // Focus first field with error
       const firstErrorField = Object.keys(errors)[0];
@@ -83,7 +81,7 @@ const Contact = () => {
       }
       return;
     }
-    
+
     setIsSubmitting(true);
 
     // Encode form data for Netlify
@@ -115,7 +113,7 @@ const Contact = () => {
       } else {
         setSubmitError('There was an error submitting the form. Please try again or email me directly.');
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitError('Unable to submit form. Please check your connection or email me directly at SeanDohertyPhotos@gmail.com');
     } finally {
       setIsSubmitting(false);
@@ -160,13 +158,7 @@ const Contact = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -178,11 +170,11 @@ const Contact = () => {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Contact</p>
             <h1 className="font-wedding-display text-5xl md:text-6xl lg:text-7xl text-white mb-6">
-              Let's Create Something<br />
+              Let&apos;s Create Something<br />
               <span className="text-[#c9a962]">Amazing</span>
             </h1>
             <p className="text-[#a0a0a0] text-lg">
-              Tell me about your project and I'll get back to you within 24 hours.
+              Tell me about your project and I&apos;ll get back to you within 24 hours.
             </p>
           </motion.div>
         </div>
@@ -201,7 +193,7 @@ const Contact = () => {
               className="lg:col-span-1"
             >
               <h2 className="font-wedding-display text-2xl text-white mb-8">Get In Touch</h2>
-              
+
               <div className="space-y-6 mb-10">
                 {contactInfo.map((item) => (
                   <a
@@ -273,14 +265,14 @@ const Contact = () => {
                       Message Sent!
                     </h3>
                     <p className="text-[#a0a0a0]">
-                      Thank you for reaching out. I'll get back to you within 24 hours.
+                      Thank you for reaching out. I&apos;ll get back to you within 24 hours.
                     </p>
                   </motion.div>
                 ) : (
-                  <form 
+                  <form
                     ref={formRef}
-                    name="contact" 
-                    method="POST" 
+                    name="contact"
+                    method="POST"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
@@ -300,7 +292,7 @@ const Contact = () => {
                         <p className="text-red-300 text-sm">{submitError}</p>
                       </div>
                     )}
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
                         <label htmlFor="firstName" className="block text-[#a0a0a0] text-sm mb-2">
@@ -506,7 +498,7 @@ const Contact = () => {
               Based in <span className="text-[#c9a962]">Austin, TX</span>
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto mb-8">
-              Available for travel worldwide. From local Austin weddings to destination events 
+              Available for travel worldwide. From local Austin weddings to destination events
               and aerospace documentation at launch sites across the country.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -523,8 +515,6 @@ const Contact = () => {
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Contact;
+}

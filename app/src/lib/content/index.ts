@@ -1,0 +1,32 @@
+/**
+ * Centralized content management.
+ *
+ * To update any text on the site, edit the corresponding file:
+ *   - site.ts    → Contact info, social links, SEO defaults
+ *   - albums.ts  → Album titles, descriptions, locations, dates
+ *   - pages.ts   → Page hero text, CTAs, section copy
+ *
+ * All page components import from here instead of hardcoding strings.
+ */
+
+export { siteConfig, seoDefaults } from './site';
+
+export {
+  weddingAlbums,
+  aerospaceAlbums,
+  eventAlbums,
+  landscapeAlbums,
+  portraitAlbums,
+  abstractAlbums,
+} from './albums';
+
+export {
+  homePage,
+  weddingsPage,
+  aerospacePage,
+  eventsPage,
+  landscapesPage,
+  portraitsPage,
+  abstractPage,
+  contactPage,
+} from './pages';

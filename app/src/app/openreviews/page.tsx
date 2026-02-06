@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Star, Check, X, Github, Heart, Zap, Shield, Code, Server, Quote, ArrowRight, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -139,7 +141,7 @@ function WidgetPreview() {
               <AnimatedStars rating={reviews[currentReview].rating} size={12} delay={0.2} />
             </div>
           </div>
-          <p className="text-gray-300 text-sm leading-relaxed">"{reviews[currentReview].text}"</p>
+          <p className="text-gray-300 text-sm leading-relaxed">&ldquo;{reviews[currentReview].text}&rdquo;</p>
         </motion.div>
 
         {/* Progress dots */}
@@ -281,11 +283,11 @@ const staggerItem = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 12 }
+    transition: { type: "spring" as const, stiffness: 100, damping: 12 }
   },
 };
 
-export default function OpenReviews() {
+export default function OpenReviewsPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden">
       {/* Animated gradient background */}
@@ -624,7 +626,7 @@ export default function OpenReviews() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Loved by Developers</h2>
-            <p className="text-xl text-gray-400">Join hundreds who've escaped the review platform racket</p>
+            <p className="text-xl text-gray-400">Join hundreds who&apos;ve escaped the review platform racket</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">

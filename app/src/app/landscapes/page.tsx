@@ -1,66 +1,77 @@
+'use client';
+
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Music, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Mountain, ChevronDown, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
 
-const heroImage = getFirstImage('events/beach-house-concert') || '/images/galleries/events/beach-house-concert/Beach House Concert-10.jpg';
-
-interface SubAlbum {
+interface LandscapeAlbum {
   id: string;
   title: string;
   description: string;
   images: string[];
   coverImage: string;
-  location?: string;
-  date?: string;
+  location: string;
 }
 
-// Events albums data - matching Photos/Events folder structure
-const subAlbums: SubAlbum[] = [
+// Landscape albums matching Photos/Landscapes/ folder structure
+const landscapeAlbums: LandscapeAlbum[] = [
   {
-    id: 'beach-house-concert',
-    title: 'Beach House Concert',
-    description: 'Live music photography capturing the energy of performances at Beach House concerts.',
-    images: getGalleryImagePaths('events/beach-house-concert'),
-    coverImage: '/images/galleries/events/beach-house-concert/Beach House Concert-10.jpg',
-    location: 'Austin, TX',
-    date: '2023-2024',
+    id: 'american-landscapes',
+    title: 'American Landscapes',
+    description: 'The beauty of the American Southwest and beyond, captured in golden light',
+    images: getGalleryImagePaths('landscapes-american-landscapes'),
+    coverImage: getFirstImage('landscapes-american-landscapes') || '',
+    location: 'American West',
   },
   {
-    id: 'fire-dancer',
-    title: 'Fire Dancer',
-    description: 'Dynamic fire performances with dramatic lighting.',
-    images: getGalleryImagePaths('events/fire-dancer'),
-    coverImage: getFirstImage('events/fire-dancer') || '',
-    location: 'Various Locations',
-    date: '2021-2022',
+    id: 'big-bend-film',
+    title: 'Big Bend Film',
+    description: 'Dramatic desert landscapes captured on film at Big Bend National Park',
+    images: getGalleryImagePaths('landscapes-big-bend-film'),
+    coverImage: getFirstImage('landscapes-big-bend-film') || '',
+    location: 'Texas',
+  },
+  {
+    id: 'costa-rica',
+    title: 'Costa Rica',
+    description: 'Lush tropical landscapes and vibrant ecosystems of Costa Rica',
+    images: getGalleryImagePaths('landscapes-costa-rica'),
+    coverImage: getFirstImage('landscapes-costa-rica') || '',
+    location: 'Central America',
+  },
+  {
+    id: 'hudson-valley',
+    title: 'Hudson Valley',
+    description: 'Scenic landscapes from the Hudson Valley region',
+    images: getGalleryImagePaths('landscapes-new-york-winter'),
+    coverImage: getFirstImage('landscapes-new-york-winter') || '',
+    location: 'New York',
   },
 ];
 
-const Events = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+const heroImage = getFirstImage('landscapes-american-landscapes') || landscapeAlbums[0].coverImage;
 
+export default function LandscapesPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Get current lightbox image
-  const lightboxImage = lightboxState 
-    ? subAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
+  const lightboxImage = lightboxState
+    ? landscapeAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
     : null;
 
   // Preload adjacent images
   useEffect(() => {
     if (lightboxState) {
       const { albumIndex, imageIndex } = lightboxState;
-      const album = subAlbums[albumIndex];
+      const album = landscapeAlbums[albumIndex];
       const imagesToPreload = [
         album.images[imageIndex - 1],
         album.images[imageIndex + 1]
       ].filter(Boolean);
-      
+
       imagesToPreload.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -74,13 +85,13 @@ const Events = () => {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const { albumIndex, imageIndex } = lightboxState;
-      const album = subAlbums[albumIndex];
+      const album = landscapeAlbums[albumIndex];
 
       switch (e.key) {
         case 'ArrowRight':
           if (imageIndex < album.images.length - 1) {
             setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
-          } else if (albumIndex < subAlbums.length - 1) {
+          } else if (albumIndex < landscapeAlbums.length - 1) {
             setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
           }
           break;
@@ -88,7 +99,7 @@ const Events = () => {
           if (imageIndex > 0) {
             setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
           } else if (albumIndex > 0) {
-            const prevAlbum = subAlbums[albumIndex - 1];
+            const prevAlbum = landscapeAlbums[albumIndex - 1];
             setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
           }
           break;
@@ -114,7 +125,7 @@ const Events = () => {
     if (imageIndex > 0) {
       setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
     } else if (albumIndex > 0) {
-      const prevAlbum = subAlbums[albumIndex - 1];
+      const prevAlbum = landscapeAlbums[albumIndex - 1];
       setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
     }
   }, [lightboxState]);
@@ -122,10 +133,10 @@ const Events = () => {
   const goToNext = useCallback(() => {
     if (!lightboxState) return;
     const { albumIndex, imageIndex } = lightboxState;
-    const album = subAlbums[albumIndex];
+    const album = landscapeAlbums[albumIndex];
     if (imageIndex < album.images.length - 1) {
       setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
-    } else if (albumIndex < subAlbums.length - 1) {
+    } else if (albumIndex < landscapeAlbums.length - 1) {
       setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
     }
   }, [lightboxState]);
@@ -133,35 +144,25 @@ const Events = () => {
   const scrollToGallery = (albumId: string) => {
     const element = galleryRefs.current[albumId];
     if (element) {
-      const offset = 100;
-      const top = element.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  };
-
-  const scrollToGalleries = () => {
-    const element = document.getElementById('galleries-start');
-    if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const scrollToGalleries = () => {
+    document.getElementById('galleries-start')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Events photography"
+            alt="Landscape photography"
             className="w-full h-full object-cover"
           />
+          {/* Stronger dark overlay for text legibility */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0a0a0a]/50 to-[#0f0f0f]" />
           <div className="absolute inset-0 bg-[#0a0a0a]/30" />
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/80 to-transparent" />
@@ -174,11 +175,11 @@ const Events = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center space-x-2 mb-6"
           >
-            <Music size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Live Events</span>
-            <Music size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <Mountain size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Landscape Photography</span>
+            <Mountain size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -186,9 +187,9 @@ const Events = () => {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            Capturing the <span className="text-[#c9a962]">Energy</span>
+            American <span className="text-[#c9a962]">Landscapes</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -196,7 +197,7 @@ const Events = () => {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            Concerts, performances, and live events frozen in time
+            The beauty of the American Southwest and beyond, captured in golden light
           </motion.p>
 
           <motion.button
@@ -224,7 +225,7 @@ const Events = () => {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Collections</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Event Galleries
+              Landscape Galleries
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
               Select a gallery to explore, or scroll to view all collections
@@ -233,7 +234,7 @@ const Events = () => {
 
           {/* Masonry Grid */}
           <div className="columns-2 md:columns-2 gap-4">
-            {subAlbums.map((album, index) => (
+            {landscapeAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -250,20 +251,16 @@ const Events = () => {
                     className="w-full h-auto object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                  
-                  {/* Overlay Info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
-                      {album.images.length} Photos
-                    </p>
-                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <Mountain size={16} className="text-[#c9a962]" />
+                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">{album.location}</span>
+                    </div>
+                    <h3 className="font-wedding-display text-2xl text-white mb-1 group-hover:text-[#c9a962] transition-colors">
                       {album.title}
                     </h3>
-                    {album.location && (
-                      <p className="text-[#a0a0a0] text-sm mt-1">
-                        {album.location} {album.date && `• ${album.date}`}
-                      </p>
-                    )}
+                    <p className="text-[#a0a0a0] text-sm">{album.images.length} Photos</p>
                   </div>
                 </div>
               </motion.div>
@@ -273,7 +270,7 @@ const Events = () => {
       </section>
 
       {/* Full Galleries */}
-      {subAlbums.map((album, albumIndex) => (
+      {landscapeAlbums.map((album, albumIndex) => (
         <section
           key={album.id}
           ref={(el) => { galleryRefs.current[album.id] = el; }}
@@ -298,9 +295,7 @@ const Events = () => {
               <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
                 {album.title}
               </h3>
-              {album.location && (
-                <p className="text-[#a0a0a0] mt-2">{album.location} {album.date && `• ${album.date}`}</p>
-              )}
+              <p className="text-[#a0a0a0] mt-2">{album.location}</p>
             </motion.div>
 
             {/* Masonry Grid */}
@@ -322,7 +317,13 @@ const Events = () => {
                       className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
                       loading="lazy"
                     />
-                    {/* Hover overlay with subtle gradient */}
+                    {/* Hover overlay with image number */}
+                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        {String(index + 1).padStart(3, '0')}
+                      </span>
+                    </div>
+                    {/* Subtle gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </motion.div>
@@ -352,7 +353,7 @@ const Events = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
             onClick={closeLightbox}
-        >
+          >
             {/* Close button */}
             <button
               className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors"
@@ -372,14 +373,14 @@ const Events = () => {
             <button
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
-              disabled={lightboxState.albumIndex === subAlbums.length - 1 && lightboxState.imageIndex === subAlbums[subAlbums.length - 1].images.length - 1}
+              disabled={lightboxState.albumIndex === landscapeAlbums.length - 1 && lightboxState.imageIndex === landscapeAlbums[landscapeAlbums.length - 1].images.length - 1}
             >
               <ChevronRight size={48} />
             </button>
 
             {/* Image counter */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-wider">
-              {subAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {subAlbums[lightboxState.albumIndex].images.length}
+              {landscapeAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {landscapeAlbums[lightboxState.albumIndex].images.length}
             </div>
 
             {/* Image with loading state */}
@@ -390,7 +391,7 @@ const Events = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               src={lightboxImage}
-              alt="Event photo"
+              alt="Landscape"
               className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
@@ -403,8 +404,8 @@ const Events = () => {
         )}
       </AnimatePresence>
 
-      {/* CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
+      {/* Prints CTA */}
+      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -412,25 +413,24 @@ const Events = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Music size={32} className="text-[#c9a962] mx-auto mb-6" />
+            <Mountain size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Let's Capture Your <span className="text-[#c9a962]">Event</span>
+              Fine Art <span className="text-[#c9a962]">Prints</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Available for concerts, performances, corporate events, and private celebrations.
+              Bring the beauty of the American landscape into your home or office.
+              Limited edition prints available on archival paper and metal.
             </p>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Book Now</span>
+              <span>Inquire About Prints</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Events;
+}

@@ -1,79 +1,51 @@
+'use client';
+
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Mountain, ChevronDown, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Sparkles, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
 
-interface LandscapeAlbum {
-  id: string;
-  title: string;
-  description: string;
-  images: string[];
-  coverImage: string;
-  location: string;
-}
-
-// Landscape albums matching Photos/Landscapes/ folder structure
-const landscapeAlbums: LandscapeAlbum[] = [
+// Abstract albums - dynamically built from gallery structure
+// Matches Photos/Abstract/ folder structure
+const abstractAlbums = [
   {
-    id: 'american-landscapes',
-    title: 'American Landscapes',
-    description: 'The beauty of the American Southwest and beyond, captured in golden light',
-    images: getGalleryImagePaths('landscapes-american-landscapes'),
-    coverImage: getFirstImage('landscapes-american-landscapes') || '',
-    location: 'American West',
+    id: 'abstract',
+    title: 'Abstract',
+    description: 'Abstract photography exploring form, color, and texture',
+    images: getGalleryImagePaths('abstract'),
+    coverImage: getFirstImage('abstract') || '',
   },
   {
-    id: 'big-bend-film',
-    title: 'Big Bend Film',
-    description: 'Dramatic desert landscapes captured on film at Big Bend National Park',
-    images: getGalleryImagePaths('landscapes-big-bend-film'),
-    coverImage: getFirstImage('landscapes-big-bend-film') || '',
-    location: 'Texas',
+    id: 'abstract-from-above',
+    title: 'From Above',
+    description: 'Aerial perspectives and patterns from above',
+    images: getGalleryImagePaths('abstract-from-above'),
+    coverImage: getFirstImage('abstract-from-above') || '',
   },
-  {
-    id: 'costa-rica',
-    title: 'Costa Rica',
-    description: 'Lush tropical landscapes and vibrant ecosystems of Costa Rica',
-    images: getGalleryImagePaths('landscapes-costa-rica'),
-    coverImage: getFirstImage('landscapes-costa-rica') || '',
-    location: 'Central America',
-  },
-  {
-    id: 'hudson-valley',
-    title: 'Hudson Valley',
-    description: 'Scenic landscapes from the Hudson Valley region',
-    images: getGalleryImagePaths('landscapes-new-york-winter'),
-    coverImage: getFirstImage('landscapes-new-york-winter') || '',
-    location: 'New York',
-  },
-];
+].filter(album => album.images.length > 0); // Only show albums with images
 
-const heroImage = getFirstImage('landscapes-american-landscapes') || landscapeAlbums[0].coverImage;
+const heroImage = abstractAlbums[0]?.coverImage || '';
 
-const Landscapes = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function AbstractPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Get current lightbox image
-  const lightboxImage = lightboxState 
-    ? landscapeAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
+  const lightboxImage = lightboxState
+    ? abstractAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
     : null;
 
   // Preload adjacent images
   useEffect(() => {
     if (lightboxState) {
       const { albumIndex, imageIndex } = lightboxState;
-      const album = landscapeAlbums[albumIndex];
+      const album = abstractAlbums[albumIndex];
       const imagesToPreload = [
         album.images[imageIndex - 1],
         album.images[imageIndex + 1]
       ].filter(Boolean);
-      
+
       imagesToPreload.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -87,13 +59,13 @@ const Landscapes = () => {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const { albumIndex, imageIndex } = lightboxState;
-      const album = landscapeAlbums[albumIndex];
+      const album = abstractAlbums[albumIndex];
 
       switch (e.key) {
         case 'ArrowRight':
           if (imageIndex < album.images.length - 1) {
             setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
-          } else if (albumIndex < landscapeAlbums.length - 1) {
+          } else if (albumIndex < abstractAlbums.length - 1) {
             setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
           }
           break;
@@ -101,7 +73,7 @@ const Landscapes = () => {
           if (imageIndex > 0) {
             setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
           } else if (albumIndex > 0) {
-            const prevAlbum = landscapeAlbums[albumIndex - 1];
+            const prevAlbum = abstractAlbums[albumIndex - 1];
             setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
           }
           break;
@@ -127,7 +99,7 @@ const Landscapes = () => {
     if (imageIndex > 0) {
       setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
     } else if (albumIndex > 0) {
-      const prevAlbum = landscapeAlbums[albumIndex - 1];
+      const prevAlbum = abstractAlbums[albumIndex - 1];
       setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
     }
   }, [lightboxState]);
@@ -135,10 +107,10 @@ const Landscapes = () => {
   const goToNext = useCallback(() => {
     if (!lightboxState) return;
     const { albumIndex, imageIndex } = lightboxState;
-    const album = landscapeAlbums[albumIndex];
+    const album = abstractAlbums[albumIndex];
     if (imageIndex < album.images.length - 1) {
       setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
-    } else if (albumIndex < landscapeAlbums.length - 1) {
+    } else if (albumIndex < abstractAlbums.length - 1) {
       setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
     }
   }, [lightboxState]);
@@ -155,22 +127,15 @@ const Landscapes = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Landscape photography"
+            alt="Abstract photography"
             className="w-full h-full object-cover"
           />
-          {/* Stronger dark overlay for text legibility */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0a0a0a]/50 to-[#0f0f0f]" />
           <div className="absolute inset-0 bg-[#0a0a0a]/30" />
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/80 to-transparent" />
@@ -183,11 +148,11 @@ const Landscapes = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center space-x-2 mb-6"
           >
-            <Mountain size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Landscape Photography</span>
-            <Mountain size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <Sparkles size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Abstract Photography</span>
+            <Sparkles size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -195,9 +160,9 @@ const Landscapes = () => {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            American <span className="text-[#c9a962]">Landscapes</span>
+            Beyond the <span className="text-[#c9a962]">Literal</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -205,7 +170,7 @@ const Landscapes = () => {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            The beauty of the American Southwest and beyond, captured in golden light
+            Exploring form, color, texture, and the spaces between
           </motion.p>
 
           <motion.button
@@ -233,7 +198,7 @@ const Landscapes = () => {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Collections</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Landscape Galleries
+              Abstract Galleries
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
               Select a gallery to explore, or scroll to view all collections
@@ -242,7 +207,7 @@ const Landscapes = () => {
 
           {/* Masonry Grid */}
           <div className="columns-2 md:columns-2 gap-4">
-            {landscapeAlbums.map((album, index) => (
+            {abstractAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -259,16 +224,15 @@ const Landscapes = () => {
                     className="w-full h-auto object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                  
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <Mountain size={16} className="text-[#c9a962]" />
-                      <span className="text-[#c9a962] text-xs tracking-wider uppercase">{album.location}</span>
-                    </div>
-                    <h3 className="font-wedding-display text-2xl text-white mb-1 group-hover:text-[#c9a962] transition-colors">
+
+                  {/* Overlay Info */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
+                      {album.images.length} Photos
+                    </p>
+                    <h3 className="font-wedding-display text-xl text-white group-hover:text-[#c9a962] transition-colors">
                       {album.title}
                     </h3>
-                    <p className="text-[#a0a0a0] text-sm">{album.images.length} Photos</p>
                   </div>
                 </div>
               </motion.div>
@@ -278,7 +242,7 @@ const Landscapes = () => {
       </section>
 
       {/* Full Galleries */}
-      {landscapeAlbums.map((album, albumIndex) => (
+      {abstractAlbums.map((album, albumIndex) => (
         <section
           key={album.id}
           ref={(el) => { galleryRefs.current[album.id] = el; }}
@@ -303,7 +267,7 @@ const Landscapes = () => {
               <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
                 {album.title}
               </h3>
-              <p className="text-[#a0a0a0] mt-2">{album.location}</p>
+              <p className="text-[#a0a0a0] mt-2">{album.description}</p>
             </motion.div>
 
             {/* Masonry Grid */}
@@ -381,14 +345,14 @@ const Landscapes = () => {
             <button
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
-              disabled={lightboxState.albumIndex === landscapeAlbums.length - 1 && lightboxState.imageIndex === landscapeAlbums[landscapeAlbums.length - 1].images.length - 1}
+              disabled={lightboxState.albumIndex === abstractAlbums.length - 1 && lightboxState.imageIndex === abstractAlbums[abstractAlbums.length - 1].images.length - 1}
             >
               <ChevronRight size={48} />
             </button>
 
             {/* Image counter */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-wider">
-              {landscapeAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {landscapeAlbums[lightboxState.albumIndex].images.length}
+              {abstractAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {abstractAlbums[lightboxState.albumIndex].images.length}
             </div>
 
             {/* Image with loading state */}
@@ -399,7 +363,7 @@ const Landscapes = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               src={lightboxImage}
-              alt="Landscape"
+              alt="Abstract photo"
               className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
@@ -412,7 +376,7 @@ const Landscapes = () => {
         )}
       </AnimatePresence>
 
-      {/* Prints CTA */}
+      {/* CTA Section */}
       <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -421,26 +385,23 @@ const Landscapes = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Mountain size={32} className="text-[#c9a962] mx-auto mb-6" />
+            <Sparkles size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Fine Art <span className="text-[#c9a962]">Prints</span>
+              See the World <span className="text-[#c9a962]">Differently</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Bring the beauty of the American landscape into your home or office. 
-              Limited edition prints available on archival paper and metal.
+              Abstract photography challenges perception and invites new ways of seeing.
             </p>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Inquire About Prints</span>
+              <span>Get In Touch</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Landscapes;
+}

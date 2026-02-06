@@ -1,53 +1,64 @@
+'use client';
+
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Music, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
 
-// Abstract albums - dynamically built from gallery structure
-// Matches Photos/Abstract/ folder structure
-const abstractAlbums = [
+const heroImage = getFirstImage('events/beach-house-concert') || '/images/galleries/events/beach-house-concert/Beach House Concert-10.jpg';
+
+interface SubAlbum {
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  coverImage: string;
+  location?: string;
+  date?: string;
+}
+
+// Events albums data - matching Photos/Events folder structure
+const subAlbums: SubAlbum[] = [
   {
-    id: 'abstract',
-    title: 'Abstract',
-    description: 'Abstract photography exploring form, color, and texture',
-    images: getGalleryImagePaths('abstract'),
-    coverImage: getFirstImage('abstract') || '',
+    id: 'beach-house-concert',
+    title: 'Beach House Concert',
+    description: 'Live music photography capturing the energy of performances at Beach House concerts.',
+    images: getGalleryImagePaths('events/beach-house-concert'),
+    coverImage: '/images/galleries/events/beach-house-concert/Beach House Concert-10.jpg',
+    location: 'Austin, TX',
+    date: '2023-2024',
   },
   {
-    id: 'abstract-from-above',
-    title: 'From Above',
-    description: 'Aerial perspectives and patterns from above',
-    images: getGalleryImagePaths('abstract-from-above'),
-    coverImage: getFirstImage('abstract-from-above') || '',
+    id: 'fire-dancer',
+    title: 'Fire Dancer',
+    description: 'Dynamic fire performances with dramatic lighting.',
+    images: getGalleryImagePaths('events/fire-dancer'),
+    coverImage: getFirstImage('events/fire-dancer') || '',
+    location: 'Various Locations',
+    date: '2021-2022',
   },
-].filter(album => album.images.length > 0); // Only show albums with images
+];
 
-const heroImage = abstractAlbums[0]?.coverImage || '';
-
-const Abstract = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function EventsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Get current lightbox image
-  const lightboxImage = lightboxState 
-    ? abstractAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
+  const lightboxImage = lightboxState
+    ? subAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
     : null;
 
   // Preload adjacent images
   useEffect(() => {
     if (lightboxState) {
       const { albumIndex, imageIndex } = lightboxState;
-      const album = abstractAlbums[albumIndex];
+      const album = subAlbums[albumIndex];
       const imagesToPreload = [
         album.images[imageIndex - 1],
         album.images[imageIndex + 1]
       ].filter(Boolean);
-      
+
       imagesToPreload.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -61,13 +72,13 @@ const Abstract = () => {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const { albumIndex, imageIndex } = lightboxState;
-      const album = abstractAlbums[albumIndex];
+      const album = subAlbums[albumIndex];
 
       switch (e.key) {
         case 'ArrowRight':
           if (imageIndex < album.images.length - 1) {
             setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
-          } else if (albumIndex < abstractAlbums.length - 1) {
+          } else if (albumIndex < subAlbums.length - 1) {
             setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
           }
           break;
@@ -75,7 +86,7 @@ const Abstract = () => {
           if (imageIndex > 0) {
             setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
           } else if (albumIndex > 0) {
-            const prevAlbum = abstractAlbums[albumIndex - 1];
+            const prevAlbum = subAlbums[albumIndex - 1];
             setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
           }
           break;
@@ -101,7 +112,7 @@ const Abstract = () => {
     if (imageIndex > 0) {
       setLightboxState({ albumIndex, imageIndex: imageIndex - 1 });
     } else if (albumIndex > 0) {
-      const prevAlbum = abstractAlbums[albumIndex - 1];
+      const prevAlbum = subAlbums[albumIndex - 1];
       setLightboxState({ albumIndex: albumIndex - 1, imageIndex: prevAlbum.images.length - 1 });
     }
   }, [lightboxState]);
@@ -109,10 +120,10 @@ const Abstract = () => {
   const goToNext = useCallback(() => {
     if (!lightboxState) return;
     const { albumIndex, imageIndex } = lightboxState;
-    const album = abstractAlbums[albumIndex];
+    const album = subAlbums[albumIndex];
     if (imageIndex < album.images.length - 1) {
       setLightboxState({ albumIndex, imageIndex: imageIndex + 1 });
-    } else if (albumIndex < abstractAlbums.length - 1) {
+    } else if (albumIndex < subAlbums.length - 1) {
       setLightboxState({ albumIndex: albumIndex + 1, imageIndex: 0 });
     }
   }, [lightboxState]);
@@ -120,28 +131,27 @@ const Abstract = () => {
   const scrollToGallery = (albumId: string) => {
     const element = galleryRefs.current[albumId];
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offset = 100;
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   };
 
   const scrollToGalleries = () => {
-    document.getElementById('galleries-start')?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('galleries-start');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Abstract photography"
+            alt="Events photography"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0a0a0a]/50 to-[#0f0f0f]" />
@@ -156,11 +166,11 @@ const Abstract = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center space-x-2 mb-6"
           >
-            <Sparkles size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Abstract Photography</span>
-            <Sparkles size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <Music size={16} className="text-[#c9a962] drop-shadow-lg" />
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Live Events</span>
+            <Music size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -168,9 +178,9 @@ const Abstract = () => {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            Beyond the <span className="text-[#c9a962]">Literal</span>
+            Capturing the <span className="text-[#c9a962]">Energy</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -178,7 +188,7 @@ const Abstract = () => {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            Exploring form, color, texture, and the spaces between
+            Concerts, performances, and live events frozen in time
           </motion.p>
 
           <motion.button
@@ -206,7 +216,7 @@ const Abstract = () => {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Collections</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Abstract Galleries
+              Event Galleries
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
               Select a gallery to explore, or scroll to view all collections
@@ -215,7 +225,7 @@ const Abstract = () => {
 
           {/* Masonry Grid */}
           <div className="columns-2 md:columns-2 gap-4">
-            {abstractAlbums.map((album, index) => (
+            {subAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -232,15 +242,20 @@ const Abstract = () => {
                     className="w-full h-auto object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                  
+
                   {/* Overlay Info */}
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
                       {album.images.length} Photos
                     </p>
-                    <h3 className="font-wedding-display text-xl text-white group-hover:text-[#c9a962] transition-colors">
+                    <h3 className="font-wedding-display text-2xl text-white group-hover:text-[#c9a962] transition-colors">
                       {album.title}
                     </h3>
+                    {album.location && (
+                      <p className="text-[#a0a0a0] text-sm mt-1">
+                        {album.location} {album.date && `• ${album.date}`}
+                      </p>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -250,7 +265,7 @@ const Abstract = () => {
       </section>
 
       {/* Full Galleries */}
-      {abstractAlbums.map((album, albumIndex) => (
+      {subAlbums.map((album, albumIndex) => (
         <section
           key={album.id}
           ref={(el) => { galleryRefs.current[album.id] = el; }}
@@ -275,7 +290,9 @@ const Abstract = () => {
               <h3 className="font-wedding-display text-3xl md:text-4xl text-white">
                 {album.title}
               </h3>
-              <p className="text-[#a0a0a0] mt-2">{album.description}</p>
+              {album.location && (
+                <p className="text-[#a0a0a0] mt-2">{album.location} {album.date && `• ${album.date}`}</p>
+              )}
             </motion.div>
 
             {/* Masonry Grid */}
@@ -297,13 +314,7 @@ const Abstract = () => {
                       className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
                       loading="lazy"
                     />
-                    {/* Hover overlay with image number */}
-                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        {String(index + 1).padStart(3, '0')}
-                      </span>
-                    </div>
-                    {/* Subtle gradient overlay */}
+                    {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </motion.div>
@@ -333,7 +344,7 @@ const Abstract = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
             onClick={closeLightbox}
-          >
+        >
             {/* Close button */}
             <button
               className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors"
@@ -353,14 +364,14 @@ const Abstract = () => {
             <button
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors p-2 disabled:opacity-0"
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
-              disabled={lightboxState.albumIndex === abstractAlbums.length - 1 && lightboxState.imageIndex === abstractAlbums[abstractAlbums.length - 1].images.length - 1}
+              disabled={lightboxState.albumIndex === subAlbums.length - 1 && lightboxState.imageIndex === subAlbums[subAlbums.length - 1].images.length - 1}
             >
               <ChevronRight size={48} />
             </button>
 
             {/* Image counter */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-wider">
-              {abstractAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {abstractAlbums[lightboxState.albumIndex].images.length}
+              {subAlbums[lightboxState.albumIndex].title} — {lightboxState.imageIndex + 1} / {subAlbums[lightboxState.albumIndex].images.length}
             </div>
 
             {/* Image with loading state */}
@@ -371,7 +382,7 @@ const Abstract = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               src={lightboxImage}
-              alt="Abstract photo"
+              alt="Event photo"
               className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
@@ -384,8 +395,8 @@ const Abstract = () => {
         )}
       </AnimatePresence>
 
-      {/* CTA Section */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
+      {/* CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#2a2a2a]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -393,25 +404,23 @@ const Abstract = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Sparkles size={32} className="text-[#c9a962] mx-auto mb-6" />
+            <Music size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              See the World <span className="text-[#c9a962]">Differently</span>
+              Let&apos;s Capture Your <span className="text-[#c9a962]">Event</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Abstract photography challenges perception and invites new ways of seeing.
+              Available for concerts, performances, corporate events, and private celebrations.
             </p>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Get In Touch</span>
+              <span>Book Now</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Abstract;
+}

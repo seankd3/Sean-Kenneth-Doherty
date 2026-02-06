@@ -1,21 +1,12 @@
-import { useEffect } from 'react';
+'use client';
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-const NotFound = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function NotFound() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen flex items-center justify-center px-4"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen flex items-center justify-center px-4">
       <div className="text-center max-w-xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,10 +18,10 @@ const NotFound = () => {
             Page Not Found
           </h1>
           <p className="text-[#a0a0a0] text-lg mb-8">
-            The page you're looking for doesn't exist or has been moved.
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
           <Link
-            to="/"
+            href="/"
             className="inline-flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
           >
             <ArrowLeft size={16} />
@@ -38,8 +29,6 @@ const NotFound = () => {
           </Link>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
-};
-
-export default NotFound;
+}

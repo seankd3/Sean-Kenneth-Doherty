@@ -6,6 +6,8 @@ app/.pnp.js
 # Build outputs
 app/dist
 app/dist-ssr
+app/out
+app/.next
 app/*.local
 
 # Editor directories and files

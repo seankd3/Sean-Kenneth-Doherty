@@ -1,10 +1,12 @@
+'use client';
+
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, ExternalLink, Target, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { 
-  getGalleryImagePaths, 
-  getFirstImage 
+import {
+  getGalleryImagePaths,
+  getFirstImage
 } from '@/lib/gallery-config';
 
 interface AerospaceAlbum {
@@ -89,19 +91,15 @@ const aerospaceAlbums: AerospaceAlbum[] = [
   },
 ];
 
-const Aerospace = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function AerospacePage() {
   const statsRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
-  
+
   const [showMissionControl, setShowMissionControl] = useState(true);
   const lastScrollY = useRef(0);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -114,11 +112,11 @@ const Aerospace = () => {
       }
       lastScrollY.current = currentScrollY;
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   const [counts, setCounts] = useState({
     launches: 0,
     photos: 0,
@@ -131,7 +129,7 @@ const Aerospace = () => {
       const duration = 2000;
       const steps = 60;
       const interval = duration / steps;
-      
+
       const targets = {
         launches: 8,
         photos: 75000,
@@ -144,7 +142,7 @@ const Aerospace = () => {
         step++;
         const progress = step / steps;
         const easeOut = 1 - Math.pow(1 - progress, 3);
-        
+
         setCounts({
           launches: Math.round(targets.launches * easeOut),
           photos: Math.round(targets.photos * easeOut),
@@ -162,7 +160,7 @@ const Aerospace = () => {
   }, [statsInView]);
 
   // Get current lightbox image
-  const lightboxImage = lightboxState 
+  const lightboxImage = lightboxState
     ? aerospaceAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
     : null;
 
@@ -175,7 +173,7 @@ const Aerospace = () => {
         album.images[imageIndex - 1],
         album.images[imageIndex + 1]
       ].filter(Boolean);
-      
+
       imagesToPreload.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -268,17 +266,11 @@ const Aerospace = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#e8e6e1] min-h-screen tech-grid"
-    >
+    <div className="bg-[#e8e6e1] min-h-screen tech-grid">
       {/* Mission Control Header */}
-      <motion.div 
+      <motion.div
         initial={{ y: 0, opacity: 1 }}
-        animate={{ 
+        animate={{
           y: showMissionControl ? 0 : -100,
           opacity: showMissionControl ? 1 : 0
         }}
@@ -319,9 +311,9 @@ const Aerospace = () => {
               AEROSPACE
             </h1>
             <p className="font-aerospace-display text-lg sm:text-xl text-[#4a4a4a] tracking-wider mb-4">
-              // DOCUMENTING HUMANITY'S REACH FOR THE STARS
+              {/* // */} DOCUMENTING HUMANITY&apos;S REACH FOR THE STARS
             </p>
-            
+
             <div className="flex items-center justify-center space-x-4 mb-12">
               <div className="h-px w-16 bg-[#1a1a1a]" />
               <span className="font-aerospace-body text-[#4a4a4a] text-sm tracking-wider">
@@ -339,7 +331,7 @@ const Aerospace = () => {
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
               <Link
-                to="/contact"
+                href="/contact"
                 className="group flex items-center space-x-2 border-2 border-[#1a1a1a] text-[#1a1a1a] px-8 py-4 font-aerospace-display text-sm tracking-wider hover:bg-[#1a1a1a] hover:text-[#e8e6e1] transition-colors duration-300"
               >
                 <span>CONTACT</span>
@@ -453,7 +445,7 @@ const Aerospace = () => {
                     <p className="font-aerospace-body text-[#4a4a4a] mb-6 leading-relaxed">
                       {album.description}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-6">
                       {album.specs.map((spec) => (
                         <span
@@ -470,7 +462,7 @@ const Aerospace = () => {
                       <ArrowRight size={14} />
                     </div>
                   </div>
-                  
+
                   <div className="overflow-hidden bg-[#1a1a1a]">
                     <img
                       src={album.coverImage}
@@ -683,18 +675,18 @@ const Aerospace = () => {
                 AVAILABLE FOR ASSIGNMENT
               </span>
             </div>
-            
+
             <h2 className="font-aerospace-display text-4xl md:text-6xl text-[#1a1a1a] mb-6">
               READY FOR<br />
               <span className="text-[#c41e3a]">LAUNCH</span>
             </h2>
-            
+
             <p className="font-aerospace-body text-[#4a4a4a] mb-10 max-w-xl mx-auto">
               Available for aerospace documentation, launch coverage, and technical photography projects.
             </p>
-            
+
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#1a1a1a] text-[#e8e6e1] px-10 py-5 font-aerospace-display text-sm tracking-wider hover:bg-[#c41e3a] transition-colors duration-300"
             >
               <span>INITIATE CONTACT</span>
@@ -703,8 +695,6 @@ const Aerospace = () => {
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Aerospace;
+}

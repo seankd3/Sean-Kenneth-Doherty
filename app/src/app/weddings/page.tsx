@@ -1,6 +1,8 @@
+'use client';
+
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { categories } from '@/lib/gallery-config-auto';
 
@@ -18,11 +20,11 @@ interface WeddingAlbum {
 const buildWeddingAlbums = (): WeddingAlbum[] => {
   const weddingCategory = categories.weddings;
   if (!weddingCategory || !weddingCategory.albums) return [];
-  
+
   return weddingCategory.albums.map(album => {
     const images = album.images.map(img => img.src);
     const firstImage = images[0] || '';
-    
+
     // Map album IDs to display names
     const coupleNames: Record<string, string> = {
       'weddings/catskills-wedding': 'Catskills Wedding',
@@ -31,7 +33,7 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
       'weddings/nicole-kawame': 'Nicole & Kawame',
       'weddings/rachel-andrew': 'Rachel & Andrew',
     };
-    
+
     return {
       id: album.id.replace('weddings/', ''),
       couple: coupleNames[album.id] || album.title,
@@ -48,18 +50,14 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
 const weddingAlbums = buildWeddingAlbums();
 
 // Hero image from first album's first image
-const weddingHeroImage = weddingAlbums[0]?.coverImage || ''; 
+const weddingHeroImage = weddingAlbums[0]?.coverImage || '';
 
-const Weddings = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function WeddingsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Get current lightbox image
-  const lightboxImage = lightboxState 
+  const lightboxImage = lightboxState
     ? weddingAlbums[lightboxState.albumIndex].images[lightboxState.imageIndex]
     : null;
 
@@ -72,7 +70,7 @@ const Weddings = () => {
         album.images[imageIndex - 1],
         album.images[imageIndex + 1]
       ].filter(Boolean);
-      
+
       imagesToPreload.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -159,13 +157,7 @@ const Weddings = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -190,7 +182,7 @@ const Weddings = () => {
             <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Wedding Photography</span>
             <Heart size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -201,7 +193,7 @@ const Weddings = () => {
             Your Love Story,<br />
             <span className="text-[#c9a962]">Beautifully Told</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -239,7 +231,7 @@ const Weddings = () => {
               Wedding Stories
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
-              Each love story is unique. Explore galleries from beautiful couples I've had the honor to photograph.
+              Each love story is unique. Explore galleries from beautiful couples I&apos;ve had the honor to photograph.
             </p>
           </motion.div>
 
@@ -264,7 +256,7 @@ const Weddings = () => {
                     className="w-full h-auto object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                  
+
                   {/* Overlay Info */}
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <p className="text-[#c9a962] text-xs tracking-wider uppercase mb-1">
@@ -432,14 +424,14 @@ const Weddings = () => {
           >
             <Heart size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Let's Create Something<br />
+              Let&apos;s Create Something<br />
               <span className="text-[#c9a962]">Beautiful Together</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
               Limited dates available for 2025-2026. Reach out today to secure your date.
             </p>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
               <span>Get In Touch</span>
@@ -448,8 +440,6 @@ const Weddings = () => {
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Weddings;
+}

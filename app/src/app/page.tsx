@@ -1,14 +1,11 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain, User, Sparkles } from 'lucide-react';
 import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
 
-const Home = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+export default function HomePage() {
   const iconMap: Record<string, React.ElementType> = {
     Camera,
     Rocket,
@@ -17,7 +14,7 @@ const Home = () => {
     User,
     Sparkles,
   };
-  
+
   const categoryCards = homeCategoryCards.map(card => ({
     ...card,
     icon: iconMap[card.icon],
@@ -46,13 +43,7 @@ const Home = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-[#0a0a0a] min-h-screen"
-    >
+    <div className="bg-[#0a0a0a] min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
@@ -76,7 +67,7 @@ const Home = () => {
           >
             Photographer & Cinematographer
           </motion.p>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,16 +76,16 @@ const Home = () => {
           >
             SEAN <span className="text-[#c9a962]">KENNETH</span><br />DOHERTY
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-[#a0a0a0] text-lg md:text-xl max-w-2xl mx-auto mb-10"
           >
-            From weddings to rocket launches — capturing life's most extraordinary moments
+            From weddings to rocket launches — capturing life&apos;s most extraordinary moments
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,14 +93,14 @@ const Home = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
-              to="/weddings"
+              href="/weddings"
               className="group flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
               <span>View Weddings</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              to="/aerospace"
+              href="/aerospace"
               className="group flex items-center space-x-2 border border-white/30 text-white px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:border-[#c9a962] hover:text-[#c9a962] transition-colors duration-300"
             >
               <span>Explore Aerospace</span>
@@ -150,7 +141,7 @@ const Home = () => {
               Explore My Work
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto">
-              Each category represents a different facet of my photography journey. 
+              Each category represents a different facet of my photography journey.
               Click through to see dedicated galleries and learn more about my approach.
             </p>
           </motion.div>
@@ -164,7 +155,7 @@ const Home = () => {
           >
             {categoryCards.map((card, index) => (
               <motion.div key={card.title} variants={itemVariants}>
-                <Link to={card.link} className="group block relative overflow-hidden">
+                <Link href={card.link} className="group block relative overflow-hidden">
                   <div className="overflow-hidden">
                     <img
                       src={card.image}
@@ -173,7 +164,7 @@ const Home = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
                   </div>
-                  
+
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                     <div className="flex items-center space-x-3 mb-3">
                       <card.icon size={20} className="text-[#c9a962]" />
@@ -213,13 +204,13 @@ const Home = () => {
                 <span className="text-[#c9a962]">Capturing Moments</span> by Night
               </h2>
               <p className="text-[#a0a0a0] mb-6 leading-relaxed">
-                From a childhood passion ignited by shooting home movies with my grandfather, 
-                I've built a career doing what I love. I've had the honor of documenting 
-                SpaceX's Starship program as lead cinematographer for NASASpaceflight, 
-                and I've captured countless weddings, creating lifetime keepsakes for couples.
+                From a childhood passion ignited by shooting home movies with my grandfather,
+                I&apos;ve built a career doing what I love. I&apos;ve had the honor of documenting
+                SpaceX&apos;s Starship program as lead cinematographer for NASASpaceflight,
+                and I&apos;ve captured countless weddings, creating lifetime keepsakes for couples.
               </p>
               <p className="text-[#a0a0a0] mb-8 leading-relaxed">
-                Currently based in Austin, TX and available for weddings, events, 
+                Currently based in Austin, TX and available for weddings, events,
                 and commercial projects worldwide.
               </p>
               <div className="flex flex-wrap gap-6 mb-8">
@@ -237,14 +228,14 @@ const Home = () => {
                 </div>
               </div>
               <Link
-                to="/contact"
+                href="/contact"
                 className="inline-flex items-center space-x-2 text-[#c9a962] hover:text-white transition-colors duration-300"
               >
                 <span className="tracking-wider uppercase text-sm">Get In Touch</span>
                 <ArrowRight size={16} />
               </Link>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -278,15 +269,15 @@ const Home = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Let's Create Something<br />
+              Let&apos;s Create Something<br />
               <span className="text-[#c9a962]">Extraordinary</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Whether you're planning your dream wedding or need commercial photography, 
-              I'd love to hear about your project.
+              Whether you&apos;re planning your dream wedding or need commercial photography,
+              I&apos;d love to hear about your project.
             </p>
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
               <span>Start a Conversation</span>
@@ -295,8 +286,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
-};
-
-export default Home;
+}

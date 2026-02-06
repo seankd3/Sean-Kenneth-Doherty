@@ -1,14 +1,17 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
-  const isAerospace = location.pathname === '/aerospace';
+  const isAerospace = pathname === '/aerospace';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +24,7 @@ const Navigation = () => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -34,16 +37,16 @@ const Navigation = () => {
     { path: '/contact', label: 'Contact' },
   ];
 
-  const bgClass = isAerospace 
-    ? 'bg-[#e8e6e1]/95 border-[#1a1a1a]' 
+  const bgClass = isAerospace
+    ? 'bg-[#e8e6e1]/95 border-[#1a1a1a]'
     : 'bg-[#0a0a0a]/95 border-[#2a2a2a]';
-  
-  const textClass = isAerospace 
-    ? 'text-[#1a1a1a]' 
+
+  const textClass = isAerospace
+    ? 'text-[#1a1a1a]'
     : 'text-white';
 
-  const accentClass = isAerospace 
-    ? 'text-[#c41e3a]' 
+  const accentClass = isAerospace
+    ? 'text-[#c41e3a]'
     : 'text-[#c9a962]';
 
   return (
@@ -59,7 +62,7 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center min-w-0">
+            <Link href="/" className="flex items-center min-w-0">
               <span className={`font-wedding-display text-base sm:text-xl md:text-2xl font-semibold tracking-wide truncate ${textClass}`}>
                 SEAN <span className={accentClass}>KENNETH</span> DOHERTY
               </span>
@@ -68,11 +71,11 @@ const Navigation = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.path;
+                const isActive = pathname === link.path;
                 return (
                   <Link
                     key={link.path}
-                    to={link.path}
+                    href={link.path}
                     aria-current={isActive ? 'page' : undefined}
                     className={`link-underline text-sm tracking-wider uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] ${
                       isActive ? accentClass : `${textClass} hover:${accentClass}`
@@ -111,7 +114,7 @@ const Navigation = () => {
           >
             <nav className="flex flex-col items-center justify-center h-full space-y-8" aria-label="Mobile navigation">
               {navLinks.map((link, index) => {
-                const isActive = location.pathname === link.path;
+                const isActive = pathname === link.path;
                 return (
                   <motion.div
                     key={link.path}
@@ -120,7 +123,7 @@ const Navigation = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Link
-                      to={link.path}
+                      href={link.path}
                       aria-current={isActive ? 'page' : undefined}
                       className={`font-wedding-display text-3xl tracking-wide transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] ${
                         isActive ? accentClass : `${textClass} hover:${accentClass}`
