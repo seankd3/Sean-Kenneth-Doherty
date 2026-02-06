@@ -83,8 +83,8 @@ const jsonLd = {
   logo: 'https://seankennethdoherty.com/favicon.svg',
   image: 'https://seankennethdoherty.com/og-image.jpg',
   description: 'Professional photographer and cinematographer specializing in weddings, aerospace documentation, events, landscapes, and portraits.',
-  telephone: '+1-512-555-0100',
-  email: 'sean@seankennethdoherty.com',
+  telephone: '+1-856-803-6982',
+  email: 'SeanDohertyPhotos@gmail.com',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Austin',
@@ -109,15 +109,15 @@ const jsonLd = {
     '@type': 'OfferCatalog',
     name: 'Photography Services',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Wedding Photography & Cinematography' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Wedding Photography & Cinematography' }, priceRange: '$3,500 - $8,500' },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Aerospace & Launch Documentation' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Event Photography' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Portrait Sessions' } },
     ],
   },
   sameAs: [
-    'https://instagram.com/seankennethdoherty',
-    'https://x.com/seankdoherty',
+    'https://instagram.com/Seankd_photos',
+    'https://x.com/SeanKD_Photos',
   ],
 };
 
