@@ -13,7 +13,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+let sharp;
+try {
+  sharp = require('sharp');
+} catch {
+  console.warn('⚠️  sharp not available, falling back to file copy (no WebP conversion)');
+}
 
 // Paths
 const PROJECT_ROOT = path.join(__dirname, '..');
@@ -23,8 +28,7 @@ const OUTPUT_FILE = path.join(PROJECT_ROOT, 'app/src/lib/gallery-config-auto.ts'
 
 // Image settings
 const MAX_WIDTH = 1920;  // Max width for web display
-const JPEG_QUALITY = 85; // JPEG quality (0-100)
-const PNG_QUALITY = 85;  // PNG compression level
+const WEBP_QUALITY = 85; // WebP quality (0-100)
 
 // Category definitions (Photos folder name -> Gallery ID)
 const CATEGORIES = {
@@ -66,78 +70,80 @@ function formatBytes(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 }
 
-function optimizeImage(srcPath, destPath) {
+async function optimizeImage(srcPath, destPath) {
   try {
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
-    
+
     const ext = path.extname(srcPath).toLowerCase();
-    const filename = path.basename(srcPath);
-    
+
+    // Determine output path: convert to .webp if sharp is available
+    let finalDestPath = destPath;
+    if (sharp && ['.jpg', '.jpeg', '.png'].includes(ext)) {
+      finalDestPath = destPath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+    }
+
     // Check if file already exists and is newer than source
-    if (fs.existsSync(destPath)) {
+    if (fs.existsSync(finalDestPath)) {
       const srcStat = fs.statSync(srcPath);
-      const destStat = fs.statSync(destPath);
+      const destStat = fs.statSync(finalDestPath);
       if (destStat.mtime >= srcStat.mtime) {
-        return { success: true, skipped: true, size: destStat.size };
+        return { success: true, skipped: true, size: destStat.size, destPath: finalDestPath };
       }
     }
-    
-    let command;
-    if (ext === '.png') {
-      // PNG optimization: resize if needed, compress
-      command = `convert "${srcPath}" -resize ${MAX_WIDTH}x${MAX_WIDTH}\> -strip -define png:compression-level=9 -define png:compression-filter=5 -define png:compression-strategy=1 "${destPath}"`;
-    } else if (['.jpg', '.jpeg'].includes(ext)) {
-      // JPEG optimization: resize if needed, compress
-      command = `convert "${srcPath}" -resize ${MAX_WIDTH}x${MAX_WIDTH}\> -strip -interlace Plane -quality ${JPEG_QUALITY} "${destPath}"`;
+
+    if (sharp && ['.jpg', '.jpeg', '.png'].includes(ext)) {
+      // Use sharp for WebP conversion with resize
+      const srcSize = fs.statSync(srcPath).size;
+      await sharp(srcPath)
+        .resize(MAX_WIDTH, MAX_WIDTH, { fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: WEBP_QUALITY })
+        .toFile(finalDestPath);
+
+      const destSize = fs.statSync(finalDestPath).size;
+      return { success: true, skipped: false, size: destSize, srcSize, saved: srcSize - destSize, destPath: finalDestPath };
     } else {
-      // Other formats: just copy
-      fs.copyFileSync(srcPath, destPath);
-      return { success: true, skipped: false, size: fs.statSync(destPath).size };
+      // Other formats or no sharp: just copy
+      fs.copyFileSync(srcPath, finalDestPath);
+      return { success: true, skipped: false, size: fs.statSync(finalDestPath).size, destPath: finalDestPath };
     }
-    
-    execSync(command, { stdio: 'pipe' });
-    
-    const srcSize = fs.statSync(srcPath).size;
-    const destSize = fs.statSync(destPath).size;
-    
-    return { success: true, skipped: false, size: destSize, srcSize, saved: srcSize - destSize };
   } catch (e) {
     console.error(`  Error optimizing ${path.basename(srcPath)}: ${e.message}`);
     // Fallback to copy on error
     try {
       fs.copyFileSync(srcPath, destPath);
-      return { success: true, skipped: false, size: fs.statSync(destPath).size };
+      return { success: true, skipped: false, size: fs.statSync(destPath).size, destPath };
     } catch (copyErr) {
-      return { success: false, error: copyErr.message };
+      return { success: false, error: copyErr.message, destPath };
     }
   }
 }
 
-function scanAlbum(albumPath, categoryId, albumId) {
+async function scanAlbum(albumPath, categoryId, albumId) {
   const images = [];
-  
+
   if (!fs.existsSync(albumPath)) {
-    return images;
+    return { images, totalSaved: 0, optimizedCount: 0 };
   }
-  
+
   const files = fs.readdirSync(albumPath).sort();
   let totalSaved = 0;
   let optimizedCount = 0;
-  
+
   for (const file of files) {
     if (isImage(file)) {
       const srcPath = path.join(albumPath, file);
       const destPath = path.join(GALLERIES_DIR, categoryId, albumId, file);
-      
-      // Optimize and copy image
-      const result = optimizeImage(srcPath, destPath);
-      
+
+      // Optimize and copy image (may convert to .webp)
+      const result = await optimizeImage(srcPath, destPath);
+
       if (result.success) {
+        const outputFilename = path.basename(result.destPath || destPath);
         images.push({
-          filename: file,
-          src: `/images/galleries/${categoryId}/${albumId}/${file}`,
+          filename: outputFilename,
+          src: `/images/galleries/${categoryId}/${albumId}/${outputFilename}`,
         });
-        
+
         if (result.saved > 0) {
           totalSaved += result.saved;
           optimizedCount++;
@@ -145,11 +151,11 @@ function scanAlbum(albumPath, categoryId, albumId) {
       }
     }
   }
-  
+
   return { images, totalSaved, optimizedCount };
 }
 
-function processCategory(categoryName, categoryId) {
+async function processCategory(categoryName, categoryId) {
   const categoryPath = path.join(PHOTOS_DIR, categoryName);
   
   if (!fs.existsSync(categoryPath)) {
@@ -170,7 +176,7 @@ function processCategory(categoryName, categoryId) {
       const albumId = toSlug(item);
       console.log(`  📁 Album: ${item} -> ${categoryId}/${albumId}`);
       
-      const { images, totalSaved, optimizedCount } = scanAlbum(itemPath, categoryId, albumId);
+      const { images, totalSaved, optimizedCount } = await scanAlbum(itemPath, categoryId, albumId);
       
       if (images.length > 0) {
         albums.push({
@@ -302,7 +308,7 @@ async function buildGallery() {
   console.log('  Building Gallery with Optimization');
   console.log('=========================================');
   console.log('');
-  console.log(`Settings: Max width ${MAX_WIDTH}px, JPEG quality ${JPEG_QUALITY}%`);
+  console.log(`Settings: Max width ${MAX_WIDTH}px, WebP quality ${WEBP_QUALITY}%${sharp ? '' : ' (sharp unavailable, copying originals)'}`);
   console.log('');
   
   if (!fs.existsSync(PHOTOS_DIR)) {
@@ -323,7 +329,7 @@ async function buildGallery() {
   
   for (const [categoryName, categoryId] of Object.entries(CATEGORIES)) {
     console.log(`📂 ${categoryName}:`);
-    const category = processCategory(categoryName, categoryId);
+    const category = await processCategory(categoryName, categoryId);
     
     if (category && category.albums.length > 0) {
       categories[categoryId] = category;
