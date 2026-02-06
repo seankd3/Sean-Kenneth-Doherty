@@ -147,11 +147,13 @@ export default function RootLayout({
         </ErrorBoundary>
         {/* Hidden form for Netlify Forms detection */}
         <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-          <input type="text" name="name" />
+          <input type="text" name="firstName" />
+          <input type="text" name="lastName" />
           <input type="email" name="email" />
           <input type="text" name="phone" />
           <input type="text" name="eventType" />
-          <input type="text" name="eventDate" />
+          <input type="text" name="date" />
+          <input type="text" name="referralSource" />
           <textarea name="message"></textarea>
         </form>
       </body>

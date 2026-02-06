@@ -27,6 +27,7 @@ export default function ContactPage() {
     phone: '',
     eventType: '',
     date: '',
+    referralSource: '',
     message: '',
   });
 
@@ -115,6 +116,7 @@ export default function ContactPage() {
           phone: '',
           eventType: '',
           date: '',
+          referralSource: '',
           message: '',
         });
       } else {
@@ -422,6 +424,28 @@ export default function ContactPage() {
                           className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors [color-scheme:dark]"
                         />
                       </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <label htmlFor="referralSource" className="block text-[#a0a0a0] text-sm mb-2">
+                        How did you hear about me? <span className="text-[#666] text-xs">(optional)</span>
+                      </label>
+                      <select
+                        id="referralSource"
+                        name="referralSource"
+                        value={formData.referralSource}
+                        onChange={handleChange}
+                        className="w-full bg-[#0a0a0a] border border-[#2a2a2a] text-white px-4 py-3 focus:border-[#c9a962] focus:outline-none focus:ring-2 focus:ring-[#c9a962] transition-colors"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="Google Search">Google Search</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Word of Mouth">Word of Mouth</option>
+                        <option value="Wedding Vendor Referral">Wedding Vendor Referral</option>
+                        <option value="Past Client">Past Client</option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
 
                     <div className="mb-8">
