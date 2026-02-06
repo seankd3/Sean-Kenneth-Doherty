@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { categories } from '@/lib/gallery-config-auto';
+import { weddingAlbums as weddingAlbumContent, weddingsPage } from '@/lib/content';
 
 interface WeddingAlbum {
   id: string;
@@ -25,23 +26,17 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
     const images = album.images.map(img => img.src);
     const firstImage = images[0] || '';
 
-    // Map album IDs to display names
-    const coupleNames: Record<string, string> = {
-      'weddings/catskills-wedding': 'Catskills Wedding',
-      'weddings/hudson-valley-wedding': 'Hudson Valley Wedding',
-      'weddings/lauren-elphin': 'Lauren & Elphin',
-      'weddings/nicole-kawame': 'Nicole & Kawame',
-      'weddings/rachel-andrew': 'Rachel & Andrew',
-    };
+    // Look up metadata from centralized content layer
+    const contentAlbum = weddingAlbumContent.find(a => a.galleryId === album.id);
 
     return {
       id: album.id.replace('weddings/', ''),
-      couple: coupleNames[album.id] || album.title,
-      description: 'A beautiful celebration of love and commitment',
+      couple: contentAlbum?.title || album.title,
+      description: contentAlbum?.description || 'A beautiful celebration of love and commitment',
       images,
       coverImage: firstImage,
-      date: '2023-2024',
-      location: 'Various',
+      date: contentAlbum?.date,
+      location: contentAlbum?.location,
     };
   });
 };
@@ -179,7 +174,7 @@ export default function WeddingsPage() {
             className="flex items-center justify-center space-x-2 mb-6"
           >
             <Heart size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Wedding Photography</span>
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">{weddingsPage.hero.subtitle}</span>
             <Heart size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
 
@@ -190,8 +185,8 @@ export default function WeddingsPage() {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            Your Love Story,<br />
-            <span className="text-[#c9a962]">Beautifully Told</span>
+            {weddingsPage.hero.title.split(', ')[0]},<br />
+            <span className="text-[#c9a962]">{weddingsPage.hero.title.split(', ')[1]}</span>
           </motion.h1>
 
           <motion.p
@@ -200,7 +195,7 @@ export default function WeddingsPage() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10"
           >
-            Capturing the emotions, the joy, and the unforgettable moments of your most special day
+            {weddingsPage.hero.description}
           </motion.p>
 
           <motion.button
@@ -424,17 +419,16 @@ export default function WeddingsPage() {
           >
             <Heart size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Let&apos;s Create Something<br />
-              <span className="text-[#c9a962]">Beautiful Together</span>
+              {weddingsPage.cta.title}
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Limited dates available for 2025-2026. Reach out today to secure your date.
+              {weddingsPage.cta.description}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Get In Touch</span>
+              <span>{weddingsPage.cta.buttonText}</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>

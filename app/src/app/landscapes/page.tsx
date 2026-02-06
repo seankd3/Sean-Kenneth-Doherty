@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Mountain, ChevronDown, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
+import { landscapeAlbums as landscapeAlbumContent, landscapesPage } from '@/lib/content';
 
 interface LandscapeAlbum {
   id: string;
@@ -15,41 +16,15 @@ interface LandscapeAlbum {
   location: string;
 }
 
-// Landscape albums matching Photos/Landscapes/ folder structure
-const landscapeAlbums: LandscapeAlbum[] = [
-  {
-    id: 'american-landscapes',
-    title: 'American Landscapes',
-    description: 'The beauty of the American Southwest and beyond, captured in golden light',
-    images: getGalleryImagePaths('landscapes-american-landscapes'),
-    coverImage: getFirstImage('landscapes-american-landscapes') || '',
-    location: 'American West',
-  },
-  {
-    id: 'big-bend-film',
-    title: 'Big Bend Film',
-    description: 'Dramatic desert landscapes captured on film at Big Bend National Park',
-    images: getGalleryImagePaths('landscapes-big-bend-film'),
-    coverImage: getFirstImage('landscapes-big-bend-film') || '',
-    location: 'Texas',
-  },
-  {
-    id: 'costa-rica',
-    title: 'Costa Rica',
-    description: 'Lush tropical landscapes and vibrant ecosystems of Costa Rica',
-    images: getGalleryImagePaths('landscapes-costa-rica'),
-    coverImage: getFirstImage('landscapes-costa-rica') || '',
-    location: 'Central America',
-  },
-  {
-    id: 'hudson-valley',
-    title: 'Hudson Valley',
-    description: 'Scenic landscapes from the Hudson Valley region',
-    images: getGalleryImagePaths('landscapes-new-york-winter'),
-    coverImage: getFirstImage('landscapes-new-york-winter') || '',
-    location: 'New York',
-  },
-];
+// Landscape albums - metadata from content layer, images from gallery config
+const landscapeAlbums: LandscapeAlbum[] = landscapeAlbumContent.map(content => ({
+  id: content.id,
+  title: content.title,
+  description: content.description,
+  images: getGalleryImagePaths(content.galleryId),
+  coverImage: getFirstImage(content.galleryId) || '',
+  location: content.location,
+}));
 
 const heroImage = getFirstImage('landscapes-american-landscapes') || landscapeAlbums[0].coverImage;
 
@@ -176,7 +151,7 @@ export default function LandscapesPage() {
             className="flex items-center justify-center space-x-2 mb-6"
           >
             <Mountain size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Landscape Photography</span>
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">{landscapesPage.hero.subtitle}</span>
             <Mountain size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
 
@@ -187,7 +162,7 @@ export default function LandscapesPage() {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            American <span className="text-[#c9a962]">Landscapes</span>
+            {landscapesPage.hero.title} <span className="text-[#c9a962]">{landscapesPage.hero.titleAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -197,7 +172,7 @@ export default function LandscapesPage() {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            The beauty of the American Southwest and beyond, captured in golden light
+            {landscapesPage.hero.description}
           </motion.p>
 
           <motion.button
@@ -415,17 +390,16 @@ export default function LandscapesPage() {
           >
             <Mountain size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Fine Art <span className="text-[#c9a962]">Prints</span>
+              {landscapesPage.cta.title} <span className="text-[#c9a962]">{landscapesPage.cta.titleAccent}</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Bring the beauty of the American landscape into your home or office.
-              Limited edition prints available on archival paper and metal.
+              {landscapesPage.cta.description}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Inquire About Prints</span>
+              <span>{landscapesPage.cta.buttonText}</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>

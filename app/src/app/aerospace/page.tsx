@@ -8,6 +8,7 @@ import {
   getGalleryImagePaths,
   getFirstImage
 } from '@/lib/gallery-config';
+import { aerospaceAlbums as aerospaceAlbumContent, aerospacePage } from '@/lib/content';
 
 interface AerospaceAlbum {
   id: string;
@@ -21,75 +22,18 @@ interface AerospaceAlbum {
   specs: string[];
 }
 
-// Aerospace albums - matching Photos/Aerospace folder structure
-const aerospaceAlbums: AerospaceAlbum[] = [
-  {
-    id: 'starbase',
-    designation: 'TX-STARBASE',
-    title: 'STARBASE',
-    description: 'Full-time documentation of SpaceX Starship program development and launches at Starbase, Texas.',
-    images: getGalleryImagePaths('aerospace/starbase'),
-    coverImage: getFirstImage('aerospace/starbase') || '',
-    status: 'ACTIVE',
-    statusColor: 'bg-[#c41e3a]',
-    specs: ['4K VIDEO', 'REMOTE CAMERAS', 'LAUNCH COVERAGE'],
-  },
-  {
-    id: 'starbase-film',
-    designation: 'TX-FILM',
-    title: 'STARBASE FILM',
-    description: '35mm and 120mm film photography documenting the Starship program through analog photography.',
-    images: getGalleryImagePaths('aerospace-starbase-film'),
-    coverImage: getFirstImage('aerospace-starbase-film') || '',
-    status: 'DOCUMENTING',
-    statusColor: 'bg-[#1a3a5c]',
-    specs: ['35MM FILM', '120MM FILM', 'KODAK', 'PORTRA'],
-  },
-  {
-    id: 'astro',
-    designation: 'ASTRO-OBS',
-    title: 'ASTRO',
-    description: 'Deep sky and planetary astrophotography from dark sky locations across the American Southwest.',
-    images: getGalleryImagePaths('aerospace/astro'),
-    coverImage: getFirstImage('aerospace/astro') || '',
-    status: 'ACTIVE',
-    statusColor: 'bg-[#c41e3a]',
-    specs: ['DEEP SKY', 'PLANETARY', 'TRACKING MOUNT'],
-  },
-  {
-    id: 'charlie-duke',
-    designation: 'NASA-APOLLO-16',
-    title: 'CHARLIE DUKE',
-    description: 'Portrait session with Apollo 16 astronaut Charlie Duke, the tenth person to walk on the Moon.',
-    images: getGalleryImagePaths('aerospace/astronauts-charlie-duke'),
-    coverImage: getFirstImage('aerospace/astronauts-charlie-duke') || '',
-    status: 'ARCHIVE',
-    statusColor: 'bg-[#1a3a5c]',
-    specs: ['PORTRAIT', 'HISTORICAL', 'APOLLO 16'],
-  },
-  {
-    id: 'fred-haise',
-    designation: 'NASA-APOLLO-13',
-    title: 'FRED HAISE',
-    description: 'Portrait session with Apollo 13 astronaut Fred Haise.',
-    images: getGalleryImagePaths('aerospace/astronauts-fred-haise'),
-    coverImage: getFirstImage('aerospace/astronauts-fred-haise') || '',
-    status: 'ARCHIVE',
-    statusColor: 'bg-[#1a3a5c]',
-    specs: ['PORTRAIT', 'HISTORICAL', 'APOLLO 13'],
-  },
-  {
-    id: 'lone-star-rallycross',
-    designation: 'RACE-TX',
-    title: 'LONE STAR RALLYCROSS',
-    description: 'High-speed motorsport photography at rallycross events across Texas.',
-    images: getGalleryImagePaths('aerospace/lone-star-rallycross'),
-    coverImage: getFirstImage('aerospace/lone-star-rallycross') || '',
-    status: 'DOCUMENTING',
-    statusColor: 'bg-[#1a3a5c]',
-    specs: ['MOTORSPORT', 'PANNING SHOTS', 'RALLY'],
-  },
-];
+// Aerospace albums - metadata from content layer, images from gallery config
+const aerospaceAlbums: AerospaceAlbum[] = aerospaceAlbumContent.map(content => ({
+  id: content.id,
+  designation: content.designation,
+  title: content.title,
+  description: content.description,
+  images: getGalleryImagePaths(content.galleryId),
+  coverImage: getFirstImage(content.galleryId) || '',
+  status: content.status,
+  statusColor: content.statusColor,
+  specs: content.specs,
+}));
 
 export default function AerospacePage() {
   const statsRef = useRef(null);
@@ -131,10 +75,10 @@ export default function AerospacePage() {
       const interval = duration / steps;
 
       const targets = {
-        launches: 8,
-        photos: 75000,
-        cameras: 6,
-        years: 2,
+        launches: aerospacePage.stats[0].target,
+        photos: aerospacePage.stats[1].target,
+        cameras: aerospacePage.stats[2].target,
+        years: aerospacePage.stats[3].target,
       };
 
       let step = 0;
@@ -252,18 +196,7 @@ export default function AerospacePage() {
     }
   };
 
-  const equipment = [
-    { code: 'CAM-01', name: 'Canon R5', type: 'PRIMARY BODY', status: 'ACTIVE' },
-    { code: 'CAM-02', name: 'Canon RP', type: 'REMOTE BODY', status: 'ACTIVE' },
-    { code: 'CAM-03', name: 'Canon A-1', type: '35MM FILM', status: 'DESTROYED' },
-    { code: 'CAM-04', name: 'Minolta Maxxium 5000', type: '35MM FILM', status: 'ACTIVE' },
-    { code: 'CAM-05', name: 'Polaroid Now+', type: 'INSTANT FILM', status: 'ACTIVE' },
-    { code: 'LENS-01', name: 'RF 85mm f/1.2L', type: 'PRIME', status: 'ACTIVE' },
-    { code: 'LENS-02', name: 'RF 50mm f/1.8', type: 'PRIME', status: 'ACTIVE' },
-    { code: 'LENS-03', name: 'RF 24-105mm f/4L', type: 'STANDARD ZOOM', status: 'ACTIVE' },
-    { code: 'LENS-04', name: 'RF 500mm f/6.3', type: 'SUPER TELEPHOTO', status: 'ACTIVE' },
-    { code: 'LENS-05', name: 'Helios 44-2 f/2', type: 'VINTAGE PRIME', status: 'ACTIVE' },
-  ];
+  const equipment = aerospacePage.equipment;
 
   return (
     <div className="bg-[#e8e6e1] min-h-screen tech-grid">
@@ -280,12 +213,12 @@ export default function AerospacePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2 text-xs font-aerospace-display tracking-wider">
             <div className="flex items-center space-x-6">
-              <span className="text-[#1a1a1a]">LOC: <span className="text-[#c41e3a]">STARBASE, TX</span></span>
-              <span className="text-[#1a1a1a]">STATUS: <span className="text-[#1a3a5c]">ACTIVE</span></span>
+              <span className="text-[#1a1a1a]">LOC: <span className="text-[#c41e3a]">{aerospacePage.missionControl.location}</span></span>
+              <span className="text-[#1a1a1a]">STATUS: <span className="text-[#1a3a5c]">{aerospacePage.missionControl.status}</span></span>
             </div>
             <div className="hidden sm:flex items-center space-x-6">
-              <span className="text-[#1a1a1a]">EXP: <span className="text-[#c41e3a]">2+ YEARS</span></span>
-              <span className="text-[#1a1a1a]">CLS: <span className="bg-[#f4d03f] px-1">UNCLASSIFIED</span></span>
+              <span className="text-[#1a1a1a]">EXP: <span className="text-[#c41e3a]">{aerospacePage.missionControl.experience}</span></span>
+              <span className="text-[#1a1a1a]">CLS: <span className="bg-[#f4d03f] px-1">{aerospacePage.missionControl.classification}</span></span>
             </div>
           </div>
         </div>
@@ -303,21 +236,21 @@ export default function AerospacePage() {
             <div className="inline-flex items-center space-x-2 mb-8 border-2 border-[#1a1a1a] px-4 py-2">
               <div className="w-2 h-2 bg-[#c41e3a] animate-pulse" />
               <span className="font-aerospace-display text-xs tracking-[0.3em] text-[#1a1a1a]">
-                SPACE GRADE // UNCLASSIFIED
+                {aerospacePage.hero.badge}
               </span>
             </div>
 
             <h1 className="font-aerospace-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1a1a1a] mb-6 tracking-tight">
-              AEROSPACE
+              {aerospacePage.hero.title}
             </h1>
             <p className="font-aerospace-display text-lg sm:text-xl text-[#4a4a4a] tracking-wider mb-4">
-              {/* // */} DOCUMENTING HUMANITY&apos;S REACH FOR THE STARS
+              {aerospacePage.hero.subtitle}
             </p>
 
             <div className="flex items-center justify-center space-x-4 mb-12">
               <div className="h-px w-16 bg-[#1a1a1a]" />
               <span className="font-aerospace-body text-[#4a4a4a] text-sm tracking-wider">
-                PHOTOGRAPHY // CINEMATOGRAPHY // DOCUMENTATION
+                {aerospacePage.hero.tagline}
               </span>
               <div className="h-px w-16 bg-[#1a1a1a]" />
             </div>
@@ -363,10 +296,10 @@ export default function AerospacePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { label: 'LAUNCHES DOCUMENTED', value: counts.launches, suffix: '+' },
-              { label: 'PHOTOS CAPTURED', value: counts.photos, suffix: '+' },
-              { label: 'REMOTE CAMERAS', value: counts.cameras, suffix: '+' },
-              { label: 'YEARS AT STARBASE', value: counts.years, suffix: '+' },
+              { label: aerospacePage.stats[0].label, value: counts.launches, suffix: '+' },
+              { label: aerospacePage.stats[1].label, value: counts.photos, suffix: '+' },
+              { label: aerospacePage.stats[2].label, value: counts.cameras, suffix: '+' },
+              { label: aerospacePage.stats[3].label, value: counts.years, suffix: '+' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -672,24 +605,24 @@ export default function AerospacePage() {
             <div className="inline-flex items-center space-x-2 mb-8 border-2 border-[#1a1a1a] px-4 py-2">
               <Target size={16} className="text-[#c41e3a]" />
               <span className="font-aerospace-display text-xs tracking-[0.3em] text-[#1a1a1a]">
-                AVAILABLE FOR ASSIGNMENT
+                {aerospacePage.cta.badge}
               </span>
             </div>
 
             <h2 className="font-aerospace-display text-4xl md:text-6xl text-[#1a1a1a] mb-6">
-              READY FOR<br />
-              <span className="text-[#c41e3a]">LAUNCH</span>
+              {aerospacePage.cta.title}<br />
+              <span className="text-[#c41e3a]">{aerospacePage.cta.titleAccent}</span>
             </h2>
 
             <p className="font-aerospace-body text-[#4a4a4a] mb-10 max-w-xl mx-auto">
-              Available for aerospace documentation, launch coverage, and technical photography projects.
+              {aerospacePage.cta.description}
             </p>
 
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#1a1a1a] text-[#e8e6e1] px-10 py-5 font-aerospace-display text-sm tracking-wider hover:bg-[#c41e3a] transition-colors duration-300"
             >
-              <span>INITIATE CONTACT</span>
+              <span>{aerospacePage.cta.buttonText}</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>

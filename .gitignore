@@ -8,7 +8,9 @@ app/dist
 app/dist-ssr
 app/out
 app/.next
+.next
 app/*.local
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*

@@ -5,25 +5,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
+import { abstractAlbums as abstractAlbumContent, abstractPage } from '@/lib/content';
 
-// Abstract albums - dynamically built from gallery structure
-// Matches Photos/Abstract/ folder structure
-const abstractAlbums = [
-  {
-    id: 'abstract',
-    title: 'Abstract',
-    description: 'Abstract photography exploring form, color, and texture',
-    images: getGalleryImagePaths('abstract'),
-    coverImage: getFirstImage('abstract') || '',
-  },
-  {
-    id: 'abstract-from-above',
-    title: 'From Above',
-    description: 'Aerial perspectives and patterns from above',
-    images: getGalleryImagePaths('abstract-from-above'),
-    coverImage: getFirstImage('abstract-from-above') || '',
-  },
-].filter(album => album.images.length > 0); // Only show albums with images
+// Abstract albums - metadata from content layer, images from gallery config
+const abstractAlbums = abstractAlbumContent.map(content => ({
+  id: content.id,
+  title: content.title,
+  description: content.description,
+  images: getGalleryImagePaths(content.galleryId),
+  coverImage: getFirstImage(content.galleryId) || '',
+})).filter(album => album.images.length > 0); // Only show albums with images
 
 const heroImage = abstractAlbums[0]?.coverImage || '';
 
@@ -149,7 +140,7 @@ export default function AbstractPage() {
             className="flex items-center justify-center space-x-2 mb-6"
           >
             <Sparkles size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Abstract Photography</span>
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">{abstractPage.hero.subtitle}</span>
             <Sparkles size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
 
@@ -160,7 +151,7 @@ export default function AbstractPage() {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            Beyond the <span className="text-[#c9a962]">Literal</span>
+            {abstractPage.hero.title} <span className="text-[#c9a962]">{abstractPage.hero.titleAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -170,7 +161,7 @@ export default function AbstractPage() {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            Exploring form, color, texture, and the spaces between
+            {abstractPage.hero.description}
           </motion.p>
 
           <motion.button
@@ -387,16 +378,16 @@ export default function AbstractPage() {
           >
             <Sparkles size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              See the World <span className="text-[#c9a962]">Differently</span>
+              {abstractPage.cta.title} <span className="text-[#c9a962]">{abstractPage.cta.titleAccent}</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Abstract photography challenges perception and invites new ways of seeing.
+              {abstractPage.cta.description}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Get In Touch</span>
+              <span>{abstractPage.cta.buttonText}</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>

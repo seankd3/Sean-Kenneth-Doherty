@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain, User, Sparkles } from 'lucide-react';
 import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
+import { homePage } from '@/lib/content';
 
 export default function HomePage() {
   const iconMap: Record<string, React.ElementType> = {
@@ -65,7 +66,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-6"
           >
-            Photographer & Cinematographer
+            {homePage.hero.subtitle}
           </motion.p>
 
           <motion.h1
@@ -83,7 +84,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-[#a0a0a0] text-lg md:text-xl max-w-2xl mx-auto mb-10"
           >
-            From weddings to rocket launches — capturing life&apos;s most extraordinary moments
+            {homePage.hero.description}
           </motion.p>
 
           <motion.div
@@ -200,32 +201,20 @@ export default function HomePage() {
             >
               <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">About</p>
               <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-                Building Rockets by Day,<br />
-                <span className="text-[#c9a962]">Capturing Moments</span> by Night
+                {homePage.about.title}
               </h2>
-              <p className="text-[#a0a0a0] mb-6 leading-relaxed">
-                From a childhood passion ignited by shooting home movies with my grandfather,
-                I&apos;ve built a career doing what I love. I&apos;ve had the honor of documenting
-                SpaceX&apos;s Starship program as lead cinematographer for NASASpaceflight,
-                and I&apos;ve captured countless weddings, creating lifetime keepsakes for couples.
-              </p>
-              <p className="text-[#a0a0a0] mb-8 leading-relaxed">
-                Currently based in Austin, TX and available for weddings, events,
-                and commercial projects worldwide.
-              </p>
+              {homePage.about.paragraphs.map((paragraph, index) => (
+                <p key={index} className={`text-[#a0a0a0] ${index < homePage.about.paragraphs.length - 1 ? 'mb-6' : 'mb-8'} leading-relaxed`}>
+                  {paragraph}
+                </p>
+              ))}
               <div className="flex flex-wrap gap-6 mb-8">
-                <div>
-                  <p className="text-[#c9a962] font-wedding-display text-3xl">2+</p>
-                  <p className="text-[#a0a0a0] text-sm">Years at Starbase</p>
-                </div>
-                <div>
-                  <p className="text-[#c9a962] font-wedding-display text-3xl">50+</p>
-                  <p className="text-[#a0a0a0] text-sm">Weddings Captured</p>
-                </div>
-                <div>
-                  <p className="text-[#c9a962] font-wedding-display text-3xl">15+</p>
-                  <p className="text-[#a0a0a0] text-sm">Launches Documented</p>
-                </div>
+                {homePage.stats.map((stat) => (
+                  <div key={stat.label}>
+                    <p className="text-[#c9a962] font-wedding-display text-3xl">{stat.value}</p>
+                    <p className="text-[#a0a0a0] text-sm">{stat.label}</p>
+                  </div>
+                ))}
               </div>
               <Link
                 href="/contact"

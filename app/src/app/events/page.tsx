@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Music, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
+import { eventAlbums as eventAlbumContent, eventsPage } from '@/lib/content';
 
 const heroImage = getFirstImage('events/beach-house-concert') || '/images/galleries/events/beach-house-concert/Beach House Concert-10.jpg';
 
@@ -18,27 +19,16 @@ interface SubAlbum {
   date?: string;
 }
 
-// Events albums data - matching Photos/Events folder structure
-const subAlbums: SubAlbum[] = [
-  {
-    id: 'beach-house-concert',
-    title: 'Beach House Concert',
-    description: 'Live music photography capturing the energy of performances at Beach House concerts.',
-    images: getGalleryImagePaths('events/beach-house-concert'),
-    coverImage: '/images/galleries/events/beach-house-concert/Beach House Concert-10.jpg',
-    location: 'Austin, TX',
-    date: '2023-2024',
-  },
-  {
-    id: 'fire-dancer',
-    title: 'Fire Dancer',
-    description: 'Dynamic fire performances with dramatic lighting.',
-    images: getGalleryImagePaths('events/fire-dancer'),
-    coverImage: getFirstImage('events/fire-dancer') || '',
-    location: 'Various Locations',
-    date: '2021-2022',
-  },
-];
+// Events albums data - metadata from content layer, images from gallery config
+const subAlbums: SubAlbum[] = eventAlbumContent.map(content => ({
+  id: content.id,
+  title: content.title,
+  description: content.description,
+  images: getGalleryImagePaths(content.galleryId),
+  coverImage: getFirstImage(content.galleryId) || '',
+  location: content.location,
+  date: content.date,
+}));
 
 export default function EventsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
@@ -167,7 +157,7 @@ export default function EventsPage() {
             className="flex items-center justify-center space-x-2 mb-6"
           >
             <Music size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Live Events</span>
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">{eventsPage.hero.subtitle}</span>
             <Music size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
 
@@ -178,7 +168,7 @@ export default function EventsPage() {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            Capturing the <span className="text-[#c9a962]">Energy</span>
+            {eventsPage.hero.title} <span className="text-[#c9a962]">{eventsPage.hero.titleAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -188,7 +178,7 @@ export default function EventsPage() {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            Concerts, performances, and live events frozen in time
+            {eventsPage.hero.description}
           </motion.p>
 
           <motion.button
@@ -406,16 +396,16 @@ export default function EventsPage() {
           >
             <Music size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Let&apos;s Capture Your <span className="text-[#c9a962]">Event</span>
+              {eventsPage.cta.title} <span className="text-[#c9a962]">{eventsPage.cta.titleAccent}</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Available for concerts, performances, corporate events, and private celebrations.
+              {eventsPage.cta.description}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Book Now</span>
+              <span>{eventsPage.cta.buttonText}</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>

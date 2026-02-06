@@ -10,6 +10,7 @@ import {
   portraitsHeroImage,
   getFirstImage
 } from '@/lib/gallery-config';
+import { portraitAlbums as portraitAlbumContent, portraitsPage } from '@/lib/content';
 
 interface SubAlbum {
   id: string;
@@ -24,24 +25,20 @@ export default function PortraitsPage() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const subAlbums: SubAlbum[] = [
-    {
-      id: 'hillary-astrid',
-      title: 'Hillary & Astrid',
-      description: 'Artistic portrait session capturing the essence and connection between Hillary and Astrid',
-      images: portraitsHillaryAstridImages,
-      coverImage: getFirstImage('portraits-hillary-astrid') || portraitsHillaryAstridImages[0],
-      category: 'Portrait',
-    },
-    {
-      id: 'blackbeltbbj',
-      title: 'Blackbelt BBJ',
-      description: 'Martial arts photography showcasing dynamic portraits of martial artists in action and focus',
-      images: portraitsBlackbeltImages,
-      coverImage: getFirstImage('portraits-blackbeltbbj') || portraitsBlackbeltImages[0],
-      category: 'Martial Arts',
-    },
-  ];
+  // Image arrays from gallery config, metadata from content layer
+  const imageMap: Record<string, string[]> = {
+    'hillary-astrid': portraitsHillaryAstridImages,
+    'blackbeltbbj': portraitsBlackbeltImages,
+  };
+
+  const subAlbums: SubAlbum[] = portraitAlbumContent.map(content => ({
+    id: content.id,
+    title: content.title,
+    description: content.description,
+    images: imageMap[content.id] || [],
+    coverImage: getFirstImage(content.legacyId || content.galleryId) || (imageMap[content.id]?.[0] ?? ''),
+    category: content.category,
+  }));
 
   const scrollToGallery = (albumId: string) => {
     const element = galleryRefs.current[albumId];
@@ -82,7 +79,7 @@ export default function PortraitsPage() {
             className="flex items-center justify-center space-x-2 mb-6"
           >
             <User size={16} className="text-[#c9a962] drop-shadow-lg" />
-            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">Portrait Photography</span>
+            <span className="text-[#c9a962] text-sm tracking-[0.3em] uppercase drop-shadow-lg">{portraitsPage.hero.subtitle}</span>
             <User size={16} className="text-[#c9a962] drop-shadow-lg" />
           </motion.div>
 
@@ -93,7 +90,7 @@ export default function PortraitsPage() {
             className="font-wedding-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-2xl"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            Capturing <span className="text-[#c9a962]">Character</span>
+            {portraitsPage.hero.title} <span className="text-[#c9a962]">{portraitsPage.hero.titleAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -103,7 +100,7 @@ export default function PortraitsPage() {
             className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-lg"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
-            Professional and artistic portraits that reveal the essence of each subject
+            {portraitsPage.hero.description}
           </motion.p>
 
           <motion.button
@@ -287,16 +284,16 @@ export default function PortraitsPage() {
           >
             <User size={32} className="text-[#c9a962] mx-auto mb-6" />
             <h2 className="font-wedding-display text-4xl md:text-6xl text-white mb-6">
-              Book a <span className="text-[#c9a962]">Session</span>
+              {portraitsPage.cta.title} <span className="text-[#c9a962]">{portraitsPage.cta.titleAccent}</span>
             </h2>
             <p className="text-[#a0a0a0] mb-10 max-w-xl mx-auto">
-              Ready to capture your story? Let&apos;s create portraits that you&apos;ll treasure for years to come.
+              {portraitsPage.cta.description}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Inquire Now</span>
+              <span>{portraitsPage.cta.buttonText}</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>

@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check, AlertCircle } from 'lucide-react';
+import { contactPage, siteConfig } from '@/lib/content';
 
 interface FormErrors {
   firstName?: string;
@@ -114,7 +115,7 @@ export default function ContactPage() {
         setSubmitError('There was an error submitting the form. Please try again or email me directly.');
       }
     } catch (_error) {
-      setSubmitError('Unable to submit form. Please check your connection or email me directly at SeanDohertyPhotos@gmail.com');
+      setSubmitError(`Unable to submit form. Please check your connection or email me directly at ${siteConfig.email}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -124,38 +125,29 @@ export default function ContactPage() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'SeanDohertyPhotos@gmail.com',
-      href: 'mailto:SeanDohertyPhotos@gmail.com',
+      value: siteConfig.email,
+      href: `mailto:${siteConfig.email}`,
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '(856) 803-6982',
-      href: 'tel:+18568036982',
+      value: siteConfig.phone,
+      href: siteConfig.phoneHref,
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Austin, TX',
+      value: siteConfig.location,
       href: '#',
     },
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: 'https://instagram.com/Seankd_photos', label: 'Instagram' },
-    { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'X' },
+    { icon: Instagram, href: siteConfig.social.instagram, label: 'Instagram' },
+    { icon: Twitter, href: siteConfig.social.twitter, label: 'X' },
   ];
 
-  const eventTypes = [
-    'Wedding',
-    'Engagement',
-    'Corporate Event',
-    'Concert/Live Event',
-    'Portrait Session',
-    'Commercial Project',
-    'Aerospace',
-    'Other',
-  ];
+  const eventTypes = contactPage.form.eventTypes;
 
   return (
     <div className="bg-[#0a0a0a] min-h-screen">
@@ -168,13 +160,13 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Contact</p>
+            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">{contactPage.hero.subtitle}</p>
             <h1 className="font-wedding-display text-5xl md:text-6xl lg:text-7xl text-white mb-6">
-              Let&apos;s Create Something<br />
-              <span className="text-[#c9a962]">Amazing</span>
+              {contactPage.hero.title}<br />
+              <span className="text-[#c9a962]">{contactPage.hero.titleAccent}</span>
             </h1>
             <p className="text-[#a0a0a0] text-lg">
-              Tell me about your project and I&apos;ll get back to you within 24 hours.
+              {contactPage.hero.description}
             </p>
           </motion.div>
         </div>
@@ -495,7 +487,7 @@ export default function ContactPage() {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Location</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Based in <span className="text-[#c9a962]">Austin, TX</span>
+              Based in <span className="text-[#c9a962]">{siteConfig.location}</span>
             </h2>
             <p className="text-[#a0a0a0] max-w-2xl mx-auto mb-8">
               Available for travel worldwide. From local Austin weddings to destination events
