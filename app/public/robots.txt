@@ -4,6 +4,3 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://seankennethdoherty.com/sitemap.xml
-
-# Crawl delay (be nice to the server)
-Crawl-delay: 1
