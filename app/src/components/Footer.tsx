@@ -38,6 +38,7 @@ const Footer = () => {
     { path: '/landscapes', label: 'Landscapes' },
     { path: '/portraits', label: 'Portraits' },
     { path: '/abstract', label: 'Abstract' },
+    { path: '/pricing', label: 'Pricing' },
     { path: '/contact', label: 'Contact' },
   ];
 
