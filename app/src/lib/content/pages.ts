@@ -58,6 +58,10 @@ export const homePage = {
 
 // ─── WEDDINGS PAGE ─────────────────────────────────────────────────────────────
 
+const currentYear = new Date().getFullYear();
+const nextYear = currentYear + 1;
+const bookingSeason = `${currentYear}-${nextYear}`;
+
 export const weddingsPage = {
   hero: {
     subtitle: 'Wedding Photography & Cinematography',
@@ -68,8 +72,9 @@ export const weddingsPage = {
   cta: {
     title: 'Begin Your Story',
     description:
-      "Let's create something beautiful together. I'd love to hear about your wedding plans and how we can capture your day.",
+      `Now booking ${bookingSeason} weddings. Let\u2019s create something beautiful together \u2014 I\u2019d love to hear about your plans and how we can capture your day.`,
     buttonText: 'Check Availability',
+    bookingSeason,
   },
 };
 
