@@ -177,7 +177,7 @@ export const landscapeAlbums = [
   },
   {
     id: 'hudson-valley',
-    galleryId: 'landscapes-new-york-winter',
+    galleryId: 'landscapes/hudson-valley',
     title: 'Hudson Valley',
     description:
       'Snow-covered forests, frozen rivers, and quiet winter scenes from the Hudson Valley region of New York.',

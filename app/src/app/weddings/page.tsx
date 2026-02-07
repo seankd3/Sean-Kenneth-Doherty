@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight, Check, Sparkles } from 'lucide-react';
-import { categories } from '@/lib/gallery-config-auto';
+import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight, Check, Sparkles, Calendar } from 'lucide-react';
+import { categories, type GalleryImage } from '@/lib/gallery-config-auto';
 import { weddingAlbums as weddingAlbumContent, weddingsPage } from '@/lib/content';
 import { testimonials } from '@/lib/testimonials';
 import Testimonials from '@/components/Testimonials';
@@ -13,11 +13,13 @@ interface WeddingAlbum {
   id: string;
   couple: string;
   description: string;
-  images: string[];
-  coverImage: string;
+  images: GalleryImage[];
+  coverImage: GalleryImage;
   date?: string;
   location?: string;
 }
+
+const emptyImage: GalleryImage = { filename: '', src: '', width: 0, height: 0 };
 
 // Build wedding albums dynamically from the auto-generated config
 const buildWeddingAlbums = (): WeddingAlbum[] => {
@@ -25,9 +27,6 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
   if (!weddingCategory || !weddingCategory.albums) return [];
 
   return weddingCategory.albums.map(album => {
-    const images = album.images.map(img => img.src);
-    const firstImage = images[0] || '';
-
     // Look up metadata from centralized content layer
     const contentAlbum = weddingAlbumContent.find(a => a.galleryId === album.id);
 
@@ -35,8 +34,8 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
       id: album.id.replace('weddings/', ''),
       couple: contentAlbum?.title || album.title,
       description: contentAlbum?.description || 'A beautiful celebration of love and commitment',
-      images,
-      coverImage: firstImage,
+      images: album.images,
+      coverImage: album.images[0] || emptyImage,
       date: contentAlbum?.date,
       location: contentAlbum?.location,
     };
@@ -47,7 +46,11 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
 const weddingAlbums = buildWeddingAlbums();
 
 // Hero image from first album's first image
-const weddingHeroImage = weddingAlbums[0]?.coverImage || '';
+const weddingHeroImage = weddingAlbums[0]?.coverImage.src || '';
+
+const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  e.currentTarget.classList.add('loaded');
+};
 
 export default function WeddingsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
@@ -75,14 +78,14 @@ export default function WeddingsPage() {
     if (lightboxState) {
       const { albumIndex, imageIndex } = lightboxState;
       const album = weddingAlbums[albumIndex];
-      const imagesToPreload = [
+      const toPreload = [
         album.images[imageIndex - 1],
         album.images[imageIndex + 1]
       ].filter(Boolean);
 
-      imagesToPreload.forEach(src => {
+      toPreload.forEach(imgObj => {
         const img = new Image();
-        img.src = src;
+        img.src = imgObj.src;
       });
     }
   }, [lightboxState]);
@@ -286,9 +289,13 @@ export default function WeddingsPage() {
               >
                 <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-all duration-300 bg-[#141414]">
                   <img
-                    src={album.coverImage}
+                    src={album.coverImage.src}
                     alt={album.couple}
-                    className="w-full h-auto object-contain"
+                    width={album.coverImage.width}
+                    height={album.coverImage.height}
+                    className="gallery-fade w-full object-contain"
+                    style={{ aspectRatio: `${album.coverImage.width} / ${album.coverImage.height}` }}
+                    onLoad={onImgLoad}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -325,62 +332,82 @@ export default function WeddingsPage() {
           >
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Investment</p>
             <h2 className="font-wedding-display text-4xl md:text-5xl text-white mb-6">
-              Wedding Packages
+              Collections
             </h2>
-            <p className="text-[#a0a0a0] max-w-xl mx-auto">
-              Every love story deserves to be told beautifully. Choose the package
-              that fits your celebration, or let&apos;s build something custom together.
+            <p className="text-[#a0a0a0] max-w-2xl mx-auto">
+              Transparent pricing because your budget matters. Every collection includes professional editing,
+              a private online gallery with full-resolution downloads, and a print release.
+              Payment plans available on all packages.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
               {
-                name: 'Essentials',
-                price: '$3,500',
-                description: 'Perfect for intimate celebrations',
+                name: 'Elopement',
+                subtitle: 'Intimate ceremonies & micro-weddings',
+                price: '$1,500',
+                perMonth: '$375/mo × 4',
+                features: [
+                  '2 hours of coverage',
+                  '1 photographer',
+                  '150+ edited photos',
+                  'Online gallery with downloads',
+                  'Location scouting guidance',
+                  'Print release included',
+                ],
+                popular: false,
+              },
+              {
+                name: 'Collection I',
+                subtitle: 'Essential full-day coverage',
+                price: '$2,800',
+                perMonth: '$467/mo × 6',
                 features: [
                   '6 hours of coverage',
                   '1 photographer',
                   '300+ edited photos',
                   'Online gallery with downloads',
                   'Engagement session (30 min)',
+                  'Wedding day timeline assist',
+                  'Sneak peeks within 48 hours',
                   'Print release included',
                 ],
                 popular: false,
               },
               {
-                name: 'Complete',
-                price: '$5,500',
-                description: 'Full-day coverage for your complete story',
+                name: 'Collection II',
+                subtitle: 'Complete coverage with second shooter',
+                price: '$4,200',
+                perMonth: '$525/mo × 8',
                 features: [
-                  '10 hours of coverage',
-                  '1 photographer + assistant',
+                  '8 hours of coverage',
+                  '2 photographers',
                   '500+ edited photos',
                   'Online gallery with downloads',
                   'Full engagement session (1 hr)',
-                  'Second shooter for ceremony',
-                  'Same-day sneak peeks',
-                  'Custom USB delivery',
+                  'Second photographer all day',
+                  'Wedding day timeline assist',
+                  'Sneak peeks within 48 hours',
                   'Print release included',
                 ],
                 popular: true,
               },
               {
-                name: 'Premiere',
-                price: '$8,500',
-                description: 'Premium coverage with cinematic additions',
+                name: 'Collection III',
+                subtitle: 'Photo + cinema, the full experience',
+                price: '$6,500',
+                perMonth: '$542/mo × 12',
                 features: [
-                  'Unlimited hours of coverage',
+                  '10+ hours of coverage',
                   '2 photographers',
-                  '800+ edited photos',
+                  '700+ edited photos',
                   'Online gallery with downloads',
                   'Full engagement session (1 hr)',
                   'Rehearsal dinner coverage',
                   '3-5 min highlight film',
-                  'Drone aerial photography',
                   'Premium album (40 pages)',
-                  'Same-day sneak peeks',
+                  'Sneak peeks within 48 hours',
                   'Rush editing available',
                   'Print release included',
                 ],
@@ -392,8 +419,8 @@ export default function WeddingsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className={`relative border p-8 lg:p-10 ${
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`relative border flex flex-col p-6 lg:p-8 ${
                   pkg.popular
                     ? 'border-[#c9a962] bg-[#c9a962]/5'
                     : 'border-[#2a2a2a] bg-[#111111]'
@@ -403,21 +430,22 @@ export default function WeddingsPage() {
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                     <span className="inline-flex items-center gap-1.5 bg-[#c9a962] text-[#0a0a0a] px-4 py-1.5 text-xs font-bold tracking-wider uppercase">
                       <Sparkles size={12} />
-                      Most Popular
+                      Best Value
                     </span>
                   </div>
                 )}
 
-                <div className="mb-8">
-                  <h3 className="font-wedding-display text-2xl text-white mb-2">{pkg.name}</h3>
-                  <p className="text-[#666] text-sm mb-6">{pkg.description}</p>
-                  <span className="text-4xl font-bold text-white">{pkg.price}</span>
+                <div className="mb-6">
+                  <h3 className="font-wedding-display text-2xl text-white mb-1">{pkg.name}</h3>
+                  <p className="text-[#666] text-xs mb-5">{pkg.subtitle}</p>
+                  <span className="text-3xl font-bold text-white">{pkg.price}</span>
+                  <p className="text-[#c9a962] text-xs mt-1.5">or {pkg.perMonth}</p>
                 </div>
 
-                <ul className="space-y-3 mb-10">
+                <ul className="space-y-2.5 mb-8 flex-grow">
                   {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check size={16} className="text-[#c9a962] mt-0.5 flex-shrink-0" />
+                    <li key={feature} className="flex items-start gap-2.5">
+                      <Check size={14} className="text-[#c9a962] mt-0.5 flex-shrink-0" />
                       <span className="text-[#a0a0a0] text-sm">{feature}</span>
                     </li>
                   ))}
@@ -425,38 +453,66 @@ export default function WeddingsPage() {
 
                 <Link
                   href="/contact"
-                  className={`block text-center py-4 px-6 text-sm font-medium tracking-wider uppercase transition-colors duration-300 ${
+                  className={`block text-center py-3.5 px-6 text-sm font-medium tracking-wider uppercase transition-colors duration-300 ${
                     pkg.popular
                       ? 'bg-[#c9a962] text-[#0a0a0a] hover:bg-white'
                       : 'border border-[#c9a962] text-[#c9a962] hover:bg-[#c9a962] hover:text-[#0a0a0a]'
                   }`}
                 >
-                  Book Now
+                  Check Availability
                 </Link>
               </motion.div>
             ))}
           </div>
 
-          {/* Custom Package */}
+          {/* Pay in Full Discount + Payment Plans */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="border border-[#2a2a2a] bg-[#111111] p-10 md:p-14 text-center mt-12"
+            className="grid md:grid-cols-2 gap-6 mt-10"
+          >
+            <div className="border border-[#2a2a2a] bg-[#111111] p-8 flex items-center gap-6">
+              <div className="w-12 h-12 border border-[#c9a962] flex items-center justify-center flex-shrink-0">
+                <span className="text-[#c9a962] text-lg font-bold">%</span>
+              </div>
+              <div>
+                <h4 className="text-white font-medium mb-1">Pay in Full &amp; Save $200</h4>
+                <p className="text-[#666] text-sm">Book and pay your full collection amount upfront to receive $200 off any package.</p>
+              </div>
+            </div>
+            <div className="border border-[#2a2a2a] bg-[#111111] p-8 flex items-center gap-6">
+              <div className="w-12 h-12 border border-[#c9a962] flex items-center justify-center flex-shrink-0">
+                <Calendar size={20} className="text-[#c9a962]" />
+              </div>
+              <div>
+                <h4 className="text-white font-medium mb-1">Flexible Payment Plans</h4>
+                <p className="text-[#666] text-sm">Split your investment into monthly payments. Only a 25% retainer due at booking — the rest spread out before your date.</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Custom + Destination */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="border border-[#2a2a2a] bg-[#111111] p-10 md:p-14 text-center mt-10"
           >
             <h3 className="font-wedding-display text-3xl md:text-4xl text-white mb-4">
-              Custom Package
+              Destination &amp; Custom
             </h3>
             <p className="text-[#666] max-w-xl mx-auto mb-8 text-sm">
-              Multi-day weddings, destination events, or need something completely bespoke?
-              Let&apos;s design a package tailored to your vision.
+              Multi-day celebrations, destination weddings, or need something entirely bespoke?
+              I&apos;ll build a custom collection around your timeline and vision. Travel within Texas is always included.
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Get in Touch</span>
+              <span>Let&apos;s Talk</span>
               <ArrowRight size={16} />
             </Link>
           </motion.div>
@@ -470,21 +526,20 @@ export default function WeddingsPage() {
             className="mt-20"
           >
             <div className="text-center mb-12">
-              <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Enhance Your Package</p>
+              <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Enhance Your Collection</p>
               <h3 className="font-wedding-display text-3xl md:text-4xl text-white">Add-Ons</h3>
             </div>
             <div className="max-w-3xl mx-auto space-y-0">
               {[
-                { name: 'Additional hour of coverage', price: '$400' },
-                { name: 'Second photographer (full day)', price: '$1,200' },
-                { name: 'Engagement session', price: '$500' },
-                { name: 'Rehearsal dinner coverage', price: '$800' },
-                { name: 'Drone aerial photography', price: '$600' },
-                { name: 'Premium photo album (40 pages)', price: '$900' },
-                { name: 'Parent albums (set of 2)', price: '$600' },
-                { name: 'Highlight film (3-5 min)', price: '$2,000' },
-                { name: 'Full ceremony film', price: '$1,500' },
-                { name: 'Rush editing (2-week delivery)', price: '$500' },
+                { name: 'Additional hour of coverage', price: '$350' },
+                { name: 'Second photographer (full day)', price: '$800' },
+                { name: 'Engagement session (if not included)', price: '$450' },
+                { name: 'Rehearsal dinner coverage (3 hrs)', price: '$700' },
+                { name: 'Premium photo album (40 pages)', price: '$800' },
+                { name: 'Parent albums (set of 2)', price: '$500' },
+                { name: 'Highlight film (3-5 min)', price: '$1,800' },
+                { name: 'Full ceremony film', price: '$1,200' },
+                { name: 'Rush editing (2-week delivery)', price: '$400' },
               ].map((addon, index) => (
                 <motion.div
                   key={addon.name}
@@ -537,12 +592,8 @@ export default function WeddingsPage() {
             {/* Masonry Grid */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
               {album.images.map((image, index) => (
-                <motion.button
+                <button
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
                   type="button"
                   aria-label={`Open ${album.couple} photo ${index + 1}`}
                   className="group relative break-inside-avoid mb-2 cursor-pointer w-full text-left"
@@ -550,15 +601,19 @@ export default function WeddingsPage() {
                 >
                   <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
                     <img
-                      src={image}
-                      alt={`${album.couple} ${index + 1}`}
-                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
+                      src={image.src}
+                      alt={`${album.couple} wedding - photo ${index + 1} of ${album.images.length}`}
+                      width={image.width}
+                      height={image.height}
+                      className="gallery-fade w-full object-cover group-hover:scale-105 group-hover:brightness-110 transition-transform duration-700 ease-out"
+                      style={{ aspectRatio: `${image.width} / ${image.height}` }}
                       loading="lazy"
+                      onLoad={onImgLoad}
                     />
                     {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                </motion.button>
+                </button>
               ))}
             </div>
 
@@ -577,7 +632,7 @@ export default function WeddingsPage() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxState && lightboxImage && (
+        {lightboxState && lightboxImage?.src && (
           <motion.div
             ref={lightboxRef}
             initial={{ opacity: 0 }}
@@ -639,13 +694,13 @@ export default function WeddingsPage() {
 
             {/* Image with loading state */}
             <motion.img
-              key={lightboxImage}
+              key={lightboxImage.src}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              src={lightboxImage}
-              alt="Wedding photo"
+              src={lightboxImage.src}
+              alt={`${weddingAlbums[lightboxState.albumIndex]?.couple || 'Wedding'} - photo ${lightboxState.imageIndex + 1}`}
               className="max-w-[calc(100%-80px)] sm:max-w-[calc(100%-120px)] max-h-[80vh] sm:max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />

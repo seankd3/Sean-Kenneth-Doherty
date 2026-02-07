@@ -528,93 +528,16 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Accordion type="single" collapsible className="space-y-0">
-              <AccordionItem value="turnaround" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  What&apos;s your turnaround time?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  Wedding galleries are typically delivered within 4-6 weeks. Sneak peeks of
-                  15-20 edited images are shared within 48 hours. Portrait and event sessions
-                  have a 2-3 week turnaround. Rush editing is available for an additional fee.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="travel" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  Do you travel for weddings?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  Absolutely. While I&apos;m based in Austin, TX, I regularly travel for destination
-                  weddings across the U.S. and internationally. Travel fees vary by location and
-                  are quoted during your consultation.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="packages" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  What&apos;s included in your packages?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  All packages include professional editing, an online gallery with full-resolution
-                  downloads, and a print release. Higher-tier packages add second shooters, engagement
-                  sessions, albums, and video. Visit the pricing page for full details.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="booking" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  How do I book?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  Start by filling out the contact form above or emailing me directly. We&apos;ll
-                  schedule a complimentary consultation to discuss your vision. Booking is confirmed
-                  with a signed contract and a 30% retainer.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="equipment" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  What equipment do you use?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  I shoot with professional full-frame mirrorless cameras and a range of prime and
-                  zoom lenses. For video, I use cinema-grade stabilizers and audio equipment. All
-                  gear is backed up with redundant bodies and cards to ensure nothing is missed.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="video" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  Do you offer videography as well?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  Yes. I offer both photography and cinematography. Highlight films and full ceremony
-                  coverage are available as add-ons to any photography package, or as standalone
-                  services.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="cancellation" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  What&apos;s your cancellation or rescheduling policy?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  Rescheduling is free up to 60 days before your event, subject to availability.
-                  Cancellations more than 90 days out receive a 50% refund of the retainer. Full
-                  details are outlined in the contract.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="gallery" className="border-b border-[#2a2a2a]">
-                <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
-                  Can I see a full gallery from a recent wedding?
-                </AccordionTrigger>
-                <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
-                  Of course. During your consultation I&apos;m happy to share complete galleries from
-                  recent weddings and events. You can also explore selected work on the weddings page
-                  of this site.
-                </AccordionContent>
-              </AccordionItem>
+              {contactPage.faq.map((item, index) => (
+                <AccordionItem key={index} value={`faq-${index}`} className="border-b border-[#2a2a2a]">
+                  <AccordionTrigger className="text-white hover:text-[#c9a962] text-left py-5 text-sm font-medium">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[#a0a0a0] text-sm leading-relaxed pb-5">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </motion.div>
         </div>

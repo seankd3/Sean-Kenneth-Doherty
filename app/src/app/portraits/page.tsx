@@ -5,30 +5,35 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, User, X, ChevronDown } from 'lucide-react';
 import {
-  portraitsHillaryAstridImages,
-  portraitsBlackbeltImages,
-  portraitsHeroImage,
-  getFirstImage
+  getGalleryImages,
+  getFirstGalleryImage,
+  getFirstImage,
+  type GalleryImage
 } from '@/lib/gallery-config';
 import { portraitAlbums as portraitAlbumContent, portraitsPage } from '@/lib/content';
+
+const emptyImage: GalleryImage = { filename: '', src: '', width: 0, height: 0 };
+const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => { e.currentTarget.classList.add('loaded'); };
 
 interface SubAlbum {
   id: string;
   title: string;
   description: string;
-  images: string[];
-  coverImage: string;
+  images: GalleryImage[];
+  coverImage: GalleryImage;
   category?: string;
 }
 
 export default function PortraitsPage() {
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
 
+  const heroImage = getFirstImage('portraits/hillary-astrid') || '';
+
   // Image arrays from gallery config, metadata from content layer
-  const imageMap: Record<string, string[]> = {
-    'hillary-astrid': portraitsHillaryAstridImages,
-    'blackbeltbbj': portraitsBlackbeltImages,
+  const imageMap: Record<string, GalleryImage[]> = {
+    'hillary-astrid': getGalleryImages('portraits/hillary-astrid'),
+    'blackbeltbbj': getGalleryImages('portraits/blackbeltbbj'),
   };
 
   const subAlbums: SubAlbum[] = portraitAlbumContent.map(content => ({
@@ -36,7 +41,7 @@ export default function PortraitsPage() {
     title: content.title,
     description: content.description,
     images: imageMap[content.id] || [],
-    coverImage: getFirstImage(content.legacyId || content.galleryId) || (imageMap[content.id]?.[0] ?? ''),
+    coverImage: getFirstGalleryImage(content.legacyId || content.galleryId) || imageMap[content.id]?.[0] || emptyImage,
     category: content.category,
   }));
 
@@ -62,7 +67,7 @@ export default function PortraitsPage() {
       <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={portraitsHeroImage}
+            src={heroImage}
             alt="Portrait photography"
             className="w-full h-full object-cover"
           />
@@ -149,9 +154,13 @@ export default function PortraitsPage() {
               >
                 <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-all duration-300 bg-[#141414]">
                   <img
-                    src={album.coverImage}
+                    src={album.coverImage.src}
                     alt={album.title}
-                    className="w-full h-auto object-contain"
+                    width={album.coverImage.width}
+                    height={album.coverImage.height}
+                    className="gallery-fade w-full object-contain"
+                    style={{ aspectRatio: `${album.coverImage.width} / ${album.coverImage.height}` }}
+                    onLoad={onImgLoad}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -210,20 +219,20 @@ export default function PortraitsPage() {
             {/* Masonry Grid */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
               {album.images.map((image, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.2 }}
                   className="group relative break-inside-avoid mb-2 cursor-pointer"
                   onClick={() => setLightboxImage(image)}
                 >
                   <div className="relative overflow-hidden border border-[#2a2a2a] hover:border-[#c9a962] transition-colors">
                     <img
-                      src={image}
-                      alt={`${album.title} ${index + 1}`}
-                      className="w-full h-auto object-cover"
+                      src={image.src}
+                      alt={`${album.title} portrait - photo ${index + 1} of ${album.images.length}`}
+                      width={image.width}
+                      height={image.height}
+                      className="gallery-fade w-full object-cover"
+                      style={{ aspectRatio: `${image.width} / ${image.height}` }}
+                      onLoad={onImgLoad}
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
@@ -232,7 +241,7 @@ export default function PortraitsPage() {
                       </span>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -250,7 +259,7 @@ export default function PortraitsPage() {
       ))}
 
       {/* Lightbox */}
-      {lightboxImage && (
+      {lightboxImage?.src && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -265,8 +274,9 @@ export default function PortraitsPage() {
             <X size={32} />
           </button>
           <img
-            src={lightboxImage}
-            alt="Portrait"
+            key={lightboxImage.src}
+            src={lightboxImage.src}
+            alt="Portrait photography by Sean Kenneth Doherty"
             className="max-w-full max-h-[90vh] object-contain"
             onClick={(e) => e.stopPropagation()}
           />

@@ -4,29 +4,32 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Mountain, ChevronDown, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { getGalleryImagePaths, getFirstImage } from '@/lib/gallery-config';
+import { getGalleryImages, getFirstGalleryImage, type GalleryImage } from '@/lib/gallery-config';
 import { landscapeAlbums as landscapeAlbumContent, landscapesPage } from '@/lib/content';
 
 interface LandscapeAlbum {
   id: string;
   title: string;
   description: string;
-  images: string[];
-  coverImage: string;
+  images: GalleryImage[];
+  coverImage: GalleryImage;
   location: string;
 }
+
+const emptyImage: GalleryImage = { filename: '', src: '', width: 0, height: 0 };
+const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => { e.currentTarget.classList.add('loaded'); };
 
 // Landscape albums - metadata from content layer, images from gallery config
 const landscapeAlbums: LandscapeAlbum[] = landscapeAlbumContent.map(content => ({
   id: content.id,
   title: content.title,
   description: content.description,
-  images: getGalleryImagePaths(content.galleryId),
-  coverImage: getFirstImage(content.galleryId) || '',
+  images: getGalleryImages(content.galleryId),
+  coverImage: getFirstGalleryImage(content.galleryId) || emptyImage,
   location: content.location,
 }));
 
-const heroImage = getFirstImage('landscapes-american-landscapes') || landscapeAlbums[0].coverImage;
+const heroImage = (getFirstGalleryImage('landscapes-american-landscapes') || landscapeAlbums[0].coverImage).src;
 
 export default function LandscapesPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
@@ -47,9 +50,9 @@ export default function LandscapesPage() {
         album.images[imageIndex + 1]
       ].filter(Boolean);
 
-      imagesToPreload.forEach(src => {
+      imagesToPreload.forEach(imgObj => {
         const img = new Image();
-        img.src = src;
+        img.src = imgObj.src;
       });
     }
   }, [lightboxState]);
@@ -221,9 +224,13 @@ export default function LandscapesPage() {
               >
                 <div className="relative overflow-hidden border-2 border-[#2a2a2a] hover:border-[#c9a962] transition-all duration-300 bg-[#141414]">
                   <img
-                    src={album.coverImage}
+                    src={album.coverImage.src}
                     alt={album.title}
-                    className="w-full h-auto object-contain"
+                    width={album.coverImage.width}
+                    height={album.coverImage.height}
+                    className="gallery-fade w-full object-contain"
+                    style={{ aspectRatio: `${album.coverImage.width} / ${album.coverImage.height}` }}
+                    onLoad={onImgLoad}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -276,20 +283,20 @@ export default function LandscapesPage() {
             {/* Masonry Grid */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
               {album.images.map((image, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
                   className="group relative break-inside-avoid mb-2 cursor-pointer"
                   onClick={() => openLightbox(albumIndex, index)}
                 >
                   <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
                     <img
-                      src={image}
-                      alt={`${album.title} ${index + 1}`}
-                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
+                      src={image.src}
+                      alt={`${album.title} - photo ${index + 1} of ${album.images.length}`}
+                      width={image.width}
+                      height={image.height}
+                      className="gallery-fade w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
+                      style={{ aspectRatio: `${image.width} / ${image.height}` }}
+                      onLoad={onImgLoad}
                       loading="lazy"
                     />
                     {/* Hover overlay with image number */}
@@ -301,7 +308,7 @@ export default function LandscapesPage() {
                     {/* Subtle gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -320,7 +327,7 @@ export default function LandscapesPage() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxState && lightboxImage && (
+        {lightboxState && lightboxImage?.src && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -360,13 +367,13 @@ export default function LandscapesPage() {
 
             {/* Image with loading state */}
             <motion.img
-              key={lightboxImage}
+              key={lightboxImage.src}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              src={lightboxImage}
-              alt="Landscape"
+              src={lightboxImage.src}
+              alt={`${landscapeAlbums[lightboxState.albumIndex]?.title || 'Landscape'} - photo ${lightboxState.imageIndex + 1}`}
               className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />

@@ -5,8 +5,9 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, Target, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
-  getGalleryImagePaths,
-  getFirstImage
+  getGalleryImages,
+  getFirstGalleryImage,
+  type GalleryImage,
 } from '@/lib/gallery-config';
 import { aerospaceAlbums as aerospaceAlbumContent, aerospacePage } from '@/lib/content';
 
@@ -15,12 +16,14 @@ interface AerospaceAlbum {
   designation: string;
   title: string;
   description: string;
-  images: string[];
-  coverImage: string;
+  images: GalleryImage[];
+  coverImage: GalleryImage;
   status: string;
   statusColor: string;
   specs: string[];
 }
+
+const emptyImage: GalleryImage = { filename: '', src: '', width: 0, height: 0 };
 
 // Aerospace albums - metadata from content layer, images from gallery config
 const aerospaceAlbums: AerospaceAlbum[] = aerospaceAlbumContent.map(content => ({
@@ -28,12 +31,16 @@ const aerospaceAlbums: AerospaceAlbum[] = aerospaceAlbumContent.map(content => (
   designation: content.designation,
   title: content.title,
   description: content.description,
-  images: getGalleryImagePaths(content.galleryId),
-  coverImage: getFirstImage(content.galleryId) || '',
+  images: getGalleryImages(content.galleryId),
+  coverImage: getFirstGalleryImage(content.galleryId) || emptyImage,
   status: content.status,
   statusColor: content.statusColor,
   specs: content.specs,
 }));
+
+const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  e.currentTarget.classList.add('loaded');
+};
 
 export default function AerospacePage() {
   const statsRef = useRef(null);
@@ -120,9 +127,9 @@ export default function AerospacePage() {
         album.images[imageIndex + 1]
       ].filter(Boolean);
 
-      imagesToPreload.forEach(src => {
+      imagesToPreload.forEach(imgObj => {
         const img = new Image();
-        img.src = src;
+        img.src = imgObj.src;
       });
     }
   }, [lightboxState]);
@@ -358,7 +365,7 @@ export default function AerospacePage() {
           </motion.div>
 
           {/* Project Cards */}
-          <div className="space-y-12">
+          <div className="space-y-6">
             {aerospaceAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
@@ -370,12 +377,12 @@ export default function AerospacePage() {
                 onClick={() => scrollToGallery(album.id)}
               >
                 {/* Card Header */}
-                <div className="flex flex-wrap items-center justify-between p-4 border-b-2 border-[#1a1a1a]">
+                <div className="flex flex-wrap items-center justify-between px-4 py-2 border-b-2 border-[#1a1a1a]">
                   <div className="flex items-center space-x-4">
                     <span className="font-aerospace-display text-xs text-[#4a4a4a] tracking-wider">
                       {album.designation}
                     </span>
-                    <span className={`${album.statusColor} text-white text-xs px-2 py-1 font-aerospace-display tracking-wider`}>
+                    <span className={`${album.statusColor} text-white text-xs px-2 py-0.5 font-aerospace-display tracking-wider`}>
                       {album.status}
                     </span>
                   </div>
@@ -386,15 +393,15 @@ export default function AerospacePage() {
 
                 {/* Card Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-2">
-                  <div className="p-6 lg:p-8">
-                    <h3 className="font-aerospace-display text-2xl md:text-3xl text-[#1a1a1a] mb-4">
+                  <div className="p-4 lg:p-6">
+                    <h3 className="font-aerospace-display text-xl md:text-2xl text-[#1a1a1a] mb-2">
                       {album.title}
                     </h3>
-                    <p className="font-aerospace-body text-[#4a4a4a] mb-6 leading-relaxed">
+                    <p className="font-aerospace-body text-sm text-[#4a4a4a] mb-4 leading-relaxed">
                       {album.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {album.specs.map((spec) => (
                         <span
                           key={spec}
@@ -411,11 +418,15 @@ export default function AerospacePage() {
                     </div>
                   </div>
 
-                  <div className="overflow-hidden bg-[#1a1a1a]">
+                  <div className="overflow-hidden bg-[#1a1a1a] max-h-[280px]">
                     <img
-                      src={album.coverImage}
+                      src={album.coverImage.src}
                       alt={album.title}
-                      className="w-full h-full object-contain"
+                      width={album.coverImage.width}
+                      height={album.coverImage.height}
+                      className="w-full h-full object-cover object-top"
+                      fetchPriority={index < 2 ? 'high' : 'auto'}
+                      loading={index < 2 ? 'eager' : 'lazy'}
                     />
                   </div>
                 </div>
@@ -458,21 +469,21 @@ export default function AerospacePage() {
             {/* Masonry Grid */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
               {album.images.map((image, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
                   className="group relative break-inside-avoid mb-2 cursor-pointer"
                   onClick={() => openLightbox(albumIndex, index)}
                 >
-                  <div className="relative overflow-hidden border-2 border-[#1a1a1a] bg-[#2a2a2a]">
+                  <div className="relative overflow-hidden border-2 border-[#1a1a1a] bg-[#c4c0b8]">
                     <img
-                      src={image}
-                      alt={`${album.title} ${index + 1}`}
-                      className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-[1.02]"
-                      loading="lazy"
+                      src={image.src}
+                      alt={`${album.title} - photo ${index + 1} of ${album.images.length}`}
+                      width={image.width}
+                      height={image.height}
+                      className={`${index < 6 ? '' : 'gallery-fade'} w-full object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out`}
+                      style={{ aspectRatio: `${image.width} / ${image.height}` }}
+                      loading={index < 6 ? 'eager' : 'lazy'}
+                      onLoad={index >= 6 ? onImgLoad : undefined}
                     />
                     <div className="absolute top-1 left-1 bg-[#1a1a1a] text-[#e8e6e1] text-[10px] px-1.5 py-0.5 font-aerospace-display opacity-80 group-hover:bg-[#c41e3a] transition-colors duration-300">
                       {String(index + 1).padStart(3, '0')}
@@ -480,7 +491,7 @@ export default function AerospacePage() {
                     {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -499,7 +510,7 @@ export default function AerospacePage() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxState && lightboxImage && (
+        {lightboxState && lightboxImage?.src && (
           <motion.div
             ref={lightboxRef}
             initial={{ opacity: 0 }}
@@ -561,13 +572,13 @@ export default function AerospacePage() {
 
             {/* Image with loading state */}
             <motion.img
-              key={lightboxImage}
+              key={lightboxImage.src}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              src={lightboxImage}
-              alt="Aerospace photo"
+              src={lightboxImage.src}
+              alt={`${aerospaceAlbums[lightboxState.albumIndex]?.title || 'Aerospace'} - photo ${lightboxState.imageIndex + 1}`}
               className="max-w-[calc(100%-120px)] max-h-[85vh] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
@@ -626,6 +637,62 @@ export default function AerospacePage() {
                 <span className="font-aerospace-display text-xs text-[#1a3a5c] tracking-wider">{item.status}</span>
               </div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Experience Logo Strip */}
+      <section className="py-16 md:py-24 border-t-2 border-[#1a1a1a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="w-8 h-px bg-[#1a1a1a]" />
+              <span className="font-aerospace-display text-xs tracking-[0.3em] text-[#4a4a4a]">
+                {aerospacePage.experience.sectionLabel}
+              </span>
+            </div>
+            <h2 className="font-aerospace-display text-4xl md:text-5xl text-[#1a1a1a]">
+              {aerospacePage.experience.sectionTitle}
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="border-2 border-[#1a1a1a] bg-[#d4d0c8]"
+          >
+            <div className="p-4 border-b-2 border-[#1a1a1a] bg-[#1a1a1a]">
+              <span className="font-aerospace-display text-xs tracking-wider text-[#e8e6e1]">
+                WORKED WITH
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 divide-x divide-y divide-[#1a1a1a]/15 lg:divide-y-0">
+              {aerospacePage.experience.companies.map((company) => (
+                <div
+                  key={company.name}
+                  className="flex flex-col items-center justify-center p-6 md:p-10"
+                >
+                  <div className="h-14 md:h-16 flex items-center justify-center mb-4">
+                    <img
+                      src={company.logo}
+                      alt={company.name}
+                      className={`max-h-full w-auto max-w-[120px] md:max-w-[140px] object-contain opacity-80 hover:opacity-100 transition-opacity ${company.invert ? 'invert' : ''}`}
+                    />
+                  </div>
+                  <span className="font-aerospace-display text-[10px] md:text-xs text-[#4a4a4a] tracking-wider text-center leading-tight">
+                    {company.role.toUpperCase()}
+                  </span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>

@@ -5,9 +5,10 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SkipLink from '@/components/SkipLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { testimonials } from '@/lib/testimonials';
 
 const cormorantGaramond = Cormorant_Garamond({
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
@@ -15,7 +16,7 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 const inter = Inter({
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
@@ -29,14 +30,14 @@ const spaceMono = Space_Mono({
 });
 
 const ibmPlexSans = IBM_Plex_Sans({
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-ibm-plex-sans',
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
-  weight: ['400', '500'],
+  weight: ['400'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-ibm-plex-mono',
@@ -119,6 +120,67 @@ const jsonLd = {
     'https://instagram.com/Seankd_photos',
     'https://x.com/SeanKD_Photos',
   ],
+  priceRange: '$$$$',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '16:00',
+      closes: '23:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: String(testimonials.length),
+    bestRating: '5',
+    worstRating: '1',
+  },
+  review: testimonials.map((t) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.name },
+    datePublished: t.date,
+    reviewBody: t.quote,
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: String(t.rating),
+      bestRating: '5',
+    },
+  })),
+};
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sean Kenneth Doherty',
+  jobTitle: 'Photographer & Cinematographer',
+  url: 'https://seankennethdoherty.com',
+  image: 'https://seankennethdoherty.com/og-image.jpg',
+  sameAs: [
+    'https://instagram.com/Seankd_photos',
+    'https://x.com/SeanKD_Photos',
+  ],
+  worksFor: { '@type': 'Organization', name: 'Firefly Aerospace' },
+  knowsAbout: [
+    'Wedding Photography',
+    'Aerospace Photography',
+    'SpaceX Starship',
+    'Avionics',
+    'Cinematography',
+    'Launch Documentation',
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Austin',
+    addressRegion: 'TX',
+    addressCountry: 'US',
+  },
 };
 
 export default function RootLayout({
@@ -132,6 +194,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         {/* Netlify Forms detection */}
         <meta name="netlify" content="edge" />

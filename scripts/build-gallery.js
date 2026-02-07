@@ -17,7 +17,12 @@ let sharp;
 try {
   sharp = require('sharp');
 } catch {
-  console.warn('⚠️  sharp not available, falling back to file copy (no WebP conversion)');
+  // sharp may be installed in app/node_modules when script runs from project root
+  try {
+    sharp = require(path.join(__dirname, '..', 'app', 'node_modules', 'sharp'));
+  } catch {
+    console.warn('⚠️  sharp not available, falling back to file copy (no WebP conversion)');
+  }
 }
 
 // Paths
@@ -87,33 +92,49 @@ async function optimizeImage(srcPath, destPath) {
       const srcStat = fs.statSync(srcPath);
       const destStat = fs.statSync(finalDestPath);
       if (destStat.mtime >= srcStat.mtime) {
-        return { success: true, skipped: true, size: destStat.size, destPath: finalDestPath };
+        // Read dimensions from existing file
+        let width = 0, height = 0;
+        if (sharp) {
+          const meta = await sharp(finalDestPath).metadata();
+          width = meta.width || 0;
+          height = meta.height || 0;
+        }
+        return { success: true, skipped: true, size: destStat.size, destPath: finalDestPath, width, height };
       }
     }
 
     if (sharp && ['.jpg', '.jpeg', '.png'].includes(ext)) {
       // Use sharp for WebP conversion with resize
       const srcSize = fs.statSync(srcPath).size;
-      await sharp(srcPath)
+      const info = await sharp(srcPath)
         .resize(MAX_WIDTH, MAX_WIDTH, { fit: 'inside', withoutEnlargement: true })
         .webp({ quality: WEBP_QUALITY })
         .toFile(finalDestPath);
 
       const destSize = fs.statSync(finalDestPath).size;
-      return { success: true, skipped: false, size: destSize, srcSize, saved: srcSize - destSize, destPath: finalDestPath };
+      return { success: true, skipped: false, size: destSize, srcSize, saved: srcSize - destSize, destPath: finalDestPath, width: info.width, height: info.height };
     } else {
       // Other formats or no sharp: just copy
       fs.copyFileSync(srcPath, finalDestPath);
-      return { success: true, skipped: false, size: fs.statSync(finalDestPath).size, destPath: finalDestPath };
+      // Try to read dimensions
+      let width = 0, height = 0;
+      if (sharp) {
+        try {
+          const meta = await sharp(finalDestPath).metadata();
+          width = meta.width || 0;
+          height = meta.height || 0;
+        } catch {}
+      }
+      return { success: true, skipped: false, size: fs.statSync(finalDestPath).size, destPath: finalDestPath, width, height };
     }
   } catch (e) {
     console.error(`  Error optimizing ${path.basename(srcPath)}: ${e.message}`);
     // Fallback to copy on error
     try {
       fs.copyFileSync(srcPath, destPath);
-      return { success: true, skipped: false, size: fs.statSync(destPath).size, destPath };
+      return { success: true, skipped: false, size: fs.statSync(destPath).size, destPath, width: 0, height: 0 };
     } catch (copyErr) {
-      return { success: false, error: copyErr.message, destPath };
+      return { success: false, error: copyErr.message, destPath, width: 0, height: 0 };
     }
   }
 }
@@ -142,6 +163,8 @@ async function scanAlbum(albumPath, categoryId, albumId) {
         images.push({
           filename: outputFilename,
           src: `/images/galleries/${categoryId}/${albumId}/${outputFilename}`,
+          width: result.width || 0,
+          height: result.height || 0,
         });
 
         if (result.saved > 0) {
@@ -229,6 +252,8 @@ function generateTypeScript(categories) {
   lines.push('export interface GalleryImage {');
   lines.push('  filename: string;');
   lines.push('  src: string;');
+  lines.push('  width: number;');
+  lines.push('  height: number;');
   lines.push('}');
   lines.push('');
   lines.push('export interface AlbumConfig {');
@@ -264,7 +289,7 @@ function generateTypeScript(categories) {
       lines.push(`        images: [`);
       
       for (const img of album.images) {
-        lines.push(`          { filename: '${img.filename}', src: '${img.src}' },`);
+        lines.push(`          { filename: '${img.filename}', src: '${img.src}', width: ${img.width || 0}, height: ${img.height || 0} },`);
       }
       
       lines.push(`        ],`);

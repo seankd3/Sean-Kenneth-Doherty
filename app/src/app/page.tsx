@@ -53,7 +53,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <img
             src={homeHeroImage}
-            alt="Hero background"
+            alt="Wedding photography by Sean Kenneth Doherty"
             className="w-full h-full object-cover"
             fetchPriority="high"
           />
@@ -238,7 +238,7 @@ export default function HomePage() {
               <div className="overflow-hidden">
                 <img
                   src={homeAboutImage}
-                  alt="Sean at work"
+                  alt="Sean Kenneth Doherty, photographer based in Austin, Texas"
                   className="w-full h-auto object-contain"
                 />
               </div>

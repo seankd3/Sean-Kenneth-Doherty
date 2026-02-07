@@ -111,6 +111,19 @@ export const aerospacePage = {
     { code: 'LENS-04', name: 'RF 500mm f/6.3', type: 'SUPER TELEPHOTO', status: 'ACTIVE' },
     { code: 'LENS-05', name: 'Helios 44-2 f/2', type: 'VINTAGE PRIME', status: 'ACTIVE' },
   ],
+  experience: {
+    sectionLabel: 'SERVICE RECORD',
+    sectionTitle: 'EXPERIENCE',
+    companies: [
+      { name: 'Firefly Aerospace', role: 'Avionics Technician', logo: '/images/logos/firefly.png', invert: false },
+      { name: 'SpaceX', role: 'Avionics Technician', logo: '/images/logos/spacex.svg', invert: false },
+      { name: 'NASASpaceFlight', role: 'Photographer & Cinematographer', logo: '/images/logos/nsf.svg', invert: false },
+      { name: 'WhatAboutIt', role: 'Photographer & Cinematographer', logo: '/images/logos/wai.png', invert: false },
+      { name: 'Cosmic Perspective', role: 'Photographer & Cinematographer', logo: '/images/logos/cosmic-perspective.png', invert: false },
+      { name: 'Everyday Astronaut', role: 'Photographer', logo: '/images/logos/everyday-astronaut.png', invert: true },
+      { name: 'Interstellar Gateway', role: 'Cinematographer', logo: '/images/logos/interstellar-gateway.png', invert: true },
+    ],
+  },
   cta: {
     badge: 'AVAILABLE FOR ASSIGNMENT',
     title: 'READY FOR',
@@ -218,4 +231,46 @@ export const contactPage = {
       'Other',
     ],
   },
+  faq: [
+    {
+      question: "What's your turnaround time?",
+      answer:
+        'Wedding galleries are typically delivered within 4-6 weeks. Sneak peeks of 15-20 edited images are shared within 48 hours. Portrait and event sessions have a 2-3 week turnaround. Rush editing is available for an additional fee.',
+    },
+    {
+      question: 'Do you travel for weddings?',
+      answer:
+        "Absolutely. While I'm based in Austin, TX, I regularly travel for destination weddings across the U.S. and internationally. Travel fees vary by location and are quoted during your consultation.",
+    },
+    {
+      question: "What's included in your collections?",
+      answer:
+        'Every collection includes professional editing, an online gallery with full-resolution downloads, and a print release. Collections range from intimate elopement coverage starting at $1,500 to full photo + cinema packages. Flexible payment plans are available on all collections — only 25% is due at booking.',
+    },
+    {
+      question: 'How do I book?',
+      answer:
+        "Start by filling out the contact form above or emailing me directly. We'll schedule a complimentary consultation to discuss your vision. Booking is confirmed with a signed contract and a 25% retainer, with the rest split into monthly payments before your date.",
+    },
+    {
+      question: 'What equipment do you use?',
+      answer:
+        'I shoot with professional full-frame mirrorless cameras and a range of prime and zoom lenses. For video, I use cinema-grade stabilizers and audio equipment. All gear is backed up with redundant bodies and cards to ensure nothing is missed.',
+    },
+    {
+      question: 'Do you offer videography as well?',
+      answer:
+        'Yes. I offer both photography and cinematography. Highlight films and full ceremony coverage are available as add-ons to any photography package, or as standalone services.',
+    },
+    {
+      question: "What's your cancellation or rescheduling policy?",
+      answer:
+        'Rescheduling is free up to 60 days before your event, subject to availability. Cancellations more than 90 days out receive a 50% refund of the retainer. Full details are outlined in the contract.',
+    },
+    {
+      question: 'Can I see a full gallery from a recent wedding?',
+      answer:
+        "Of course. During your consultation I'm happy to share complete galleries from recent weddings and events. You can also explore selected work on the weddings page of this site.",
+    },
+  ],
 };
