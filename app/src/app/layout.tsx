@@ -110,7 +110,7 @@ const jsonLd = {
     '@type': 'OfferCatalog',
     name: 'Photography Services',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Wedding Photography & Cinematography' }, priceRange: '$3,500 - $8,500' },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Wedding Photography & Cinematography' }, priceRange: '$1,400 - $5,400' },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Aerospace & Launch Documentation' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Event Photography' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Portrait Sessions' } },

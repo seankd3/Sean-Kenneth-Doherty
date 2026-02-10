@@ -30,3 +30,11 @@ export {
   abstractPage,
   contactPage,
 } from './pages';
+
+export {
+  weddingPackages,
+  weddingAddOns,
+  pricingConfig,
+  formatPrice,
+} from './wedding-pricing';
+export type { WeddingPackage, WeddingAddOn, PricingConfig } from './wedding-pricing';

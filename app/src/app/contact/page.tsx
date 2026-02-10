@@ -1,9 +1,16 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check, AlertCircle, Package } from 'lucide-react';
 import { contactPage, siteConfig } from '@/lib/content';
+import {
+  weddingPackages,
+  weddingAddOns,
+  pricingConfig,
+  formatPrice,
+} from '@/lib/content/wedding-pricing';
 import {
   Accordion,
   AccordionContent,
@@ -19,7 +26,69 @@ interface FormErrors {
 }
 
 export default function ContactPage() {
+  return (
+    <Suspense>
+      <ContactPageInner />
+    </Suspense>
+  );
+}
+
+function ContactPageInner() {
+  const searchParams = useSearchParams();
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Parse wedding pricing selection from URL params
+  const pricingSelection = useMemo(() => {
+    const packageId = searchParams.get('package');
+    if (!packageId) return null;
+
+    const pkg = weddingPackages.find((p) => p.id === packageId);
+    if (!pkg) return null;
+
+    const addonIds = (searchParams.get('addons') || '').split(',').filter(Boolean);
+    const addons = addonIds
+      .map((id) => {
+        const addon = weddingAddOns.find((a) => a.id === id);
+        if (!addon) return null;
+        const qtyParam = searchParams.get(`qty_${id}`);
+        const qty = qtyParam ? Math.min(parseInt(qtyParam, 10) || 1, addon.maxQuantity || 4) : 1;
+        return { ...addon, qty };
+      })
+      .filter((a): a is NonNullable<typeof a> => a !== null);
+
+    const payInFull = searchParams.get('payInFull') === '1';
+    const addOnsTotal = addons.reduce((sum, a) => sum + a.price * a.qty, 0);
+    const subtotal = pkg.price + addOnsTotal;
+    const discount = payInFull ? pricingConfig.payInFullDiscount : 0;
+    const total = subtotal - discount;
+
+    return { pkg, addons, payInFull, total, discount };
+  }, [searchParams]);
+
+  // Build pre-filled message from pricing selection
+  const prefillMessage = useMemo(() => {
+    if (!pricingSelection) return '';
+    const { pkg, addons, payInFull, total } = pricingSelection;
+    const lines = [`Hi! I'm interested in the ${pkg.name} package (${formatPrice(pkg.price)}).`];
+    if (addons.length > 0) {
+      lines.push('');
+      lines.push('Add-ons:');
+      for (const a of addons) {
+        const qtyStr = a.qty > 1 ? ` x${a.qty}` : '';
+        lines.push(`- ${a.name}${qtyStr} (${formatPrice(a.price * a.qty)})`);
+      }
+    }
+    if (payInFull) {
+      lines.push('');
+      lines.push('I\'d like to pay in full for the $200 discount.');
+    }
+    lines.push('');
+    lines.push(`Estimated total: ${formatPrice(total)}`);
+    lines.push('');
+    lines.push('Could you let me know about availability for my date?');
+    return lines.join('\n');
+  }, [pricingSelection]);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -30,6 +99,16 @@ export default function ContactPage() {
     referralSource: '',
     message: '',
   });
+
+  // Pre-fill form from pricing selection (runs once on mount)
+  useEffect(() => {
+    if (!pricingSelection) return;
+    setFormData((prev) => ({
+      ...prev,
+      eventType: prev.eventType || 'Wedding',
+      message: prev.message || prefillMessage,
+    }));
+  }, [pricingSelection, prefillMessage]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -252,6 +331,40 @@ export default function ContactPage() {
               className="lg:col-span-2"
             >
               <div className="bg-[#141414] p-8 md:p-12">
+                {/* Pricing selection summary from wedding page */}
+                {pricingSelection && !isSubmitted && (
+                  <div className="mb-8 p-4 border border-[#c9a962]/30 bg-[#c9a962]/5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Package size={16} className="text-[#c9a962]" />
+                      <h4 className="text-white font-medium text-sm">Your Selection</h4>
+                    </div>
+                    <div className="space-y-1.5 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-[#a0a0a0]">{pricingSelection.pkg.name}</span>
+                        <span className="text-white">{formatPrice(pricingSelection.pkg.price)}</span>
+                      </div>
+                      {pricingSelection.addons.map((a) => (
+                        <div key={a.id} className="flex justify-between">
+                          <span className="text-[#a0a0a0]">
+                            {a.name}{a.qty > 1 ? ` x${a.qty}` : ''}
+                          </span>
+                          <span className="text-white">{formatPrice(a.price * a.qty)}</span>
+                        </div>
+                      ))}
+                      {pricingSelection.discount > 0 && (
+                        <div className="flex justify-between">
+                          <span className="text-[#c9a962]">Pay-in-full discount</span>
+                          <span className="text-[#c9a962]">-{formatPrice(pricingSelection.discount)}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between pt-2 border-t border-[#c9a962]/20 mt-2">
+                        <span className="text-white font-medium">Total</span>
+                        <span className="text-white font-bold">{formatPrice(pricingSelection.total)}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {isSubmitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}

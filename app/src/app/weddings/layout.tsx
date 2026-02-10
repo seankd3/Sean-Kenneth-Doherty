@@ -7,7 +7,7 @@ const ogImage = getFirstImage('weddings/lauren-elphin') || '/og-image.jpg';
 export const metadata: Metadata = {
   title: 'Wedding Photography & Cinematography | Austin, TX',
   description:
-    'Elegant wedding photography and cinematography in Austin, TX. View full galleries from real weddings. Packages from $3,500. Available for destination weddings nationwide.',
+    'Elegant wedding photography and cinematography in Austin, TX. View full galleries from real weddings. Collections starting at $1,400. Available for destination weddings nationwide.',
   openGraph: {
     title: 'Wedding Photography | Sean Kenneth Doherty',
     description:
