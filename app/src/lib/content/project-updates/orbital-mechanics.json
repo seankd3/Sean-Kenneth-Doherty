@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-04-24",
+    "title": "Trigger Auto Burns At Ignition Time",
+    "summary": "Changed auto-burn execution to trigger at ignition time, centering planned burns around the maneuver node.",
+    "commit": "6d6394c"
+  },
+  {
+    "date": "2026-04-24",
     "title": "Arm Future Maneuver Burns",
     "summary": "Made future maneuver burns arm and count down instead of instantly jumping the spacecraft to the node.",
     "commit": "02ef85a"
@@ -40,11 +46,5 @@
     "title": "Apollo Cockpit Display And Flight Rendering",
     "summary": "Reworked the interface around Apollo mission-control references with clean lines, compact telemetry, and an updateable node editor.",
     "commit": "085fc60"
-  },
-  {
-    "date": "2026-04-24",
-    "title": "Earth With Vector Grid And Coastlines",
-    "summary": "Added vector Earth grid and coastline rendering for clearer orbital position and horizon reference.",
-    "commit": "7f05060"
   }
 ]

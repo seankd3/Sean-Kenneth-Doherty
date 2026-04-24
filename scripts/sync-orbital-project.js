@@ -19,6 +19,10 @@ const outputPath = path.join(
 
 const summaryOverrides = new Map([
   [
+    '6d6394c',
+    'Changed auto-burn execution to trigger at ignition time, centering planned burns around the maneuver node.',
+  ],
+  [
     '02ef85a',
     'Made future maneuver burns arm and count down instead of instantly jumping the spacecraft to the node.',
   ],
