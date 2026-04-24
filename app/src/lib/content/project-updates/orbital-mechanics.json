@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-04-24",
+    "title": "Use Finite Plain-line Maneuver Burns",
+    "summary": "Replaced instant maneuver execution with finite SPS burns, removed the remaining shader-style atmosphere helper, and slowed attitude inputs for cleaner CRT line motion.",
+    "commit": "10410f2"
+  },
+  {
+    "date": "2026-04-24",
     "title": "Trigger Auto Burns At Ignition Time",
     "summary": "Changed auto-burn execution to trigger at ignition time, centering planned burns around the maneuver node.",
     "commit": "6d6394c"
@@ -40,11 +46,5 @@
     "title": "Roadmap For Clean CRT Display Target",
     "summary": "Updated the roadmap around a clean CRT display target and Apollo mission-control visual direction.",
     "commit": "89b51cd"
-  },
-  {
-    "date": "2026-04-24",
-    "title": "Apollo Cockpit Display And Flight Rendering",
-    "summary": "Reworked the interface around Apollo mission-control references with clean lines, compact telemetry, and an updateable node editor.",
-    "commit": "085fc60"
   }
 ]
