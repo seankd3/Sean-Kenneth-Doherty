@@ -1,0 +1,50 @@
+[
+  {
+    "date": "2026-04-24",
+    "title": "Maneuver Alignment Guidance",
+    "summary": "Added burn-vector alignment guidance, ignition timing, and pointing error readouts so planned nodes connect directly to spacecraft attitude.",
+    "commit": "d893649"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Direct Maneuver Node Placement",
+    "summary": "Added click-to-place maneuver nodes on the orbit line, scene markers, map connectors, and a maneuver cue on the navball.",
+    "commit": "c00baa5"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Intuitive Maneuver Node Editor",
+    "summary": "Added a MechJeb-style maneuver editor with prograde, normal, radial, TIG, AP/PE placement, predicted orbit, and burn timing.",
+    "commit": "05703cc"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Maneuver Planning And Flight Display Controls",
+    "summary": "Add maneuver planning and flight display controls.",
+    "commit": "d1ead05"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Roadmap For Clean CRT Display Target",
+    "summary": "Update roadmap for clean CRT display target.",
+    "commit": "89b51cd"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Apollo Cockpit Display And Flight Rendering",
+    "summary": "Reworked the interface around Apollo mission-control references with clean lines, compact telemetry, and an updateable node editor.",
+    "commit": "085fc60"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Earth With Vector Grid And Coastlines",
+    "summary": "Render Earth with vector grid and coastlines.",
+    "commit": "7f05060"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "Apollo Simulator Reference Docs",
+    "summary": "Add Apollo simulator reference docs.",
+    "commit": "6016939"
+  }
+]

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build-gallery": "node ../scripts/build-gallery.js"
+    "build-gallery": "node ../scripts/build-gallery.js",
+    "sync-projects": "node ../scripts/sync-orbital-project.js"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

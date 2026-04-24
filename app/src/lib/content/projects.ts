@@ -1,7 +1,10 @@
+import orbitalMechanicsUpdates from './project-updates/orbital-mechanics.json';
+
 export type ProjectUpdate = {
   date: string;
   title: string;
   summary: string;
+  commit?: string;
 };
 
 export type ProjectLink = {
@@ -47,25 +50,6 @@ export const projects: Project[] = [
       'MechJeb-style maneuver node editor with prograde, normal, radial, TIG, AP/PE placement, predicted orbit, and burn timing.',
       'Real bright-star catalog rendering and Earth coastlines/grid for spatial reference.',
     ],
-    updates: [
-      {
-        date: '2026-04-24',
-        title: 'Maneuver Alignment Guidance',
-        summary:
-          'Added burn-vector alignment guidance, ignition timing, and pointing error readouts so planned nodes connect directly to spacecraft attitude.',
-      },
-      {
-        date: '2026-04-24',
-        title: 'Direct Node Placement',
-        summary:
-          'Added click-to-place maneuver nodes on the orbit line, scene markers, map connectors, and a maneuver cue on the navball.',
-      },
-      {
-        date: '2026-04-24',
-        title: 'Mission-Control UI Pass',
-        summary:
-          'Reworked the interface around Apollo mission-control references with clean lines, compact telemetry, and an updateable node editor.',
-      },
-    ],
+    updates: orbitalMechanicsUpdates,
   },
 ];

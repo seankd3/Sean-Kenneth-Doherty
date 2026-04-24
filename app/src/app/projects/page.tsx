@@ -102,7 +102,12 @@ export default function ProjectsPage() {
                         <div key={`${project.slug}-${update.date}-${update.title}`} className="border-t border-[#2a2a2a] pt-4">
                           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                             <p className="text-sm font-medium text-white">{update.title}</p>
-                            <time className="text-xs text-[#6f6f6f]">{update.date}</time>
+                            <div className="flex items-center gap-3 text-xs text-[#6f6f6f]">
+                              {update.commit && (
+                                <span className="font-aerospace-display uppercase">{update.commit}</span>
+                              )}
+                              <time>{update.date}</time>
+                            </div>
                           </div>
                           <p className="text-sm leading-relaxed text-[#a0a0a0]">{update.summary}</p>
                         </div>
@@ -135,8 +140,9 @@ export default function ProjectsPage() {
               Update Path
             </p>
             <p>
-              Project entries live in <code className="text-white">app/src/lib/content/projects.ts</code>.
-              Update the summary, highlights, image, tags, or build log there and this page will refresh from that data.
+              Project entries live in <code className="text-white">app/src/lib/content/projects.ts</code>,
+              while the Orbital Mechanics build log lives in <code className="text-white">app/src/lib/content/project-updates/orbital-mechanics.json</code>.
+              Run <code className="text-white">npm run sync-projects</code> from the app directory to refresh it from the game repo.
             </p>
           </div>
         </div>
