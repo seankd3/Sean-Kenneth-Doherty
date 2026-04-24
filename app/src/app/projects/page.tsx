@@ -19,7 +19,7 @@ export default function ProjectsPage() {
           <div className="mb-12 max-w-3xl">
             <p className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-[#c9a962]">
               <RadioTower size={16} />
-              Hidden Index
+              {projectsPage.subtitle}
             </p>
             <h1 className="font-wedding-display text-5xl text-white md:text-7xl">
               {projectsPage.title}
@@ -103,8 +103,18 @@ export default function ProjectsPage() {
                           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                             <p className="text-sm font-medium text-white">{update.title}</p>
                             <div className="flex items-center gap-3 text-xs text-[#6f6f6f]">
-                              {update.commit && (
-                                <span className="font-aerospace-display uppercase">{update.commit}</span>
+                              {update.commit && project.sourceUrl && (
+                                <a
+                                  href={`${project.sourceUrl}/commit/${update.commit}`}
+                                  className="font-aerospace-display uppercase transition-colors hover:text-[#c9a962]"
+                                >
+                                  {update.commit}
+                                </a>
+                              )}
+                              {update.commit && !project.sourceUrl && (
+                                <span className="font-aerospace-display uppercase">
+                                  {update.commit}
+                                </span>
                               )}
                               <time>{update.date}</time>
                             </div>

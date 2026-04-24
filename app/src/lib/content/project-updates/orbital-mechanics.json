@@ -20,13 +20,13 @@
   {
     "date": "2026-04-24",
     "title": "Maneuver Planning And Flight Display Controls",
-    "summary": "Add maneuver planning and flight display controls.",
+    "summary": "Added the first maneuver planning pass with flight display controls, predicted orbit telemetry, and burn execution.",
     "commit": "d1ead05"
   },
   {
     "date": "2026-04-24",
     "title": "Roadmap For Clean CRT Display Target",
-    "summary": "Update roadmap for clean CRT display target.",
+    "summary": "Updated the roadmap around a clean CRT display target and Apollo mission-control visual direction.",
     "commit": "89b51cd"
   },
   {
@@ -38,13 +38,13 @@
   {
     "date": "2026-04-24",
     "title": "Earth With Vector Grid And Coastlines",
-    "summary": "Render Earth with vector grid and coastlines.",
+    "summary": "Added vector Earth grid and coastline rendering for clearer orbital position and horizon reference.",
     "commit": "7f05060"
   },
   {
     "date": "2026-04-24",
     "title": "Apollo Simulator Reference Docs",
-    "summary": "Add Apollo simulator reference docs.",
+    "summary": "Added Apollo simulator reference documentation to ground future cockpit and mission-control decisions.",
     "commit": "6016939"
   }
 ]

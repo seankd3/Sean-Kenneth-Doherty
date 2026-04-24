@@ -34,6 +34,22 @@ const summaryOverrides = new Map([
     '085fc60',
     'Reworked the interface around Apollo mission-control references with clean lines, compact telemetry, and an updateable node editor.',
   ],
+  [
+    'd1ead05',
+    'Added the first maneuver planning pass with flight display controls, predicted orbit telemetry, and burn execution.',
+  ],
+  [
+    '89b51cd',
+    'Updated the roadmap around a clean CRT display target and Apollo mission-control visual direction.',
+  ],
+  [
+    '7f05060',
+    'Added vector Earth grid and coastline rendering for clearer orbital position and horizon reference.',
+  ],
+  [
+    '6016939',
+    'Added Apollo simulator reference documentation to ground future cockpit and mission-control decisions.',
+  ],
 ]);
 
 const logFormat = '%h%x1f%cs%x1f%s';

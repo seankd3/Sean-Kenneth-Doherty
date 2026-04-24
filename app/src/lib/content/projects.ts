@@ -20,6 +20,7 @@ export type Project = {
   summary: string;
   image: string;
   imageAlt: string;
+  sourceUrl?: string;
   tags: string[];
   highlights: string[];
   updates: ProjectUpdate[];
@@ -28,9 +29,9 @@ export type Project = {
 
 export const projectsPage = {
   title: 'Projects',
-  subtitle: 'Private working notes for active builds.',
+  subtitle: 'Working Projects',
   description:
-    'A quiet page for software, simulation, and experimental tools that are still changing too quickly for the main portfolio.',
+    'A low-key index for software, simulation, and experimental tools that are still changing too quickly for the main portfolio.',
 };
 
 export const projects: Project[] = [
@@ -43,6 +44,7 @@ export const projects: Project[] = [
       'A realistic orbital mechanics game with clean 1960s mission-control vector graphics, Apollo-inspired cockpit telemetry, maneuver planning, and physically grounded spacecraft behavior.',
     image: '/images/projects/orbital-mechanics.png',
     imageAlt: 'Orbital Mechanics showing a vector Earth map, spacecraft, maneuver node editor, and navball.',
+    sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/orbital-mechanics',
     tags: ['Three.js', 'Orbital Mechanics', 'Apollo', 'Vector UI', 'Game Prototype'],
     highlights: [
       'Clean CRT-ready vector rendering without fake scanline or bloom effects.',
@@ -51,5 +53,15 @@ export const projects: Project[] = [
       'Real bright-star catalog rendering and Earth coastlines/grid for spatial reference.',
     ],
     updates: orbitalMechanicsUpdates,
+    links: [
+      {
+        label: 'Source',
+        href: 'https://github.com/Sean-Kenneth-Doherty/orbital-mechanics',
+      },
+      {
+        label: 'Build Log',
+        href: 'https://github.com/Sean-Kenneth-Doherty/orbital-mechanics/commits/main',
+      },
+    ],
   },
 ];
