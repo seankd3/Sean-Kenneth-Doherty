@@ -19,6 +19,10 @@ const outputPath = path.join(
 
 const summaryOverrides = new Map([
   [
+    '02ef85a',
+    'Made future maneuver burns arm and count down instead of instantly jumping the spacecraft to the node.',
+  ],
+  [
     'd893649',
     'Added burn-vector alignment guidance, ignition timing, and pointing error readouts so planned nodes connect directly to spacecraft attitude.',
   ],

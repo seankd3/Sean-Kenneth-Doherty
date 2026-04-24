@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-04-24",
+    "title": "Arm Future Maneuver Burns",
+    "summary": "Made future maneuver burns arm and count down instead of instantly jumping the spacecraft to the node.",
+    "commit": "02ef85a"
+  },
+  {
+    "date": "2026-04-24",
     "title": "Maneuver Alignment Guidance",
     "summary": "Added burn-vector alignment guidance, ignition timing, and pointing error readouts so planned nodes connect directly to spacecraft attitude.",
     "commit": "d893649"
@@ -40,11 +46,5 @@
     "title": "Earth With Vector Grid And Coastlines",
     "summary": "Added vector Earth grid and coastline rendering for clearer orbital position and horizon reference.",
     "commit": "7f05060"
-  },
-  {
-    "date": "2026-04-24",
-    "title": "Apollo Simulator Reference Docs",
-    "summary": "Added Apollo simulator reference documentation to ground future cockpit and mission-control decisions.",
-    "commit": "6016939"
   }
 ]
