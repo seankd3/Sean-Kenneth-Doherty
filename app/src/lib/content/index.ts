@@ -5,6 +5,7 @@
  *   - site.ts    → Contact info, social links, SEO defaults
  *   - albums.ts  → Album titles, descriptions, locations, dates
  *   - pages.ts   → Page hero text, CTAs, section copy
+ *   - projects.ts → Hidden project index and active build notes
  *
  * All page components import from here instead of hardcoding strings.
  */
@@ -30,6 +31,9 @@ export {
   abstractPage,
   contactPage,
 } from './pages';
+
+export { projectsPage, projects } from './projects';
+export type { Project, ProjectUpdate, ProjectLink } from './projects';
 
 export {
   weddingPackages,
