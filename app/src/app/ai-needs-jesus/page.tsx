@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, five-move argument, five-move social cards, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -71,6 +71,14 @@ const packets = [
       'Card copy, captions, alt text, reply prompts, and a short-thread version for carrying the five-move argument socially.',
     href: `${packetBase}/five-move-social-card-set.md`,
     icon: Quote,
+  },
+  {
+    title: 'Five-Move Social Reply Bank',
+    eyebrow: 'Comment Replies',
+    description:
+      'Short faithful replies for comments, quote-posts, DMs, objections, technical pushback, and sincere curiosity after the card set travels.',
+    href: `${packetBase}/five-move-social-reply-bank.md`,
+    icon: MessagesSquare,
   },
   {
     title: 'AI Is Power With A Voice',
@@ -262,6 +270,7 @@ const launchSequence = [
   'Use the manifesto as the broad public doorway.',
   'Use the five-move argument when someone needs the whole case quickly without losing the guardrails.',
   'Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.',
+  'Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.',
   'Use the secular essay for readers skeptical of church-first framing.',
   'Use the twelve-scenes packet when the idea needs to become vivid enough to retell.',
   'Use the one-page objection card when the phrase is being misunderstood quickly.',
