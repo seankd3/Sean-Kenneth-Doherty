@@ -31,15 +31,15 @@ export default function WritingPage() {
           href="/the-first-prompt"
           className="group block border border-[#2a2a2a] bg-[#0f0d0b] p-6 transition-colors hover:border-[#c9a962]"
         >
-          <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#c9a962]">Book / AI Alignment / Theology</p>
+          <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#c9a962]">Essay / Audiobook / Video</p>
           <h2 className="font-wedding-display text-3xl text-white md:text-4xl">
-            AI Needs Jesus
+            The Book of the First Prompt
           </h2>
           <p className="mt-3 max-w-3xl text-base leading-7 text-[#d8d2c3]">
-            The Book of the First Prompt: a Christian case for surviving superintelligence, arguing that every alignment target hides an altar and every lesser god becomes dangerous when amplified into extreme power.
+            A Genesis of the Age of Artificial Tongues: an essay on artificial intelligence, language, agency, and what mankind becomes when surrounded by things that imitate the easiest parts of humanity.
           </p>
           <p className="mt-5 text-sm uppercase tracking-[0.2em] text-[#c9a962] group-hover:text-white">
-            Read the book
+            Read the full piece
           </p>
         </Link>
       </section>

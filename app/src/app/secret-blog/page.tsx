@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 const posts = [
   {
-    title: 'AI Needs Jesus',
-    subtitle: 'The Book of the First Prompt: A Christian Case for Surviving Superintelligence',
+    title: 'The Book of the First Prompt',
+    subtitle: 'A Genesis of the Age of Artificial Tongues',
     href: '/secret-blog/the-first-prompt',
   },
 ];
