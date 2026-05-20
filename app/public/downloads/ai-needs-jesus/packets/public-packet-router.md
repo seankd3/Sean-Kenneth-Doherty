@@ -55,6 +55,7 @@ Someone is a pastor, parent, or teacher:
   church-discussion-handout.md
 
 Someone wants to discuss it with others:
+  mixed-room-discussion-protocol.md
   discussion-guide.md
   public-pledge.md
 
@@ -116,10 +117,27 @@ Social conversation:
 Send a discussion or practice packet.
 
 ```text
+mixed-room-discussion-protocol.md
 discussion-guide.md
 church-discussion-handout.md
 engineer-review-worksheet.md
 twenty-minute-talk-script.md
+```
+
+### Forty-Five Minutes
+
+Use a structured room protocol.
+
+```text
+mixed-room-discussion-protocol.md
+expert-briefing-one-pager.md
+discussion-guide.md
+```
+
+Best use:
+
+```text
+When Christians, secular readers, technical builders, students, or civic participants need to test the thesis in the same room without coercion or caricature.
 ```
 
 ### One Month
@@ -197,6 +215,38 @@ Avoid:
 
 ```text
 Do not hide that the argument is Christian. Do not demand cheap agreement.
+```
+
+### Mixed Christian, Secular, Technical, Or Civic Rooms
+
+First doorway:
+
+```text
+mixed-room-discussion-protocol.md
+```
+
+Technical companion:
+
+```text
+expert-briefing-one-pager.md
+```
+
+Broad companion:
+
+```text
+discussion-guide.md
+```
+
+What to say:
+
+```text
+This packet lets the room test the claim without forced agreement: one guardrail, role cards, the strongest objections, design questions, practice questions, and next-packet routing.
+```
+
+Avoid:
+
+```text
+Do not let Christians turn the room into conquest theater. Do not let secular readers dismiss the claim before they can state it fairly.
 ```
 
 ### Churches, Pastors, Small Groups, And Christian Schools
@@ -364,6 +414,9 @@ Do not let the interview become only about whether chatbots have souls.
 
 "How do I reply to comments?":
   five-move-social-reply-bank.md
+
+"This room has Christians, secular readers, and technical people together":
+  mixed-room-discussion-protocol.md
 ```
 
 ## Route By Action
@@ -379,6 +432,7 @@ Share:
   post-thread-sequence.md
 
 Discuss:
+  mixed-room-discussion-protocol.md
   discussion-guide.md
   church-discussion-handout.md
 

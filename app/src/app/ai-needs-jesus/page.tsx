@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, public packet router, public retelling sheet, steelman objections, expert briefing one-pager, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, public packet router, public retelling sheet, steelman objections, expert briefing one-pager, mixed-room discussion protocol, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -87,6 +87,14 @@ const packets = [
       'A room-ready briefing for AI labs, safety teams, founders, and university groups: one thesis, three objections, four design questions, one guardrail, and one next packet.',
     href: `${packetBase}/expert-briefing-one-pager.md`,
     icon: ClipboardCheck,
+  },
+  {
+    title: 'Mixed-Room Discussion Protocol',
+    eyebrow: '45-Minute Shared Table',
+    description:
+      'A structured protocol for churches, AI labs, university classes, reading groups, and civic forums where Christian and secular participants test the thesis together.',
+    href: `${packetBase}/mixed-room-discussion-protocol.md`,
+    icon: Users,
   },
   {
     title: 'The Argument In Five Moves',
@@ -304,6 +312,7 @@ const launchSequence = [
   'Use the public retelling sheet when someone needs to explain the idea aloud, open a group conversation, or carry the thesis without flattening it into a slogan.',
   'Use the steelman-objections packet when AI experts, engineers, secular/global readers, or civic leaders need the strongest objections honored before they will listen further.',
   'Use the expert briefing one-pager when a lab, safety team, founder circle, or university group needs a 20-minute agenda with one thesis, three hard objections, four design questions, one guardrail, and one next packet.',
+  'Use the mixed-room discussion protocol when churches, AI labs, university classes, reading groups, civic forums, or founder circles need a 45-minute structure for Christian and secular participants to test the thesis together without coercion.',
   'Use the five-move argument when someone needs the whole case quickly without losing the guardrails.',
   'Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.',
   'Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.',
