@@ -28,6 +28,22 @@ export default function WritingPage() {
 
       <section className="mx-auto mt-14 grid max-w-5xl gap-6">
         <Link
+          href="/ai-needs-jesus"
+          className="group block border border-[#2a2a2a] bg-[#0f0d0b] p-6 transition-colors hover:border-[#c9a962]"
+        >
+          <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#c9a962]">Launch Hub / Packet Set</p>
+          <h2 className="font-wedding-display text-3xl text-white md:text-4xl">
+            AI Needs Jesus Launch Hub
+          </h2>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-[#d8d2c3]">
+            Shareable manifesto, secular doorway essay, engineer memo, quote-card set, talk script, pledge, discussion guide, and technical appendix for the book&apos;s public argument.
+          </p>
+          <p className="mt-5 text-sm uppercase tracking-[0.2em] text-[#c9a962] group-hover:text-white">
+            Use the launch assets
+          </p>
+        </Link>
+
+        <Link
           href="/the-first-prompt"
           className="group block border border-[#2a2a2a] bg-[#0f0d0b] p-6 transition-colors hover:border-[#c9a962]"
         >
