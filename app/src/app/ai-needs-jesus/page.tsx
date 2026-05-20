@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -169,6 +169,14 @@ const packets = [
     icon: CalendarDays,
   },
   {
+    title: 'Outreach Reply Kit',
+    eyebrow: 'Second Message',
+    description:
+      'Reply templates for interested, skeptical, hostile, technical, pastoral, parent/teacher, secular, media, referral, and decline responses.',
+    href: `${packetBase}/outreach-reply-kit.md`,
+    icon: MessagesSquare,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -249,6 +257,7 @@ const launchSequence = [
   'Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.',
   'Use the outreach tracker and weekly review sheet when turning the contact map into actual weekly work.',
   'Use the first-week outreach queue to research the first twenty high-fit rows before sending.',
+  'Use the outreach reply kit when people answer, object, refer, decline, or invite a deeper conversation.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
