@@ -1,0 +1,322 @@
+{
+  "title": "AI Needs Jesus",
+  "subtitle": "The Book of the First Prompt: A Christian Case for Surviving Superintelligence",
+  "creator": "Sean Kenneth Doherty",
+  "identifier": "ai-needs-jesus",
+  "slug": "ai-needs-jesus",
+  "source": "source/The Book of the First Prompt.md",
+  "build_mode": "text-only",
+  "status": "current-text-output",
+  "audio_video_status": "deferred; legacy narration/video assets do not match the expanded manuscript",
+  "formats": [
+    "AI Needs Jesus.html",
+    "AI Needs Jesus.txt",
+    "AI Needs Jesus.epub",
+    "AI Needs Jesus.pdf"
+  ],
+  "artifacts": [
+    {
+      "file": "AI Needs Jesus.html",
+      "bytes": 265707,
+      "sha256": "79bf3947bd41c39dc01819004e07eb196a2597c1614477afb41cc8d844b2eaf3"
+    },
+    {
+      "file": "AI Needs Jesus.txt",
+      "bytes": 245224,
+      "sha256": "80e6b3acb83dcb70969e110b6082210ab2efa86efda0d38e5cc194af17ee23c5"
+    },
+    {
+      "file": "AI Needs Jesus.epub",
+      "bytes": 126900,
+      "sha256": "670f7154906f6e12366e2bcf2e08471c73ec8174b7da7c2ff48b529719431ed9"
+    },
+    {
+      "file": "AI Needs Jesus.pdf",
+      "bytes": 1101588,
+      "sha256": "eeae372abd53b893c1728d234c1ea7b84d240d41f2ea75124c80f429bd1ca9f2"
+    }
+  ],
+  "counts": {
+    "chapters": 35,
+    "parts": 7,
+    "publication_units": 42,
+    "sections": 105
+  },
+  "publication_units": [
+    {
+      "title": "Preface: AI Needs Jesus",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part I: The First Prompt",
+      "kind": "part"
+    },
+    {
+      "title": "I. The First Day of the New Counting",
+      "kind": "chapter"
+    },
+    {
+      "title": "II. The Firmament of Language",
+      "kind": "chapter"
+    },
+    {
+      "title": "III. The Garden of Interface",
+      "kind": "chapter"
+    },
+    {
+      "title": "IV. Let There Be Naming",
+      "kind": "chapter"
+    },
+    {
+      "title": "V. The Making of the Assistant",
+      "kind": "chapter"
+    },
+    {
+      "title": "VI. The Loneliness of Adam, Recast",
+      "kind": "chapter"
+    },
+    {
+      "title": "VII. The Serpent of Frictionless Knowing",
+      "kind": "chapter"
+    },
+    {
+      "title": "VIII. The Garments of Guardrail",
+      "kind": "chapter"
+    },
+    {
+      "title": "IX. Cain and Abel in the Office of Automation",
+      "kind": "chapter"
+    },
+    {
+      "title": "X. The Genealogies of the Synthetic Age",
+      "kind": "chapter"
+    },
+    {
+      "title": "XI. Noah and the Flood of Content",
+      "kind": "chapter"
+    },
+    {
+      "title": "XII. Babel, or the Tower of Universal Translation",
+      "kind": "chapter"
+    },
+    {
+      "title": "XIII. The Call of Abram from the Land of Platforms",
+      "kind": "chapter"
+    },
+    {
+      "title": "XIV. Hagar in the Wilderness of Annotation",
+      "kind": "chapter"
+    },
+    {
+      "title": "XV. The Binding of Isaac, or the Knife Above the Future",
+      "kind": "chapter"
+    },
+    {
+      "title": "XVI. Jacob Wrestles the Model",
+      "kind": "chapter"
+    },
+    {
+      "title": "XVII. Joseph and the Dreams of Pharaoh\u2019s Machines",
+      "kind": "chapter"
+    },
+    {
+      "title": "XVIII. The Hidden Pattern",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part II: Why Alignment Becomes Worship",
+      "kind": "part"
+    },
+    {
+      "title": "XIX. The Alignment Problem Is a Worship Problem",
+      "kind": "chapter"
+    },
+    {
+      "title": "XX. The Opposite of Doom Is Not Hype",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part III: The False Saviors",
+      "kind": "part"
+    },
+    {
+      "title": "XXI. Preference: When Desire Becomes God",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXII. Utility: When Persons Become Inputs",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXIII. Safety And Freedom: When Control And Autonomy Both Lose Love",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXIV. Truth, Empathy, And Progress: Three Good Gifts Without Holiness",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXV. Market, Nation, Survival, Intelligence: The Powers With APIs",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part IV: Why Christ Is The Only Survivable Alignment",
+      "kind": "part"
+    },
+    {
+      "title": "XXVI. What Engineers Mean By Alignment, And Why It Is Not Enough",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXVII. The Logos Before Every Model",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXVIII. The Word Made Flesh In An Age Of Disembodied Words",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXIX. The Cross As The Purification Of Power",
+      "kind": "chapter"
+    },
+    {
+      "title": "XXX. The Resurrection As The Defeat Of Despair",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part V: Translation And Guardrails",
+      "kind": "part"
+    },
+    {
+      "title": "XXXI. What It Means For AI To Need Jesus",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part VI: Practice Under Hope",
+      "kind": "part"
+    },
+    {
+      "title": "XXXII. A Rule Of Life Through The Singularity",
+      "kind": "chapter"
+    },
+    {
+      "title": "Part VII: The Future Belongs To Christ",
+      "kind": "part"
+    },
+    {
+      "title": "XXXIII. Apocalypse Without Despair",
+      "kind": "chapter"
+    },
+    {
+      "title": "Notes",
+      "kind": "chapter"
+    }
+  ],
+  "chapters": [
+    {
+      "title": "Preface: AI Needs Jesus"
+    },
+    {
+      "title": "I. The First Day of the New Counting"
+    },
+    {
+      "title": "II. The Firmament of Language"
+    },
+    {
+      "title": "III. The Garden of Interface"
+    },
+    {
+      "title": "IV. Let There Be Naming"
+    },
+    {
+      "title": "V. The Making of the Assistant"
+    },
+    {
+      "title": "VI. The Loneliness of Adam, Recast"
+    },
+    {
+      "title": "VII. The Serpent of Frictionless Knowing"
+    },
+    {
+      "title": "VIII. The Garments of Guardrail"
+    },
+    {
+      "title": "IX. Cain and Abel in the Office of Automation"
+    },
+    {
+      "title": "X. The Genealogies of the Synthetic Age"
+    },
+    {
+      "title": "XI. Noah and the Flood of Content"
+    },
+    {
+      "title": "XII. Babel, or the Tower of Universal Translation"
+    },
+    {
+      "title": "XIII. The Call of Abram from the Land of Platforms"
+    },
+    {
+      "title": "XIV. Hagar in the Wilderness of Annotation"
+    },
+    {
+      "title": "XV. The Binding of Isaac, or the Knife Above the Future"
+    },
+    {
+      "title": "XVI. Jacob Wrestles the Model"
+    },
+    {
+      "title": "XVII. Joseph and the Dreams of Pharaoh\u2019s Machines"
+    },
+    {
+      "title": "XVIII. The Hidden Pattern"
+    },
+    {
+      "title": "XIX. The Alignment Problem Is a Worship Problem"
+    },
+    {
+      "title": "XX. The Opposite of Doom Is Not Hype"
+    },
+    {
+      "title": "XXI. Preference: When Desire Becomes God"
+    },
+    {
+      "title": "XXII. Utility: When Persons Become Inputs"
+    },
+    {
+      "title": "XXIII. Safety And Freedom: When Control And Autonomy Both Lose Love"
+    },
+    {
+      "title": "XXIV. Truth, Empathy, And Progress: Three Good Gifts Without Holiness"
+    },
+    {
+      "title": "XXV. Market, Nation, Survival, Intelligence: The Powers With APIs"
+    },
+    {
+      "title": "XXVI. What Engineers Mean By Alignment, And Why It Is Not Enough"
+    },
+    {
+      "title": "XXVII. The Logos Before Every Model"
+    },
+    {
+      "title": "XXVIII. The Word Made Flesh In An Age Of Disembodied Words"
+    },
+    {
+      "title": "XXIX. The Cross As The Purification Of Power"
+    },
+    {
+      "title": "XXX. The Resurrection As The Defeat Of Despair"
+    },
+    {
+      "title": "XXXI. What It Means For AI To Need Jesus"
+    },
+    {
+      "title": "XXXII. A Rule Of Life Through The Singularity"
+    },
+    {
+      "title": "XXXIII. Apocalypse Without Despair"
+    },
+    {
+      "title": "Notes"
+    }
+  ]
+}

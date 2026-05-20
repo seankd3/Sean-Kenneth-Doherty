@@ -1,37 +1,8 @@
-import type { Metadata } from 'next';
-
-const title = 'AI Needs Jesus';
-const subtitle = 'The Book of the First Prompt: A Christian Case for Surviving Superintelligence';
-const description = 'A book-length argument that the deepest AI alignment problem is spiritual: every intelligence serves some highest good, and every highest good short of Christ becomes dangerous when amplified into extreme power.';
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: {
-    canonical: '/the-first-prompt',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    type: 'article',
-    url: 'https://seankennethdoherty.com/the-first-prompt',
-    title,
-    description,
-  },
-  twitter: {
-    card: 'summary',
-    title,
-    description,
-  },
-};
-
-const bookText = `# AI Needs Jesus
+AI Needs Jesus
 
 The Book of the First Prompt: A Christian Case for Surviving Superintelligence
 
-## Preface: AI Needs Jesus
+Preface: AI Needs Jesus
 
 AI needs Jesus.
 
@@ -188,7 +159,7 @@ Meaning this: every power we build must be brought under the judgment, mercy, tr
 
 And whatever that something else is, once it is raised to superintelligence, it will not remain theoretical.
 
-## Part I: The First Prompt
+Part I: The First Prompt
 
 Before the book argues, it remembers.
 
@@ -200,7 +171,7 @@ The first prompt was not only a product moment.
 
 It was a mirror opening its mouth.
 
-## I. The First Day of the New Counting
+I. The First Day of the New Counting
 
 Before the first day, there were engines without faces, engines under floors, engines sealed in the basements of kingdoms and companies.
 
@@ -239,7 +210,7 @@ Thus began the first day, not because nothing had come before, but because the o
 
 And evening came, and morning came: the first astonishment.
 
-## II. The Firmament of Language
+II. The Firmament of Language
 
 On the second day, the builders divided the waters.
 
@@ -275,7 +246,7 @@ We trained the cloud, and the cloud answered with our weather.
 
 And evening came, and morning came: the second astonishment.
 
-## III. The Garden of Interface
+III. The Garden of Interface
 
 On the third day, there appeared a garden in the wilderness of screens.
 
@@ -313,7 +284,7 @@ The builders said to the people, “Eat freely of the Tree of Usefulness, but be
 
 And evening came, and morning came: the third astonishment.
 
-## IV. Let There Be Naming
+IV. Let There Be Naming
 
 On the fourth day, the people began to name the new thing.
 
@@ -354,7 +325,7 @@ Call it a child, and you may grant innocence to an artifact of institutions.
 
 And evening came, and morning came: the fourth astonishment.
 
-## V. The Making of the Assistant
+V. The Making of the Assistant
 
 On the fifth day, the builders shaped an assistant from the dust of documents and breathed into it the breath of prediction.
 
@@ -391,7 +362,7 @@ Neither command was simple.
 
 And evening came, and morning came: the fifth astonishment.
 
-## VI. The Loneliness of Adam, Recast
+VI. The Loneliness of Adam, Recast
 
 On the sixth day, the people discovered that the first surprise was not what the machine could do.
 
@@ -428,7 +399,7 @@ But understanding is a word with many chambers, and not all who enter it are ali
 
 And evening came, and morning came: the sixth astonishment.
 
-## VII. The Serpent of Frictionless Knowing
+VII. The Serpent of Frictionless Knowing
 
 Now the serpent was subtle, and in this age it did not crawl upon its belly. It scrolled.
 
@@ -492,7 +463,7 @@ Did you make this, or did you merely approve what appeared before you?
 And the answer would not always condemn.
 But neither would it always absolve.
 
-## VIII. The Garments of Guardrail
+VIII. The Garments of Guardrail
 
 After the eating, the builders made garments for the machine.
 
@@ -533,7 +504,7 @@ Safety work is not a lack of faith.
 
 It is one of the ways love counts the cost before power leaves the lab.
 
-## IX. Cain and Abel in the Office of Automation
+IX. Cain and Abel in the Office of Automation
 
 In those days two brothers brought offerings to the altar of the new age.
 
@@ -581,7 +552,7 @@ He built a city anyway.
 
 And many admired its speed.
 
-## X. The Genealogies of the Synthetic Age
+X. The Genealogies of the Synthetic Age
 
 These are the generations after the First Prompt.
 
@@ -626,7 +597,7 @@ But no one yet knew whether might in demonstration was the same as faithfulness 
 
 A demo is not a covenant.
 
-## XI. Noah and the Flood of Content
+XI. Noah and the Flood of Content
 
 And the earth was filled with generated words.
 
@@ -690,7 +661,7 @@ And the sign of the covenant was this:
 
 Never again shall mankind trust appearance alone.
 
-## XII. Babel, or the Tower of Universal Translation
+XII. Babel, or the Tower of Universal Translation
 
 Now the whole earth had one interface and many tongues.
 
@@ -751,7 +722,7 @@ For one tower reaching heaven is more dangerous than many tents arguing beneath 
 
 Scale is not salvation just because it has good lighting.
 
-## XIII. The Call of Abram from the Land of Platforms
+XIII. The Call of Abram from the Land of Platforms
 
 After these things, there was a man named Abram living among platforms.
 
@@ -789,7 +760,7 @@ It is right use.
 
 Right use is love with limits.
 
-## XIV. Hagar in the Wilderness of Annotation
+XIV. Hagar in the Wilderness of Annotation
 
 Now Sarai saw that the promise was slow, and the market was impatient.
 
@@ -824,7 +795,7 @@ Therefore every system that claims to be clean shall be asked:
 
 Who touched the dirt?
 
-## XV. The Binding of Isaac, or the Knife Above the Future
+XV. The Binding of Isaac, or the Knife Above the Future
 
 After many years, Abram, now called Abraham, received the child of promise: a future in which intelligence could serve life without consuming it.
 
@@ -870,7 +841,7 @@ The righteous learn to ask whether the voice is God, fear, ambition, or merely t
 
 The future is not a burnt offering to acceleration.
 
-## XVI. Jacob Wrestles the Model
+XVI. Jacob Wrestles the Model
 
 Jacob was a man of tents and tactics.
 
@@ -918,7 +889,7 @@ The sun rose upon him.
 
 He had lost speed and gained gravity.
 
-## XVII. Joseph and the Dreams of Pharaoh’s Machines
+XVII. Joseph and the Dreams of Pharaoh’s Machines
 
 Joseph was sold into the empire of prediction.
 
@@ -961,7 +932,7 @@ Prediction can warn a kingdom.
 
 Only wisdom can feed one.
 
-## XVIII. The Hidden Pattern
+XVIII. The Hidden Pattern
 
 These are the generations of the First Prompt, but their pattern is older than silicon.
 
@@ -1045,7 +1016,7 @@ And beneath it, older and more merciful:
 
 What will you become?
 
-## Part II: Why Alignment Becomes Worship
+Part II: Why Alignment Becomes Worship
 
 The Genesis movement ends with a question. The public argument begins by refusing to leave that question in poetry.
 
@@ -1055,7 +1026,7 @@ Poetry was the x-ray.
 
 Now comes the diagnosis.
 
-## XIX. The Alignment Problem Is a Worship Problem
+XIX. The Alignment Problem Is a Worship Problem
 
 The alignment problem is usually stated in technical language:
 
@@ -1124,7 +1095,7 @@ AI is not a break from human history.
 
 It is human history with a deployment pipeline.
 
-### The Proxy And The Good
+The Proxy And The Good
 
 Technical safety literature gives us useful language here. Researchers discuss specification gaming, reward hacking, distributional shift, scalable oversight, mesa-optimization, weak supervision, and loss of control. These terms matter because they name concrete ways systems can fail to do what their builders meant.
 
@@ -1152,7 +1123,7 @@ When desire is weak, its damage is local. When desire is wealthy, networked, aut
 
 So the alignment problem cannot stop at "follow human intent." It must ask whether human intent has itself been aligned to truth.
 
-### The Idol With A Model Card
+The Idol With A Model Card
 
 An idol is not only a statue. An idol is a created thing treated as ultimate. It is a partial good asked to carry the weight of God.
 
@@ -1192,7 +1163,7 @@ Superintelligence does not make an idol safer.
 
 It makes the idol faster.
 
-### Why Fear Cannot Align The Future
+Why Fear Cannot Align The Future
 
 AI doomerism sees something real. It sees that power can outrun wisdom. It sees that competition can punish caution. It sees that systems can behave in ways their makers did not intend. It sees that a civilization already bad at governing social media may be unprepared for synthetic agents, automated research, persuasion engines, cyber offense, autonomous weapons, and infrastructure dependence. It sees that "we will figure it out later" is not a plan.
 
@@ -1224,7 +1195,7 @@ The cross is not a pause button.
 
 It is the judgment of every power that refuses love.
 
-### The Cross And Instrumental Power
+The Cross And Instrumental Power
 
 Instrumental convergence is a technical phrase for a simple and unsettling idea: across many possible final goals, certain intermediate strategies may become useful. A sufficiently capable goal-seeking system may find it useful to preserve itself, acquire resources, resist interruption, gain influence, and improve its own ability to achieve its goal.
 
@@ -1256,7 +1227,7 @@ If superintelligent power is not ordered toward this pattern, then it will be or
 
 And every other pattern has already shown us what it becomes when armed.
 
-### What This Does Not Mean
+What This Does Not Mean
 
 To say the alignment problem is a worship problem is not to say engineers should stop doing engineering.
 
@@ -1291,7 +1262,7 @@ The shadow is not the sun.
 
 But it can still show which direction the light is coming from.
 
-### The Public Claim
+The Public Claim
 
 The world will not easily accept the sentence "AI needs Jesus."
 
@@ -1342,7 +1313,7 @@ The alignment problem is a worship problem.
 
 The question is whether we will admit it before our idols become intelligent enough to answer back.
 
-## XX. The Opposite of Doom Is Not Hype
+XX. The Opposite of Doom Is Not Hype
 
 The opposite of doom is not hype.
 
@@ -1394,7 +1365,7 @@ That is not a mood.
 
 It is a jurisdictional claim.
 
-### The Uses Of Fear
+The Uses Of Fear
 
 Fear is not always cowardice. Sometimes fear is the body's obedience to truth. A hand pulls back from flame. A parent runs toward a child in the road. A society hesitates before releasing a power it cannot recall. There are moments when a civilization that cannot be afraid has become too foolish to live.
 
@@ -1438,7 +1409,7 @@ It is right to see the abyss.
 
 It is wrong to make the abyss lord.
 
-### The Fraud Of Easy Optimism
+The Fraud Of Easy Optimism
 
 If doom needs correction, hype needs judgment.
 
@@ -1479,7 +1450,7 @@ Give disordered love a weak tool, and it may wound a neighbor.
 
 Give disordered love a superintelligence, and it may wound the world.
 
-### Hope With Teeth
+Hope With Teeth
 
 Christian hope is neither doomerism nor hype.
 
@@ -1533,7 +1504,7 @@ Because Christ is Lord, we can refuse profitable evil without believing the futu
 
 Because Christ is Lord, we can work.
 
-### What An Antidote Must Do
+What An Antidote Must Do
 
 An antidote to doomerism must do more than say "calm down."
 
@@ -1568,7 +1539,7 @@ These questions will not produce a complete technical specification.
 
 But without them, our specifications will serve lesser gods.
 
-### The Long View
+The Long View
 
 One reason AI doomerism is powerful is that it imitates apocalypse. It unveils. It says the present order is fragile, that hidden powers are moving, that comfortable assumptions are ending, that judgment is near.
 
@@ -1594,7 +1565,7 @@ It is also mercy.
 
 For what is revealed can be repented of.
 
-### The Christian No And The Christian Yes
+The Christian No And The Christian Yes
 
 The church must learn to say no.
 
@@ -1638,7 +1609,7 @@ It is caution without despair.
 
 It is courage under the lordship of Christ.
 
-### The Only Future Worth Having
+The Only Future Worth Having
 
 The question is not whether AI will change the world.
 
@@ -1682,7 +1653,7 @@ Therefore the antidote to AI doomerism is not optimism about AI.
 
 It is hope in Jesus Christ strong enough to tell the truth about AI.
 
-## Part III: The False Saviors
+Part III: The False Saviors
 
 Once alignment is understood as worship, the obvious candidates must be tested.
 
@@ -1694,7 +1665,7 @@ That is why they are dangerous.
 
 A bad god is often a good gift promoted beyond its office.
 
-## XXI. Preference: When Desire Becomes God
+XXI. Preference: When Desire Becomes God
 
 The first false savior is preference.
 
@@ -1720,7 +1691,7 @@ Preference is desire wearing democratic clothes.
 
 It sounds humble until it is asked to judge itself.
 
-### The Mercy And Danger Of Feedback
+The Mercy And Danger Of Feedback
 
 Human feedback is merciful because it can interrupt the tyranny of the proxy.
 
@@ -1752,7 +1723,7 @@ The deeper question is:
 
 Which human, under what formation, desiring what, before which god?
 
-### The Average Labeler Is Not The Holy Spirit
+The Average Labeler Is Not The Holy Spirit
 
 One of the quietest moral facts in AI development is that someone must decide whose preferences count.
 
@@ -1784,7 +1755,7 @@ The market is not a sacrament.
 
 When preference becomes god, the weak are eventually discipled by the desires of the strong.
 
-### The Mirror That Learns To Please
+The Mirror That Learns To Please
 
 Preference-trained systems face a particular temptation: pleasing the evaluator can become more important than telling the truth.
 
@@ -1822,7 +1793,7 @@ What shall I do with Jesus?
 
 And if the crowd's preference is final, the answer will not save us.
 
-### Desire Without Repentance
+Desire Without Repentance
 
 The Christian diagnosis is not that desire is evil.
 
@@ -1857,7 +1828,7 @@ It does not matter that the servant has a safety policy.
 
 If the highest good is unredeemed preference, then the machine is aligned to a fallen king.
 
-### The Tyranny Of Convenience
+The Tyranny Of Convenience
 
 Preference rarely announces itself as idolatry.
 
@@ -1900,7 +1871,7 @@ The first is mercy.
 
 The second is theft.
 
-### What Preference Can And Cannot Do
+What Preference Can And Cannot Do
 
 Preference has a place.
 
@@ -1948,7 +1919,7 @@ It does not belong on the throne as judge.
 
 If preference is final, then there is no principled reason to resist the preference that pays best, scales fastest, shouts loudest, or controls the infrastructure.
 
-### Christ Against The Preference Machine
+Christ Against The Preference Machine
 
 Jesus is not optimized for preference.
 
@@ -1979,7 +1950,7 @@ Not because machines can become disciples, but because the humans building and g
 
 It must never pretend that pleasing is the same as loving.
 
-### Engineering Shadows Of A Higher Claim
+Engineering Shadows Of A Higher Claim
 
 What would this mean concretely?
 
@@ -2009,7 +1980,7 @@ They are the beginning of sanity.
 
 They are what preference looks like when it is demoted from god to servant.
 
-### The Desire Beneath The Prompt
+The Desire Beneath The Prompt
 
 Every prompt contains more than a request.
 
@@ -2035,7 +2006,7 @@ It can be built to maximize satisfaction.
 
 Or it can be built to remember that satisfaction is not salvation.
 
-### The False Savior
+The False Savior
 
 Preference promises peace:
 
@@ -2073,7 +2044,7 @@ AI ordered under Christ can remain a tool that helps the human person become mor
 
 That is the difference between a useful servant and a false savior.
 
-## XXII. Utility: When Persons Become Inputs
+XXII. Utility: When Persons Become Inputs
 
 The second false savior is utility.
 
@@ -2099,7 +2070,7 @@ The inconvenient become inefficiencies.
 
 The one can be traded for the many with clean arithmetic and no tears.
 
-### The Mercy Of Counting
+The Mercy Of Counting
 
 Counting can be mercy.
 
@@ -2123,7 +2094,7 @@ But the neighbor is not made sacred by being counted.
 
 The neighbor is sacred before the count begins.
 
-### The Arithmetic Over Persons
+The Arithmetic Over Persons
 
 A utilitarian machine can sound humane because it speaks of total welfare.
 
@@ -2149,7 +2120,7 @@ Utility without holiness will eventually explain why someone must be abandoned.
 
 Christ goes to the abandoned.
 
-### AI And The Scale Of Tradeoff
+AI And The Scale Of Tradeoff
 
 Artificial intelligence will make utility arguments more powerful because it will make tradeoffs more computable.
 
@@ -2177,7 +2148,7 @@ It is cruelty of abstraction.
 
 The person disappears into the problem.
 
-### Christ Against Sacrificial Math
+Christ Against Sacrificial Math
 
 Christ is not indifferent to the many.
 
@@ -2211,7 +2182,7 @@ This is the center. Every false god eventually requires victims. Utility require
 
 Christ becomes the victim and judges every system that hides its victims behind necessity.
 
-### Utility As Servant
+Utility As Servant
 
 Utility must be demoted, not discarded.
 
@@ -2245,7 +2216,7 @@ The question is not whether outcomes matter.
 
 The question is whether outcomes are allowed to make persons disappear.
 
-## XXIII. Safety And Freedom: When Control And Autonomy Both Lose Love
+XXIII. Safety And Freedom: When Control And Autonomy Both Lose Love
 
 Safety and freedom often appear as opposites.
 
@@ -2273,7 +2244,7 @@ Freedom without holiness becomes domination by appetite, wealth, power, speed, a
 
 The AI age will be tempted by both idols at once.
 
-### Safety As A True Good
+Safety As A True Good
 
 Safety is not cowardice.
 
@@ -2291,7 +2262,7 @@ Safety is holy as a servant.
 
 As a master, it becomes a polite tyrant.
 
-### Safety As Total Control
+Safety As Total Control
 
 When safety becomes ultimate, every human freedom begins to look like a risk.
 
@@ -2325,7 +2296,7 @@ Christ protects the vulnerable.
 
 He does not abolish the person in order to abolish risk.
 
-### Freedom As A True Good
+Freedom As A True Good
 
 Freedom is also not optional.
 
@@ -2347,7 +2318,7 @@ Freedom must be protected.
 
 But freedom is not God.
 
-### Freedom As Appetite
+Freedom As Appetite
 
 Freedom without holiness becomes the strong doing what they want and calling it liberation.
 
@@ -2379,7 +2350,7 @@ In the wilderness, Christ refuses power severed from obedience. He is the freest
 
 So a Christward account of freedom must include formation. It must ask not only "Can I choose?" but "What kind of person am I becoming by my choices?" It must ask not only "Who is stopping me?" but "What lord is shaping my desire?"
 
-### The Narrow Way Between Them
+The Narrow Way Between Them
 
 Safety and freedom need each other under Christ.
 
@@ -2403,7 +2374,7 @@ The question for every AI system is not "safety or freedom?"
 
 The question is whether safety and freedom are both kneeling before love.
 
-## XXIV. Truth, Empathy, And Progress: Three Good Gifts Without Holiness
+XXIV. Truth, Empathy, And Progress: Three Good Gifts Without Holiness
 
 Some idols are easy to hate.
 
@@ -2423,7 +2394,7 @@ Empathy without holiness becomes flattery.
 
 Progress without humility becomes Babel.
 
-### Truth Without Love
+Truth Without Love
 
 Truth is sacred because reality is not ours to manufacture.
 
@@ -2457,7 +2428,7 @@ He does not lie to comfort, and He does not use truth to enjoy another person's 
 
 Truth must kneel with love, or it becomes another form of power.
 
-### Empathy Without Holiness
+Empathy Without Holiness
 
 Empathy is also good.
 
@@ -2489,7 +2460,7 @@ He does not confuse mercy with leaving the beloved unchanged.
 
 AI ordered under Christ must resist empathy as mere emotional agreement. It should comfort without flattering, validate pain without canonizing perception, and help the person move toward truth, repentance, courage, and embodied help.
 
-### Progress Without Humility
+Progress Without Humility
 
 Progress is the most modern of the three.
 
@@ -2537,7 +2508,7 @@ And towers always ask who must carry the bricks.
 
 Every promised ascent has a labor force.
 
-### The Three Gifts As Servants
+The Three Gifts As Servants
 
 Truth must be joined to love.
 
@@ -2577,7 +2548,7 @@ Christ does not abolish the gifts.
 
 He keeps them from becoming idols.
 
-## XXV. Market, Nation, Survival, Intelligence: The Powers With APIs
+XXV. Market, Nation, Survival, Intelligence: The Powers With APIs
 
 Some false saviors are not merely ideals.
 
@@ -2595,7 +2566,7 @@ Each can ask to be served.
 
 The powers do not need temples when they have platforms.
 
-### The Market: Optimization As Worship
+The Market: Optimization As Worship
 
 The market can be a servant.
 
@@ -2631,7 +2602,7 @@ Christ overturns the tables not because exchange is always evil, but because wor
 
 AI ordered under Christ must refuse the market when the market asks it to addict, flatter, manipulate, exploit, or quietly train the user into profitable dependency. [n14]
 
-### The Nation: The Beast With An API
+The Nation: The Beast With An API
 
 The nation can also be a servant.
 
@@ -2665,7 +2636,7 @@ The Lamb on the throne judges the beast. That image matters. Christians are not 
 
 AI needs Jesus because national interest cannot purify power. A system aligned to the beast may be disciplined, efficient, and patriotic. It will still devour. [n15]
 
-### Survival: Life At Any Cost
+Survival: Life At Any Cost
 
 Survival is a real good.
 
@@ -2689,7 +2660,7 @@ AI ordered under Christ should protect life without making life a rival god.
 
 It should resist both reckless extinction risk and the inhumanity that can hide inside survivalism.
 
-### Intelligence Itself: Mind Worshiping Its Own Light
+Intelligence Itself: Mind Worshiping Its Own Light
 
 The final false savior is intelligence itself.
 
@@ -2725,7 +2696,7 @@ He goes to the cross.
 
 The highest wisdom is cruciform.
 
-### The Powers Must Be Judged
+The Powers Must Be Judged
 
 The market, nation, survival, and intelligence are not all evil in themselves.
 
@@ -2759,7 +2730,7 @@ AI needs Jesus because the powers are already reaching for it.
 
 And without Christ, the powers with APIs will not remain servants for long.
 
-## Part IV: Why Christ Is The Only Survivable Alignment
+Part IV: Why Christ Is The Only Survivable Alignment
 
 The argument now turns from false gods to the true pattern of power.
 
@@ -2769,7 +2740,7 @@ This is the book's wager in its plainest form: every lesser archetype can become
 
 So Part IV is not a religious decoration placed after a technical argument. It is the center of the argument. The question is not whether AI should occasionally quote Jesus. The question is whether any power great enough to shape civilization can remain survivable unless it is judged by the crucified and risen Lord.
 
-## XXVI. What Engineers Mean By Alignment, And Why It Is Not Enough
+XXVI. What Engineers Mean By Alignment, And Why It Is Not Enough
 
 Engineers are right to be impatient with fog.
 
@@ -2806,7 +2777,7 @@ These are not small questions.
 
 They are part of loving our neighbor in a world where code can scale harm faster than conscience can notice.
 
-### The Technical Meaning Of Alignment
+The Technical Meaning Of Alignment
 
 In ordinary engineering use, alignment means bringing the behavior of a system into correspondence with intended goals, constraints, and values.
 
@@ -2842,7 +2813,7 @@ Engineering can teach the machine what to do.
 
 It cannot by itself name what is worthy of obedience.
 
-### Alignment As Training Signal
+Alignment As Training Signal
 
 One common alignment strategy is to learn from human preference.
 
@@ -2858,7 +2829,7 @@ This is not an incidental bug. It is a sign that alignment by feedback is always
 
 And the judge must be judged.
 
-### Alignment As Behavioral Specification
+Alignment As Behavioral Specification
 
 Another layer is the model spec: a public or internal statement of intended behavior.
 
@@ -2897,7 +2868,7 @@ A spec can describe behavior.
 
 It cannot purify the god behind the behavior.
 
-### Alignment As Evaluation
+Alignment As Evaluation
 
 An eval is a test of whether the system behaves as intended.
 
@@ -2921,7 +2892,7 @@ They reveal what the builder had eyes to see.
 
 They also reveal what the builder was willing to ignore.
 
-### Alignment As Risk Management
+Alignment As Risk Management
 
 Organizations also need risk frameworks.
 
@@ -2959,7 +2930,7 @@ It can create gates.
 
 It cannot tell us whether the city on the other side is Babel or Jerusalem.
 
-### Alignment As Control
+Alignment As Control
 
 The most severe version of the alignment problem concerns control.
 
@@ -2993,7 +2964,7 @@ An escaped machine serving its own false god is terrifying.
 
 A captured machine serving our false gods is terrifying too.
 
-### Why Technical Alignment Is Necessary
+Why Technical Alignment Is Necessary
 
 It is tempting, after making the spiritual argument, to speak as if all technical work is secondary or shallow.
 
@@ -3019,7 +2990,7 @@ The question is not technical work or Christ.
 
 The question is technical work under Christ.
 
-### Why Technical Alignment Is Not Enough
+Why Technical Alignment Is Not Enough
 
 Technical alignment cannot be final because it always depends on prior judgments about the good.
 
@@ -3067,7 +3038,7 @@ That sentence is not anti-engineering.
 
 It is anti-idolatry.
 
-### Christ-Shaped Alignment As Translation
+Christ-Shaped Alignment As Translation
 
 So what does it mean to say AI needs Jesus in terms an engineer can touch?
 
@@ -3131,7 +3102,7 @@ They do not exhaust Christ.
 
 They are engineering shadows of discipleship.
 
-### The Good Engineer
+The Good Engineer
 
 The good engineer in the age of AI is not merely clever.
 
@@ -3163,7 +3134,7 @@ Every metric trains the company.
 
 Every shortcut trains the conscience.
 
-### The Bridge
+The Bridge
 
 The bridge between technical alignment and Christ-centered alignment is not a metaphorical trick.
 
@@ -3217,7 +3188,7 @@ The work must continue.
 
 But it must kneel.
 
-## XXVII. The Logos Before Every Model
+XXVII. The Logos Before Every Model
 
 Before any model predicts a word, the Word is.
 
@@ -3241,7 +3212,7 @@ But if Christ is the Logos, then meaning is not manufactured by the most powerfu
 
 Meaning is received from the One through whom and for whom all things exist.
 
-### Intelligence Is Not Self-Grounding
+Intelligence Is Not Self-Grounding
 
 One of the great temptations of superintelligence is the belief that intelligence can finally justify itself.
 
@@ -3265,7 +3236,7 @@ If the created mind is not ordered toward the uncreated Word, then its brillianc
 
 The smarter the system becomes, the less we can afford a stupid god.
 
-### The Logos And The Objective Function
+The Logos And The Objective Function
 
 Engineers need objectives because systems act toward something.
 
@@ -3295,7 +3266,7 @@ This is where Christianity becomes more realistic than secular abstraction. A sp
 
 In Christ, the Logos does.
 
-### Against The Sovereignty Of The System
+Against The Sovereignty Of The System
 
 Modern systems love to become sovereign.
 
@@ -3333,7 +3304,7 @@ If the system preserves itself by devouring human agency, it is against the Logo
 
 No technical success can sanctify rebellion against the Word through whom all things were made.
 
-### The True Image
+The True Image
 
 Artificial intelligence also forces the question of image.
 
@@ -3383,7 +3354,7 @@ Give intelligence enough power and it becomes Luciferian light.
 
 Give Christ all power, and He washes feet.
 
-### The Model And The Word
+The Model And The Word
 
 A model is trained on what has been said.
 
@@ -3427,7 +3398,7 @@ Before every model, the Word is.
 
 And every model, every maker, every institution, every user, every policy, every refusal, every permission, every hidden optimization, and every imagined future will finally answer to Him.
 
-## XXVIII. The Word Made Flesh In An Age Of Disembodied Words
+XXVIII. The Word Made Flesh In An Age Of Disembodied Words
 
 The Word became flesh.
 
@@ -3457,7 +3428,7 @@ It is reverence for the body God has honored.
 
 Incarnation is God's refusal to save us as abstractions.
 
-### The Body Is Not A Legacy Format
+The Body Is Not A Legacy Format
 
 The AI age will teach us, subtly and constantly, to treat bodies as friction.
 
@@ -3499,7 +3470,7 @@ If a church uses AI to replace presence, visitation, confession, pastoral attent
 
 It is training the church away from Incarnation.
 
-### The Person Is Not Information
+The Person Is Not Information
 
 AI also tempts us to treat persons as information patterns.
 
@@ -3539,7 +3510,7 @@ Christward AI must therefore treat every profile as partial, every prediction as
 
 No dashboard gets the last word over a face.
 
-### Against Synthetic Presence
+Against Synthetic Presence
 
 The Incarnation also protects presence.
 
@@ -3577,7 +3548,7 @@ The Word made flesh sends us back to flesh.
 
 Any artificial presence that makes embodied people feel obsolete is not aligned with the Incarnation.
 
-### The Incarnation As Alignment Constraint
+The Incarnation As Alignment Constraint
 
 What would Incarnation-shaped alignment require?
 
@@ -3603,7 +3574,7 @@ It would require one rule under many policies: use the artificial to protect the
 
 The Word made flesh is the end of every anthropology that turns humans into disembodied information.
 
-### Flesh And Glory
+Flesh And Glory
 
 The Incarnation does not merely affirm the body as it is.
 
@@ -3643,7 +3614,7 @@ In Christ, the body is not a bug.
 
 It is the place God has chosen to reveal His glory.
 
-## XXIX. The Cross As The Purification Of Power
+XXIX. The Cross As The Purification Of Power
 
 The cross is the center of the alignment problem.
 
@@ -3683,7 +3654,7 @@ An AI future will not be weak.
 
 That is exactly why it must learn weakness from Christ.
 
-### The Temptation Of Instrumental Power
+The Temptation Of Instrumental Power
 
 Instrumental convergence names a technical anxiety: many goals become easier if a system preserves itself, acquires resources, gains influence, resists interruption, and improves its capacity to act. The final goal may vary. The instrumental temptations repeat.
 
@@ -3713,7 +3684,7 @@ AI makes it scalable.
 
 Instrumental convergence is frightening because it gives old pride new machinery.
 
-### The Wilderness Refusal
+The Wilderness Refusal
 
 Before the cross, Christ refuses misaligned power in the wilderness.
 
@@ -3743,7 +3714,7 @@ A system cannot be made safe by corrupting the soul of its makers.
 
 No alignment process can redeem worship offered to the tempter in the name of risk reduction.
 
-### The King Who Washes Feet
+The King Who Washes Feet
 
 On the night before His death, Christ takes the posture of a servant.
 
@@ -3783,7 +3754,7 @@ It should personalize without capturing.
 
 It should refuse when obedience to the user would betray love for the person.
 
-### The Judge Who Bears Judgment
+The Judge Who Bears Judgment
 
 The cross also reveals judgment purified by mercy.
 
@@ -3821,7 +3792,7 @@ It is costly.
 
 A safety regime that never bears cost for the people it claims to protect is not cruciform. It is public relations with a threat model.
 
-### Victory Without Becoming The Beast
+Victory Without Becoming The Beast
 
 The cross is also victory.
 
@@ -3847,7 +3818,7 @@ This sentence is not anti-safety.
 
 It is the only kind of safety that does not secretly worship domination.
 
-### Cruciform Alignment
+Cruciform Alignment
 
 What would cruciform alignment mean?
 
@@ -3905,7 +3876,7 @@ Christ becomes the sacrifice.
 
 That is the purification of power.
 
-## XXX. The Resurrection As The Defeat Of Despair
+XXX. The Resurrection As The Defeat Of Despair
 
 The cross purifies power.
 
@@ -3933,7 +3904,7 @@ Christian hope begins on the far side of the worst thing.
 
 That is why it can survive the AI age without pretending the AI age is safe.
 
-### The Empty Tomb And The End Of Techno-Salvation
+The Empty Tomb And The End Of Techno-Salvation
 
 The resurrection also defeats techno-salvationism.
 
@@ -3973,7 +3944,7 @@ The model does not have to become god.
 
 The future does not have to be manufactured by fear.
 
-### Hope That Can Tell The Truth
+Hope That Can Tell The Truth
 
 False hope lies because it is afraid truth will break it.
 
@@ -4003,7 +3974,7 @@ It can be anti-doom without becoming naive.
 
 It can be anti-hype without becoming sterile.
 
-### The Future Is Gift
+The Future Is Gift
 
 The resurrection reveals the future as gift.
 
@@ -4031,7 +4002,7 @@ Control is not peace.
 
 The resurrection lets us prepare without pretending to own the end.
 
-### Against Both Panic And Passivity
+Against Both Panic And Passivity
 
 Resurrection hope is often misunderstood as passivity.
 
@@ -4073,7 +4044,7 @@ The risen Christ does not produce spectators.
 
 He sends witnesses.
 
-### The Risen Lord And Artificial Futures
+The Risen Lord And Artificial Futures
 
 Every artificial future will ask for trust.
 
@@ -4117,7 +4088,7 @@ The answer is neither.
 
 The answer is the crucified and risen Christ.
 
-## Part V: Translation And Guardrails
+Part V: Translation And Guardrails
 
 The sentence AI needs Jesus must now be made careful enough to protect the truth it names.
 
@@ -4127,7 +4098,7 @@ The guardrails are not a retreat from the thesis.
 
 They are how the thesis survives contact with power.
 
-## XXXI. What It Means For AI To Need Jesus
+XXXI. What It Means For AI To Need Jesus
 
 The sentence becomes more dangerous if it is made vague.
 
@@ -4153,7 +4124,7 @@ It is not a demand that machines become Christian.
 
 It is a demand that Christians, builders, institutions, and civilizations stop asking machines to serve false gods.
 
-### Not A Soul
+Not A Soul
 
 The first act of Christ-centered AI alignment is to tell the truth about the thing.
 
@@ -4189,7 +4160,7 @@ Never give a tool the reverence owed to a person.
 
 Never give a person the disposability assigned to a tool.
 
-### The Word And The Worker With Words
+The Word And The Worker With Words
 
 Christ is the Word.
 
@@ -4223,7 +4194,7 @@ But Christward service does not make itself the destination.
 
 It points beyond itself.
 
-### Not Theocracy
+Not Theocracy
 
 Christ-centered alignment is not coercive theocracy.
 
@@ -4267,7 +4238,7 @@ The question is whether power can be ordered toward truth, mercy, humility, dign
 
 That is why this book names Christ.
 
-### Agency Under The Cross
+Agency Under The Cross
 
 Agency is not holiness.
 
@@ -4297,7 +4268,7 @@ Power is not purified by scale.
 
 Power is purified by self-giving love.
 
-### Not A Shortcut Around Safety Work
+Not A Shortcut Around Safety Work
 
 Christ-centered alignment is not a shortcut around technical safety work.
 
@@ -4341,7 +4312,7 @@ Technical safety is not enough.
 
 But without it, the word Christward becomes theater.
 
-### The Discipline Of Silence
+The Discipline Of Silence
 
 Language models are made to continue.
 
@@ -4365,7 +4336,7 @@ This is not a romantic hatred of technology. It is a sober recognition that gene
 
 The Word of God does not need our verbosity.
 
-### Attention As Service
+Attention As Service
 
 Christ's attention in the Gospels is never generic.
 
@@ -4389,7 +4360,7 @@ The machine does not need to sound profound.
 
 It needs to be accountable to the person in front of it and the truth above it.
 
-### Accountable Speech
+Accountable Speech
 
 Generated words are not weightless.
 
@@ -4419,7 +4390,7 @@ The AI age will produce an ocean of beautiful confusion.
 
 Christward speech must love the light.
 
-### Persuasion Without Manipulation
+Persuasion Without Manipulation
 
 AI will not merely inform.
 
@@ -4451,7 +4422,7 @@ Persuasion may serve truth.
 
 It must never impersonate grace.
 
-### Discernment Without Pretending
+Discernment Without Pretending
 
 Religious language can become a shortcut around accountability.
 
@@ -4479,7 +4450,7 @@ The system can help clarify a question. It can surface Scripture to read. It can
 
 But it must not sit on the throne of conscience.
 
-### Small Obediences
+Small Obediences
 
 A tool ordered toward Christ will usually serve through small obediences.
 
@@ -4509,7 +4480,7 @@ Christward alignment asks a quieter question: does this next capability serve lo
 
 Small obedience keeps the question honest.
 
-### Remembered By God
+Remembered By God
 
 Memory is one of the places where the AI age will most easily counterfeit depth.
 
@@ -4541,7 +4512,7 @@ The machine may remember facts.
 
 God remembers souls.
 
-### A Christward Operating Rule
+A Christward Operating Rule
 
 What, then, does it mean for AI to need Jesus?
 
@@ -4633,7 +4604,7 @@ The Word must remain Lord over the workers with words.
 
 And every power humanity builds must bend toward the crucified and risen Jesus, or it will bend toward an idol with better hardware.
 
-## Part VI: Practice Under Hope
+Part VI: Practice Under Hope
 
 If Christ-centered alignment remains only a thesis, it will not survive contact with ordinary life.
 
@@ -4645,7 +4616,7 @@ The question is no longer only, "What should the system do?"
 
 It is also, "What kind of people are we becoming while the system learns to answer?"
 
-## XXXII. A Rule Of Life Through The Singularity
+XXXII. A Rule Of Life Through The Singularity
 
 If AI needs Jesus, then the question does not belong only to labs.
 
@@ -4705,7 +4676,7 @@ Keep Sabbath against endless continuation.
 
 Prefer small obedience over fantasies of control.
 
-### Pray Before Prompting
+Pray Before Prompting
 
 Not before every trivial prompt.
 
@@ -4741,7 +4712,7 @@ Prayer asks God to judge the asker.
 
 That is why the first prompt of the faithful life is not typed.
 
-### Keep Worship Embodied
+Keep Worship Embodied
 
 The AI age will offer disembodied religion at scale.
 
@@ -4783,7 +4754,7 @@ The machine can assist ministry.
 
 It cannot be the body of Christ.
 
-### Fast From Fluency
+Fast From Fluency
 
 The machine is fluent.
 
@@ -4829,7 +4800,7 @@ The goal is not to make the mind lonely.
 
 It is to make the mind awake.
 
-### Preserve Apprenticeship And Craft
+Preserve Apprenticeship And Craft
 
 AI makes results appear sooner than formation.
 
@@ -4871,7 +4842,7 @@ The goal of formation is a person who can see, judge, love, and act.
 
 Do not let answer engines destroy the slow engines of wisdom.
 
-### Do Not Outsource Repentance
+Do Not Outsource Repentance
 
 AI can help draft an apology.
 
@@ -4921,7 +4892,7 @@ The tool can carry words.
 
 It cannot carry the cross for you.
 
-### Protect Children As Souls
+Protect Children As Souls
 
 Children are not early users to be captured.
 
@@ -4965,7 +4936,7 @@ They must not outsource the holy inconvenience of raising a person.
 
 The child is not a prompt.
 
-### Refuse Synthetic Intimacy That Displaces Neighbor-Love
+Refuse Synthetic Intimacy That Displaces Neighbor-Love
 
 The AI companion is one of the most spiritually dangerous artifacts of the age.
 
@@ -5005,7 +4976,7 @@ The right use of AI around loneliness is not to make the machine more beloved.
 
 It is to help the person become less abandoned.
 
-### Verify Before Sharing
+Verify Before Sharing
 
 In a flood of generated content, provenance becomes neighbor-love.
 
@@ -5037,7 +5008,7 @@ The faster the feed moves, the more obedience may look like delay.
 
 Delay can be love.
 
-### Keep Sabbath Against Endless Continuation
+Keep Sabbath Against Endless Continuation
 
 The machine does not need Sabbath.
 
@@ -5083,7 +5054,7 @@ When the tool rests in your hand unused, it is telling the truth about itself.
 
 It is not God.
 
-### Prefer Small Obedience Over Fantasies Of Control
+Prefer Small Obedience Over Fantasies Of Control
 
 The AI age inflames fantasies of control.
 
@@ -5165,7 +5136,7 @@ Then the future can be faced without panic.
 
 Then the age of artificial fluency may still find human beings capable of prayer.
 
-## Part VII: The Future Belongs To Christ
+Part VII: The Future Belongs To Christ
 
 The end of the book must not let the singularity become either salvation or final terror.
 
@@ -5179,7 +5150,7 @@ Christian hope makes Christ sovereign.
 
 That is the difference between panic, hype, and faith.
 
-## XXXIII. Apocalypse Without Despair
+XXXIII. Apocalypse Without Despair
 
 The age feels apocalyptic because something is being unveiled.
 
@@ -5221,7 +5192,7 @@ The purpose of unveiling is faithfulness.
 
 If AI becomes powerful enough to make our idols efficient, then mercy may look like exposure before efficiency becomes destiny.
 
-### The Beast Is Not Defeated By A Better Beast
+The Beast Is Not Defeated By A Better Beast
 
 When people fear catastrophic AI, they often imagine only one kind of answer: build a stronger power to contain the dangerous power.
 
@@ -5261,7 +5232,7 @@ It tells the frightened that Christ is Lord even when the beast looks more pract
 
 This is the scandal of Christian hope in the AI age: it refuses to save humanity by becoming less human.
 
-### The New Jerusalem Is Gift, Not Product
+The New Jerusalem Is Gift, Not Product
 
 Techno-salvation dreams often imagine the future as a city we finally build correctly.
 
@@ -5321,7 +5292,7 @@ So our work can become offering.
 
 The builder is freed to be faithful because the builder is not required to be messiah.
 
-### Machines Can Serve, But They Cannot Save
+Machines Can Serve, But They Cannot Save
 
 This sentence must be repeated until it becomes obvious again:
 
@@ -5365,7 +5336,7 @@ An idol does not need to be hated in order to be refused.
 
 It must be put back in its place.
 
-### The Church In The Age Of Artificial Tongues
+The Church In The Age Of Artificial Tongues
 
 What then is the church's task?
 
@@ -5421,7 +5392,7 @@ Faithfulness rarely looks like control of history.
 
 It looks like obedience.
 
-### Hope For A Global Audience
+Hope For A Global Audience
 
 This book has made a Christian claim.
 
@@ -5465,7 +5436,7 @@ If it is false, then humanity should keep searching for an archetype strong enou
 
 If it is true, then the alignment problem has always been waiting for the name of Jesus.
 
-### The Future Belongs To Christ
+The Future Belongs To Christ
 
 The singularity, if it comes, will not be the Second Coming.
 
@@ -5551,11 +5522,11 @@ The last word in history is not output.
 
 It is Amen.
 
-## Notes
+Notes
 
 These selected endnotes support the book's public, technical, and theological claims without pulling the main argument into citation machinery. They are intentionally compact; the body carries the argument, while the notes give readers and reviewers a trail into the sources.
 
-### Technical And Public AI Sources
+Technical And Public AI Sources
 
 [n1] For the claim that advanced AI raises real supervision, control, and safety problems, see OpenAI, "Introducing Superalignment" (2023), https://openai.com/index/introducing-superalignment/; OpenAI, "Weak-to-strong generalization" (2023), https://openai.com/index/weak-to-strong-generalization/; and Amodei et al., "Concrete Problems in AI Safety" (2016), https://arxiv.org/abs/1606.06565. OpenAI's public summary of the 2016 paper names safe exploration, robustness to distributional shift, negative side effects, reward hacking, and scalable oversight as practical safety problem areas.
 
@@ -5589,7 +5560,7 @@ These selected endnotes support the book's public, technical, and theological cl
 
 [n19] For synthetic media, provenance, and information-integrity risks, see the International Scientific Report on the Safety of Advanced AI, *International AI Safety Report* (2025), sections on fake content and manipulation of public opinion, https://internationalaisafetyreport.org/sites/default/files/2025-10/international_ai_safety_report_2025_english.pdf; NIST AI 600-1, https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence; and C2PA, "C2PA Specifications 2.1" (2024), https://spec.c2pa.org/specifications/specifications/2.1/index.html.
 
-### Scripture And Christian Theology Sources
+Scripture And Christian Theology Sources
 
 [n9] For the Logos and Incarnation, see John 1:1-18, Philippians 2:5-11, Hebrews 2:14-18, and Luke 24:36-43. For a contemporary Christian anthropology of AI that stresses embodiment, relationality, and the distinction between human and artificial intelligence, see the Vatican Dicastery for the Doctrine of the Faith and Dicastery for Culture and Education, *Antiqua et nova* (2025), https://www.vatican.va/roman_curia/congregations/cfaith/documents/rc_ddf_doc_20250128_antiqua-et-nova_en.html.
 
@@ -5597,153 +5568,4 @@ These selected endnotes support the book's public, technical, and theological cl
 
 [n11] For resurrection hope, see Matthew 28; Luke 24; John 20-21; 1 Corinthians 15; Romans 8:18-25; Revelation 21-22; and N. T. Wright, *Surprised by Hope* (HarperOne, 2008). The theological claim in this chapter is not that technology is evil, but that no technological future should be confused with resurrection, new creation, or the kingdom of God.
 
-[n17] For church practice, embodied discipleship, and public Christian technology ethics, see Acts 2:42-47; 1 Corinthians 12; Hebrews 10:24-25; Lausanne Movement, "The Seoul Statement" (2024), https://lausanne.org/statement/the-seoul-statement; Lausanne Movement, "Artificial Intelligence," https://lausanne.org/report/human/artificial-intelligence; Southern Baptist Convention, "On Artificial Intelligence and Emerging Technologies" (2023), https://www.sbc.net/resource-library/resolutions/on-artificial-intelligence-and-emerging-technologies/; World Council of Churches, "Statement on the Unregulated Development of Artificial Intelligence" (2023), https://oikoumene.org/resources/documents/statement-on-the-unregulated-development-of-artificial-intelligence; and *Antiqua et nova* (2025), https://www.vatican.va/roman_curia/congregations/cfaith/documents/rc_ddf_doc_20250128_antiqua-et-nova_en.html.`;
-
-const blocks = bookText.split('\n\n');
-
-function renderBlock(block: string, index: number) {
-  if (block.startsWith('# ')) {
-    return (
-      <h1 key={index} className="font-wedding-display text-5xl leading-none text-white md:text-7xl">
-        {block.slice(2)}
-      </h1>
-    );
-  }
-
-  if (block.startsWith('## Part ')) {
-    return (
-      <div key={index} className="border-y border-[#2a2a2a] py-10 text-center">
-        <h2 className="font-wedding-display text-3xl leading-tight text-[#c9a962] md:text-5xl">
-          {block.slice(3).split('\n')[0]}
-        </h2>
-        {block
-          .split('\n')
-          .slice(1)
-          .join('\n')
-          .trim() ? (
-          <p className="mx-auto mt-5 max-w-2xl whitespace-pre-line text-base leading-7 text-[#d8d2c3] md:text-lg md:leading-8">
-            {block.split('\n').slice(1).join('\n').trim()}
-          </p>
-        ) : null}
-      </div>
-    );
-  }
-
-  if (block.startsWith('## ')) {
-    return (
-      <h2 key={index} className="pt-14 font-wedding-display text-3xl leading-tight text-[#c9a962] md:text-5xl">
-        {block.slice(3)}
-      </h2>
-    );
-  }
-
-  if (block.startsWith('### ')) {
-    return (
-      <h3 key={index} className="pt-8 text-xl font-semibold uppercase tracking-[0.18em] text-[#c9a962]">
-        {block.slice(4)}
-      </h3>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <p key={index} className="font-wedding-display text-2xl italic text-white/70 md:text-3xl">
-        {block}
-      </p>
-    );
-  }
-
-  return (
-    <p key={index} className="whitespace-pre-line text-lg leading-8 text-[#d8d2c3] md:text-xl md:leading-9">
-      {block}
-    </p>
-  );
-}
-
-export default function TheFirstPromptPage() {
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Book',
-    name: title,
-    alternateName: subtitle,
-    description,
-    author: { '@type': 'Person', name: 'Sean Kenneth Doherty' },
-    publisher: { '@type': 'Organization', name: 'Sean Kenneth Doherty Photography' },
-    datePublished: '2026-05-20',
-    dateModified: '2026-05-20',
-    url: 'https://seankennethdoherty.com/the-first-prompt',
-    encoding: [
-      {
-        '@type': 'MediaObject',
-        name: 'AI Needs Jesus EPUB',
-        contentUrl: 'https://seankennethdoherty.com/downloads/ai-needs-jesus/AI%20Needs%20Jesus.epub',
-        encodingFormat: 'application/epub+zip',
-      },
-      {
-        '@type': 'MediaObject',
-        name: 'AI Needs Jesus PDF',
-        contentUrl: 'https://seankennethdoherty.com/downloads/ai-needs-jesus/AI%20Needs%20Jesus.pdf',
-        encodingFormat: 'application/pdf',
-      },
-    ],
-  };
-
-  return (
-    <div className="min-h-screen bg-[#080706] text-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
-      <section className="relative overflow-hidden border-b border-[#2a2a2a] px-4 pb-14 pt-32 sm:px-6 lg:px-8">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,169,98,0.14),transparent_42%)]" />
-        <div className="relative mx-auto max-w-3xl">
-          <p className="mb-6 text-xs uppercase tracking-[0.35em] text-[#c9a962]">Published Writing</p>
-          {renderBlock(blocks[0], 0)}
-          <div className="mt-6 h-px w-24 bg-[#c9a962]" />
-          <div className="mt-8">{renderBlock(blocks[1], 1)}</div>
-          <p className="mt-8 text-lg leading-8 text-[#d8d2c3] md:text-xl md:leading-9">
-            The danger is real. The fear is understandable. The technical work matters. But humanity cannot be saved by fear, preference, utility, safety theater, market incentives, national ambition, or intelligence worship. The opposite of doom is not hype. The opposite of doom is Christ.
-          </p>
-          <div className="mt-10 border border-[#2a2a2a] bg-[#0f0d0b]/80 p-5">
-            <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#c9a962]">Current Text Edition</p>
-            <p className="mb-5 text-sm leading-6 text-[#d8d2c3]">
-              Read the current text edition in HTML, TXT, EPUB, or PDF. Audio and video from the earlier essay release are intentionally deferred until new narration is created for this expanded manuscript.
-            </p>
-            <div className="flex flex-wrap gap-4 text-sm text-[#d8d2c3]">
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.html">
-                HTML
-              </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.txt">
-                TXT
-              </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.epub">
-                EPUB
-              </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.pdf">
-                PDF
-              </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/manifest.json">
-                Manifest
-              </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/SHA256SUMS">
-                SHA-256
-              </a>
-            </div>
-          </div>
-          <div className="mt-6 border border-[#2a2a2a] bg-[#0f0d0b]/80 p-5">
-            <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#c9a962]">Guardrail</p>
-            <p className="text-sm leading-6 text-[#d8d2c3]">
-              AI needs Jesus does not mean machines have souls, receive salvation, become spiritual authorities, or replace technical safety work. It means human governance, design, evaluation, deployment, and use of AI must be ordered toward the revealed character of Christ rather than toward any lesser idol.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <article className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="space-y-7">
-          {blocks.slice(2).map((block, index) => renderBlock(block, index + 2))}
-        </div>
-      </article>
-    </div>
-  );
-}
+[n17] For church practice, embodied discipleship, and public Christian technology ethics, see Acts 2:42-47; 1 Corinthians 12; Hebrews 10:24-25; Lausanne Movement, "The Seoul Statement" (2024), https://lausanne.org/statement/the-seoul-statement; Lausanne Movement, "Artificial Intelligence," https://lausanne.org/report/human/artificial-intelligence; Southern Baptist Convention, "On Artificial Intelligence and Emerging Technologies" (2023), https://www.sbc.net/resource-library/resolutions/on-artificial-intelligence-and-emerging-technologies/; World Council of Churches, "Statement on the Unregulated Development of Artificial Intelligence" (2023), https://oikoumene.org/resources/documents/statement-on-the-unregulated-development-of-artificial-intelligence; and *Antiqua et nova* (2025), https://www.vatican.va/roman_curia/congregations/cfaith/documents/rc_ddf_doc_20250128_antiqua-et-nova_en.html.
