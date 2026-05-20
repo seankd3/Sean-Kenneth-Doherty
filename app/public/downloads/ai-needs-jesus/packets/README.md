@@ -20,6 +20,7 @@ Current packets:
 - `audience-landing-copy.md`: audience-specific landing-page, email, social, and CTA copy for engineers, churches, parents/teachers, and secular AI-risk readers.
 - `outreach-map.md`: concrete outreach lanes, target categories, pitch subjects, first-message templates, follow-up rhythm, and stop rules.
 - `outreach-tracker-and-weekly-review.md`: printable and spreadsheet-copyable tracker with guardrails, stop rules, objection routing, and Friday review prompts.
+- `first-week-outreach-queue.md`: twenty-row first-week queue builder with high-fit target categories, exact research fields, fit gates, send order, and per-lane message drafts.
 - `the-opposite-of-doom-is-not-hype.md`: anti-doomer essay that honors real AI danger without making catastrophe lord.
 - `generated-fluency-is-not-formation.md`: parent, pastor, teacher, and church guide for protecting embodied formation.
 - `objections-and-replies.md`: concise replies to predictable distortions of the thesis.
@@ -48,10 +49,11 @@ Launch order:
 11. Use the audience landing copy when building audience-specific pages, email sections, event pages, newsletter blurbs, social cards, and handouts.
 12. Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.
 13. Use the outreach tracker and weekly review sheet when turning the contact map into actual weekly work.
-14. Use the anti-doomer essay where AI fear is culturally loud.
-15. Use the parent/pastor guide where formation, children, church life, and education are the concern.
-16. Use the full objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
-17. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
-18. Use the quote-card set for social surfaces, always with guardrails attached.
-19. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
-20. Use the discussion guide and pledge to turn attention into practice.
+14. Use the first-week outreach queue to research the first twenty high-fit rows before sending.
+15. Use the anti-doomer essay where AI fear is culturally loud.
+16. Use the parent/pastor guide where formation, children, church life, and education are the concern.
+17. Use the full objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
+18. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
+19. Use the quote-card set for social surfaces, always with guardrails attached.
+20. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
+21. Use the discussion guide and pledge to turn attention into practice.

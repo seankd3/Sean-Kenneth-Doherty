@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -161,6 +161,14 @@ const packets = [
     icon: ClipboardCheck,
   },
   {
+    title: 'First-Week Outreach Queue',
+    eyebrow: 'Research Queue',
+    description:
+      'Twenty-row first-week queue builder with high-fit target categories, exact research fields, fit gates, send order, and message drafts.',
+    href: `${packetBase}/first-week-outreach-queue.md`,
+    icon: CalendarDays,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -240,6 +248,7 @@ const launchSequence = [
   'Use the audience landing copy when building audience-specific pages, event sections, email notes, and handouts.',
   'Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.',
   'Use the outreach tracker and weekly review sheet when turning the contact map into actual weekly work.',
+  'Use the first-week outreach queue to research the first twenty high-fit rows before sending.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
