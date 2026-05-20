@@ -9,6 +9,7 @@ Current packets:
 - `ai-needs-jesus-manifesto.md`: one-page manifesto for broad public use.
 - `ai-is-power-with-a-voice.md`: secular doorway essay for readers who do not begin with Christian premises.
 - `a-model-spec-is-a-moral-confession.md`: engineer memo for AI builders, safety teams, and product leaders.
+- `ai-needs-jesus-in-twelve-scenes.md`: twelve retellable scenes for labs, churches, parents, policy readers, schools, and social conversations.
 - `the-opposite-of-doom-is-not-hype.md`: anti-doomer essay that honors real AI danger without making catastrophe lord.
 - `generated-fluency-is-not-formation.md`: parent, pastor, teacher, and church guide for protecting embodied formation.
 - `objections-and-replies.md`: concise replies to predictable distortions of the thesis.
@@ -26,10 +27,11 @@ Launch order:
 
 1. Use the manifesto as the broad public doorway.
 2. Use the secular essay for readers skeptical of church-first framing.
-3. Use the anti-doomer essay where AI fear is culturally loud.
-4. Use the parent/pastor guide where formation, children, church life, and education are the concern.
-5. Use the objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
-6. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
-7. Use the quote-card set for social surfaces, always with guardrails attached.
-8. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
-9. Use the discussion guide and pledge to turn attention into practice.
+3. Use the twelve-scenes packet when the idea needs to become vivid enough to retell.
+4. Use the anti-doomer essay where AI fear is culturally loud.
+5. Use the parent/pastor guide where formation, children, church life, and education are the concern.
+6. Use the objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
+7. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
+8. Use the quote-card set for social surfaces, always with guardrails attached.
+9. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
+10. Use the discussion guide and pledge to turn attention into practice.

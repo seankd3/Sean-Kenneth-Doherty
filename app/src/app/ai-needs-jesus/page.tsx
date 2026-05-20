@@ -12,7 +12,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, essays, objections, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, objections, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -65,6 +65,14 @@ const packets = [
       'A focused memo for builders, safety teams, founders, and product leaders about specs, evals, metrics, and deployment choices.',
     href: `${packetBase}/a-model-spec-is-a-moral-confession.md`,
     icon: ShieldCheck,
+  },
+  {
+    title: 'AI Needs Jesus In Twelve Scenes',
+    eyebrow: 'Retellable Scenes',
+    description:
+      'Twelve short scenes that carry the thesis into labs, classrooms, churches, policy rooms, hospitals, dashboards, and homes.',
+    href: `${packetBase}/ai-needs-jesus-in-twelve-scenes.md`,
+    icon: FileText,
   },
   {
     title: 'The Opposite Of Doom Is Not Hype',
@@ -135,6 +143,7 @@ const packets = [
 const launchSequence = [
   'Use the manifesto as the broad public doorway.',
   'Use the secular essay for readers skeptical of church-first framing.',
+  'Use the twelve-scenes packet when the idea needs to become vivid enough to retell.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the objections and replies wherever the thesis is being flattened into a caricature.',
