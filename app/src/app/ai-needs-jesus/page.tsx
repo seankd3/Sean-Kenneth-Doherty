@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, public packet router, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -55,6 +55,14 @@ const packets = [
       'The shortest complete public form of the thesis: AI needs Jesus, not as machine conversion, but as power under Christ.',
     href: `${packetBase}/ai-needs-jesus-manifesto.md`,
     icon: FileText,
+  },
+  {
+    title: 'Public Packet Router',
+    eyebrow: 'Choose A Doorway',
+    description:
+      'A reader-facing map for choosing the right packet by audience, situation, objection, action, and available time.',
+    href: `${packetBase}/public-packet-router.md`,
+    icon: ArrowRight,
   },
   {
     title: 'The Argument In Five Moves',
@@ -268,6 +276,7 @@ const packets = [
 
 const launchSequence = [
   'Use the manifesto as the broad public doorway.',
+  'Use the public packet router when someone asks what to read, send, discuss, publish, or practice first.',
   'Use the five-move argument when someone needs the whole case quickly without losing the guardrails.',
   'Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.',
   'Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.',
