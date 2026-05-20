@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {
   ArrowRight,
   CalendarDays,
+  ClipboardCheck,
   Download,
   FileText,
   MessagesSquare,
@@ -17,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -152,6 +153,14 @@ const packets = [
     icon: MessageSquare,
   },
   {
+    title: 'Outreach Tracker And Weekly Review',
+    eyebrow: 'Tracking Sheet',
+    description:
+      'Printable and spreadsheet-copyable tracker with guardrails, stop rules, objection routing, and Friday review prompts.',
+    href: `${packetBase}/outreach-tracker-and-weekly-review.md`,
+    icon: ClipboardCheck,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -230,6 +239,7 @@ const launchSequence = [
   'Use the 30-day distribution calendar to turn the packet set into a repeatable month of public, private, and embodied actions.',
   'Use the audience landing copy when building audience-specific pages, event sections, email notes, and handouts.',
   'Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.',
+  'Use the outreach tracker and weekly review sheet when turning the contact map into actual weekly work.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
