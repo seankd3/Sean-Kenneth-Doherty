@@ -12,7 +12,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, objections, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -73,6 +73,14 @@ const packets = [
       'Twelve short scenes that carry the thesis into labs, classrooms, churches, policy rooms, hospitals, dashboards, and homes.',
     href: `${packetBase}/ai-needs-jesus-in-twelve-scenes.md`,
     icon: FileText,
+  },
+  {
+    title: 'One-Page Objection Card',
+    eyebrow: 'Fast Guardrail',
+    description:
+      'A compact shareable card for keeping the phrase from being reduced to machine souls, theocracy, branding, panic, or safety negligence.',
+    href: `${packetBase}/ai-needs-jesus-objection-card.md`,
+    icon: ShieldCheck,
   },
   {
     title: 'The Opposite Of Doom Is Not Hype',
@@ -144,9 +152,10 @@ const launchSequence = [
   'Use the manifesto as the broad public doorway.',
   'Use the secular essay for readers skeptical of church-first framing.',
   'Use the twelve-scenes packet when the idea needs to become vivid enough to retell.',
+  'Use the one-page objection card when the phrase is being misunderstood quickly.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
-  'Use the objections and replies wherever the thesis is being flattened into a caricature.',
+  'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
   'Use the engineer memo and technical appendix for labs, builders, founders, and product teams.',
   'Use the quote-card set for social surfaces, always with guardrails attached.',
   'Use the talk script for churches, schools, meetups, podcasts, and recorded talks.',
