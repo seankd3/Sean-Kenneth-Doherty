@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, five-move argument, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -55,6 +55,14 @@ const packets = [
       'The shortest complete public form of the thesis: AI needs Jesus, not as machine conversion, but as power under Christ.',
     href: `${packetBase}/ai-needs-jesus-manifesto.md`,
     icon: FileText,
+  },
+  {
+    title: 'The Argument In Five Moves',
+    eyebrow: 'Whole Case Card',
+    description:
+      'A compact version of the full case: eval room, stress test, guardrails, rule of life, and final invitation.',
+    href: `${packetBase}/ai-needs-jesus-five-move-argument.md`,
+    icon: ClipboardCheck,
   },
   {
     title: 'AI Is Power With A Voice',
@@ -244,6 +252,7 @@ const packets = [
 
 const launchSequence = [
   'Use the manifesto as the broad public doorway.',
+  'Use the five-move argument when someone needs the whole case quickly without losing the guardrails.',
   'Use the secular essay for readers skeptical of church-first framing.',
   'Use the twelve-scenes packet when the idea needs to become vivid enough to retell.',
   'Use the one-page objection card when the phrase is being misunderstood quickly.',
