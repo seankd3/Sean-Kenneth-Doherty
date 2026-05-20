@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, public packet router, public retelling sheet, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, public packet router, public retelling sheet, steelman objections, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -71,6 +71,14 @@ const packets = [
       'A repeatable way to explain the thesis aloud: shocking sentence, scene, guardrail, objection, next packet, and practice.',
     href: `${packetBase}/public-retelling-sheet.md`,
     icon: Mic2,
+  },
+  {
+    title: 'Steelman Objections For Experts',
+    eyebrow: 'Hard Objections',
+    description:
+      'The strongest expert, engineer, and secular/global objections answered without weakening the Christ-under-power claim.',
+    href: `${packetBase}/steelman-objections-for-experts.md`,
+    icon: ShieldCheck,
   },
   {
     title: 'The Argument In Five Moves',
@@ -286,6 +294,7 @@ const launchSequence = [
   'Use the manifesto as the broad public doorway.',
   'Use the public packet router when someone asks what to read, send, discuss, publish, or practice first.',
   'Use the public retelling sheet when someone needs to explain the idea aloud, open a group conversation, or carry the thesis without flattening it into a slogan.',
+  'Use the steelman-objections packet when AI experts, engineers, secular/global readers, or civic leaders need the strongest objections honored before they will listen further.',
   'Use the five-move argument when someone needs the whole case quickly without losing the guardrails.',
   'Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.',
   'Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.',
