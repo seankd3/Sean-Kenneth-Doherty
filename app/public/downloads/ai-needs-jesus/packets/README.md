@@ -12,6 +12,7 @@ Current packets:
 - `steelman-objections-for-experts.md`: strongest expert, engineer, and secular/global objections answered without weakening the Christ-under-power claim.
 - `expert-briefing-one-pager.md`: 20-minute briefing agenda for AI labs, safety teams, founders, and university groups.
 - `mixed-room-discussion-protocol.md`: 45-minute protocol for churches, labs, classes, reading groups, and civic forums with mixed Christian and secular participants.
+- `mixed-room-facilitator-card-set.md`: printable and copyable cards for running the mixed-room protocol: agenda, guardrail, roles, objections, design questions, practices, decision, and next-packet routing.
 - `ai-needs-jesus-five-move-argument.md`: compact five-move version of the whole case, moving from eval room to stress test, guardrails, practice, and invitation.
 - `five-move-social-card-set.md`: carousel cards, captions, alt text, reply prompts, and a short-thread version for the five-move argument.
 - `five-move-social-reply-bank.md`: compact comment, objection, and follow-up replies for the five-move social-card sequence.
@@ -51,27 +52,28 @@ Launch order:
 4. Use the steelman-objections packet when AI experts, engineers, secular/global readers, or civic leaders need the strongest objections honored before they will listen further.
 5. Use the expert briefing one-pager when a lab, safety team, founder circle, or university group needs a 20-minute agenda with one thesis, three hard objections, four design questions, one guardrail, and one next packet.
 6. Use the mixed-room discussion protocol when churches, AI labs, university classes, reading groups, civic forums, or founder circles need a 45-minute structure for Christian and secular participants to test the thesis together without coercion.
-7. Use the five-move argument when someone needs the whole case quickly without losing the guardrails.
-8. Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.
-9. Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.
-10. Use the secular essay for readers skeptical of church-first framing.
-11. Use the twelve-scenes packet when the idea needs to become vivid enough to retell.
-12. Use the one-page objection card when the phrase is being misunderstood quickly.
-13. Use the engineer review worksheet when a team needs a concrete launch-gate review.
-14. Use the church discussion handout for pastors, small groups, elders, youth leaders, and church classes.
-15. Use the post/thread sequence when taking the idea into public conversation without platform-specific tricks.
-16. Use the secular/global op-ed when approaching editors, newsletters, civic forums, university groups, and technology readers.
-17. Use the podcast/interview brief when preparing for skeptical hosts, Christian hosts, technical hosts, panels, or recorded conversations.
-18. Use the 30-day distribution calendar to turn the packet set into a repeatable month of public, private, and embodied actions.
-19. Use the audience landing copy when building audience-specific pages, email sections, event pages, newsletter blurbs, social cards, and handouts.
-20. Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.
-21. Use the outreach tracker and weekly review sheet when turning the contact map into actual weekly work.
-22. Use the first-week outreach queue to research the first twenty high-fit rows before sending.
-23. Use the outreach reply kit when people answer, object, refer, decline, or invite a deeper conversation.
-24. Use the anti-doomer essay where AI fear is culturally loud.
-25. Use the parent/pastor guide where formation, children, church life, and education are the concern.
-26. Use the full objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
-27. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
-28. Use the quote-card set for social surfaces, always with guardrails attached.
-29. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
-30. Use the discussion guide and pledge to turn attention into practice.
+7. Use the mixed-room facilitator card set when one person needs printable or copyable agenda, guardrail, role, objection, design-question, practice, decision, and next-packet cards for running the protocol.
+8. Use the five-move argument when someone needs the whole case quickly without losing the guardrails.
+9. Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.
+10. Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.
+11. Use the secular essay for readers skeptical of church-first framing.
+12. Use the twelve-scenes packet when the idea needs to become vivid enough to retell.
+13. Use the one-page objection card when the phrase is being misunderstood quickly.
+14. Use the engineer review worksheet when a team needs a concrete launch-gate review.
+15. Use the church discussion handout for pastors, small groups, elders, youth leaders, and church classes.
+16. Use the post/thread sequence when taking the idea into public conversation without platform-specific tricks.
+17. Use the secular/global op-ed when approaching editors, newsletters, civic forums, university groups, and technology readers.
+18. Use the podcast/interview brief when preparing for skeptical hosts, Christian hosts, technical hosts, panels, or recorded conversations.
+19. Use the 30-day distribution calendar to turn the packet set into a repeatable month of public, private, and embodied actions.
+20. Use the audience landing copy when building audience-specific pages, email sections, event pages, newsletter blurbs, social cards, and handouts.
+21. Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.
+22. Use the outreach tracker and weekly review sheet when turning the contact map into actual weekly work.
+23. Use the first-week outreach queue to research the first twenty high-fit rows before sending.
+24. Use the outreach reply kit when people answer, object, refer, decline, or invite a deeper conversation.
+25. Use the anti-doomer essay where AI fear is culturally loud.
+26. Use the parent/pastor guide where formation, children, church life, and education are the concern.
+27. Use the full objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
+28. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
+29. Use the quote-card set for social surfaces, always with guardrails attached.
+30. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
+31. Use the discussion guide and pledge to turn attention into practice.
