@@ -12,7 +12,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, engineer worksheet, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, engineer worksheet, church handout, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -91,6 +91,14 @@ const packets = [
     icon: ShieldCheck,
   },
   {
+    title: 'Church Discussion Handout',
+    eyebrow: 'One-Hour Church Guide',
+    description:
+      'A one-hour handout for pastors, elders, small groups, youth leaders, and church classes: five questions and one embodied practice.',
+    href: `${packetBase}/church-discussion-handout.md`,
+    icon: Users,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -162,6 +170,7 @@ const launchSequence = [
   'Use the twelve-scenes packet when the idea needs to become vivid enough to retell.',
   'Use the one-page objection card when the phrase is being misunderstood quickly.',
   'Use the engineer review worksheet when a team needs a concrete launch-gate review.',
+  'Use the church discussion handout for pastors, small groups, elders, youth leaders, and church classes.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
