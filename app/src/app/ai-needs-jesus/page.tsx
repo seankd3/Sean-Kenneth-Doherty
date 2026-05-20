@@ -12,7 +12,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, essays, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, essays, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -67,6 +67,22 @@ const packets = [
     icon: ShieldCheck,
   },
   {
+    title: 'The Opposite Of Doom Is Not Hype',
+    eyebrow: 'Anti-Doomer Essay',
+    description:
+      'A public essay that honors real AI danger without making catastrophe lord or answering fear with shallow techno-optimism.',
+    href: `${packetBase}/the-opposite-of-doom-is-not-hype.md`,
+    icon: FileText,
+  },
+  {
+    title: 'Generated Fluency Is Not Formation',
+    eyebrow: 'Parent And Pastor Guide',
+    description:
+      'A guide for parents, pastors, teachers, churches, and schools on protecting embodied formation from synthetic replacement.',
+    href: `${packetBase}/generated-fluency-is-not-formation.md`,
+    icon: Users,
+  },
+  {
     title: 'Discussion Guide',
     eyebrow: 'Groups And Families',
     description:
@@ -111,6 +127,8 @@ const packets = [
 const launchSequence = [
   'Use the manifesto as the broad public doorway.',
   'Use the secular essay for readers skeptical of church-first framing.',
+  'Use the anti-doomer essay where AI fear is culturally loud.',
+  'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the engineer memo and technical appendix for labs, builders, founders, and product teams.',
   'Use the quote-card set for social surfaces, always with guardrails attached.',
   'Use the talk script for churches, schools, meetups, podcasts, and recorded talks.',
