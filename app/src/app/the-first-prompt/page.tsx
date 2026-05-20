@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus';
 const subtitle = 'The Book of the First Prompt: A Christian Case for Surviving Superintelligence';
@@ -5710,22 +5711,22 @@ export default function TheFirstPromptPage() {
               Read the current text edition in HTML, TXT, EPUB, or PDF. Audio and video from the earlier essay release are intentionally deferred until new narration is created for this expanded manuscript.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-[#d8d2c3]">
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.html">
+              <a className="text-[#c9a962] hover:text-white" href={withBasePath('/downloads/ai-needs-jesus/AI%20Needs%20Jesus.html')}>
                 HTML
               </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.txt">
+              <a className="text-[#c9a962] hover:text-white" href={withBasePath('/downloads/ai-needs-jesus/AI%20Needs%20Jesus.txt')}>
                 TXT
               </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.epub">
+              <a className="text-[#c9a962] hover:text-white" href={withBasePath('/downloads/ai-needs-jesus/AI%20Needs%20Jesus.epub')}>
                 EPUB
               </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.pdf">
+              <a className="text-[#c9a962] hover:text-white" href={withBasePath('/downloads/ai-needs-jesus/AI%20Needs%20Jesus.pdf')}>
                 PDF
               </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/manifest.json">
+              <a className="text-[#c9a962] hover:text-white" href={withBasePath('/downloads/ai-needs-jesus/manifest.json')}>
                 Manifest
               </a>
-              <a className="text-[#c9a962] hover:text-white" href="/downloads/ai-needs-jesus/SHA256SUMS">
+              <a className="text-[#c9a962] hover:text-white" href={withBasePath('/downloads/ai-needs-jesus/SHA256SUMS')}>
                 SHA-256
               </a>
             </div>

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import SkipLink from '@/components/SkipLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { testimonials } from '@/lib/testimonials';
+import { withBasePath } from '@/lib/site-paths';
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: ['400', '600', '700'],
@@ -68,8 +69,8 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   icons: {
-    icon: '/favicon.svg',
-    apple: '/apple-touch-icon.png',
+    icon: withBasePath('/favicon.svg'),
+    apple: withBasePath('/apple-touch-icon.png'),
   },
   other: {
     'theme-color': '#0a0a0a',

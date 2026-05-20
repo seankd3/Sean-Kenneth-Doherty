@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
+import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   },
 };
 
-const packetBase = '/downloads/ai-needs-jesus/packets';
+const packetBase = withBasePath('/downloads/ai-needs-jesus/packets');
 
 const packets = [
   {
@@ -241,11 +242,11 @@ const launchSequence = [
 const verifiedSurfaces = [
   {
     label: 'Read the book',
-    href: '/the-first-prompt',
+    href: withBasePath('/the-first-prompt'),
   },
   {
     label: 'Writing index',
-    href: '/writing',
+    href: withBasePath('/writing'),
   },
   {
     label: 'Public Gist',
@@ -270,7 +271,7 @@ export default function AiNeedsJesusLaunchHub() {
     <div className="min-h-screen bg-[#080706] text-white">
       <section className="relative min-h-[74vh] overflow-hidden px-4 pt-32 sm:px-6 lg:px-8">
         <img
-          src="/images/writing/ai-needs-jesus-launch-card.jpg"
+          src={withBasePath('/images/writing/ai-needs-jesus-launch-card.jpg')}
           alt="AI Needs Jesus launch card"
           className="absolute inset-0 h-full w-full object-cover opacity-50"
         />
@@ -297,7 +298,7 @@ export default function AiNeedsJesusLaunchHub() {
               Read The Book
             </Link>
             <a
-              href="/downloads/ai-needs-jesus/AI%20Needs%20Jesus.pdf"
+              href={withBasePath('/downloads/ai-needs-jesus/AI%20Needs%20Jesus.pdf')}
               className="inline-flex items-center justify-center gap-2 border border-white/30 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:border-[#c9a962] hover:text-[#c9a962]"
             >
               <Download size={16} />
