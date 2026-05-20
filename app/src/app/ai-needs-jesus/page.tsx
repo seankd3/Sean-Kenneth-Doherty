@@ -16,7 +16,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -143,6 +143,14 @@ const packets = [
     icon: Users,
   },
   {
+    title: 'Outreach Map',
+    eyebrow: 'Contact Rhythm',
+    description:
+      'Concrete outreach lanes, target categories, pitch subjects, first-message templates, follow-ups, tracker fields, and stop rules.',
+    href: `${packetBase}/outreach-map.md`,
+    icon: MessageSquare,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -220,6 +228,7 @@ const launchSequence = [
   'Use the podcast/interview brief when preparing for skeptical hosts, Christian hosts, technical hosts, panels, or recorded conversations.',
   'Use the 30-day distribution calendar to turn the packet set into a repeatable month of public, private, and embodied actions.',
   'Use the audience landing copy when building audience-specific pages, event sections, email notes, and handouts.',
+  'Use the outreach map when choosing who to contact, what to send first, how to follow up, and when to stop.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
