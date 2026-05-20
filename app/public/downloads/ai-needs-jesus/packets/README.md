@@ -14,6 +14,7 @@ Current packets:
 - `engineer-review-worksheet.md`: seven-question launch-gate worksheet for model specs, eval plans, memory policies, refusal policies, and deployment reviews.
 - `church-discussion-handout.md`: one-hour church handout with five questions and one embodied practice.
 - `post-thread-sequence.md`: platform-neutral public post sequence with hooks, guardrails, scenes, objections, practices, and invitation.
+- `secular-global-op-ed.md`: publication-ready doorway op-ed for secular, global, civic, university, and technology audiences.
 - `the-opposite-of-doom-is-not-hype.md`: anti-doomer essay that honors real AI danger without making catastrophe lord.
 - `generated-fluency-is-not-formation.md`: parent, pastor, teacher, and church guide for protecting embodied formation.
 - `objections-and-replies.md`: concise replies to predictable distortions of the thesis.
@@ -36,10 +37,11 @@ Launch order:
 5. Use the engineer review worksheet when a team needs a concrete launch-gate review.
 6. Use the church discussion handout for pastors, small groups, elders, youth leaders, and church classes.
 7. Use the post/thread sequence when taking the idea into public conversation without platform-specific tricks.
-8. Use the anti-doomer essay where AI fear is culturally loud.
-9. Use the parent/pastor guide where formation, children, church life, and education are the concern.
-10. Use the full objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
-11. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
-12. Use the quote-card set for social surfaces, always with guardrails attached.
-13. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
-14. Use the discussion guide and pledge to turn attention into practice.
+8. Use the secular/global op-ed when approaching editors, newsletters, civic forums, university groups, and technology readers.
+9. Use the anti-doomer essay where AI fear is culturally loud.
+10. Use the parent/pastor guide where formation, children, church life, and education are the concern.
+11. Use the full objections and replies wherever the thesis is being reduced to machine souls, theocracy, anti-AI panic, branding, or safety negligence.
+12. Use the engineer memo and technical appendix for labs, builders, founders, and product teams.
+13. Use the quote-card set for social surfaces, always with guardrails attached.
+14. Use the talk script for churches, schools, meetups, podcasts, and recorded talks.
+15. Use the discussion guide and pledge to turn attention into practice.
