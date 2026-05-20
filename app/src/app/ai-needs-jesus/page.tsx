@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ArrowRight,
+  CalendarDays,
   Download,
   FileText,
   MessagesSquare,
@@ -15,7 +16,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -126,6 +127,14 @@ const packets = [
     icon: MessagesSquare,
   },
   {
+    title: '30-Day Distribution Calendar',
+    eyebrow: 'Launch Rhythm',
+    description:
+      'A month-long public, private, and embodied rhythm that repeats the core meme stack across audiences without inventing a new slogan every day.',
+    href: `${packetBase}/thirty-day-distribution-calendar.md`,
+    icon: CalendarDays,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -201,6 +210,7 @@ const launchSequence = [
   'Use the post/thread sequence when taking the idea into public conversation without platform-specific tricks.',
   'Use the secular/global op-ed when approaching editors, newsletters, civic forums, university groups, and technology readers.',
   'Use the podcast/interview brief when preparing for skeptical hosts, Christian hosts, technical hosts, panels, or recorded conversations.',
+  'Use the 30-day distribution calendar to turn the packet set into a repeatable month of public, private, and embodied actions.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
