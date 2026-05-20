@@ -56,7 +56,6 @@ Someone is a pastor, parent, or teacher:
 
 Someone wants to discuss it with others:
   mixed-room-discussion-protocol.md
-  mixed-room-facilitator-card-set.md
   discussion-guide.md
   public-pledge.md
 
@@ -119,7 +118,6 @@ Send a discussion or practice packet.
 
 ```text
 mixed-room-discussion-protocol.md
-mixed-room-facilitator-card-set.md
 discussion-guide.md
 church-discussion-handout.md
 engineer-review-worksheet.md
@@ -132,7 +130,6 @@ Use a structured room protocol.
 
 ```text
 mixed-room-discussion-protocol.md
-mixed-room-facilitator-card-set.md
 expert-briefing-one-pager.md
 discussion-guide.md
 ```
@@ -228,12 +225,6 @@ First doorway:
 mixed-room-discussion-protocol.md
 ```
 
-Printable companion:
-
-```text
-mixed-room-facilitator-card-set.md
-```
-
 Technical companion:
 
 ```text
@@ -249,7 +240,7 @@ discussion-guide.md
 What to say:
 
 ```text
-The protocol lets the room test the claim without forced agreement. The facilitator cards make it runnable: one agenda, one guardrail, role cards, objection cards, design questions, practice cards, a decision card, and next-packet routing.
+This packet lets the room test the claim without forced agreement: one guardrail, role cards, the strongest objections, design questions, practice questions, and next-packet routing.
 ```
 
 Avoid:
@@ -426,7 +417,6 @@ Do not let the interview become only about whether chatbots have souls.
 
 "This room has Christians, secular readers, and technical people together":
   mixed-room-discussion-protocol.md
-  mixed-room-facilitator-card-set.md
 ```
 
 ## Route By Action
@@ -443,7 +433,6 @@ Share:
 
 Discuss:
   mixed-room-discussion-protocol.md
-  mixed-room-facilitator-card-set.md
   discussion-guide.md
   church-discussion-handout.md
 

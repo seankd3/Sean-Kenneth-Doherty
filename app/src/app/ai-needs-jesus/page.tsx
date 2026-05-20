@@ -18,7 +18,7 @@ import { withBasePath } from '@/lib/site-paths';
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, public packet router, public retelling sheet, steelman objections, expert briefing one-pager, mixed-room discussion protocol, mixed-room facilitator cards, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, public packet router, public retelling sheet, steelman objections, expert briefing one-pager, mixed-room discussion protocol, five-move argument, five-move social cards, five-move social replies, scenes, essays, secular op-ed, podcast brief, 30-day distribution calendar, audience landing copy, outreach map, outreach tracker, first-week outreach queue, outreach reply kit, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -95,14 +95,6 @@ const packets = [
       'A structured protocol for churches, AI labs, university classes, reading groups, and civic forums where Christian and secular participants test the thesis together.',
     href: `${packetBase}/mixed-room-discussion-protocol.md`,
     icon: Users,
-  },
-  {
-    title: 'Mixed-Room Facilitator Card Set',
-    eyebrow: 'Printable Room Cards',
-    description:
-      'Printable and copyable cards for the mixed-room protocol: agenda, guardrail, roles, objections, design questions, practices, decision, and next-packet routing.',
-    href: `${packetBase}/mixed-room-facilitator-card-set.md`,
-    icon: ClipboardCheck,
   },
   {
     title: 'The Argument In Five Moves',
@@ -321,7 +313,6 @@ const launchSequence = [
   'Use the steelman-objections packet when AI experts, engineers, secular/global readers, or civic leaders need the strongest objections honored before they will listen further.',
   'Use the expert briefing one-pager when a lab, safety team, founder circle, or university group needs a 20-minute agenda with one thesis, three hard objections, four design questions, one guardrail, and one next packet.',
   'Use the mixed-room discussion protocol when churches, AI labs, university classes, reading groups, civic forums, or founder circles need a 45-minute structure for Christian and secular participants to test the thesis together without coercion.',
-  'Use the mixed-room facilitator card set when one person needs printable or copyable agenda, guardrail, role, objection, design-question, practice, decision, and next-packet cards for running the protocol.',
   'Use the five-move argument when someone needs the whole case quickly without losing the guardrails.',
   'Use the five-move social-card set when the argument needs to travel as a carousel, short thread, or conversation starter.',
   'Use the five-move social reply bank when comments, quote-posts, DMs, and skeptical replies need short faithful answers.',
