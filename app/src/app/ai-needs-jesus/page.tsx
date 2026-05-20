@@ -12,7 +12,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, essays, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, essays, objections, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -83,6 +83,14 @@ const packets = [
     icon: Users,
   },
   {
+    title: 'Objections And Replies',
+    eyebrow: 'Guardrail FAQ',
+    description:
+      'Concise replies when the thesis is reduced to machine souls, theocracy, anti-AI panic, Christian branding, or safety negligence.',
+    href: `${packetBase}/objections-and-replies.md`,
+    icon: ShieldCheck,
+  },
+  {
     title: 'Discussion Guide',
     eyebrow: 'Groups And Families',
     description:
@@ -129,6 +137,7 @@ const launchSequence = [
   'Use the secular essay for readers skeptical of church-first framing.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
+  'Use the objections and replies wherever the thesis is being flattened into a caricature.',
   'Use the engineer memo and technical appendix for labs, builders, founders, and product teams.',
   'Use the quote-card set for social surfaces, always with guardrails attached.',
   'Use the talk script for churches, schools, meetups, podcasts, and recorded talks.',

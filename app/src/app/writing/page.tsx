@@ -36,7 +36,7 @@ export default function WritingPage() {
             AI Needs Jesus Launch Hub
           </h2>
           <p className="mt-3 max-w-3xl text-base leading-7 text-[#d8d2c3]">
-            Shareable manifesto, secular doorway essay, engineer memo, anti-doomer essay, formation guide, quote-card set, talk script, pledge, discussion guide, and technical appendix for the book&apos;s public argument.
+            Shareable manifesto, secular doorway essay, engineer memo, anti-doomer essay, objections, formation guide, quote-card set, talk script, pledge, discussion guide, and technical appendix for the book&apos;s public argument.
           </p>
           <p className="mt-5 text-sm uppercase tracking-[0.2em] text-[#c9a962] group-hover:text-white">
             Use the launch assets
