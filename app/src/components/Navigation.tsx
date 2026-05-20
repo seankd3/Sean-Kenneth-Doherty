@@ -34,7 +34,6 @@ const Navigation = () => {
     { path: '/landscapes', label: 'Landscapes' },
     { path: '/portraits', label: 'Portraits' },
     { path: '/abstract', label: 'Abstract' },
-    { path: '/writing', label: 'Writing' },
     { path: '/contact', label: 'Contact' },
   ];
 

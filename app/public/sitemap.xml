@@ -43,18 +43,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://seankennethdoherty.com/writing</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://seankennethdoherty.com/the-first-prompt</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://seankennethdoherty.com/contact</loc>
     <lastmod>2026-02-06</lastmod>
     <changefreq>yearly</changefreq>
