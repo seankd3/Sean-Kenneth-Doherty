@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Download,
   FileText,
+  MessagesSquare,
   MessageSquare,
   Mic2,
   Newspaper,
@@ -14,7 +15,7 @@ import {
 
 const title = 'AI Needs Jesus Launch Hub';
 const description =
-  'Shareable manifesto, scenes, essays, secular op-ed, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
+  'Shareable manifesto, scenes, essays, secular op-ed, podcast brief, engineer worksheet, church handout, post sequence, objection card, formation guide, talk script, pledge, discussion guide, and technical appendix for AI Needs Jesus.';
 
 export const metadata: Metadata = {
   title,
@@ -117,6 +118,14 @@ const packets = [
     icon: Newspaper,
   },
   {
+    title: 'Podcast And Interview Brief',
+    eyebrow: 'Conversation Prep',
+    description:
+      'A brief for podcasts, panels, journalists, and recorded conversations: five hard questions, five short answers, and five stories.',
+    href: `${packetBase}/podcast-interview-brief.md`,
+    icon: MessagesSquare,
+  },
+  {
     title: 'The Opposite Of Doom Is Not Hype',
     eyebrow: 'Anti-Doomer Essay',
     description:
@@ -191,6 +200,7 @@ const launchSequence = [
   'Use the church discussion handout for pastors, small groups, elders, youth leaders, and church classes.',
   'Use the post/thread sequence when taking the idea into public conversation without platform-specific tricks.',
   'Use the secular/global op-ed when approaching editors, newsletters, civic forums, university groups, and technology readers.',
+  'Use the podcast/interview brief when preparing for skeptical hosts, Christian hosts, technical hosts, panels, or recorded conversations.',
   'Use the anti-doomer essay where AI fear is culturally loud.',
   'Use the parent and pastor guide where formation, children, church life, and education are the concern.',
   'Use the full objections and replies wherever the thesis is being flattened into a caricature.',
