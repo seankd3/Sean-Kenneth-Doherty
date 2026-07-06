@@ -480,7 +480,7 @@ export default function AerospacePage() {
                       alt={`${album.title} - photo ${index + 1} of ${album.images.length}`}
                       width={image.width}
                       height={image.height}
-                      className={`${index < 6 ? '' : 'gallery-fade'} w-full object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out`}
+                      className={`${index < 6 ? '' : 'gallery-fade'} w-full h-auto group-hover:scale-[1.02] transition-transform duration-700 ease-out`}
                       style={{ aspectRatio: `${image.width} / ${image.height}` }}
                       loading={index < 6 ? 'eager' : 'lazy'}
                       onLoad={index >= 6 ? onImgLoad : undefined}

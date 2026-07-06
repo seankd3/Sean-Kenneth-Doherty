@@ -171,38 +171,34 @@ function ContactPageInner() {
 
     setIsSubmitting(true);
 
-    // Encode form data for Netlify
-    const formDataEncoded = new URLSearchParams();
-    formDataEncoded.append('form-name', 'contact');
-    formDataEncoded.append('bot-field', '');
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataEncoded.append(key, value);
-    });
-
+    // Static hosting: compose the inquiry as an email in the visitor's mail client
     try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formDataEncoded.toString(),
+      const subject = `Photography inquiry — ${formData.eventType || 'General'} — ${formData.firstName} ${formData.lastName}`;
+      const bodyLines = [
+        `Name: ${formData.firstName} ${formData.lastName}`,
+        `Email: ${formData.email}`,
+        formData.phone && `Phone: ${formData.phone}`,
+        formData.eventType && `Event type: ${formData.eventType}`,
+        formData.date && `Date: ${formData.date}`,
+        formData.referralSource && `Heard about me via: ${formData.referralSource}`,
+        '',
+        formData.message,
+      ].filter(Boolean);
+      const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+      window.location.href = mailto;
+      setIsSubmitted(true);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        eventType: '',
+        date: '',
+        referralSource: '',
+        message: '',
       });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          eventType: '',
-          date: '',
-          referralSource: '',
-          message: '',
-        });
-      } else {
-        setSubmitError('There was an error submitting the form. Please try again or email me directly.');
-      }
     } catch (_error) {
-      setSubmitError(`Unable to submit form. Please check your connection or email me directly at ${siteConfig.email}`);
+      setSubmitError(`Unable to open your email app. Please email me directly at ${siteConfig.email}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -375,29 +371,23 @@ function ContactPageInner() {
                       <Check size={32} className="text-[#0a0a0a]" />
                     </div>
                     <h3 className="font-wedding-display text-3xl text-white mb-4">
-                      Message Sent!
+                      Almost There!
                     </h3>
                     <p className="text-[#a0a0a0]">
-                      Thank you for reaching out. I&apos;ll get back to you within 24 hours.
+                      Your email app should have opened with your message ready to send.
+                      If it didn&apos;t, email me directly at{' '}
+                      <a href={`mailto:${siteConfig.email}`} className="text-[#c9a962] hover:underline">{siteConfig.email}</a>.
+                      I&apos;ll get back to you within 24 hours.
                     </p>
                   </motion.div>
                 ) : (
                   <form
                     ref={formRef}
                     name="contact"
-                    method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     noValidate
                     aria-label="Contact form"
                   >
-                    {/* Hidden fields for Netlify Forms */}
-                    <input type="hidden" name="form-name" value="contact" />
-                    <div hidden>
-                      <input name="bot-field" />
-                    </div>
-
                     {/* Submit Error Alert */}
                     {submitError && (
                       <div className="mb-6 p-4 bg-red-900/30 border border-red-500/50 flex items-start space-x-3" role="alert">
