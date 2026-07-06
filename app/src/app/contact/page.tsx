@@ -197,7 +197,7 @@ function ContactPageInner() {
         referralSource: '',
         message: '',
       });
-    } catch (_error) {
+    } catch {
       setSubmitError(`Unable to open your email app. Please email me directly at ${siteConfig.email}`);
     } finally {
       setIsSubmitting(false);

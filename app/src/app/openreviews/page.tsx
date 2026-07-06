@@ -81,18 +81,19 @@ function FloatingParticles() {
 }
 
 // Widget preview mockup
-function WidgetPreview() {
-  const reviews = [
-    { name: "Sarah M.", rating: 5, text: "Finally free from Trustpilot's pricing! Setup took 5 minutes.", avatar: "SM" },
-    { name: "David K.", rating: 5, text: "Our reviews, our data. Should've switched sooner.", avatar: "DK" },
-    { name: "Emma R.", rating: 5, text: "The widget looks better than paid alternatives.", avatar: "ER" },
-  ];
+const previewReviews = [
+  { name: "Sarah M.", rating: 5, text: "Finally free from Trustpilot's pricing! Setup took 5 minutes.", avatar: "SM" },
+  { name: "David K.", rating: 5, text: "Our reviews, our data. Should've switched sooner.", avatar: "DK" },
+  { name: "Emma R.", rating: 5, text: "The widget looks better than paid alternatives.", avatar: "ER" },
+];
 
+function WidgetPreview() {
+  const reviews = previewReviews;
   const [currentReview, setCurrentReview] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentReview((prev) => (prev + 1) % reviews.length);
+      setCurrentReview((prev) => (prev + 1) % previewReviews.length);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
