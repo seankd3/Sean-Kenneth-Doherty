@@ -1,4 +1,21 @@
-# Deploy to Netlify
+# Deploy — Cloudflare Pages (CURRENT)
+
+> **The site is hosted on Cloudflare Pages** (project `seankennethdoherty`, domains
+> seankennethdoherty.com / www / seankennethdoherty.pages.dev), deployed by direct
+> wrangler upload. Git pushes do NOT auto-deploy.
+
+```bash
+cd app
+npm run build
+npx wrangler pages deploy dist --project-name seankennethdoherty
+```
+
+Everything below this line is **legacy** (Netlify account suspended 2026-05; the
+GitHub Pages workflow was a brief interim and does not serve the domain).
+
+---
+
+# LEGACY: Deploy to Netlify
 
 ## Quick Deploy (3 Steps)
 

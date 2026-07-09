@@ -69,8 +69,16 @@ Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata
 - JSON-LD structured data for SEO in layout files
 - Images are unoptimized in Next.js config (Sharp handles optimization in the gallery build step)
 
-### Deployment
-Static export to `app/dist/`. Deploy via Netlify (drag-and-drop or GitHub auto-deploy). See `DEPLOY.md` for details.
-- Base directory: `app`
-- Build command: `npm run build`
-- Publish directory: `dist`
+### Deployment — CLOUDFLARE PAGES (not Netlify, not GitHub Pages)
+The live site (seankennethdoherty.com) is hosted on **Cloudflare Pages**, project `seankennethdoherty`,
+deployed by **direct wrangler upload from this machine** (no git integration — pushing does NOT deploy).
+
+```bash
+cd app
+npm run build                                  # static export to app/dist/
+npx wrangler pages deploy dist --project-name seankennethdoherty
+```
+
+- Netlify: dead (account suspended 2026-05). `DEPLOY.md` Netlify instructions are legacy.
+- `.github/workflows/deploy.yml` (GitHub Pages): legacy from the 2026-07-06 interim migration; it is NOT what serves the domain.
+- Deploying publishes everything in `dist` — get explicit approval from Sean before deploying.
