@@ -75,10 +75,10 @@ deployed by **direct wrangler upload from this machine** (no git integration —
 
 ```bash
 cd app
-npm run build                                  # static export to app/dist/
-npx wrangler pages deploy dist --project-name seankennethdoherty
+npm run build                                  # static export to app/out/ (dist/ is a stale Jan-2026 artifact)
+npx wrangler pages deploy out --project-name seankennethdoherty
 ```
 
 - Netlify: dead (account suspended 2026-05). `DEPLOY.md` Netlify instructions are legacy.
 - `.github/workflows/deploy.yml` (GitHub Pages): legacy from the 2026-07-06 interim migration; it is NOT what serves the domain.
-- Deploying publishes everything in `dist` — get explicit approval from Sean before deploying.
+- Deploying publishes everything in `out` — get explicit approval from Sean before deploying.

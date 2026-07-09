@@ -7,7 +7,7 @@
 ```bash
 cd app
 npm run build
-npx wrangler pages deploy dist --project-name seankennethdoherty
+npx wrangler pages deploy out --project-name seankennethdoherty
 ```
 
 Everything below this line is **legacy** (Netlify account suspended 2026-05; the
