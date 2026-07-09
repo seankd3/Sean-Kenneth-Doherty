@@ -23,6 +23,24 @@ export const siteConfig = {
   },
 };
 
+export const primaryNavigationLinks = [
+  { path: '/', label: 'Home' },
+  { path: '/weddings', label: 'Weddings' },
+  { path: '/aerospace', label: 'Aerospace' },
+  { path: '/events', label: 'Events' },
+  { path: '/landscapes', label: 'Landscapes' },
+  { path: '/portraits', label: 'Portraits' },
+  { path: '/abstract', label: 'Abstract' },
+  { path: '/galleries', label: 'Galleries' },
+  { path: '/contact', label: 'Contact' },
+];
+
+export const footerNavigationLinks = [
+  ...primaryNavigationLinks.slice(0, -1),
+  { path: '/projects', label: 'Projects' },
+  primaryNavigationLinks[primaryNavigationLinks.length - 1],
+];
+
 export const seoDefaults = {
   title: 'Sean Kenneth Doherty Photography | Austin, TX',
   description:

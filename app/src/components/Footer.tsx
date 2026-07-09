@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { footerNavigationLinks } from '@/lib/content';
 
 const Footer = () => {
   const pathname = usePathname();
@@ -28,18 +29,6 @@ const Footer = () => {
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/Seankd_photos', label: 'Instagram' },
     { icon: Twitter, href: 'https://x.com/SeanKD_Photos', label: 'X (Twitter)' },
-  ];
-
-  const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/weddings', label: 'Weddings' },
-    { path: '/aerospace', label: 'Aerospace' },
-    { path: '/events', label: 'Events' },
-    { path: '/landscapes', label: 'Landscapes' },
-    { path: '/portraits', label: 'Portraits' },
-    { path: '/abstract', label: 'Abstract' },
-    { path: '/projects', label: 'Projects' },
-    { path: '/contact', label: 'Contact' },
   ];
 
   return (
@@ -87,7 +76,7 @@ const Footer = () => {
           >
             <h3 className={`font-wedding-display text-lg ${textClass} mb-6`}>Navigation</h3>
             <ul className="space-y-3">
-              {navLinks.map((link) => (
+              {footerNavigationLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     href={link.path}

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { primaryNavigationLinks } from '@/lib/content';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,17 +26,6 @@ const Navigation = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
-
-  const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/weddings', label: 'Weddings' },
-    { path: '/aerospace', label: 'Aerospace' },
-    { path: '/events', label: 'Events' },
-    { path: '/landscapes', label: 'Landscapes' },
-    { path: '/portraits', label: 'Portraits' },
-    { path: '/abstract', label: 'Abstract' },
-    { path: '/contact', label: 'Contact' },
-  ];
 
   const bgClass = isAerospace
     ? 'bg-[#e8e6e1]/95 border-[#1a1a1a]'
@@ -69,15 +59,15 @@ const Navigation = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
-              {navLinks.map((link) => {
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-8" aria-label="Main navigation">
+              {primaryNavigationLinks.map((link) => {
                 const isActive = pathname === link.path;
                 return (
                   <Link
                     key={link.path}
                     href={link.path}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`link-underline text-sm tracking-wider uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] ${
+                    className={`link-underline text-xs xl:text-sm tracking-wider uppercase transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a962] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] ${
                       isActive
                         ? accentClass
                         : `${textClass} ${isAerospace ? 'hover:text-[#c41e3a]' : 'hover:text-[#c9a962]'}`
@@ -92,7 +82,7 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 ${textClass}`}
+              className={`lg:hidden p-2 ${textClass}`}
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -115,7 +105,7 @@ const Navigation = () => {
             aria-label="Mobile navigation menu"
           >
             <nav className="flex flex-col items-center justify-center h-full space-y-8" aria-label="Mobile navigation">
-              {navLinks.map((link, index) => {
+              {primaryNavigationLinks.map((link, index) => {
                 const isActive = pathname === link.path;
                 return (
                   <motion.div

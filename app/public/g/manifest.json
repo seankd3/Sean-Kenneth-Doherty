@@ -1,0 +1,20 @@
+{
+  "galleries": [
+    {
+      "slug": "sample-wedding-weekend",
+      "title": "Sample Wedding Weekend",
+      "photo_count": 42,
+      "date_range": "2024-04-20 to 2024-04-24",
+      "cover": "/g/sample-wedding-weekend/thumb/sm/cover.jpg",
+      "published_at": 1714262400.0
+    },
+    {
+      "slug": "sample-launch-night",
+      "title": "Sample Launch Night",
+      "photo_count": 28,
+      "date_range": "2024-06-05 to 2024-06-06",
+      "cover": "/g/sample-launch-night/thumb/sm/cover.jpg",
+      "published_at": 1717718400.0
+    }
+  ]
+}

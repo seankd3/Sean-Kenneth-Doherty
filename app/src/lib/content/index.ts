@@ -10,7 +10,12 @@
  * All page components import from here instead of hardcoding strings.
  */
 
-export { siteConfig, seoDefaults } from './site';
+export {
+  siteConfig,
+  primaryNavigationLinks,
+  footerNavigationLinks,
+  seoDefaults,
+} from './site';
 
 export {
   weddingAlbums,
@@ -29,6 +34,7 @@ export {
   landscapesPage,
   portraitsPage,
   abstractPage,
+  galleriesPage,
   contactPage,
 } from './pages';
 

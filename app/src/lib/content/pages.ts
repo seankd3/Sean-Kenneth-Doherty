@@ -209,6 +209,19 @@ export const abstractPage = {
   },
 };
 
+// ─── PUBLISHED GALLERIES PAGE ─────────────────────────────────────────────────
+
+export const galleriesPage = {
+  hero: {
+    subtitle: 'Published Galleries',
+    title: 'Client',
+    titleAccent: 'Collections',
+    description:
+      'A curated index of delivered photo collections, ready to open as standalone galleries.',
+  },
+  emptyState: 'Galleries coming soon.',
+};
+
 // ─── CONTACT PAGE ──────────────────────────────────────────────────────────────
 
 export const contactPage = {
