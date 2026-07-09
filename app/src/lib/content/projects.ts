@@ -36,6 +36,26 @@ export const projectsPage = {
 
 export const projects: Project[] = [
   {
+    slug: 'photoarchive',
+    title: 'photoArchive',
+    eyebrow: 'Software / Self-hosted',
+    status: 'In active use',
+    summary:
+      'A self-hosted photo cloud with Lightroom Classic instincts: Elo photo ranking, automatic stacks, local AI search over 47,000+ photos, private client galleries, and an installable phone app. Everything runs on my own hardware.',
+    image: '/images/photoarchive/library-grid.jpg',
+    imageAlt: 'photoArchive library grid showing a curated landscape collection with folder tree and ranking panels.',
+    sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/photo-archive',
+    tags: ['FastAPI', 'SQLite', 'Local AI', 'Elo Ranking', 'PWA', 'Self-hosted'],
+    highlights: [
+      'Virtualized library grid that stays smooth at 50,000 photos.',
+      'Elo ranking with uncertainty tracking instead of star ratings.',
+      'Three fused search engines: metadata, vision embeddings, VLM captions — all on one consumer GPU.',
+      'Password-protected client galleries with proofing and view analytics.',
+    ],
+    updates: [],
+    links: [{ label: 'Feature tour', href: '/photoarchive' }],
+  },
+  {
     slug: 'orbital-mechanics',
     title: 'Orbital Mechanics',
     eyebrow: 'Simulation / Game',
