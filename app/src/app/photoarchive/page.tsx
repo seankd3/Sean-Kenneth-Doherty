@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const GITHUB_URL = 'https://github.com/Sean-Kenneth-Doherty/photo-archive';
 
 const stats = [
-  { value: '47,000+', label: 'Photos in the live archive' },
+  { value: '47,000+', label: "Photos in the author's daily-driver archive" },
   { value: '100%', label: 'Local — nothing leaves your network' },
   { value: '3', label: 'Search engines fused per query' },
   { value: '1', label: 'Consumer GPU runs all of it' },
@@ -35,7 +35,7 @@ const features = [
     icon: SwatchBook,
     eyebrow: 'The Library',
     title: 'Fifty thousand photos, zero lag',
-    body: 'A virtualized grid that stays silk-smooth at archive scale. A real folder tree with live counts, composable filters for camera, lens, date, and flags, and a timeline scrubber that rides the edge of every date-sorted view. It feels like Lightroom Classic — because that was the bar.',
+    body: 'Terabytes of photos on a sleepy external drive, browsed at lightning speed: a tiered preview cache with tunable budgets pre-generates in the background, an in-memory hot cache serves from RAM, and a virtualized grid keeps scrolling silk-smooth at any depth. A real folder tree, composable filters, and a timeline scrubber complete it. It feels like Lightroom Classic without the chug — because that was the bar.',
     image: '/images/photoarchive/library-grid.jpg',
     imageAlt: 'photoArchive library grid showing a curated landscape collection with folder tree and Elo histogram',
   },
@@ -117,9 +117,10 @@ export default function PhotoArchivePage() {
               <span className="text-[#c9a962]">with Lightroom Classic instincts.</span>
             </p>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a0a0a0]">
-              A self-hosted library for serious archives: browse, cull, rank, search, and share
-              tens of thousands of photos from your own hardware. Google Photos convenience,
-              Lightroom Classic control — and your files never leave your network.
+              Where Lightroom chugs, photoArchive flies: browse terabytes of photos at lightning
+              speed with tiered, tunable caching — hosted on your own computer, NAS, or server.
+              Google Photos convenience, Lightroom Classic control, and your files never leave
+              your network.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
