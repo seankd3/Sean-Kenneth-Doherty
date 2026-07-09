@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-07-09",
+    "title": "V2 Vector Console Rebuild (Branch)",
+    "summary": "Rebuilt the simulator as a modern Vite + TypeScript app on the v2-vector-console branch: SI-unit RK4 physics with atmospheric drag, zero-drift on-rails time warp to 100,000x, fuel/delta-v budget, and a mission chain ending in reentry splashdown. Candidate architecture for migrating the Apollo feature set off the legacy script-tag stack.",
+    "commit": "67e7372"
+  },
+  {
     "date": "2026-04-24",
     "title": "Use Finite Plain-line Maneuver Burns",
     "summary": "Replaced instant maneuver execution with finite SPS burns, removed the remaining shader-style atmosphere helper, and slowed attitude inputs for cleaner CRT line motion.",
