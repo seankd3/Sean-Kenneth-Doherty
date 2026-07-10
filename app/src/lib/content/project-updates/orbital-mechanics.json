@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-07-09",
+    "title": "V3.0: The Merge",
+    "summary": "Unified the two lineages: the Apollo feature build (Moon + SOI patched conics, maneuver nodes, orbit-ops assists, navball, map view, star catalog, coastlines, audio) now runs on the modern Vite + TypeScript architecture. One canonical main branch again.",
+    "commit": "08ee2fb"
+  },
+  {
+    "date": "2026-07-09",
     "title": "V2 Vector Console Rebuild (Branch)",
     "summary": "Rebuilt the simulator as a modern Vite + TypeScript app on the v2-vector-console branch: SI-unit RK4 physics with atmospheric drag, zero-drift on-rails time warp to 100,000x, fuel/delta-v budget, and a mission chain ending in reentry splashdown. Candidate architecture for migrating the Apollo feature set off the legacy script-tag stack.",
     "commit": "67e7372"

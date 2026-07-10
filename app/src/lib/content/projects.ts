@@ -61,16 +61,16 @@ export const projects: Project[] = [
     eyebrow: 'Simulation / Game',
     status: 'Active prototype',
     summary:
-      'A realistic orbital mechanics game with clean 1960s mission-control vector graphics, Apollo-inspired cockpit telemetry, maneuver planning, and physically grounded spacecraft behavior.',
+      'A retro CRT vector-display orbital mechanics game: Apollo-style CSM on patched-conic physics with maneuver nodes, trans-lunar flights to a kinematic Moon, and a green-phosphor mission-control console.',
     image: '/images/projects/orbital-mechanics.png',
     imageAlt: 'Orbital Mechanics showing a vector Earth map, spacecraft, maneuver node editor, and navball.',
     sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/orbital-mechanics',
     tags: ['Three.js', 'Orbital Mechanics', 'Apollo', 'Vector UI', 'Game Prototype'],
     highlights: [
-      'Clean CRT-ready vector rendering without fake scanline or bloom effects.',
-      'Apollo-style telemetry, DSKY command panel, and simplified navball instruments.',
-      'MechJeb-style maneuver node editor with prograde, normal, radial, TIG, AP/PE placement, predicted orbit, and burn timing.',
-      'Real bright-star catalog rendering and Earth coastlines/grid for spatial reference.',
+      'Patched-conic physics: RK4 + exact Kepler on-rails time warp, SOI handoff to a kinematic Moon.',
+      'Maneuver node editor with TIG/prograde/normal/radial planning, predicted orbit, and finite auto-aligned burns.',
+      'Apollo orbit-ops assists: attitude holds, solved TLI/CIRC burns, LOI/TEI, orbit checkpoints, navball.',
+      'Real HYG star catalog and Natural Earth coastlines on a green-phosphor vector globe (Vite + TypeScript).',
     ],
     updates: orbitalMechanicsUpdates,
     links: [
