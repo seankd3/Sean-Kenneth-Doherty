@@ -25,6 +25,8 @@ export type Project = {
   highlights: string[];
   updates: ProjectUpdate[];
   links?: ProjectLink[];
+  /** In-browser playable build, hosted under /play/. */
+  playUrl?: string;
 };
 
 export const projectsPage = {
@@ -57,6 +59,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'orbital-mechanics',
+    playUrl: '/play/orbital-mechanics/',
     title: 'Orbital Mechanics',
     eyebrow: 'Simulation / Game',
     status: 'Active prototype',

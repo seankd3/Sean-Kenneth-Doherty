@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ArrowUpRight, CalendarDays, Code2, Cpu, GitBranch, RadioTower } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, Code2, Cpu, Gamepad2, GitBranch, RadioTower } from 'lucide-react';
 import { projects, projectsPage } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -95,10 +95,10 @@ export default function ProjectsPage() {
                   <section className="mt-auto">
                     <h3 className="mb-4 flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-white">
                       <CalendarDays size={16} className="text-[#c9a962]" />
-                      Build Log
+                      Latest Update
                     </h3>
                     <div className="space-y-4">
-                      {project.updates.map((update) => (
+                      {project.updates.slice(0, 1).map((update) => (
                         <div key={`${project.slug}-${update.date}-${update.title}`} className="border-t border-[#2a2a2a] pt-4">
                           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                             <p className="text-sm font-medium text-white">{update.title}</p>
@@ -125,8 +125,29 @@ export default function ProjectsPage() {
                     </div>
                   </section>
 
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {project.playUrl && (
+                      <a
+                        href={project.playUrl}
+                        className="inline-flex items-center gap-2 border border-[#c9a962] bg-[#c9a962]/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#c9a962] transition-colors hover:bg-[#c9a962] hover:text-black"
+                      >
+                        <Gamepad2 size={14} />
+                        Play
+                      </a>
+                    )}
+                    {project.updates.length > 0 && (
+                      <a
+                        href={'/projects/' + project.slug + '/'}
+                        className="inline-flex items-center gap-2 border border-white/30 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white transition-colors hover:border-[#c9a962] hover:text-[#c9a962]"
+                      >
+                        Full Build Log
+                        <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
+
                   {project.links && project.links.length > 0 && (
-                    <div className="mt-8 flex flex-wrap gap-3">
+                    <div className="mt-3 flex flex-wrap gap-3">
                       {project.links.map((link) => (
                         <a
                           key={link.href}
