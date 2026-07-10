@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { Star, Check, X, Github, Heart, Zap, Shield, Code, Server, Quote, ArrowRight, Sparkles } from 'lucide-react';
+import { Star, Check, X, Github, Heart, Zap, Shield, Code, Server, ArrowRight, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 // Animated star rating component
@@ -82,9 +82,9 @@ function FloatingParticles() {
 
 // Widget preview mockup
 const previewReviews = [
-  { name: "Sarah M.", rating: 5, text: "Finally free from Trustpilot's pricing! Setup took 5 minutes.", avatar: "SM" },
-  { name: "David K.", rating: 5, text: "Our reviews, our data. Should've switched sooner.", avatar: "DK" },
-  { name: "Emma R.", rating: 5, text: "The widget looks better than paid alternatives.", avatar: "ER" },
+  { name: "Example Customer", rating: 5, text: "Your customer's verified feedback appears here.", avatar: "EC" },
+  { name: "Recent Buyer", rating: 5, text: "Show rating, message, and reviewer details in one clean card.", avatar: "RB" },
+  { name: "Site Visitor", rating: 5, text: "This demo rotates through sample review states.", avatar: "SV" },
 ];
 
 function WidgetPreview() {
@@ -223,48 +223,6 @@ function GlowButton({
     >
       {children}
     </motion.a>
-  );
-}
-
-// Testimonial card
-function TestimonialCard({
-  quote,
-  author,
-  role,
-  avatar,
-  delay = 0
-}: {
-  quote: string;
-  author: string;
-  role: string;
-  avatar: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      className="relative group"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, duration: 0.6 }}
-    >
-      {/* Glow on hover */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 h-full hover:border-emerald-500/30 transition-all duration-300">
-        <Quote className="w-8 h-8 text-emerald-400/40 mb-4" />
-        <p className="text-gray-300 mb-6 leading-relaxed">{quote}</p>
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full flex items-center justify-center text-emerald-400 font-semibold border border-emerald-500/20">
-            {avatar}
-          </div>
-          <div>
-            <p className="font-medium text-white">{author}</p>
-            <p className="text-sm text-gray-500">{role}</p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
@@ -613,45 +571,6 @@ export default function OpenReviewsPage() {
                 </motion.div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="relative py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">Loved by Developers</h2>
-            <p className="text-xl text-gray-400">Join hundreds who&apos;ve escaped the review platform racket</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <TestimonialCard
-              quote="Deployed OpenReviews in 5 minutes. Our customers love the clean widget, and I love not paying $1,099/month for basic features."
-              author="Marcus Chen"
-              role="CTO, TechStartup"
-              avatar="MC"
-              delay={0}
-            />
-            <TestimonialCard
-              quote="Finally, reviews we actually own. The API is clean, the widget is beautiful, and the setup was trivially simple. This is how software should be."
-              author="Sarah Williams"
-              role="Founder, E-commerce Brand"
-              avatar="SW"
-              delay={0.1}
-            />
-            <TestimonialCard
-              quote="Trustpilot wanted $300/month just to respond to reviews. OpenReviews does everything we need for free. The ROI is literally infinite."
-              author="David Park"
-              role="Agency Owner"
-              avatar="DP"
-              delay={0.2}
-            />
           </div>
         </div>
       </section>

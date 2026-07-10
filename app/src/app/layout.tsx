@@ -136,24 +136,28 @@ const jsonLd = {
       closes: '23:59',
     },
   ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    reviewCount: String(testimonials.length),
-    bestRating: '5',
-    worstRating: '1',
-  },
-  review: testimonials.map((t) => ({
-    '@type': 'Review',
-    author: { '@type': 'Person', name: t.name },
-    datePublished: t.date,
-    reviewBody: t.quote,
-    reviewRating: {
-      '@type': 'Rating',
-      ratingValue: String(t.rating),
-      bestRating: '5',
-    },
-  })),
+  ...(testimonials.length > 0
+    ? {
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '5',
+          reviewCount: String(testimonials.length),
+          bestRating: '5',
+          worstRating: '1',
+        },
+        review: testimonials.map((t) => ({
+          '@type': 'Review',
+          author: { '@type': 'Person', name: t.name },
+          datePublished: t.date,
+          reviewBody: t.quote,
+          reviewRating: {
+            '@type': 'Rating',
+            ratingValue: String(t.rating),
+            bestRating: '5',
+          },
+        })),
+      }
+    : {}),
 };
 
 const personJsonLd = {
@@ -200,8 +204,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        {/* Netlify Forms detection */}
-        <meta name="netlify" content="edge" />
       </head>
       <body>
         <ErrorBoundary>

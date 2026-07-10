@@ -15,6 +15,10 @@ export default function Testimonials({
   title = 'Kind Words',
   subtitle = 'What Clients Say',
 }: TestimonialsProps) {
+  if (testimonials.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
