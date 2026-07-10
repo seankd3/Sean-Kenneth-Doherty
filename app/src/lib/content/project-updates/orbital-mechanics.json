@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-07-09",
+    "title": "Full Apollo Stack: CSM + LM",
+    "summary": "Two independently simulated craft: undock the LM, fly a powered descent to a lunar touchdown, jettison the descent stage, ride the APS back to orbit, rendezvous and hard-dock with the CSM. S-IVB third stage (real J-2 numbers) flies TLI and gets staged away. Verified end-to-end: landing at 278 kg of DPS fuel, ascent to a 331x296 km lunar orbit, crew transfer, TEI home.",
+    "commit": "172b67c"
+  },
+  {
+    "date": "2026-07-09",
     "title": "V3.0: The Merge",
     "summary": "Unified the two lineages: the Apollo feature build (Moon + SOI patched conics, maneuver nodes, orbit-ops assists, navball, map view, star catalog, coastlines, audio) now runs on the modern Vite + TypeScript architecture. One canonical main branch again.",
     "commit": "08ee2fb"
