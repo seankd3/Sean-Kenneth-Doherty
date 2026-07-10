@@ -95,4 +95,41 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'machine-frame-lab',
+    title: 'Machine Frame Lab',
+    eyebrow: 'Engineering / Simulation',
+    status: 'Working tool',
+    summary:
+      'A preliminary machine-frame engineering workbench for comparing aluminum extrusion, rail, and fill stacks against explicit design limits. It solves static and modal beam response, checks spindle and tooth-pass resonance, and exports a traceable analysis record.',
+    image: '/images/projects/machine-frame-lab.png',
+    imageAlt: 'Machine Frame Lab engineering workstation showing extrusion inputs, finite-element mode shapes, design criteria, and resonance analysis.',
+    sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/machine-frame-lab',
+    tags: ['Finite Elements', 'Modal Analysis', 'Machine Design', 'TypeScript', 'React'],
+    highlights: [
+      'Assembled Euler-Bernoulli stiffness and consistent mass matrices with a point carriage mass and numerically solved mode shapes.',
+      'Focused verification against closed-form simply supported, fixed-fixed, and cantilever beam solutions.',
+      'Editable deflection, first-mode, and modal-separation limits with a controlling-criterion verdict and safer-RPM guidance.',
+      'Twenty-five seeded extrusion profiles, custom section-property intake, shareable configurations, and exportable JSON analysis reports.',
+    ],
+    updates: [
+      {
+        date: '2026-07-10',
+        title: 'Finite-element modal solver and design qualification',
+        summary:
+          'Replaced analytical modal shortcuts with a generalized finite-element eigenproblem, added explicit acceptance criteria and model-confidence guidance, rebuilt the resonance view around operating decisions, and verified the workflow at desktop and phone widths.',
+        commit: 'b065804',
+      },
+    ],
+    links: [
+      {
+        label: 'Open App',
+        href: 'https://sean-kenneth-doherty.github.io/machine-frame-lab/',
+      },
+      {
+        label: 'Source',
+        href: 'https://github.com/Sean-Kenneth-Doherty/machine-frame-lab',
+      },
+    ],
+  },
 ];
