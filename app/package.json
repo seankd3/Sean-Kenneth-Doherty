@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node ../scripts/preview-static-export.mjs out",
     "lint": "next lint",
     "build-gallery": "node ../scripts/build-gallery.js",
     "sync-projects": "node ../scripts/sync-orbital-project.js"
