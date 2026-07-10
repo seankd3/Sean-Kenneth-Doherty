@@ -1,5 +1,4 @@
 import orbitalMechanicsUpdates from './project-updates/orbital-mechanics.json';
-import { photoArchiveProjectUpdates } from './photoarchive-history';
 
 export type ProjectUpdate = {
   date: string;
@@ -45,25 +44,19 @@ export const projects: Project[] = [
     eyebrow: 'Software / Self-hosted',
     status: 'In active use',
     summary:
-      'A local-first photo system with Google Photos ease, Lightroom control, and uniquely taste-learning workflows: Elo ranking, three-engine search, people/map/stacks, mobile PWA access, private galleries, publishing, and serious Develop tools over a real 47,000+ photo archive.',
+      'Open-source, self-hosted photo software for a local-first archive: fast library browsing, three-engine search, taste-learning ranking, Develop workflows, mobile access, proofing, and publishing.',
     image: '/images/photoarchive/library-grid.jpg',
     imageAlt: 'photoArchive library grid showing a curated landscape collection with folder tree and ranking panels.',
     sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/photo-archive',
     tags: ['FastAPI', 'SQLite', 'Local AI', 'Elo Ranking', 'PWA', 'Develop'],
     highlights: [
-      '47,000+ photo real archive with 2.35M ranking signals.',
-      'Elo/Refine taste learning, auto-cull, and quality coverage instead of brittle star-rating chores.',
-      'Three fused search engines: metadata, vision embeddings, and VLM captions, plus people/map/stacks.',
-      'Mobile PWA, private galleries, direct publishing, and Dev6 Develop tools through Transform/Upright on a 595-test baseline.',
+      '138,573 active photos in the author’s working archive.',
+      '2.4M ranking signals, three search engines, and 73 presets.',
+      'Local-first originals with rebuildable previews, indexes, captions, and embeddings.',
+      'Dev7 shipped with film UI, reference compare, soft proof, XMP write-back, saved views, and timeline.',
     ],
-    updates: photoArchiveProjectUpdates,
-    links: [
-      { label: 'Feature tour', href: '/photoarchive' },
-      {
-        label: 'Source',
-        href: 'https://github.com/Sean-Kenneth-Doherty/photo-archive',
-      },
-    ],
+    updates: [],
+    links: [],
   },
   {
     slug: 'orbital-mechanics',

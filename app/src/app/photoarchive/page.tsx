@@ -1,12 +1,19 @@
 import type { Metadata } from 'next';
-import PhotoArchiveShowcase from '@/components/photoarchive/PhotoArchiveShowcase';
+import PhotoArchiveLegacyRedirect from '@/components/photoarchive/PhotoArchiveLegacyRedirect';
 
 export const metadata: Metadata = {
-  title: 'photoArchive — The photo system I wanted to exist',
+  title: 'photoArchive moved',
   description:
-    'A local-first photo archive with fast library browsing, Elo taste learning, three-engine search, mobile PWA access, private publishing, and Lightroom-class Develop tools.',
+    'The canonical photoArchive product page now lives at /projects/photoarchive.',
+  alternates: {
+    canonical: 'https://seankennethdoherty.com/projects/photoarchive',
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function PhotoArchivePage() {
-  return <PhotoArchiveShowcase />;
+  return <PhotoArchiveLegacyRedirect />;
 }

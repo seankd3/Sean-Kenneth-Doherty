@@ -5,7 +5,9 @@ import { ArrowLeft, ArrowUpRight, CalendarDays, Cpu, Gamepad2, GitBranch } from 
 import { projects, type Project, type ProjectUpdate } from '@/lib/content';
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return projects
+    .filter((project) => project.slug !== 'photoarchive')
+    .map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
