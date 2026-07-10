@@ -10,6 +10,10 @@ npm run build
 npx wrangler pages deploy out --project-name seankennethdoherty
 ```
 
+**Gotcha:** Cloudflare Pages rejects files over 25 MiB — the whole deploy fails
+silently-ish (no success line). Oversized leftovers live in `_archive/` (e.g. the
+reverted book-video mp4s, moved 2026-07-09); keep big media out of `app/public`.
+
 Everything below this line is **legacy** (Netlify account suspended 2026-05; the
 GitHub Pages workflow was a brief interim and does not serve the domain).
 
