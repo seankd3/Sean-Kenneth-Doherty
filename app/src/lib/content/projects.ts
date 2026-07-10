@@ -124,7 +124,7 @@ export const projects: Project[] = [
     links: [
       {
         label: 'Open App',
-        href: 'https://sean-kenneth-doherty.github.io/machine-frame-lab/',
+        href: '/play/machine-frame-lab/',
       },
       {
         label: 'Source',
