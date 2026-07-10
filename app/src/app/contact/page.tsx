@@ -3,8 +3,13 @@
 import { useState, useRef, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Twitter, Send, Check, AlertCircle, Package } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Twitter, Copy, Check, AlertCircle, Package } from 'lucide-react';
 import { contactPage, siteConfig } from '@/lib/content';
+import {
+  buildInquiryBody,
+  buildMailtoUrl,
+  type ContactInquiry,
+} from '@/lib/contact-inquiry';
 import {
   weddingPackages,
   weddingAddOns,
@@ -24,6 +29,14 @@ interface FormErrors {
   email?: string;
   message?: string;
 }
+
+type HandoffStatus =
+  | { type: 'draft'; message: string }
+  | { type: 'copied'; message: string }
+  | { type: 'error'; message: string }
+  | null;
+
+const requiredFieldOrder: (keyof FormErrors)[] = ['firstName', 'lastName', 'email', 'message'];
 
 export default function ContactPage() {
   return (
@@ -110,12 +123,11 @@ function ContactPageInner() {
     }));
   }, [pricingSelection, prefillMessage]);
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [handoffStatus, setHandoffStatus] = useState<HandoffStatus>(null);
 
-  const validateForm = (): boolean => {
+  const validateForm = (): FormErrors => {
     const newErrors: FormErrors = {};
 
     if (!formData.firstName.trim()) {
@@ -138,8 +150,17 @@ function ContactPageInner() {
       newErrors.message = 'Message must be at least 10 characters';
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
+  };
+
+  const focusFirstInvalidField = (newErrors: FormErrors) => {
+    const firstErrorField = requiredFieldOrder.find((field) => newErrors[field]);
+    if (!firstErrorField || !formRef.current) return;
+
+    requestAnimationFrame(() => {
+      const field = formRef.current?.querySelector<HTMLElement>(`[name="${firstErrorField}"]`);
+      field?.focus();
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -152,53 +173,70 @@ function ContactPageInner() {
     if (errors[name as keyof FormErrors]) {
       setErrors({ ...errors, [name]: undefined });
     }
-    setSubmitError(null);
+    setHandoffStatus(null);
+  };
+
+  const copyInquiry = async () => {
+    const body = buildInquiryBody(formData);
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(body);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = body;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        if (!copied) {
+          throw new Error('Copy command failed');
+        }
+      }
+
+      setHandoffStatus({
+        type: 'copied',
+        message: 'Inquiry copied. Paste it into your email app when you are ready to send.',
+      });
+    } catch {
+      setHandoffStatus({
+        type: 'error',
+        message: `Copy did not work in this browser. Your message is still in the form, and you can email ${siteConfig.email} directly.`,
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitError(null);
+    setHandoffStatus(null);
 
-    if (!validateForm()) {
-      // Focus first field with error
-      const firstErrorField = Object.keys(errors)[0];
-      if (firstErrorField && formRef.current) {
-        const field = formRef.current.querySelector(`[name="${firstErrorField}"]`) as HTMLElement;
-        field?.focus();
-      }
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      focusFirstInvalidField(validationErrors);
       return;
     }
 
     setIsSubmitting(true);
 
-    // Static hosting: compose the inquiry as an email in the visitor's mail client
+    // Static hosting: request an email draft while preserving the visitor's form data.
     try {
-      const subject = `Photography inquiry — ${formData.eventType || 'General'} — ${formData.firstName} ${formData.lastName}`;
-      const bodyLines = [
-        `Name: ${formData.firstName} ${formData.lastName}`,
-        `Email: ${formData.email}`,
-        formData.phone && `Phone: ${formData.phone}`,
-        formData.eventType && `Event type: ${formData.eventType}`,
-        formData.date && `Date: ${formData.date}`,
-        formData.referralSource && `Heard about me via: ${formData.referralSource}`,
-        '',
-        formData.message,
-      ].filter(Boolean);
-      const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-      window.location.href = mailto;
-      setIsSubmitted(true);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        eventType: '',
-        date: '',
-        referralSource: '',
-        message: '',
+      const mailto = buildMailtoUrl(siteConfig.email, formData as ContactInquiry);
+      window.open(mailto, '_self');
+      setHandoffStatus({
+        type: 'draft',
+        message:
+          'Email draft requested. Please review and send it from your email app. Your inquiry is still here in case the draft did not open.',
       });
     } catch {
-      setSubmitError(`Unable to open your email app. Please email me directly at ${siteConfig.email}`);
+      setHandoffStatus({
+        type: 'error',
+        message: `Unable to open your email app. Your message is still in the form, and you can copy it or email ${siteConfig.email} directly.`,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -328,7 +366,7 @@ function ContactPageInner() {
             >
               <div className="bg-[#141414] p-8 md:p-12">
                 {/* Pricing selection summary from wedding page */}
-                {pricingSelection && !isSubmitted && (
+                {pricingSelection && (
                   <div className="mb-8 p-4 border border-[#c9a962]/30 bg-[#c9a962]/5">
                     <div className="flex items-center gap-2 mb-3">
                       <Package size={16} className="text-[#c9a962]" />
@@ -361,40 +399,37 @@ function ContactPageInner() {
                   </div>
                 )}
 
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-16"
-                  >
-                    <div className="w-16 h-16 bg-[#c9a962] rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Check size={32} className="text-[#0a0a0a]" />
-                    </div>
-                    <h3 className="font-wedding-display text-3xl text-white mb-4">
-                      Almost There!
-                    </h3>
-                    <p className="text-[#a0a0a0]">
-                      Your email app should have opened with your message ready to send.
-                      If it didn&apos;t, email me directly at{' '}
-                      <a href={`mailto:${siteConfig.email}`} className="text-[#c9a962] hover:underline">{siteConfig.email}</a>.
-                      I&apos;ll get back to you within 24 hours.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form
-                    ref={formRef}
-                    name="contact"
-                    onSubmit={handleSubmit}
-                    noValidate
-                    aria-label="Contact form"
-                  >
-                    {/* Submit Error Alert */}
-                    {submitError && (
-                      <div className="mb-6 p-4 bg-red-900/30 border border-red-500/50 flex items-start space-x-3" role="alert">
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  noValidate
+                  aria-label="Contact form"
+                >
+                  {handoffStatus && (
+                    <div
+                      className={`mb-6 p-4 border flex items-start space-x-3 ${
+                        handoffStatus.type === 'error'
+                          ? 'bg-red-900/30 border-red-500/50'
+                          : 'bg-[#c9a962]/10 border-[#c9a962]/40'
+                      }`}
+                      role={handoffStatus.type === 'error' ? 'alert' : 'status'}
+                      aria-live="polite"
+                    >
+                      {handoffStatus.type === 'error' ? (
                         <AlertCircle className="text-red-400 flex-shrink-0 mt-0.5" size={20} />
-                        <p className="text-red-300 text-sm">{submitError}</p>
+                      ) : (
+                        <Check className="text-[#c9a962] flex-shrink-0 mt-0.5" size={20} />
+                      )}
+                      <div className="space-y-2">
+                        <p className={handoffStatus.type === 'error' ? 'text-red-300 text-sm' : 'text-[#d8d8d8] text-sm'}>
+                          {handoffStatus.message}
+                        </p>
+                        <p className="text-[#a0a0a0] text-xs">
+                          Nothing has been sent automatically. You still need to send the email draft yourself.
+                        </p>
                       </div>
-                    )}
+                    </div>
+                  )}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
@@ -582,26 +617,35 @@ function ContactPageInner() {
                       )}
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-[#c9a962] text-[#0a0a0a] py-4 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#c9a962] focus:ring-offset-2 focus:ring-offset-[#141414]"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span>Sending...</span>
-                          <div className="w-4 h-4 border-2 border-[#0a0a0a] border-t-transparent rounded-full animate-spin" aria-hidden="true" />
-                          <span className="sr-only">Please wait while your message is being sent</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Send Message</span>
-                          <Send size={16} aria-hidden="true" />
-                        </>
-                      )}
-                    </button>
+                    <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full bg-[#c9a962] text-[#0a0a0a] py-4 px-6 font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#c9a962] focus:ring-offset-2 focus:ring-offset-[#141414]"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <span>Opening Draft...</span>
+                            <div className="w-4 h-4 border-2 border-[#0a0a0a] border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+                            <span className="sr-only">Please wait while your email draft is requested</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Open Email Draft</span>
+                            <Mail size={16} aria-hidden="true" />
+                          </>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={copyInquiry}
+                        className="w-full sm:w-auto border border-[#c9a962] px-6 py-4 text-[#c9a962] font-medium tracking-wider uppercase text-sm hover:bg-[#c9a962] hover:text-[#0a0a0a] transition-colors duration-300 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-[#c9a962] focus:ring-offset-2 focus:ring-offset-[#141414]"
+                      >
+                        <span>Copy Inquiry</span>
+                        <Copy size={16} aria-hidden="true" />
+                      </button>
+                    </div>
                   </form>
-                )}
               </div>
             </motion.div>
           </div>
