@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight, CalendarDays, Cpu, Gamepad2, GitBranch } from 'lucide-react';
-import { projects } from '@/lib/content';
+import { projects, type Project, type ProjectUpdate } from '@/lib/content';
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -20,6 +20,45 @@ export async function generateMetadata({
     description: project?.summary,
     robots: { index: false, follow: false },
   };
+}
+
+function updateCommits(update: ProjectUpdate) {
+  return update.commits && update.commits.length > 0
+    ? update.commits
+    : update.commit
+      ? [update.commit]
+      : [];
+}
+
+function CommitLinks({ project, update }: { project: Project; update: ProjectUpdate }) {
+  const commits = updateCommits(update);
+
+  if (commits.length === 0) return null;
+
+  return (
+    <span className="flex flex-wrap justify-end gap-2">
+      {commits.map((commit) => {
+        const label = commit.length > 8 ? commit.slice(0, 8) : commit;
+        if (!project.sourceUrl) {
+          return (
+            <span key={commit} className="font-aerospace-display uppercase">
+              {label}
+            </span>
+          );
+        }
+
+        return (
+          <a
+            key={commit}
+            href={`${project.sourceUrl}/commit/${commit}`}
+            className="font-aerospace-display uppercase transition-colors hover:text-[#c9a962]"
+          >
+            {label}
+          </a>
+        );
+      })}
+    </span>
+  );
 }
 
 export default async function ProjectDetailPage({
@@ -126,17 +165,7 @@ export default async function ProjectDetailPage({
                   <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                     <p className="text-sm font-medium text-white">{update.title}</p>
                     <div className="flex items-center gap-3 text-xs text-[#6f6f6f]">
-                      {update.commit && project.sourceUrl && (
-                        <a
-                          href={`${project.sourceUrl}/commit/${update.commit}`}
-                          className="font-aerospace-display uppercase transition-colors hover:text-[#c9a962]"
-                        >
-                          {update.commit}
-                        </a>
-                      )}
-                      {update.commit && !project.sourceUrl && (
-                        <span className="font-aerospace-display uppercase">{update.commit}</span>
-                      )}
+                      <CommitLinks project={project} update={update} />
                       <time>{update.date}</time>
                     </div>
                   </div>

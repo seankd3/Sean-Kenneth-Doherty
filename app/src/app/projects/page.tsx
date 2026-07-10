@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ArrowUpRight, CalendarDays, Code2, Cpu, Gamepad2, GitBranch, RadioTower } from 'lucide-react';
-import { projects, projectsPage } from '@/lib/content';
+import { projects, projectsPage, type Project, type ProjectUpdate } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -10,6 +10,45 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
+
+function updateCommits(update: ProjectUpdate) {
+  return update.commits && update.commits.length > 0
+    ? update.commits
+    : update.commit
+      ? [update.commit]
+      : [];
+}
+
+function CommitLinks({ project, update }: { project: Project; update: ProjectUpdate }) {
+  const commits = updateCommits(update);
+
+  if (commits.length === 0) return null;
+
+  return (
+    <span className="flex flex-wrap justify-end gap-2">
+      {commits.map((commit) => {
+        const label = commit.length > 8 ? commit.slice(0, 8) : commit;
+        if (!project.sourceUrl) {
+          return (
+            <span key={commit} className="font-aerospace-display uppercase">
+              {label}
+            </span>
+          );
+        }
+
+        return (
+          <a
+            key={commit}
+            href={`${project.sourceUrl}/commit/${commit}`}
+            className="font-aerospace-display uppercase transition-colors hover:text-[#c9a962]"
+          >
+            {label}
+          </a>
+        );
+      })}
+    </span>
+  );
+}
 
 export default function ProjectsPage() {
   return (
@@ -103,19 +142,7 @@ export default function ProjectsPage() {
                           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                             <p className="text-sm font-medium text-white">{update.title}</p>
                             <div className="flex items-center gap-3 text-xs text-[#6f6f6f]">
-                              {update.commit && project.sourceUrl && (
-                                <a
-                                  href={`${project.sourceUrl}/commit/${update.commit}`}
-                                  className="font-aerospace-display uppercase transition-colors hover:text-[#c9a962]"
-                                >
-                                  {update.commit}
-                                </a>
-                              )}
-                              {update.commit && !project.sourceUrl && (
-                                <span className="font-aerospace-display uppercase">
-                                  {update.commit}
-                                </span>
-                              )}
+                              <CommitLinks project={project} update={update} />
                               <time>{update.date}</time>
                             </div>
                           </div>
@@ -172,7 +199,7 @@ export default function ProjectsPage() {
             </p>
             <p>
               Project entries live in <code className="text-white">app/src/lib/content/projects.ts</code>,
-              while the Orbital Mechanics build log lives in <code className="text-white">app/src/lib/content/project-updates/orbital-mechanics.json</code>.
+              while build-log data lives in <code className="text-white">app/src/lib/content/project-updates/</code> and feature-specific content modules.
               Run <code className="text-white">npm run sync-projects</code> from the app directory to refresh it from the game repo.
             </p>
           </div>

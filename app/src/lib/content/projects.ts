@@ -1,10 +1,12 @@
 import orbitalMechanicsUpdates from './project-updates/orbital-mechanics.json';
+import { photoArchiveProjectUpdates } from './photoarchive-history';
 
 export type ProjectUpdate = {
   date: string;
   title: string;
   summary: string;
   commit?: string;
+  commits?: string[];
 };
 
 export type ProjectLink = {
@@ -43,19 +45,25 @@ export const projects: Project[] = [
     eyebrow: 'Software / Self-hosted',
     status: 'In active use',
     summary:
-      'A self-hosted photo cloud with Lightroom Classic instincts: Elo photo ranking, automatic stacks, local AI search over 47,000+ photos, private client galleries, and an installable phone app. Everything runs on my own hardware.',
+      'A local-first photo system with Google Photos ease, Lightroom control, and uniquely taste-learning workflows: Elo ranking, three-engine search, people/map/stacks, mobile PWA access, private galleries, publishing, and serious Develop tools over a real 47,000+ photo archive.',
     image: '/images/photoarchive/library-grid.jpg',
     imageAlt: 'photoArchive library grid showing a curated landscape collection with folder tree and ranking panels.',
     sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/photo-archive',
-    tags: ['FastAPI', 'SQLite', 'Local AI', 'Elo Ranking', 'PWA', 'Self-hosted'],
+    tags: ['FastAPI', 'SQLite', 'Local AI', 'Elo Ranking', 'PWA', 'Develop'],
     highlights: [
-      'Virtualized library grid that stays smooth at 50,000 photos.',
-      'Elo ranking with uncertainty tracking instead of star ratings.',
-      'Three fused search engines: metadata, vision embeddings, VLM captions — all on one consumer GPU.',
-      'Password-protected client galleries with proofing and view analytics.',
+      '47,000+ photo real archive with 2.35M ranking signals.',
+      'Elo/Refine taste learning, auto-cull, and quality coverage instead of brittle star-rating chores.',
+      'Three fused search engines: metadata, vision embeddings, and VLM captions, plus people/map/stacks.',
+      'Mobile PWA, private galleries, direct publishing, and Dev6 Develop tools through Transform/Upright on a 595-test baseline.',
     ],
-    updates: [],
-    links: [{ label: 'Feature tour', href: '/photoarchive' }],
+    updates: photoArchiveProjectUpdates,
+    links: [
+      { label: 'Feature tour', href: '/photoarchive' },
+      {
+        label: 'Source',
+        href: 'https://github.com/Sean-Kenneth-Doherty/photo-archive',
+      },
+    ],
   },
   {
     slug: 'orbital-mechanics',
