@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Instagram, Twitter, Copy, Check, AlertCircle, Package } from 'lucide-react';
 import { contactPage, siteConfig } from '@/lib/content';
@@ -36,71 +35,69 @@ type HandoffStatus =
   | { type: 'error'; message: string }
   | null;
 
+type PricingSelection = {
+  pkg: (typeof weddingPackages)[number];
+  addons: Array<(typeof weddingAddOns)[number] & { qty: number }>;
+  payInFull: boolean;
+  total: number;
+  discount: number;
+};
+
 const requiredFieldOrder: (keyof FormErrors)[] = ['firstName', 'lastName', 'email', 'message'];
 
-export default function ContactPage() {
-  return (
-    <Suspense>
-      <ContactPageInner />
-    </Suspense>
-  );
+function parsePricingFromSearch(search: string): PricingSelection | null {
+  const params = new URLSearchParams(search);
+  const packageId = params.get('package');
+  if (!packageId) return null;
+
+  const pkg = weddingPackages.find((p) => p.id === packageId);
+  if (!pkg) return null;
+
+  const addonIds = (params.get('addons') || '').split(',').filter(Boolean);
+  const addons = addonIds
+    .map((id) => {
+      const addon = weddingAddOns.find((a) => a.id === id);
+      if (!addon) return null;
+      const qtyParam = params.get(`qty_${id}`);
+      const qty = qtyParam ? Math.min(parseInt(qtyParam, 10) || 1, addon.maxQuantity || 4) : 1;
+      return { ...addon, qty };
+    })
+    .filter((a): a is NonNullable<typeof a> => a !== null);
+
+  const payInFull = params.get('payInFull') === '1';
+  const addOnsTotal = addons.reduce((sum, a) => sum + a.price * a.qty, 0);
+  const subtotal = pkg.price + addOnsTotal;
+  const discount = payInFull ? pricingConfig.payInFullDiscount : 0;
+  const total = subtotal - discount;
+
+  return { pkg, addons, payInFull, total, discount };
 }
 
-function ContactPageInner() {
-  const searchParams = useSearchParams();
+function buildPrefillMessage(selection: PricingSelection): string {
+  const { pkg, addons, payInFull, total } = selection;
+  const lines = [`Hi! I'm interested in the ${pkg.name} package (${formatPrice(pkg.price)}).`];
+  if (addons.length > 0) {
+    lines.push('');
+    lines.push('Add-ons:');
+    for (const a of addons) {
+      const qtyStr = a.qty > 1 ? ` x${a.qty}` : '';
+      lines.push(`- ${a.name}${qtyStr} (${formatPrice(a.price * a.qty)})`);
+    }
+  }
+  if (payInFull) {
+    lines.push('');
+    lines.push("I'd like to pay in full for the $200 discount.");
+  }
+  lines.push('');
+  lines.push(`Estimated total: ${formatPrice(total)}`);
+  lines.push('');
+  lines.push('Could you let me know about availability for my date?');
+  return lines.join('\n');
+}
+
+export default function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null);
-
-  // Parse wedding pricing selection from URL params
-  const pricingSelection = useMemo(() => {
-    const packageId = searchParams.get('package');
-    if (!packageId) return null;
-
-    const pkg = weddingPackages.find((p) => p.id === packageId);
-    if (!pkg) return null;
-
-    const addonIds = (searchParams.get('addons') || '').split(',').filter(Boolean);
-    const addons = addonIds
-      .map((id) => {
-        const addon = weddingAddOns.find((a) => a.id === id);
-        if (!addon) return null;
-        const qtyParam = searchParams.get(`qty_${id}`);
-        const qty = qtyParam ? Math.min(parseInt(qtyParam, 10) || 1, addon.maxQuantity || 4) : 1;
-        return { ...addon, qty };
-      })
-      .filter((a): a is NonNullable<typeof a> => a !== null);
-
-    const payInFull = searchParams.get('payInFull') === '1';
-    const addOnsTotal = addons.reduce((sum, a) => sum + a.price * a.qty, 0);
-    const subtotal = pkg.price + addOnsTotal;
-    const discount = payInFull ? pricingConfig.payInFullDiscount : 0;
-    const total = subtotal - discount;
-
-    return { pkg, addons, payInFull, total, discount };
-  }, [searchParams]);
-
-  // Build pre-filled message from pricing selection
-  const prefillMessage = useMemo(() => {
-    if (!pricingSelection) return '';
-    const { pkg, addons, payInFull, total } = pricingSelection;
-    const lines = [`Hi! I'm interested in the ${pkg.name} package (${formatPrice(pkg.price)}).`];
-    if (addons.length > 0) {
-      lines.push('');
-      lines.push('Add-ons:');
-      for (const a of addons) {
-        const qtyStr = a.qty > 1 ? ` x${a.qty}` : '';
-        lines.push(`- ${a.name}${qtyStr} (${formatPrice(a.price * a.qty)})`);
-      }
-    }
-    if (payInFull) {
-      lines.push('');
-      lines.push('I\'d like to pay in full for the $200 discount.');
-    }
-    lines.push('');
-    lines.push(`Estimated total: ${formatPrice(total)}`);
-    lines.push('');
-    lines.push('Could you let me know about availability for my date?');
-    return lines.join('\n');
-  }, [pricingSelection]);
+  const [pricingSelection, setPricingSelection] = useState<PricingSelection | null>(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -113,15 +110,18 @@ function ContactPageInner() {
     message: '',
   });
 
-  // Pre-fill form from pricing selection (runs once on mount)
+  // Client-only URL parse — avoids Next useSearchParams CSR bailout (empty form without JS)
   useEffect(() => {
-    if (!pricingSelection) return;
+    const selection = parsePricingFromSearch(window.location.search);
+    if (!selection) return;
+    setPricingSelection(selection);
+    const prefill = buildPrefillMessage(selection);
     setFormData((prev) => ({
       ...prev,
       eventType: prev.eventType || 'Wedding',
-      message: prev.message || prefillMessage,
+      message: prev.message || prefill,
     }));
-  }, [pricingSelection, prefillMessage]);
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});

@@ -52,6 +52,12 @@ export default function AerospacePage() {
 
   const [showMissionControl, setShowMissionControl] = useState(true);
   const lastScrollY = useRef(0);
+  /** Progressive reveal: album id → how many images currently shown */
+  const INITIAL_GALLERY_COUNT = 12;
+  const [visibleCounts, setVisibleCounts] = useState<Record<string, number>>(() =>
+    Object.fromEntries(aerospaceAlbums.map((a) => [a.id, Math.min(INITIAL_GALLERY_COUNT, a.images.length)]))
+  );
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -216,6 +222,31 @@ export default function AerospacePage() {
       const top = element.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
+  };
+
+  const showMoreImages = (albumId: string, total: number) => {
+    setVisibleCounts((prev) => ({
+      ...prev,
+      [albumId]: Math.min(total, (prev[albumId] || INITIAL_GALLERY_COUNT) + 24),
+    }));
+  };
+
+  const showAllImages = (albumId: string, total: number) => {
+    setVisibleCounts((prev) => ({ ...prev, [albumId]: total }));
+  };
+
+  const onLightboxTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0]?.clientX ?? null;
+  };
+
+  const onLightboxTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current == null) return;
+    const endX = e.changedTouches[0]?.clientX ?? touchStartX.current;
+    const delta = endX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(delta) < 50) return;
+    if (delta < 0) goToNext();
+    else goToPrev();
   };
 
   const equipment = aerospacePage.equipment;
@@ -467,9 +498,11 @@ export default function AerospacePage() {
               </h2>
             </motion.div>
 
-            {/* Masonry Grid */}
+            {/* Masonry Grid — progressive load (covers-first, expand on demand) */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
-              {album.images.map((image, index) => (
+              {album.images
+                .slice(0, visibleCounts[album.id] ?? INITIAL_GALLERY_COUNT)
+                .map((image, index) => (
                 <div
                   key={index}
                   className="group relative break-inside-avoid mb-2 cursor-pointer"
@@ -483,20 +516,37 @@ export default function AerospacePage() {
                       height={image.height}
                       className={`${index < 6 ? '' : 'gallery-fade'} w-full h-auto group-hover:scale-[1.02] transition-transform duration-700 ease-out`}
                       style={{ aspectRatio: `${image.width} / ${image.height}` }}
-                      loading={index < 6 ? 'eager' : 'lazy'}
-                      onLoad={index >= 6 ? onImgLoad : undefined}
+                      loading={index < 4 ? 'eager' : 'lazy'}
+                      onLoad={index >= 4 ? onImgLoad : undefined}
                     />
                     <div className="absolute top-1 left-1 bg-[#1a1a1a] text-[#e8e6e1] text-[10px] px-1.5 py-0.5 font-aerospace-display opacity-80 group-hover:bg-[#c41e3a] transition-colors duration-300">
                       {String(index + 1).padStart(3, '0')}
                     </div>
-                    {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Back to Top */}
+            {(visibleCounts[album.id] ?? 0) < album.images.length && (
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => showMoreImages(album.id, album.images.length)}
+                  className="border-2 border-[#1a1a1a] bg-[#1a1a1a] text-[#e8e6e1] px-5 py-2 font-aerospace-display text-xs tracking-wider hover:bg-[#c41e3a] hover:border-[#c41e3a] transition-colors"
+                >
+                  LOAD MORE (+{Math.min(24, album.images.length - (visibleCounts[album.id] ?? 0))})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => showAllImages(album.id, album.images.length)}
+                  className="border-2 border-[#1a1a1a] text-[#1a1a1a] px-5 py-2 font-aerospace-display text-xs tracking-wider hover:border-[#c41e3a] hover:text-[#c41e3a] transition-colors"
+                >
+                  SHOW ALL {String(album.images.length).padStart(3, '0')}
+                </button>
+              </div>
+            )}
+
             <div className="mt-12 text-center">
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -518,8 +568,10 @@ export default function AerospacePage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center touch-pan-y"
             onClick={closeLightbox}
+            onTouchStart={onLightboxTouchStart}
+            onTouchEnd={onLightboxTouchEnd}
             role="dialog"
             aria-modal="true"
             aria-label="Image lightbox"
@@ -584,9 +636,10 @@ export default function AerospacePage() {
               onClick={(e) => e.stopPropagation()}
             />
 
-            {/* Keyboard hint */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-wider hidden sm:block">
-              Use ← → arrow keys to navigate, ESC to close
+            {/* Keyboard / swipe hint */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-wider">
+              <span className="hidden sm:inline">Use ← → arrow keys to navigate, ESC to close</span>
+              <span className="sm:hidden">Swipe to navigate · tap outside to close</span>
             </div>
           </motion.div>
         )}

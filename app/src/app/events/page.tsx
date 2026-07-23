@@ -145,7 +145,7 @@ export default function EventsPage() {
           <img
             src={heroImage}
             alt="Events photography"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0a0a0a]/50 to-[#0f0f0f]" />
           <div className="absolute inset-0 bg-[#0a0a0a]/30" />

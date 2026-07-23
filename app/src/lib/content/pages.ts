@@ -7,12 +7,24 @@
 
 export const homePage = {
   hero: {
-    subtitle: 'Photography & Cinematography',
+    subtitle: 'Photography & Cinematography · Austin, TX',
     title: 'Sean Kenneth Doherty',
     description:
-      'Capturing timeless moments through a lens of artistry and emotion. From intimate weddings to rocket launches.',
-    cta: 'View My Work',
-    ctaSecondary: 'Get In Touch',
+      'Two worlds, one eye: elegant wedding storytelling and aerospace documentation from Starbase to the dark sky.',
+    cta: 'Wedding clients',
+    ctaSecondary: 'Aerospace & press',
+  },
+  dualPaths: {
+    weddings: {
+      label: 'Planning a wedding?',
+      description: 'Galleries, collections, and packages built for your day.',
+      href: '/weddings',
+    },
+    aerospace: {
+      label: 'Need launch coverage?',
+      description: 'Starbase documentation, press, and technical storytelling.',
+      href: '/aerospace',
+    },
   },
   categories: [
     {
@@ -39,6 +51,18 @@ export const homePage = {
       icon: 'Mountain' as const,
       description: 'From dramatic vistas to intimate scenes',
     },
+    {
+      title: 'Portraits',
+      link: '/portraits',
+      icon: 'User' as const,
+      description: 'Character-driven portrait sessions',
+    },
+    {
+      title: 'Abstract',
+      link: '/abstract',
+      icon: 'Sparkles' as const,
+      description: 'Form, light, and unexpected frames',
+    },
   ],
   about: {
     title: 'The Story Behind the Lens',
@@ -52,8 +76,16 @@ export const homePage = {
     { value: '50+', label: 'Weddings Captured' },
     { value: '15+', label: 'Launches Documented' },
     { value: '8+', label: 'Years Experience' },
-    { value: '100%', label: 'Client Satisfaction' },
+    { value: 'Austin', label: 'Based · Worldwide Travel' },
   ],
+  trustStrip: {
+    title: 'Ready when you are',
+    items: [
+      { label: 'Wedding packages', href: '/pricing' },
+      { label: 'See the work', href: '/galleries' },
+      { label: 'Start an inquiry', href: '/contact' },
+    ],
+  },
 };
 
 // ─── WEDDINGS PAGE ─────────────────────────────────────────────────────────────
@@ -213,13 +245,15 @@ export const abstractPage = {
 
 export const galleriesPage = {
   hero: {
-    subtitle: 'Published Galleries',
-    title: 'Client',
-    titleAccent: 'Collections',
+    subtitle: 'Portfolio · Galleries',
+    title: 'Explore the',
+    titleAccent: 'Work',
     description:
-      'A curated index of delivered photo collections, ready to open as standalone galleries.',
+      'Jump into a category, or open a delivered client collection when one is published for you.',
   },
-  emptyState: 'Galleries coming soon.',
+  emptyState: 'No private client galleries published yet — browse the portfolio below.',
+  portfolioHeading: 'Portfolio categories',
+  clientHeading: 'Client deliveries',
 };
 
 // ─── CONTACT PAGE ──────────────────────────────────────────────────────────────

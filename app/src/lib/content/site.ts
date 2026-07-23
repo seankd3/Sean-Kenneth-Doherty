@@ -32,6 +32,7 @@ export const primaryNavigationLinks = [
   { path: '/portraits', label: 'Portraits' },
   { path: '/abstract', label: 'Abstract' },
   { path: '/galleries', label: 'Galleries' },
+  { path: '/pricing', label: 'Pricing' },
   { path: '/contact', label: 'Contact' },
 ];
 

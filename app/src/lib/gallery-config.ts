@@ -13,6 +13,7 @@ export type {
 
 import { categories, getCategoryById } from './gallery-config-auto';
 import type { GalleryImage as GalleryImageType } from './gallery-config-auto';
+import { safeImageSrc } from './utils';
 
 // Legacy mappings from IDs used in page files to build-gallery.js album IDs
 const legacyMappings: Record<string, string> = {
@@ -48,7 +49,11 @@ function findAlbum(albumId: string) {
  */
 export function getGalleryImages(albumId: string): GalleryImageType[] {
   const album = findAlbum(albumId);
-  return album ? album.images : [];
+  if (!album) return [];
+  return album.images.map((img) => ({
+    ...img,
+    src: safeImageSrc(img.src),
+  }));
 }
 
 /**
@@ -115,35 +120,49 @@ export const weddingHeroImage = getFirstImage('weddings/catskills-wedding') || '
 export const homeHeroImage = getFirstImage('weddings/lauren-elphin') || getFirstImage('weddings/catskills-wedding') || '';
 export const homeAboutImage = getFirstImage('portraits/hillary-astrid') || '';
 
-// Home page category cards
+// Home page category cards — full portfolio surface
 export const homeCategoryCards = [
-  { 
-    title: 'Weddings', 
-    link: '/weddings', 
+  {
+    title: 'Weddings',
+    link: '/weddings',
     icon: 'Camera',
     image: getFirstImage('weddings/lauren-elphin') || getFirstImage('weddings/catskills-wedding') || '',
-    description: 'Capturing your forever with timeless elegance'
+    description: 'Capturing your forever with timeless elegance',
   },
-  { 
-    title: 'Aerospace', 
-    link: '/aerospace', 
+  {
+    title: 'Aerospace',
+    link: '/aerospace',
     icon: 'Rocket',
     image: getFirstImage('aerospace/starbase') || '',
-    description: 'Documenting the new space age'
+    description: 'Documenting the new space age',
   },
-  { 
-    title: 'Events', 
-    link: '/events', 
+  {
+    title: 'Events',
+    link: '/events',
     icon: 'Music',
     image: getFirstImage('events/beach-house-concert') || '',
-    description: 'Capturing the energy of special occasions'
+    description: 'Capturing the energy of special occasions',
   },
-  { 
-    title: 'Landscapes', 
-    link: '/landscapes', 
+  {
+    title: 'Landscapes',
+    link: '/landscapes',
     icon: 'Mountain',
     image: getFirstImage('landscapes/american-landscapes') || '',
-    description: 'From dramatic vistas to intimate scenes'
+    description: 'From dramatic vistas to intimate scenes',
+  },
+  {
+    title: 'Portraits',
+    link: '/portraits',
+    icon: 'User',
+    image: getFirstImage('portraits/hillary-astrid') || '',
+    description: 'Character-driven portrait sessions',
+  },
+  {
+    title: 'Abstract',
+    link: '/abstract',
+    icon: 'Sparkles',
+    image: getFirstImage('abstract/from-above') || '',
+    description: 'Form, light, and unexpected frames',
   },
 ];
 

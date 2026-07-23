@@ -13,6 +13,7 @@ const indexableRoutes = [
   { path: '/landscapes', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/portraits', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/abstract', changeFrequency: 'monthly', priority: 0.6 },
+  { path: '/pricing', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/contact', changeFrequency: 'yearly', priority: 0.8 },
   { path: '/galleries', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/projects/photoarchive', changeFrequency: 'monthly', priority: 0.7 },

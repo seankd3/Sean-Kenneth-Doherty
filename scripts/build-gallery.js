@@ -153,7 +153,11 @@ async function scanAlbum(albumPath, categoryId, albumId) {
   for (const file of files) {
     if (isImage(file)) {
       const srcPath = path.join(albumPath, file);
-      const destPath = path.join(GALLERIES_DIR, categoryId, albumId, file);
+      // Slugify output filenames so public URLs never contain spaces/special chars
+      const ext = path.extname(file);
+      const base = path.basename(file, ext);
+      const safeName = `${toSlug(base) || 'image'}${ext.toLowerCase()}`;
+      const destPath = path.join(GALLERIES_DIR, categoryId, albumId, safeName);
 
       // Optimize and copy image (may convert to .webp)
       const result = await optimizeImage(srcPath, destPath);
