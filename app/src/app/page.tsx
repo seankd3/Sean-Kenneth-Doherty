@@ -62,7 +62,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <img
             src={homeHeroImage}
-            alt="Wedding photography by Sean Kenneth Doherty"
+            alt="Bride and groom by the water — wedding photography by Sean Kenneth Doherty"
             className="w-full h-full object-cover object-center"
             fetchPriority="high"
           />

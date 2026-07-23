@@ -116,8 +116,8 @@ export const portraitGalleries: any[] = [];
 export const abstractGalleries: any[] = [];
 
 // Export legacy image helpers that pages use
-export const weddingHeroImage = getFirstImage('weddings/catskills-wedding') || '';
-export const homeHeroImage = getFirstImage('weddings/lauren-elphin') || getFirstImage('weddings/catskills-wedding') || '';
+export const weddingHeroImage = '/images/hero/home-hero.webp';
+export const homeHeroImage = '/images/hero/home-hero.webp';
 export const homeAboutImage = getFirstImage('portraits/hillary-astrid') || '';
 
 // Home page category cards — full portfolio surface
