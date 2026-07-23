@@ -79,7 +79,7 @@ export const homePage = {
     { value: 'Austin', label: 'Based · Worldwide Travel' },
   ],
   trustStrip: {
-    title: 'Ready when you are',
+    title: 'Book the next shoot',
     items: [
       { label: 'Wedding packages', href: '/pricing' },
       { label: 'See the work', href: '/galleries' },

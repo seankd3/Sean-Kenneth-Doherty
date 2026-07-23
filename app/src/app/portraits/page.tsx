@@ -11,6 +11,7 @@ import {
   type GalleryImage
 } from '@/lib/gallery-config';
 import { portraitAlbums as portraitAlbumContent, portraitsPage } from '@/lib/content';
+import ProgressiveGalleryGrid from '@/components/ProgressiveGalleryGrid';
 
 const emptyImage: GalleryImage = { filename: '', src: '', width: 0, height: 0 };
 const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => { e.currentTarget.classList.add('loaded'); };
@@ -217,33 +218,14 @@ export default function PortraitsPage() {
             </motion.div>
 
             {/* Masonry Grid */}
-            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
-              {album.images.map((image, index) => (
-                <div
-                  key={index}
-                  className="group relative break-inside-avoid mb-2 cursor-pointer"
-                  onClick={() => setLightboxImage(image)}
-                >
-                  <div className="relative overflow-hidden border border-[#2a2a2a] hover:border-[#c9a962] transition-colors">
-                    <img
-                      src={image.src}
-                      alt={`${album.title} portrait - photo ${index + 1} of ${album.images.length}`}
-                      width={image.width}
-                      height={image.height}
-                      className="gallery-fade w-full object-cover"
-                      style={{ aspectRatio: `${image.width} / ${image.height}` }}
-                      onLoad={onImgLoad}
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1">
-                        {String(index + 1).padStart(3, '0')}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ProgressiveGalleryGrid
+              images={album.images}
+              title={album.title}
+              onOpen={(index) => setLightboxImage(album.images[index])}
+              theme="dark"
+              onImgLoad={onImgLoad}
+            />
+
 
             {/* Back to Top Link */}
             <div className="mt-12 text-center">

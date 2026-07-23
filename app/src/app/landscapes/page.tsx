@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, Mountain, ChevronDown, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getGalleryImages, getFirstGalleryImage, type GalleryImage } from '@/lib/gallery-config';
 import { landscapeAlbums as landscapeAlbumContent, landscapesPage } from '@/lib/content';
+import ProgressiveGalleryGrid from '@/components/ProgressiveGalleryGrid';
 
 interface LandscapeAlbum {
   id: string;
@@ -281,36 +282,14 @@ export default function LandscapesPage() {
             </motion.div>
 
             {/* Masonry Grid */}
-            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
-              {album.images.map((image, index) => (
-                <div
-                  key={index}
-                  className="group relative break-inside-avoid mb-2 cursor-pointer"
-                  onClick={() => openLightbox(albumIndex, index)}
-                >
-                  <div className="relative overflow-hidden border border-[#2a2a2a] group-hover:border-[#c9a962]/50 group-hover:shadow-[0_0_20px_rgba(201,169,98,0.15)] transition-all duration-500 bg-[#1a1a1a]">
-                    <img
-                      src={image.src}
-                      alt={`${album.title} - photo ${index + 1} of ${album.images.length}`}
-                      width={image.width}
-                      height={image.height}
-                      className="gallery-fade w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
-                      style={{ aspectRatio: `${image.width} / ${image.height}` }}
-                      onLoad={onImgLoad}
-                      loading="lazy"
-                    />
-                    {/* Hover overlay with image number */}
-                    <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-white text-xs font-medium bg-[#0a0a0a]/80 px-2 py-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        {String(index + 1).padStart(3, '0')}
-                      </span>
-                    </div>
-                    {/* Subtle gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ProgressiveGalleryGrid
+              images={album.images}
+              title={album.title}
+              onOpen={(index) => openLightbox(albumIndex, index)}
+              theme="dark"
+              onImgLoad={onImgLoad}
+            />
+
 
             {/* Back to Top Link */}
             <div className="mt-12 text-center">

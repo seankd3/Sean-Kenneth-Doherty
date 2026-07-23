@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter, Space_Mono, IBM_Plex_Sans, IBM_Plex_Mono } f
 import './globals.css';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import InquireStrip from '@/components/InquireStrip';
 import SkipLink from '@/components/SkipLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { testimonials } from '@/lib/testimonials';
@@ -209,10 +210,11 @@ export default function RootLayout({
         <ErrorBoundary>
           <SkipLink />
           <Navigation />
-          <main id="main-content">
+          <main id="main-content" className="pb-20 lg:pb-0">
             {children}
           </main>
           <Footer />
+          <InquireStrip />
         </ErrorBoundary>
       </body>
     </html>

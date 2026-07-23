@@ -112,15 +112,33 @@ export default function ContactPage() {
 
   // Client-only URL parse — avoids Next useSearchParams CSR bailout (empty form without JS)
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get('type') || '';
     const selection = parsePricingFromSearch(window.location.search);
-    if (!selection) return;
-    setPricingSelection(selection);
-    const prefill = buildPrefillMessage(selection);
-    setFormData((prev) => ({
-      ...prev,
-      eventType: prev.eventType || 'Wedding',
-      message: prev.message || prefill,
-    }));
+    if (selection) {
+      setPricingSelection(selection);
+      const prefill = buildPrefillMessage(selection);
+      setFormData((prev) => ({
+        ...prev,
+        eventType: prev.eventType || 'Wedding',
+        message: prev.message || prefill,
+      }));
+      return;
+    }
+    if (typeParam) {
+      // Match contact form eventTypes options (Wedding, Aerospace/Commercial, etc.)
+      setFormData((prev) => ({
+        ...prev,
+        eventType: prev.eventType || typeParam,
+        message:
+          prev.message ||
+          (typeParam.toLowerCase().includes('aerospace')
+            ? "Hi Sean — I'm interested in aerospace / launch documentation. Here are the details:\n\n"
+            : typeParam.toLowerCase().includes('wedding')
+              ? "Hi Sean — I'm planning a wedding and would love to check your availability.\n\n"
+              : ''),
+      }));
+    }
   }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);

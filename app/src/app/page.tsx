@@ -279,6 +279,52 @@ export default function HomePage() {
         </div>
       </section>
 
+
+      {/* Conversion — wedding packages callout */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16 md:py-20 bg-[#141414]">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Weddings</p>
+            <h2 className="font-wedding-display text-3xl md:text-5xl text-white mb-4">
+              Collections from $1,400
+            </h2>
+            <p className="text-[#a0a0a0] leading-relaxed mb-6">
+              Transparent packages you can build yourself — then inquire with pricing already filled in.
+              No mystery quotes, no waiting on a PDF.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/pricing"
+                className="inline-flex items-center bg-[#c9a962] text-[#0a0a0a] px-6 py-3 text-xs tracking-wider uppercase font-medium hover:bg-white transition-colors"
+              >
+                Build a package
+              </Link>
+              <Link
+                href="/weddings"
+                className="inline-flex items-center border border-white/25 text-white px-6 py-3 text-xs tracking-wider uppercase hover:border-[#c9a962] hover:text-[#c9a962] transition-colors"
+              >
+                View wedding galleries
+              </Link>
+            </div>
+          </div>
+          <div className="border border-[#2a2a2a] p-6 md:p-8">
+            <p className="text-[#c9a962] text-xs tracking-[0.25em] uppercase mb-4">Aerospace & press</p>
+            <h3 className="font-wedding-display text-2xl text-white mb-3">
+              Launch documentation & commercial work
+            </h3>
+            <p className="text-[#a0a0a0] text-sm leading-relaxed mb-6">
+              Former SpaceX avionics tech. Press coverage at Starbase, remote cameras, and technical storytelling for teams that need it right.
+            </p>
+            <Link
+              href="/contact?type=Aerospace%2FCommercial"
+              className="inline-flex items-center text-[#c9a962] text-xs tracking-wider uppercase hover:text-white transition-colors"
+            >
+              Request coverage →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Trust strip before final CTA */}
       <section className="px-4 sm:px-6 lg:px-8 py-12 border-y border-[#1a1a1a]">
         <div className="max-w-4xl mx-auto text-center">
@@ -316,17 +362,17 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/contact"
+              href="/contact?type=Wedding"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Start a Conversation</span>
+              <span>Check wedding availability</span>
               <ArrowRight size={16} />
             </Link>
             <Link
-              href="/pricing"
+              href="/contact?type=Aerospace%2FCommercial"
               className="inline-flex items-center space-x-3 border border-white/25 text-white px-10 py-5 text-sm tracking-wider uppercase hover:border-[#c9a962] hover:text-[#c9a962] transition-colors"
             >
-              <span>See wedding pricing</span>
+              <span>Aerospace inquiry</span>
               <ArrowRight size={16} />
             </Link>
           </div>

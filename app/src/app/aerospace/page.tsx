@@ -317,7 +317,7 @@ export default function AerospacePage() {
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
               <Link
-                href="/contact"
+                href="/contact?type=Aerospace%2FCommercial"
                 className="group flex items-center space-x-2 border-2 border-[#1a1a1a] text-[#1a1a1a] px-8 py-4 font-aerospace-display text-sm tracking-wider hover:bg-[#1a1a1a] hover:text-[#e8e6e1] transition-colors duration-300"
               >
                 <span>CONTACT</span>
@@ -777,7 +777,7 @@ export default function AerospacePage() {
             </p>
 
             <Link
-              href="/contact"
+              href="/contact?type=Aerospace%2FCommercial"
               className="inline-flex items-center space-x-3 bg-[#1a1a1a] text-[#e8e6e1] px-10 py-5 font-aerospace-display text-sm tracking-wider hover:bg-[#c41e3a] transition-colors duration-300"
             >
               <span>{aerospacePage.cta.buttonText}</span>

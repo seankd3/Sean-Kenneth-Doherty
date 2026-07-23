@@ -168,6 +168,31 @@ export default function GalleriesPage() {
           )}
         </div>
       </section>
+
+      <section className="px-4 sm:px-6 lg:px-8 py-16 md:py-24 bg-[#141414] border-t border-[#2a2a2a]">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="font-wedding-display text-3xl md:text-5xl text-white mb-4">
+            Ready to book?
+          </h2>
+          <p className="text-[#a0a0a0] mb-8">
+            Tell me about your wedding, launch, or session — I will reply with availability and next steps.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/contact?type=Wedding"
+              className="inline-flex items-center bg-[#c9a962] text-[#0a0a0a] px-8 py-4 text-sm tracking-wider uppercase font-medium hover:bg-white transition-colors"
+            >
+              Wedding inquiry
+            </Link>
+            <Link
+              href="/contact?type=Aerospace%2FCommercial"
+              className="inline-flex items-center border border-white/25 text-white px-8 py-4 text-sm tracking-wider uppercase hover:border-[#c9a962] hover:text-[#c9a962] transition-colors"
+            >
+              Aerospace inquiry
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

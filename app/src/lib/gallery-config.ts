@@ -126,7 +126,7 @@ export const homeCategoryCards = [
     title: 'Weddings',
     link: '/weddings',
     icon: 'Camera',
-    image: getFirstImage('weddings/lauren-elphin') || getFirstImage('weddings/catskills-wedding') || '',
+    image: '/images/hero/home-hero.webp',
     description: 'Capturing your forever with timeless elegance',
   },
   {
