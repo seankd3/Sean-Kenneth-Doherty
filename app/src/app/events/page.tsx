@@ -394,7 +394,7 @@ export default function EventsPage() {
               {eventsPage.cta.description}
             </p>
             <Link
-              href="/contact"
+              href="/contact?type=Concert%2FFestival"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
               <span>{eventsPage.cta.buttonText}</span>

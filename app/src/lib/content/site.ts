@@ -59,6 +59,7 @@ export const footerNavGroups = [
       { path: '/pricing', label: 'Wedding pricing' },
       { path: '/austin-wedding-photographer', label: 'Austin weddings' },
       { path: '/starbase-aerospace-photographer', label: 'Aerospace / Starbase' },
+      { path: '/austin-event-concert-photographer', label: 'Events & concerts' },
       { path: '/contact', label: 'Inquire' },
       { path: '/projects', label: 'Projects' },
     ],

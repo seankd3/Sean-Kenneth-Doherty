@@ -12,18 +12,30 @@ export default function InquireStrip() {
   const pathname = usePathname();
   if (!pathname || pathname.startsWith('/contact')) return null;
 
-  const isAerospace = pathname.startsWith('/aerospace');
+  const isAerospace =
+    pathname.startsWith('/aerospace') || pathname.startsWith('/starbase-aerospace');
+  const isEvents =
+    pathname.startsWith('/events') || pathname.startsWith('/austin-event-concert');
+  const isWedding =
+    pathname.startsWith('/weddings') ||
+    pathname.startsWith('/pricing') ||
+    pathname.startsWith('/austin-wedding');
+
   const href = isAerospace
     ? '/contact?type=Aerospace%2FCommercial'
-    : pathname.startsWith('/weddings') || pathname.startsWith('/pricing')
-      ? '/contact?type=Wedding'
-      : '/contact';
+    : isEvents
+      ? '/contact?type=Concert%2FFestival'
+      : isWedding
+        ? '/contact?type=Wedding'
+        : '/contact';
 
   const label = isAerospace
     ? 'Book launch coverage'
-    : pathname.startsWith('/weddings') || pathname.startsWith('/pricing')
-      ? 'Check wedding availability'
-      : 'Start an inquiry';
+    : isEvents
+      ? 'Book event coverage'
+      : isWedding
+        ? 'Check wedding availability'
+        : 'Start an inquiry';
 
   const bar = isAerospace
     ? 'bg-[#1a1a1a] border-[#c41e3a] text-[#e8e6e1]'

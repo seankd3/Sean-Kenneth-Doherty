@@ -190,6 +190,12 @@ export default function GalleriesPage() {
             >
               Aerospace inquiry
             </Link>
+            <Link
+              href="/contact?type=Concert%2FFestival"
+              className="inline-flex items-center border border-white/25 text-white px-8 py-4 text-sm tracking-wider uppercase hover:border-[#c9a962] hover:text-[#c9a962] transition-colors"
+            >
+              Event / concert inquiry
+            </Link>
           </div>
         </div>
       </section>

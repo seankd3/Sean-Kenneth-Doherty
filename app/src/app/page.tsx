@@ -282,38 +282,60 @@ export default function HomePage() {
 
       {/* Conversion — wedding packages callout */}
       <section className="px-4 sm:px-6 lg:px-8 py-16 md:py-20 bg-[#141414]">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="border border-[#2a2a2a] p-6 md:p-8 bg-[#0a0a0a]/40">
             <p className="text-[#c9a962] text-sm tracking-[0.3em] uppercase mb-4">Weddings</p>
-            <h2 className="font-wedding-display text-3xl md:text-5xl text-white mb-4">
+            <h2 className="font-wedding-display text-2xl md:text-3xl text-white mb-4">
               Collections from $1,400
             </h2>
-            <p className="text-[#a0a0a0] leading-relaxed mb-6">
+            <p className="text-[#a0a0a0] text-sm leading-relaxed mb-6">
               Transparent packages you can build yourself — then inquire with pricing already filled in.
-              No mystery quotes, no waiting on a PDF.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="/pricing"
-                className="inline-flex items-center bg-[#c9a962] text-[#0a0a0a] px-6 py-3 text-xs tracking-wider uppercase font-medium hover:bg-white transition-colors"
+                className="inline-flex items-center bg-[#c9a962] text-[#0a0a0a] px-5 py-2.5 text-xs tracking-wider uppercase font-medium hover:bg-white transition-colors"
               >
                 Build a package
               </Link>
               <Link
-                href="/weddings"
-                className="inline-flex items-center border border-white/25 text-white px-6 py-3 text-xs tracking-wider uppercase hover:border-[#c9a962] hover:text-[#c9a962] transition-colors"
+                href="/austin-wedding-photographer"
+                className="inline-flex items-center text-[#c9a962] text-xs tracking-wider uppercase hover:text-white transition-colors"
               >
-                View wedding galleries
+                Austin weddings →
+              </Link>
+            </div>
+          </div>
+          <div className="border border-[#2a2a2a] p-6 md:p-8">
+            <p className="text-[#c9a962] text-xs tracking-[0.25em] uppercase mb-4">Events & concerts</p>
+            <h3 className="font-wedding-display text-2xl md:text-3xl text-white mb-3">
+              Live music & night energy
+            </h3>
+            <p className="text-[#a0a0a0] text-sm leading-relaxed mb-6">
+              Concerts, festivals, private parties, and brand nights — stage light, crowd heat, and the frames that travel on social.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/contact?type=Concert%2FFestival"
+                className="inline-flex items-center bg-[#c9a962] text-[#0a0a0a] px-5 py-2.5 text-xs tracking-wider uppercase font-medium hover:bg-white transition-colors"
+              >
+                Book a show
+              </Link>
+              <Link
+                href="/austin-event-concert-photographer"
+                className="inline-flex items-center text-[#c9a962] text-xs tracking-wider uppercase hover:text-white transition-colors"
+              >
+                Events marketing →
               </Link>
             </div>
           </div>
           <div className="border border-[#2a2a2a] p-6 md:p-8">
             <p className="text-[#c9a962] text-xs tracking-[0.25em] uppercase mb-4">Aerospace & press</p>
-            <h3 className="font-wedding-display text-2xl text-white mb-3">
-              Launch documentation & commercial work
+            <h3 className="font-wedding-display text-2xl md:text-3xl text-white mb-3">
+              Launch documentation
             </h3>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-6">
-              Former SpaceX avionics tech. Press coverage at Starbase, remote cameras, and technical storytelling for teams that need it right.
+              Former SpaceX avionics tech. Starbase coverage, remote cameras, and technical storytelling for teams that need it right.
             </p>
             <Link
               href="/contact?type=Aerospace%2FCommercial"
@@ -351,6 +373,10 @@ export default function HomePage() {
             <span className="text-[#333]">·</span>
             <Link href="/starbase-aerospace-photographer" className="text-[#a0a0a0] hover:text-[#c9a962] transition-colors">
               Starbase aerospace photographer
+            </Link>
+            <span className="text-[#333]">·</span>
+            <Link href="/austin-event-concert-photographer" className="text-[#a0a0a0] hover:text-[#c9a962] transition-colors">
+              Event & concert photographer
             </Link>
           </div>
         </div>
