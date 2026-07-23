@@ -418,13 +418,14 @@ export default function AerospacePage() {
                     </div>
                   </div>
 
-                  <div className="overflow-hidden bg-[#1a1a1a] max-h-[280px]">
+                  {/* 3:2 frame matches native cover aspect — avoids the old max-h + object-top chop */}
+                  <div className="relative overflow-hidden bg-[#1a1a1a] aspect-[3/2]">
                     <img
                       src={album.coverImage.src}
                       alt={album.title}
                       width={album.coverImage.width}
                       height={album.coverImage.height}
-                      className="w-full h-full object-cover object-top"
+                      className="absolute inset-0 h-full w-full object-cover object-center"
                       fetchPriority={index < 2 ? 'high' : 'auto'}
                       loading={index < 2 ? 'eager' : 'lazy'}
                     />
