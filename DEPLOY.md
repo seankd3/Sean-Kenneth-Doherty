@@ -1,5 +1,17 @@
 # Deploy — Cloudflare Pages (CURRENT)
 
+## Contact form delivery
+
+Inquiries POST via **FormSubmit.co** to `SeanDohertyPhotos@gmail.com` (see `src/lib/submit-inquiry.ts`).
+
+**First-time setup:** Submit a test inquiry from the live contact page, then open Gmail and
+click FormSubmit's **Activate form** confirmation email. After that, every Send Inquiry
+arrives as email with reply-to set to the client.
+
+Optional: set `NEXT_PUBLIC_WEB3FORMS_KEY` at build time to prefer Web3Forms instead.
+
+
+
 > **The site is hosted on Cloudflare Pages** (project `seankennethdoherty`, domains
 > seankennethdoherty.com / www / seankennethdoherty.pages.dev), deployed by direct
 > wrangler upload. Git pushes do NOT auto-deploy.

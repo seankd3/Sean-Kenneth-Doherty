@@ -6,9 +6,9 @@ import { Mail, Phone, MapPin, Instagram, Twitter, Copy, Check, AlertCircle, Pack
 import { contactPage, siteConfig } from '@/lib/content';
 import {
   buildInquiryBody,
-  buildMailtoUrl,
   type ContactInquiry,
 } from '@/lib/contact-inquiry';
+import { submitInquiry } from '@/lib/submit-inquiry';
 import {
   weddingPackages,
   weddingAddOns,
@@ -30,6 +30,7 @@ interface FormErrors {
 }
 
 type HandoffStatus =
+  | { type: 'sent'; message: string }
   | { type: 'draft'; message: string }
   | { type: 'copied'; message: string }
   | { type: 'error'; message: string }
@@ -108,6 +109,7 @@ export default function ContactPage() {
     date: '',
     referralSource: '',
     message: '',
+    companyWebsite: '', // honeypot — leave empty
   });
 
   // Client-only URL parse — avoids Next useSearchParams CSR bailout (empty form without JS)
@@ -241,19 +243,43 @@ export default function ContactPage() {
 
     setIsSubmitting(true);
 
-    // Static hosting: request an email draft while preserving the visitor's form data.
+    const inquiry: ContactInquiry = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      eventType: formData.eventType,
+      date: formData.date,
+      referralSource: formData.referralSource,
+      message: formData.message,
+    };
+
     try {
-      const mailto = buildMailtoUrl(siteConfig.email, formData as ContactInquiry);
-      window.open(mailto, '_self');
-      setHandoffStatus({
-        type: 'draft',
-        message:
-          'Email draft requested. Please review and send it from your email app. Your inquiry is still here in case the draft did not open.',
+      const result = await submitInquiry(inquiry, {
+        honeypot: formData.companyWebsite,
       });
+
+      if (result.ok) {
+        setHandoffStatus({
+          type: 'sent',
+          message: result.message,
+        });
+        // Clear message fields on success (keep contact info for reference)
+        setFormData((prev) => ({
+          ...prev,
+          message: '',
+          companyWebsite: '',
+        }));
+      } else {
+        setHandoffStatus({
+          type: 'error',
+          message: `${result.message} You can also use Copy inquiry below.`,
+        });
+      }
     } catch {
       setHandoffStatus({
         type: 'error',
-        message: `Unable to open your email app. Your message is still in the form, and you can copy it or email ${siteConfig.email} directly.`,
+        message: `Could not send. Email me at ${siteConfig.email} or use Copy inquiry.`,
       });
     } finally {
       setIsSubmitting(false);
@@ -422,6 +448,7 @@ export default function ContactPage() {
                   onSubmit={handleSubmit}
                   noValidate
                   aria-label="Contact form"
+                  className="relative"
                 >
                   {handoffStatus && (
                     <div
@@ -442,9 +469,11 @@ export default function ContactPage() {
                         <p className={handoffStatus.type === 'error' ? 'text-red-300 text-sm' : 'text-[#d8d8d8] text-sm'}>
                           {handoffStatus.message}
                         </p>
-                        <p className="text-[#a0a0a0] text-xs">
-                          Nothing has been sent automatically. You still need to send the email draft yourself.
-                        </p>
+                        {handoffStatus.type !== 'sent' && handoffStatus.type !== 'error' && (
+                          <p className="text-[#a0a0a0] text-xs">
+                            Prefer email? Write directly to {siteConfig.email}.
+                          </p>
+                        )}
                       </div>
                     </div>
                   )}
@@ -635,6 +664,20 @@ export default function ContactPage() {
                       )}
                     </div>
 
+                    {/* Honeypot — hidden from humans */}
+                    <div className="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
+                      <label htmlFor="companyWebsite">Company website</label>
+                      <input
+                        id="companyWebsite"
+                        name="companyWebsite"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formData.companyWebsite}
+                        onChange={handleChange}
+                      />
+                    </div>
+
                     <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
                       <button
                         type="submit"
@@ -643,13 +686,13 @@ export default function ContactPage() {
                       >
                         {isSubmitting ? (
                           <>
-                            <span>Opening Draft...</span>
+                            <span>Sending...</span>
                             <div className="w-4 h-4 border-2 border-[#0a0a0a] border-t-transparent rounded-full animate-spin" aria-hidden="true" />
-                            <span className="sr-only">Please wait while your email draft is requested</span>
+                            <span className="sr-only">Sending your inquiry</span>
                           </>
                         ) : (
                           <>
-                            <span>Open Email Draft</span>
+                            <span>Send Inquiry</span>
                             <Mail size={16} aria-hidden="true" />
                           </>
                         )}

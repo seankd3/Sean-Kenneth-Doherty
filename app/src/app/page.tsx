@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain, User, Sparkles } from 'lucide-react';
 import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
-import { homePage } from '@/lib/content';
+import { homePage, aerospacePage } from '@/lib/content';
 import { featuredTestimonials } from '@/lib/testimonials';
 import Testimonials from '@/components/Testimonials';
 
@@ -320,6 +320,37 @@ export default function HomePage() {
               className="inline-flex items-center text-[#c9a962] text-xs tracking-wider uppercase hover:text-white transition-colors"
             >
               Request coverage →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Trust logos — already proven on aerospace; surface for wedding + commercial visitors */}
+      <section className="px-4 sm:px-6 lg:px-8 py-14 border-t border-[#1a1a1a]">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-center text-[#c9a962] text-xs tracking-[0.3em] uppercase mb-8">
+            Worked with
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6 items-center justify-items-center opacity-80">
+            {aerospacePage.experience.companies.map((c) => (
+              <div key={c.name} className="flex items-center justify-center h-12 w-full px-2" title={c.name}>
+                <img
+                  src={c.logo}
+                  alt={c.name}
+                  className={`max-h-10 max-w-[110px] object-contain ${c.invert ? 'invert' : ''}`}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs tracking-wider uppercase">
+            <Link href="/austin-wedding-photographer" className="text-[#a0a0a0] hover:text-[#c9a962] transition-colors">
+              Austin wedding photographer
+            </Link>
+            <span className="text-[#333]">·</span>
+            <Link href="/starbase-aerospace-photographer" className="text-[#a0a0a0] hover:text-[#c9a962] transition-colors">
+              Starbase aerospace photographer
             </Link>
           </div>
         </div>

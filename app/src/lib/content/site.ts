@@ -57,6 +57,8 @@ export const footerNavGroups = [
     title: 'Plan',
     links: [
       { path: '/pricing', label: 'Wedding pricing' },
+      { path: '/austin-wedding-photographer', label: 'Austin weddings' },
+      { path: '/starbase-aerospace-photographer', label: 'Aerospace / Starbase' },
       { path: '/contact', label: 'Inquire' },
       { path: '/projects', label: 'Projects' },
     ],
