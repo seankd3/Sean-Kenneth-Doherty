@@ -6,9 +6,11 @@ import Link from 'next/link';
 import { ArrowRight, Heart, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import WeddingPricingBuilder from '@/components/WeddingPricingBuilder';
 import { categories, type GalleryImage } from '@/lib/gallery-config-auto';
+import { weddingHeroImage as configuredWeddingHero } from '@/lib/gallery-config';
 import { weddingAlbums as weddingAlbumContent, weddingsPage } from '@/lib/content';
 import { testimonials } from '@/lib/testimonials';
 import Testimonials from '@/components/Testimonials';
+import { safeImageSrc } from '@/lib/utils';
 
 interface WeddingAlbum {
   id: string;
@@ -30,13 +32,14 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
   return weddingCategory.albums.map(album => {
     // Look up metadata from centralized content layer
     const contentAlbum = weddingAlbumContent.find(a => a.galleryId === album.id);
+    const images = album.images.map((img) => ({ ...img, src: safeImageSrc(img.src) }));
 
     return {
       id: album.id.replace('weddings/', ''),
       couple: contentAlbum?.title || album.title,
       description: contentAlbum?.description || 'A beautiful celebration of love and commitment',
-      images: album.images,
-      coverImage: album.images[0] || emptyImage,
+      images,
+      coverImage: images[0] || emptyImage,
       date: contentAlbum?.date,
       location: contentAlbum?.location,
     };
@@ -46,8 +49,10 @@ const buildWeddingAlbums = (): WeddingAlbum[] => {
 // Wedding albums data (defined outside for use in lightbox navigation)
 const weddingAlbums = buildWeddingAlbums();
 
-// Hero image from first album's first image
-const weddingHeroImage = weddingAlbums[0]?.coverImage.src || '';
+// Prefer curated top-Elo hero; fall back to first album cover
+const weddingHeroImage = configuredWeddingHero || weddingAlbums[0]?.coverImage.src || '';
+
+const INITIAL_GALLERY_COUNT = 12;
 
 const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
   e.currentTarget.classList.add('loaded');
@@ -56,9 +61,15 @@ const onImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
 export default function WeddingsPage() {
   const [lightboxState, setLightboxState] = useState<{ albumIndex: number; imageIndex: number } | null>(null);
   const [showFloatingCta, setShowFloatingCta] = useState(false);
+  const [visibleCounts, setVisibleCounts] = useState<Record<string, number>>(() =>
+    Object.fromEntries(
+      weddingAlbums.map((a) => [a.id, Math.min(INITIAL_GALLERY_COUNT, a.images.length)])
+    )
+  );
   const galleryRefs = useRef<Record<string, HTMLElement | null>>({});
   const lightboxCloseRef = useRef<HTMLButtonElement>(null);
   const lightboxRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
 
   // Show floating CTA after scrolling past hero
   useEffect(() => {
@@ -355,9 +366,11 @@ export default function WeddingsPage() {
               )}
             </motion.div>
 
-            {/* Masonry Grid */}
+            {/* Masonry Grid — progressive load */}
             <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
-              {album.images.map((image, index) => (
+              {album.images
+                .slice(0, visibleCounts[album.id] ?? INITIAL_GALLERY_COUNT)
+                .map((image, index) => (
                 <button
                   key={index}
                   type="button"
@@ -371,19 +384,47 @@ export default function WeddingsPage() {
                       alt={`${album.couple} wedding - photo ${index + 1} of ${album.images.length}`}
                       width={image.width}
                       height={image.height}
-                      className="gallery-fade w-full object-cover group-hover:scale-105 group-hover:brightness-110 transition-transform duration-700 ease-out"
+                      className={`${index < 4 ? '' : 'gallery-fade'} w-full object-cover object-center group-hover:scale-105 group-hover:brightness-110 transition-transform duration-700 ease-out`}
                       style={{ aspectRatio: `${image.width} / ${image.height}` }}
-                      loading="lazy"
-                      onLoad={onImgLoad}
+                      loading={index < 4 ? 'eager' : 'lazy'}
+                      onLoad={index >= 4 ? onImgLoad : undefined}
                     />
-                    {/* Hover overlay with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </button>
               ))}
             </div>
 
-            {/* Back to Top Link */}
+            {(visibleCounts[album.id] ?? 0) < album.images.length && (
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setVisibleCounts((prev) => ({
+                      ...prev,
+                      [album.id]: Math.min(
+                        album.images.length,
+                        (prev[album.id] || INITIAL_GALLERY_COUNT) + 24
+                      ),
+                    }))
+                  }
+                  className="border border-[#c9a962]/50 text-[#c9a962] px-5 py-2 text-xs tracking-wider uppercase hover:bg-[#c9a962] hover:text-[#0a0a0a] transition-colors"
+                >
+                  Load more (+
+                  {Math.min(24, album.images.length - (visibleCounts[album.id] ?? 0))})
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setVisibleCounts((prev) => ({ ...prev, [album.id]: album.images.length }))
+                  }
+                  className="border border-[#2a2a2a] text-[#a0a0a0] px-5 py-2 text-xs tracking-wider uppercase hover:border-[#c9a962] hover:text-[#c9a962] transition-colors"
+                >
+                  Show all {album.images.length}
+                </button>
+              </div>
+            )}
+
             <div className="mt-12 text-center">
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -405,8 +446,20 @@ export default function WeddingsPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center touch-pan-y"
             onClick={closeLightbox}
+            onTouchStart={(e) => {
+              touchStartX.current = e.changedTouches[0]?.clientX ?? null;
+            }}
+            onTouchEnd={(e) => {
+              if (touchStartX.current == null) return;
+              const endX = e.changedTouches[0]?.clientX ?? touchStartX.current;
+              const delta = endX - touchStartX.current;
+              touchStartX.current = null;
+              if (Math.abs(delta) < 50) return;
+              if (delta < 0) goToNext();
+              else goToPrev();
+            }}
             role="dialog"
             aria-modal="true"
             aria-label="Image lightbox"

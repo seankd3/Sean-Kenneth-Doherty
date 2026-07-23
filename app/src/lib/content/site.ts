@@ -23,23 +23,52 @@ export const siteConfig = {
   },
 };
 
+/**
+ * Compact primary nav — keep top bar short and intentional.
+ * Logo is Home. Contact is a CTA, not a plain link.
+ */
 export const primaryNavigationLinks = [
-  { path: '/', label: 'Home' },
+  { path: '/weddings', label: 'Weddings' },
+  { path: '/aerospace', label: 'Aerospace' },
+  { path: '/galleries', label: 'Portfolio' },
+  { path: '/pricing', label: 'Pricing' },
+];
+
+/** Prominent inquire action in the header */
+export const contactCta = { path: '/contact', label: 'Inquire' };
+
+/** Full work catalog — mobile “All work” + footer Work column */
+export const workNavigationLinks = [
   { path: '/weddings', label: 'Weddings' },
   { path: '/aerospace', label: 'Aerospace' },
   { path: '/events', label: 'Events' },
   { path: '/landscapes', label: 'Landscapes' },
   { path: '/portraits', label: 'Portraits' },
   { path: '/abstract', label: 'Abstract' },
-  { path: '/galleries', label: 'Galleries' },
-  { path: '/pricing', label: 'Pricing' },
-  { path: '/contact', label: 'Contact' },
+  { path: '/galleries', label: 'All galleries' },
 ];
 
+export const footerNavGroups = [
+  {
+    title: 'Work',
+    links: workNavigationLinks,
+  },
+  {
+    title: 'Plan',
+    links: [
+      { path: '/pricing', label: 'Wedding pricing' },
+      { path: '/contact', label: 'Inquire' },
+      { path: '/projects', label: 'Projects' },
+    ],
+  },
+];
+
+/** Legacy flat list for any remaining consumers */
 export const footerNavigationLinks = [
-  ...primaryNavigationLinks.slice(0, -1),
+  ...workNavigationLinks,
+  { path: '/pricing', label: 'Pricing' },
   { path: '/projects', label: 'Projects' },
-  primaryNavigationLinks[primaryNavigationLinks.length - 1],
+  { path: '/contact', label: 'Contact' },
 ];
 
 export const seoDefaults = {
