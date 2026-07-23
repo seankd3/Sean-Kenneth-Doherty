@@ -11,8 +11,8 @@ import {
 } from '@/lib/contact-inquiry';
 
 export type SubmitResult =
-  | { ok: true; provider: string; message: string }
-  | { ok: false; provider: string; message: string; needsActivation?: boolean };
+  | { ok: true; provider: string; message: string; needsActivation?: boolean }
+  | { ok: false; provider: string; message: string };
 
 function web3formsKey(): string | undefined {
   if (typeof process === 'undefined') return undefined;
