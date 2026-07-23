@@ -4,6 +4,7 @@ import './globals.css';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import InquireStrip from '@/components/InquireStrip';
+import BookingBanner from '@/components/BookingBanner';
 import SkipLink from '@/components/SkipLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { testimonials } from '@/lib/testimonials';
@@ -210,6 +211,9 @@ export default function RootLayout({
         <ErrorBoundary>
           <SkipLink />
           <Navigation />
+          <div className="pt-16 md:pt-20">
+            <BookingBanner />
+          </div>
           <main id="main-content" className="pb-20 lg:pb-0">
             {children}
           </main>

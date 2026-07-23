@@ -7,23 +7,43 @@
 
 export const homePage = {
   hero: {
-    subtitle: 'Photography & Cinematography · Austin, TX',
+    subtitle: 'Austin, TX · Photography & cinematography',
     title: 'Sean Kenneth Doherty',
     description:
-      'Two worlds, one eye: elegant wedding storytelling and aerospace documentation from Starbase to the dark sky.',
-    cta: 'Wedding clients',
-    ctaSecondary: 'Aerospace & press',
+      'Weddings with soul. Concerts with heat. Launches with authority. Hire the photographer who treats every frame like it matters.',
+    cta: 'Hire me',
+    ctaSecondary: 'View the work',
   },
   dualPaths: {
     weddings: {
       label: 'Planning a wedding?',
-      description: 'Galleries, collections, and packages built for your day.',
-      href: '/weddings',
+      description: 'Galleries, collections from $1,400, and a simple path to book.',
+      href: '/hire',
     },
     aerospace: {
       label: 'Need launch coverage?',
       description: 'Starbase documentation, press, and technical storytelling.',
-      href: '/aerospace',
+      href: '/starbase-aerospace-photographer',
+    },
+  },
+  hirePaths: {
+    weddings: {
+      label: 'Weddings',
+      description: 'Documentary days. Packages from $1,400.',
+      href: '/contact?type=Wedding',
+      explore: '/weddings',
+    },
+    events: {
+      label: 'Events & concerts',
+      description: 'Live music, festivals, brand nights.',
+      href: '/contact?type=Concert%2FFestival',
+      explore: '/events',
+    },
+    aerospace: {
+      label: 'Aerospace',
+      description: 'Starbase, press, commercial launches.',
+      href: '/contact?type=Aerospace%2FCommercial',
+      explore: '/aerospace',
     },
   },
   categories: [
@@ -81,8 +101,8 @@ export const homePage = {
   trustStrip: {
     title: 'Book the next shoot',
     items: [
+      { label: 'How to hire', href: '/hire' },
       { label: 'Wedding packages', href: '/pricing' },
-      { label: 'See the work', href: '/galleries' },
       { label: 'Start an inquiry', href: '/contact' },
     ],
   },

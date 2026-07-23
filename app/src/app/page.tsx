@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Camera, Rocket, Music, Mountain, User, Sparkles } from 'lucide-react';
-import { homeCategoryCards, homeHeroImage, homeAboutImage } from '@/lib/gallery-config';
+import { homeCategoryCards, homeHeroImage, homeAboutImage, getFirstImage } from '@/lib/gallery-config';
 import { homePage, aerospacePage } from '@/lib/content';
 import { featuredTestimonials } from '@/lib/testimonials';
 import Testimonials from '@/components/Testimonials';
@@ -96,14 +96,14 @@ export default function HomePage() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
-              href="/weddings"
+              href="/hire"
               className="group flex items-center space-x-2 bg-[#c9a962] text-[#0a0a0a] px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
               <span>{homePage.hero.cta}</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              href="/aerospace"
+              href="/galleries"
               className="group flex items-center space-x-2 border border-white/30 text-white px-8 py-4 rounded-none font-medium tracking-wider uppercase text-sm hover:border-[#c9a962] hover:text-[#c9a962] transition-colors duration-300"
             >
               <span>{homePage.hero.ctaSecondary}</span>
@@ -130,36 +130,70 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* Dual audience paths */}
-      <section className="px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Link
-            href={homePage.dualPaths.weddings.href}
-            className="group border border-[#2a2a2a] bg-[#141414]/95 backdrop-blur-sm p-6 md:p-8 hover:border-[#c9a962]/60 transition-colors"
-          >
-            <p className="text-[#c9a962] text-xs tracking-[0.25em] uppercase mb-3">Path A</p>
-            <h2 className="font-wedding-display text-2xl md:text-3xl text-white mb-2 group-hover:text-[#c9a962] transition-colors">
-              {homePage.dualPaths.weddings.label}
-            </h2>
-            <p className="text-[#a0a0a0] text-sm mb-4">{homePage.dualPaths.weddings.description}</p>
-            <span className="inline-flex items-center text-white text-xs tracking-wider uppercase">
-              Enter <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Link>
-          <Link
-            href={homePage.dualPaths.aerospace.href}
-            className="group border border-[#2a2a2a] bg-[#141414]/95 backdrop-blur-sm p-6 md:p-8 hover:border-[#c9a962]/60 transition-colors"
-          >
-            <p className="text-[#c9a962] text-xs tracking-[0.25em] uppercase mb-3">Path B</p>
-            <h2 className="font-wedding-display text-2xl md:text-3xl text-white mb-2 group-hover:text-[#c9a962] transition-colors">
-              {homePage.dualPaths.aerospace.label}
-            </h2>
-            <p className="text-[#a0a0a0] text-sm mb-4">{homePage.dualPaths.aerospace.description}</p>
-            <span className="inline-flex items-center text-white text-xs tracking-wider uppercase">
-              Enter <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Link>
+      {/* Three hire paths — visual, conversion-first */}
+      <section className="px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          {[
+            {
+              ...homePage.hirePaths.weddings,
+              img: homeHeroImage,
+              kicker: '01',
+            },
+            {
+              ...homePage.hirePaths.events,
+              img:
+                getFirstImage('events/beach-house-concert') ||
+                getFirstImage('events/fire-dancer') ||
+                homeHeroImage,
+              kicker: '02',
+            },
+            {
+              ...homePage.hirePaths.aerospace,
+              img: getFirstImage('aerospace/starbase') || homeHeroImage,
+              kicker: '03',
+            },
+          ].map((card) => (
+            <div
+              key={card.label}
+              className="group relative overflow-hidden border border-[#2a2a2a] bg-[#141414] min-h-[220px] flex flex-col"
+            >
+              <div className="relative h-36 overflow-hidden">
+                <img
+                  src={card.img}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#141414] to-transparent" />
+              </div>
+              <div className="p-5 flex flex-col flex-1">
+                <p className="text-[#c9a962] text-[10px] tracking-[0.25em] uppercase mb-1">{card.kicker}</p>
+                <h2 className="font-wedding-display text-2xl text-white mb-2">{card.label}</h2>
+                <p className="text-[#a0a0a0] text-sm mb-4 flex-1">{card.description}</p>
+                <div className="flex flex-wrap gap-3 items-center">
+                  <Link
+                    href={card.href}
+                    className="inline-flex items-center text-xs tracking-wider uppercase bg-[#c9a962] text-[#0a0a0a] px-4 py-2 font-medium hover:bg-white transition-colors"
+                  >
+                    Inquire
+                    <ArrowRight size={12} className="ml-1.5" />
+                  </Link>
+                  <Link
+                    href={card.explore}
+                    className="text-xs tracking-wider uppercase text-white/70 hover:text-[#c9a962] transition-colors"
+                  >
+                    Gallery
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
+        <p className="text-center mt-5">
+          <Link href="/hire" className="text-xs tracking-[0.2em] uppercase text-[#666] hover:text-[#c9a962] transition-colors">
+            Full hire guide →
+          </Link>
+        </p>
       </section>
 
       {/* Portfolio Categories */}
