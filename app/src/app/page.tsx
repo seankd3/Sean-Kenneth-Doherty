@@ -419,10 +419,10 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/contact?type=Wedding"
+              href="/hire"
               className="inline-flex items-center space-x-3 bg-[#c9a962] text-[#0a0a0a] px-10 py-5 rounded-none font-medium tracking-wider uppercase text-sm hover:bg-white transition-colors duration-300"
             >
-              <span>Check wedding availability</span>
+              <span>See how to hire me</span>
               <ArrowRight size={16} />
             </Link>
             <Link

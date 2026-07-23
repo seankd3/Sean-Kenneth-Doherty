@@ -28,6 +28,7 @@ export const siteConfig = {
  * Logo is Home. Contact is a CTA, not a plain link.
  */
 export const primaryNavigationLinks = [
+  { path: '/hire', label: 'Hire' },
   { path: '/weddings', label: 'Weddings' },
   { path: '/aerospace', label: 'Aerospace' },
   { path: '/galleries', label: 'Portfolio' },
@@ -59,7 +60,10 @@ export const footerNavGroups = [
       { path: '/pricing', label: 'Wedding pricing' },
       { path: '/austin-wedding-photographer', label: 'Austin weddings' },
       { path: '/starbase-aerospace-photographer', label: 'Aerospace / Starbase' },
+      { path: '/hire', label: 'Hire / book' },
       { path: '/austin-event-concert-photographer', label: 'Events & concerts' },
+      { path: '/texas-wedding-photographer', label: 'Texas weddings' },
+      { path: '/live-music-photographer-austin', label: 'Live music Austin' },
       { path: '/contact', label: 'Inquire' },
       { path: '/projects', label: 'Projects' },
     ],

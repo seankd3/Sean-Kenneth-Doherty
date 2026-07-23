@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Instagram, Twitter, Copy, Check, AlertCircle, Package } from 'lucide-react';
 import { contactPage, siteConfig } from '@/lib/content';
@@ -97,6 +98,7 @@ function buildPrefillMessage(selection: PricingSelection): string {
 }
 
 export default function ContactPage() {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [pricingSelection, setPricingSelection] = useState<PricingSelection | null>(null);
 
@@ -260,16 +262,18 @@ export default function ContactPage() {
       });
 
       if (result.ok) {
-        setHandoffStatus({
-          type: 'sent',
-          message: result.message,
-        });
-        // Clear message fields on success (keep contact info for reference)
-        setFormData((prev) => ({
-          ...prev,
-          message: '',
-          companyWebsite: '',
-        }));
+        if (result.needsActivation) {
+          setHandoffStatus({
+            type: 'sent',
+            message: result.message,
+          });
+        } else {
+          const q = formData.eventType
+            ? `?type=${encodeURIComponent(formData.eventType)}`
+            : '';
+          router.push(`/contact/thanks${q}`);
+          return;
+        }
       } else {
         setHandoffStatus({
           type: 'error',

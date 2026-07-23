@@ -1,6 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Disallow: /contact/thanks
+Disallow: /contact/thanks/
 
-# Sitemap location
 Sitemap: https://seankennethdoherty.com/sitemap.xml
