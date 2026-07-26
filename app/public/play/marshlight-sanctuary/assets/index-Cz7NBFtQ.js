@@ -305,6 +305,7 @@
                   <i class="${n.talkedToday?`done`:``}">Talked</i>
                   <i class="${n.giftedToday?`done`:``}">Gifted</i>
                   <i class="${n.playedToday?`done`:``}">Played</i>
+                  <i class="${n.fedToday?`done`:``}">Fed</i>
                 </em>
               </article>
             `}).join(``)}
