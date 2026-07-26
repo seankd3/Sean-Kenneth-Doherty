@@ -167,7 +167,7 @@
         <h2>${o?`Pip is home!`:`The marsh is resting`}</h2>
         <p>${o?`Your first resident sleeps under a soft reed roof. ${e.residents.length<3?`Two more homes await.`:`Every habitat has a warm little heartbeat.`}`:`The gardens and sanctuary settle in for a quiet night.`}</p>
         <p class="daycard__earnings"><b>${e.previousDayEarnings}c</b><span>earned today</span></p>
-        <p class="daycard__collections"><b>Journal progress</b><span>River ${Object.keys(e.fishCollection).length}/6${e.fishMasteryClaimed?` mastered`:``} · Harvest ${Object.keys(e.cropCollection).length}/${w.length}${e.cropMasteryClaimed?` mastered`:``}</span></p>
+        <p class="daycard__collections"><b>Journal progress</b><span>River ${Object.keys(e.fishCollection).length}/${hr.length}${e.fishMasteryClaimed?` mastered`:``} · Harvest ${Object.keys(e.cropCollection).length}/${w.length}${e.cropMasteryClaimed?` mastered`:``}</span></p>
         <p class="daycard__forecast">${Hr(r)} ${n.season} ${n.dayOfSeason} · ${r}</p>
         <p class="daycard__event">${i.icon} ${i.title} · ${i.subtitle}</p>
         ${a?`<p class="daycard__event daycard__festival">★ ${a.name} · ${a.subtitle}</p>`:``}
