@@ -111,8 +111,16 @@ export const projects: Project[] = [
       'A richer original pixel-art pass adds lanterns, flower beds, a cottage garden, river life, roof fringe, layered grass clusters, and direction-aware capybara movement.',
       'The sanctuary now grows past its first resident: clear, build, prepare, and welcome Mochi and Bean into two additional habitats, each with its own arrival moment and ledger trail.',
       'A deterministic seven-day town-event rhythm now gives every morning a bulletin and every overnight a preview, while layered Web Audio cues make gathering, gifts, welcomes, and celebrations feel distinct.',
+      'Each town moment is playable: walk to its location, join it once per day, collect a themed reward, and watch the bulletin mark the gathering complete.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'Events become playable',
+        summary:
+          'Connected every calendar moment to a world location and once-per-day participation reward, with themed resources or reputation, completion feedback, and save-safe daily reset behavior.',
+        commit: '265630e',
+      },
       {
         date: '2026-07-25',
         title: 'Town events and richer sound',
