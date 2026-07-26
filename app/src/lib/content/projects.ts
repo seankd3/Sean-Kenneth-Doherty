@@ -110,8 +110,16 @@ export const projects: Project[] = [
       'Mayor Mallow, Dr. Nori, and Juniper now follow weather-aware daily schedules; conversations react to time, weather, and friendship, while one daily gift deepens each relationship.',
       'A richer original pixel-art pass adds lanterns, flower beds, a cottage garden, river life, roof fringe, layered grass clusters, and direction-aware capybara movement.',
       'The sanctuary now grows past its first resident: clear, build, prepare, and welcome Mochi and Bean into two additional habitats, each with its own arrival moment and ledger trail.',
+      'A deterministic seven-day town-event rhythm now gives every morning a bulletin and every overnight a preview, while layered Web Audio cues make gathering, gifts, welcomes, and celebrations feel distinct.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'Town events and richer sound',
+        summary:
+          'Added a repeating event calendar with lantern walks, clinic rain days, river picnics, garden swaps, workshop open houses, and the Marshlight Gathering, plus distinct audio cues for gifts, welcomes, and celebrations.',
+        commit: 'c036221',
+      },
       {
         date: '2026-07-25',
         title: 'More residents, more reasons to build',
