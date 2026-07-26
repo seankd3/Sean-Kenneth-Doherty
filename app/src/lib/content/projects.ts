@@ -92,10 +92,10 @@ export const projects: Project[] = [
   {
     slug: 'marshlight-sanctuary',
     playUrl: '/play/marshlight-sanctuary/',
-    playNote: 'Two-thumb controls on phone; keyboard, click-to-walk, tile building, and a full garden loop on desktop.',
+    playNote: 'Two-thumb controls on phone; keyboard, click-to-walk, tile building, town schedules, gifts, and a full garden loop on desktop.',
     title: 'Marshlight Sanctuary',
     eyebrow: 'Game / Cozy Simulation',
-    status: 'Playable multi-day garden build',
+    status: 'Living multi-day sanctuary build',
     summary:
       'A cozy wetland restoration game where every capybara in town is helping turn an overgrown riverside into a safe sanctuary for guinea pigs, chinchillas, degus, and other small residents.',
     image: '/images/projects/marshlight-sanctuary.png',
@@ -107,8 +107,17 @@ export const projects: Project[] = [
       'A deterministic 32-pixel world with clustered grass, paths, banks, and water, plus a player-centered camera and expressive original capybara art.',
       'A persistent tile-building system for paths, fences, garden beds, and shelters, now connected to planting, watering, multi-stage crop growth, and harvest income.',
       'A four-season calendar, daily forecast, rainy-day auto-watering, seed cabinet, three crop economies, and overnight earnings recap create a repeatable sanctuary rhythm.',
+      'Mayor Mallow, Dr. Nori, and Juniper now follow weather-aware daily schedules; conversations react to time, weather, and friendship, while one daily gift deepens each relationship.',
+      'A richer original pixel-art pass adds lanterns, flower beds, a cottage garden, river life, roof fringe, layered grass clusters, and direction-aware capybara movement.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'Living town life and richer pixel art',
+        summary:
+          'Added weather-aware NPC routines, contextual dialogue, daily gifts, a ten-heart neighbor ledger, direction-aware movement, and a denser handmade pixel-art environment with flowers, lanterns, river life, gardens, and roof details.',
+        commit: 'df7601e',
+      },
       {
         date: '2026-07-25',
         title: 'Gardens, weather, and a real daily rhythm',
