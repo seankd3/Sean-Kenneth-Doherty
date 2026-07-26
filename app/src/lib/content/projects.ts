@@ -92,10 +92,10 @@ export const projects: Project[] = [
   {
     slug: 'marshlight-sanctuary',
     playUrl: '/play/marshlight-sanctuary/',
-    playNote: 'Two-thumb controls on phone; keyboard and click-to-walk on desktop.',
+    playNote: 'Two-thumb controls on phone; keyboard, click-to-walk, and tile building on desktop.',
     title: 'Marshlight Sanctuary',
     eyebrow: 'Game / Cozy Simulation',
-    status: 'Playable first day',
+    status: 'Playable first day + building',
     summary:
       'A cozy wetland restoration game where every capybara in town is helping turn an overgrown riverside into a safe sanctuary for guinea pigs, chinchillas, degus, and other small residents.',
     image: '/images/projects/marshlight-sanctuary.png',
@@ -104,10 +104,17 @@ export const projects: Project[] = [
     highlights: [
       'A complete first-day story: meet the town, gather materials, clear a meadow, build a habitat, care for it, and welcome Pip home.',
       'Purpose-built phone play with an analog thumb stick, context-aware action button, safe-area layouts, and tap-to-walk.',
-      'A warm, hand-drawn pixel world with expressive capybara neighbors, animated water and foliage, detailed cottages, and changing habitat stages.',
-      'Keyboard, mouse, and touch controls share one progression system, with local saving and a compact sanctuary ledger.',
+      'A deterministic 32-pixel world with clustered grass, paths, banks, and water, plus a player-centered camera and expressive original capybara art.',
+      'A persistent tile-building system for reed paths, willow fences, flower beds, and small shelters, with material costs, previews, collision, and full refunds.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'Pixel world and sanctuary building',
+        summary:
+          'Converted the marsh to a deterministic tile-rendered landscape, locked the camera to Clover, and added a persistent building mode with four placeable sanctuary pieces across keyboard, mouse, and touch.',
+        commit: 'cb4a298',
+      },
       {
         date: '2026-07-25',
         title: 'Mobile controls and cozy pixel-art world',
