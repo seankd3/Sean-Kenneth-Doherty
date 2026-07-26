@@ -91,7 +91,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'marshlight-sanctuary',
-    playUrl: 'https://marshlight-sanctuary.seankennethdoherty.chatgpt.site',
+    playUrl: '/play/marshlight-sanctuary/',
     playNote: 'Two-thumb controls on phone; keyboard and click-to-walk on desktop.',
     title: 'Marshlight Sanctuary',
     eyebrow: 'Game / Cozy Simulation',

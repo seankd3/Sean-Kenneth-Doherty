@@ -38,7 +38,12 @@ const Navigation = () => {
 
   const bgClass = isAerospace
     ? 'bg-[#e8e6e1]/95 border-[#1a1a1a]'
-    : 'bg-[#0a0a0a]/95 border-[#2a2a2a]';
+    : 'bg-[#0a0a0a] border-[#2a2a2a]';
+
+  const headerSurfaceClass =
+    isAerospace && !isScrolled && !isMobileMenuOpen
+      ? 'bg-transparent'
+      : `${bgClass} border-b backdrop-blur-md`;
 
   const textClass = isAerospace ? 'text-[#1a1a1a]' : 'text-white';
   const accentClass = isAerospace ? 'text-[#c41e3a]' : 'text-[#c9a962]';
@@ -58,9 +63,7 @@ const Navigation = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || isMobileMenuOpen ? `${bgClass} border-b backdrop-blur-md` : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerSurfaceClass}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20 gap-4">
