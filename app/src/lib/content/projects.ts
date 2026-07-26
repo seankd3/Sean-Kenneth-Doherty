@@ -113,7 +113,7 @@ export const projects: Project[] = [
         title: 'Pixel world and sanctuary building',
         summary:
           'Converted the marsh to a deterministic tile-rendered landscape, locked the camera to Clover, and added a persistent building mode with four placeable sanctuary pieces across keyboard, mouse, and touch.',
-        commit: 'cb4a298',
+        commit: '83fd2fe',
       },
       {
         date: '2026-07-25',
