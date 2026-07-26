@@ -28,6 +28,7 @@ export type Project = {
   links?: ProjectLink[];
   /** In-browser playable build, hosted under /play/. */
   playUrl?: string;
+  playNote?: string;
 };
 
 export const projectsPage = {
@@ -87,6 +88,35 @@ export const projects: Project[] = [
         href: 'https://github.com/Sean-Kenneth-Doherty/orbital-mechanics/commits/main',
       },
     ],
+  },
+  {
+    slug: 'marshlight-sanctuary',
+    playUrl: 'https://marshlight-sanctuary.seankennethdoherty.chatgpt.site',
+    playNote: 'Two-thumb controls on phone; keyboard and click-to-walk on desktop.',
+    title: 'Marshlight Sanctuary',
+    eyebrow: 'Game / Cozy Simulation',
+    status: 'Playable first day',
+    summary:
+      'A cozy wetland restoration game where every capybara in town is helping turn an overgrown riverside into a safe sanctuary for guinea pigs, chinchillas, degus, and other small residents.',
+    image: '/images/projects/marshlight-sanctuary.png',
+    imageAlt: 'Marshlight Sanctuary pixel-art scene with capybara caretakers, a guinea pig, cottages, flowers, and a river.',
+    tags: ['Cozy Game', 'Pixel Art', 'Capybaras', 'Canvas', 'TypeScript', 'Mobile'],
+    highlights: [
+      'A complete first-day story: meet the town, gather materials, clear a meadow, build a habitat, care for it, and welcome Pip home.',
+      'Purpose-built phone play with an analog thumb stick, context-aware action button, safe-area layouts, and tap-to-walk.',
+      'A warm, hand-drawn pixel world with expressive capybara neighbors, animated water and foliage, detailed cottages, and changing habitat stages.',
+      'Keyboard, mouse, and touch controls share one progression system, with local saving and a compact sanctuary ledger.',
+    ],
+    updates: [
+      {
+        date: '2026-07-25',
+        title: 'Mobile controls and cozy pixel-art world',
+        summary:
+          'Rebuilt the game around two-thumb phone play, split the renderer into focused scene modules, and upgraded the sanctuary with expressive characters, layered scenery, animated water, charming buildings, and readable construction states.',
+        commit: '9de5d3e',
+      },
+    ],
+    links: [],
   },
   {
     slug: 'machine-frame-lab',

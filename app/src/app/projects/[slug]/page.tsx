@@ -116,7 +116,7 @@ export default async function ProjectDetailPage({
             </span>
             {project.playUrl && (
               <span className="text-xs text-[#6f6f6f]">
-                Runs in your browser — desktop with a keyboard recommended.
+                {project.playNote ?? 'Runs in your browser — desktop with a keyboard recommended.'}
               </span>
             )}
           </div>
