@@ -92,10 +92,10 @@ export const projects: Project[] = [
   {
     slug: 'marshlight-sanctuary',
     playUrl: '/play/marshlight-sanctuary/',
-    playNote: 'Two-thumb controls on phone; keyboard, click-to-walk, and tile building on desktop.',
+    playNote: 'Two-thumb controls on phone; keyboard, click-to-walk, tile building, and a full garden loop on desktop.',
     title: 'Marshlight Sanctuary',
     eyebrow: 'Game / Cozy Simulation',
-    status: 'Playable first day + building',
+    status: 'Playable multi-day garden build',
     summary:
       'A cozy wetland restoration game where every capybara in town is helping turn an overgrown riverside into a safe sanctuary for guinea pigs, chinchillas, degus, and other small residents.',
     image: '/images/projects/marshlight-sanctuary.png',
@@ -105,9 +105,17 @@ export const projects: Project[] = [
       'A complete first-day story: meet the town, gather materials, clear a meadow, build a habitat, care for it, and welcome Pip home.',
       'Purpose-built phone play with an analog thumb stick, context-aware action button, safe-area layouts, and tap-to-walk.',
       'A deterministic 32-pixel world with clustered grass, paths, banks, and water, plus a player-centered camera and expressive original capybara art.',
-      'A persistent tile-building system for reed paths, willow fences, flower beds, and small shelters, with material costs, previews, collision, and full refunds.',
+      'A persistent tile-building system for paths, fences, garden beds, and shelters, now connected to planting, watering, multi-stage crop growth, and harvest income.',
+      'A four-season calendar, daily forecast, rainy-day auto-watering, seed cabinet, three crop economies, and overnight earnings recap create a repeatable sanctuary rhythm.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'Gardens, weather, and a real daily rhythm',
+        summary:
+          'Connected the tile builder to a multi-day farming loop with three crops, watering and pixel growth stages, harvest income, a seed market, four 28-day seasons, deterministic weather, rainy-day watering, and nightly earnings.',
+        commit: 'ebc7693',
+      },
       {
         date: '2026-07-25',
         title: 'Pixel world and sanctuary building',
