@@ -109,8 +109,16 @@ export const projects: Project[] = [
       'A four-season calendar, daily forecast, rainy-day auto-watering, seed cabinet, three crop economies, and overnight earnings recap create a repeatable sanctuary rhythm.',
       'Mayor Mallow, Dr. Nori, and Juniper now follow weather-aware daily schedules; conversations react to time, weather, and friendship, while one daily gift deepens each relationship.',
       'A richer original pixel-art pass adds lanterns, flower beds, a cottage garden, river life, roof fringe, layered grass clusters, and direction-aware capybara movement.',
+      'The sanctuary now grows past its first resident: clear, build, prepare, and welcome Mochi and Bean into two additional habitats, each with its own arrival moment and ledger trail.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'More residents, more reasons to build',
+        summary:
+          'Extended the sanctuary beyond Pip: Chinchilla Lookout and Degu Burrow now support clear, build, care, and welcome arcs for Mochi and Bean, with resident dialogue, reputation, ledger status, and save-safe progression.',
+        commit: 'f9a3385',
+      },
       {
         date: '2026-07-25',
         title: 'Living town life and richer pixel art',
