@@ -112,8 +112,16 @@ export const projects: Project[] = [
       'The sanctuary now grows past its first resident: clear, build, prepare, and welcome Mochi and Bean into two additional habitats, each with its own arrival moment and ledger trail.',
       'A deterministic seven-day town-event rhythm now gives every morning a bulletin and every overnight a preview, while layered Web Audio cues make gathering, gifts, welcomes, and celebrations feel distinct.',
       'Each town moment is playable: walk to its location, join it once per day, collect a themed reward, and watch the bulletin mark the gathering complete.',
+      'The river is now a real activity: equip the Rod, cast from the bank, and earn deterministic fish catches that respond to the day, weather, and time.',
     ],
     updates: [
+      {
+        date: '2026-07-25',
+        title: 'River fishing activity',
+        summary:
+          'Added a fifth Rod tool and a riverbank fishing loop with deterministic weather/time catches, energy cost, coin value, daily earnings, touch labels, and regression coverage.',
+        commit: '27646ea',
+      },
       {
         date: '2026-07-25',
         title: 'Events become playable',
