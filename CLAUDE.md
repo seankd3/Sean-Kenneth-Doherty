@@ -57,6 +57,15 @@ All text/copy is centralized in `src/lib/content/`:
 
 **`gallery-config-auto.ts` is generated — do not edit it directly.**
 
+### Hosted project apps
+Built copies of project apps are committed under `app/public/` and served as static files.
+Machine Frame Lab lives at `/projects/machine-frame-lab/app/`. To update it, from a checkout of
+`seankd3/machine-frame-lab`:
+
+```bash
+npx vite build --base /projects/machine-frame-lab/app/ --outDir <this repo>/app/public/projects/machine-frame-lab/app --emptyOutDir
+```
+
 ### Page Structure
 Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata. Categories: weddings, aerospace, events, landscapes, portraits, abstract, contact, openreviews.
 

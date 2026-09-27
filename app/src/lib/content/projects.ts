@@ -210,6 +210,10 @@ export const projects: Project[] = [
     ],
     links: [
       {
+        label: 'Open App',
+        href: '/projects/machine-frame-lab/app/',
+      },
+      {
         label: 'Source',
         href: 'https://github.com/seankd3/machine-frame-lab',
       },
