@@ -180,34 +180,38 @@ export const projects: Project[] = [
     eyebrow: 'Engineering / Simulation',
     status: 'Working tool',
     summary:
-      'A preliminary machine-frame engineering workbench for comparing aluminum extrusion, rail, and fill stacks against explicit design limits. It solves static and modal beam response, checks spindle and tooth-pass resonance, and exports a traceable analysis record.',
+      'Design a DIY CNC router from parts you can actually buy, and see how stiff, fast and expensive it will be before you order anything.',
     image: '/images/projects/machine-frame-lab.png',
-    imageAlt: 'Machine Frame Lab engineering workstation showing extrusion inputs, finite-element mode shapes, design criteria, and resonance analysis.',
-    sourceUrl: 'https://github.com/Sean-Kenneth-Doherty/machine-frame-lab',
-    tags: ['Finite Elements', 'Modal Analysis', 'Machine Design', 'TypeScript', 'React'],
+    imageAlt: 'Machine Frame Lab showing a 3D model of an 800 × 800 mm aluminium CNC router between the design options and the stiffness results, checks and compliance budget.',
+    sourceUrl: 'https://github.com/seankd3/machine-frame-lab',
+    tags: ['Engineering Tools', 'CNC', '3D', 'Simulation'],
     highlights: [
-      'Assembled Euler-Bernoulli stiffness and consistent mass matrices with a point carriage mass and numerically solved mode shapes.',
-      'Focused verification against closed-form simply supported, fixed-fixed, and cantilever beam solutions.',
-      'Editable deflection, first-mode, and modal-separation limits with a controlling-criterion verdict and safer-RPM guidance.',
-      'Twenty-five seeded extrusion profiles, custom section-property intake, shareable configurations, and exportable JSON analysis reports.',
+      'Pick about twenty options: travel, frame stock, rails, ball screws or belts, motors, spindle and controller.',
+      'It builds a full 3D model of the machine from those choices.',
+      'A custom stiffness solver runs a 3D frame stiffness and vibration analysis, and works out each axis’s acceleration and top speed.',
+      'It produces a priced parts list where every price has a source.',
+      'Built with React, three.js and TypeScript.',
     ],
     updates: [
+      {
+        date: '2026-09-27',
+        title: 'Rebuilt as a full CNC router designer',
+        summary:
+          'The single-beam analyser became a whole-machine designer: a 3D model compiled from about twenty choices, a sparse 3D frame stiffness and vibration solver, per-axis acceleration and top speed, design checks, and a sourced, priced parts list.',
+        commits: ['0ed7ebe', 'f9d1c85', '4d5fab4', 'a5abb1b', '038896a'],
+      },
       {
         date: '2026-07-10',
         title: 'Finite-element modal solver and design qualification',
         summary:
           'Replaced analytical modal shortcuts with a generalized finite-element eigenproblem, added explicit acceptance criteria and model-confidence guidance, rebuilt the resonance view around operating decisions, and verified the workflow at desktop and phone widths.',
-        commit: 'b065804',
+        commit: '2f234e7',
       },
     ],
     links: [
       {
-        label: 'Open App',
-        href: '/play/machine-frame-lab/',
-      },
-      {
         label: 'Source',
-        href: 'https://github.com/Sean-Kenneth-Doherty/machine-frame-lab',
+        href: 'https://github.com/seankd3/machine-frame-lab',
       },
     ],
   },
