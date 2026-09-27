@@ -1,84 +1,81 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI agents (Claude Code, Codex, and others) working in this repository. `AGENTS.md`
+points here, so this file is the single source of truth.
 
-## Project Overview
+## Ground rules
 
-Photography portfolio website for Sean Kenneth Doherty (Austin, TX). Built with Next.js 15 App Router, statically exported to HTML/CSS/JS. Hosted on Netlify.
+- **This is Sean's public professional face.** Nothing goes live (a production deploy) without
+  his explicit go-ahead in the current session. A preview deploy is safe and is how you show him a
+  change.
+- **Branch: `legacy/master`.** The default branch `main` is an unrelated Marshlight page. Clone with
+  `git clone -b legacy/master https://github.com/seankd3/Sean-Kenneth-Doherty.git` and open pull
+  requests into `legacy/master`.
+- **Commit identity:** `Sean Kenneth Doherty <328402569+seankd3@users.noreply.github.com>`. Never
+  commit with a Gmail address.
+- **Pushing does not deploy.** Hosting is a Cloudflare Pages direct upload (see Deploy).
 
-**All source code lives in the `/app` subdirectory.** Run all commands from there.
+## Project
 
-> Note: `AGENTS.md` and `app/README.md` are outdated — they reference a prior Vite/react-router-dom setup. The project now uses **Next.js 15 with App Router**.
+Photography portfolio for Sean Kenneth Doherty (Austin, TX): Next.js 15 App Router, statically
+exported (`output: 'export'`, `trailingSlash: true`), React 19, TypeScript, Tailwind 3.4 with CSS
+variables, shadcn/ui and framer-motion.
 
-## Commands
-
-```bash
-cd app
-
-npm run dev            # Dev server at localhost:3000
-npm run build          # Static export to app/dist/
-npm run start          # Preview production build
-npm run lint           # ESLint (Next.js + TypeScript rules)
-npm run build-gallery  # Process Photos/ → public/images/galleries/ + generate gallery-config-auto.ts
-```
-
-No test framework is configured. Verification is manual/visual.
-
-## Architecture
-
-### Tech Stack
-- **Next.js 15.3** (App Router, `output: 'export'` for static HTML)
-- **React 19.2** with TypeScript 5.9
-- **Tailwind CSS 3.4** with CSS variables (HSL) for theming
-- **Framer Motion** for page transitions and scroll animations
-- **shadcn/ui** (Radix UI primitives) — add components with `npx shadcn add <name>` from `app/`
-- **Netlify Forms** for contact form submission (hidden form in `layout.tsx`)
-
-### Dual Theme System
-The site has two visual themes, switched based on the current route (`usePathname()`):
-- **Wedding theme** (default): Dark background `#0a0a0a`, gold accent `#c9a962`, Cormorant Garamond serif
-- **Aerospace theme** (`/aerospace`): Light background `#e8e6e1`, red accent `#c41e3a`, Space Mono monospace
-
-Theme colors are CSS variables defined in `src/app/globals.css`. Font classes: `font-wedding-display`, `font-aerospace-display`.
-
-### Content System
-All text/copy is centralized in `src/lib/content/`:
-- `site.ts` — Contact info, social links, SEO defaults
-- `pages.ts` — Per-page hero text, CTAs, descriptions
-- `albums.ts` — Album metadata (titles, descriptions, locations, dates)
-
-### Gallery Pipeline
-1. Source photos go in `/Photos/<Category>/<Album>/`
-2. `npm run build-gallery` (runs `scripts/build-gallery.js`) processes them:
-   - Resizes to 1920px max width, converts to WebP (quality 85) via Sharp
-   - Copies to `app/public/images/galleries/`
-   - **Auto-generates** `src/lib/gallery-config-auto.ts` with all image metadata
-3. `src/lib/gallery-config.ts` wraps the auto-generated config with helper functions and legacy ID mappings
-
-**`gallery-config-auto.ts` is generated — do not edit it directly.**
-
-### Page Structure
-Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata. Categories: weddings, aerospace, events, landscapes, portraits, abstract, contact, openreviews.
-
-### Key Conventions
-- Path alias: `@/*` → `src/*`
-- Use `cn()` from `@/lib/utils` for conditional Tailwind classes
-- `'use client'` directive on components with interactivity (lightboxes, forms, animations)
-- Framer Motion `whileInView` with `viewport={{ once: true }}` for scroll animations
-- `AnimatePresence` for page transitions (configured in `src/app/template.tsx`)
-- JSON-LD structured data for SEO in layout files
-- Images are unoptimized in Next.js config (Sharp handles optimization in the gallery build step)
-
-### Deployment — CLOUDFLARE PAGES (not Netlify, not GitHub Pages)
-The live site (seankennethdoherty.com) is hosted on **Cloudflare Pages**, project `seankennethdoherty`,
-deployed by **direct wrangler upload from this machine** (no git integration — pushing does NOT deploy).
+**All code lives in `app/`.** Run every command from there.
 
 ```bash
 cd app
-npm run build                                  # static export to app/out/ (dist/ is a stale Jan-2026 artifact)
-npx wrangler pages deploy out --project-name seankennethdoherty
+npm ci
+npm run dev            # dev server, http://localhost:3000
+npm run build          # static export to app/out/ (app/dist/ is a stale artifact; ignore it)
+npm run start          # serve app/out/ exactly as it deploys (http://localhost:3000)
+npm run lint           # ESLint
+npm run build-gallery  # /Photos → public/images/galleries/ + src/lib/gallery-config-auto.ts
+npm run sync-projects  # refresh the Orbital Mechanics update feed from ../orbital-mechanics
 ```
 
-- Netlify: dead (account suspended 2026-05). `DEPLOY.md` Netlify instructions are legacy.
-- `.github/workflows/deploy.yml` (GitHub Pages): legacy from the 2026-07-06 interim migration; it is NOT what serves the domain.
-- Deploying publishes everything in `out` — get explicit approval from Sean before deploying.
+There are no tests. Verify a change by running `npm run build`, serving it with `npm run start`,
+and taking before/after screenshots of every page you touched.
+
+## Where things live
+
+- **Copy:** `src/lib/content/` holds `site.ts` (contact, social, SEO), `pages.ts` (hero text and
+  CTAs per page), `albums.ts` (album metadata), `projects.ts` and `wedding-pricing.ts`.
+- **Routes:** `src/app/<route>/page.tsx`, with an optional `layout.tsx` for metadata and JSON-LD.
+  The sitemap is `src/app/sitemap.ts`. Redirects are in `public/_redirects`.
+- **Themes by route:** wedding (dark, gold `#c9a962`, Cormorant Garamond) is the default;
+  aerospace (light, red `#c41e3a`, Space Mono) applies on `/aerospace`. Variables are in
+  `src/app/globals.css`. Font classes are `font-wedding-display` and `font-aerospace-display`.
+- **Galleries:** WebP images are committed in `public/images/galleries/`.
+  `src/lib/gallery-config-auto.ts` is **generated** by `npm run build-gallery` from `/Photos`
+  (not in git). Never hand-edit it. `src/lib/gallery-config.ts` wraps it.
+- **Contact form:** posts through FormSubmit (`src/lib/submit-inquiry.ts`) to Sean's inbox. Setting
+  `NEXT_PUBLIC_WEB3FORMS_KEY` at build time switches it to Web3Forms.
+- **Hosted games:** `public/play/<game>/` holds prebuilt static games served at
+  `/play/<game>/`, such as `orbital-mechanics` (built from the `seankd3/orbital-mechanics` repo with
+  `npm run build`, then its `dist/` copied here).
+
+Conventions: the `@/*` alias maps to `src/*`. Use `cn()` from `@/lib/utils` for conditional
+classes. Add `'use client'` to interactive components. Use framer-motion `whileInView` with
+`viewport={{ once: true }}`. Page transitions are in `src/app/template.tsx`. Images are
+unoptimized in Next (Sharp does it in the gallery build). Add shadcn components with
+`npx shadcn add <name>`.
+
+## Deploy — Cloudflare Pages
+
+Project `seankennethdoherty` (seankennethdoherty.com, www, seankennethdoherty.pages.dev), direct
+upload with no Git integration. Wrangler needs a Cloudflare API token (`CLOUDFLARE_API_TOKEN`) or
+`wrangler login`.
+
+```bash
+cd app && npm run build
+# Preview: safe, production untouched. Share the URL it prints with Sean.
+npx wrangler pages deploy out --project-name seankennethdoherty --branch preview
+# Production: ONLY when Sean says so in this session.
+npx wrangler pages deploy out --project-name seankennethdoherty --branch master
+```
+
+- Every deploy uploads **all** of `out/`, and it replaces the whole site.
+- **Any file over 25 MiB fails the whole deploy.** Keep big media out of `app/public`.
+- Netlify, Vercel and GitHub Pages are all dead ends. The docs in `docs/archive/` describe them
+  and are history only. `.github/workflows/deploy.yml` is inert (it only fires on `main`).
