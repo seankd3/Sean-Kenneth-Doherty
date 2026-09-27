@@ -1,0 +1,10 @@
+#!/bin/bash
+# Claude Code on the web: install the site's dependencies so build and lint work.
+set -euo pipefail
+
+if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
+  exit 0
+fi
+
+cd "$CLAUDE_PROJECT_DIR/app"
+npm install --no-audit --no-fund
