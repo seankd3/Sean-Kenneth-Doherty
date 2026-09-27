@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     'OpenReviews is a free, open source review platform for collecting authentic customer feedback without locking business reviews behind expensive SaaS pricing.',
   alternates: {
-    canonical: '/openreviews',
+    canonical: '/projects/openreviews',
   },
   openGraph: {
     title: 'OpenReviews - Open Source Review Platform',

@@ -26,7 +26,7 @@ export type Project = {
   highlights: string[];
   updates: ProjectUpdate[];
   links?: ProjectLink[];
-  /** In-browser playable build, hosted under /play/. */
+  /** In-browser playable build, hosted at /projects/<slug>/app/. */
   playUrl?: string;
   playNote?: string;
 };
@@ -61,7 +61,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'orbital-mechanics',
-    playUrl: '/play/orbital-mechanics/',
+    playUrl: '/projects/orbital-mechanics/app/',
     title: 'Orbital Mechanics',
     eyebrow: 'Simulation / Game',
     status: 'Active prototype',
@@ -91,7 +91,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'marshlight-sanctuary',
-    playUrl: '/play/marshlight-sanctuary/',
+    playUrl: '/projects/marshlight-sanctuary/app/',
     playNote: 'Two-thumb controls on phone; keyboard, click-to-walk, tile building, town schedules, gifts, and a full garden loop on desktop.',
     title: 'Marshlight Sanctuary',
     eyebrow: 'Game / Cozy Simulation',

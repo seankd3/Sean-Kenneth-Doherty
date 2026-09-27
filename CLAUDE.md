@@ -58,8 +58,10 @@ All text/copy is centralized in `src/lib/content/`:
 **`gallery-config-auto.ts` is generated — do not edit it directly.**
 
 ### Hosted project apps
-Built copies of project apps are committed under `app/public/` and served as static files.
-Machine Frame Lab lives at `/projects/machine-frame-lab/app/`. To update it, from a checkout of
+Built copies of side apps and games are committed under `app/public/projects/<slug>/app/` and served
+at `/projects/<slug>/app/` (Orbital Mechanics, Marshlight Sanctuary, Machine Frame Lab). There is no
+`/play/` any more; `_redirects` sends old `/play/...` links to the new addresses. Builds must use
+relative asset paths or a matching base. To update Machine Frame Lab, from a checkout of
 `seankd3/machine-frame-lab`:
 
 ```bash
@@ -67,7 +69,7 @@ npx vite build --base /projects/machine-frame-lab/app/ --outDir <this repo>/app/
 ```
 
 ### Page Structure
-Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata. Categories: weddings, aerospace, events, landscapes, portraits, abstract, contact, openreviews.
+Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata. Categories: weddings, aerospace, events, landscapes, portraits, abstract, contact. Side projects live under `projects/` (`projects/openreviews`, `projects/photoarchive`, and `projects/[slug]` for the cards in `src/lib/content/projects.ts`).
 
 ### Key Conventions
 - Path alias: `@/*` → `src/*`
