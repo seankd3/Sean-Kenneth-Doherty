@@ -69,7 +69,7 @@ npx vite build --base /projects/machine-frame-lab/app/ --outDir <this repo>/app/
 ```
 
 ### Page Structure
-Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata. Categories: weddings, aerospace, events, landscapes, portraits, abstract, contact. Side projects live under `projects/` (`projects/openreviews`, `projects/photoarchive`, and `projects/[slug]` for the cards in `src/lib/content/projects.ts`).
+Pages live in `src/app/<route>/page.tsx` with optional `layout.tsx` for metadata. Categories: weddings, aerospace, events, landscapes, portraits, abstract, contact. Side projects live under `projects/` (`projects/photoarchive` and `projects/[slug]` for the cards in `src/lib/content/projects.ts`).
 
 ### Key Conventions
 - Path alias: `@/*` → `src/*`

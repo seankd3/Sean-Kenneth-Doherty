@@ -24,7 +24,6 @@ const indexableRoutes = [
   { path: '/galleries', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/projects/photoarchive', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/projects/photoarchive/devlog', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/projects/openreviews', changeFrequency: 'monthly', priority: 0.6 },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
