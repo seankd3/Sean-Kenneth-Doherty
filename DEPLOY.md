@@ -19,7 +19,7 @@ Optional: set `NEXT_PUBLIC_WEB3FORMS_KEY` at build time to prefer Web3Forms inst
 ```bash
 cd app
 npm run build
-npx wrangler pages deploy out --project-name seankennethdoherty
+npx wrangler pages deploy out --project-name seankennethdoherty --branch master
 ```
 
 **Gotcha:** Cloudflare Pages rejects files over 25 MiB — the whole deploy fails

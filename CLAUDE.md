@@ -76,9 +76,11 @@ deployed by **direct wrangler upload from this machine** (no git integration —
 ```bash
 cd app
 npm run build                                  # static export to app/out/ (dist/ is a stale Jan-2026 artifact)
-npx wrangler pages deploy out --project-name seankennethdoherty
+npx wrangler pages deploy out --project-name seankennethdoherty --branch master
 ```
 
 - Netlify: dead (account suspended 2026-05). `DEPLOY.md` Netlify instructions are legacy.
-- `.github/workflows/deploy.yml` (GitHub Pages): legacy from the 2026-07-06 interim migration; it is NOT what serves the domain.
+- Git branch: `main` is the site's branch (it replaced `legacy/master` on 2026-09-27).
+- `--branch master` is Cloudflare's production-branch label, not the git branch: without it wrangler labels the upload with the current git branch (`main`) and Cloudflare publishes it as a preview, not the live site.
+- The old GitHub Pages workflow was removed; it never served the domain.
 - Deploying publishes everything in `out` — get explicit approval from Sean before deploying.

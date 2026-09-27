@@ -61,6 +61,6 @@ if ! grep -q 'Explore My Work\|portfolio\|Weddings' out/galleries/index.html; th
 fi
 
 echo "==> DEPLOY"
-npx wrangler pages deploy out --project-name seankennethdoherty
+npx wrangler pages deploy out --project-name seankennethdoherty --branch master
 echo "==> DONE"
-git push origin master || true
+git push origin main || true

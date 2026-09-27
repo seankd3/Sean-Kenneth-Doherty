@@ -5,7 +5,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_DIR="$ROOT/app"
 GALLERIES_DIR="$APP_DIR/public/g"
 PROJECT_NAME="seankennethdoherty"
-BRANCH="master"
+BRANCH="main"
+# Cloudflare Pages treats uploads labelled with its production branch ("master") as live.
+CF_BRANCH="master"
 MAX_PAGES_FILE_BYTES=$((25 * 1024 * 1024))
 
 cd "$ROOT"
@@ -31,7 +33,7 @@ find "$DEPLOY_DIR" -type f -size +"${MAX_PAGES_FILE_BYTES}"c -delete
 
 (
     cd "$APP_DIR"
-    npx wrangler pages deploy "$DEPLOY_DIR" --project-name="$PROJECT_NAME" --branch "$BRANCH"
+    npx wrangler pages deploy "$DEPLOY_DIR" --project-name="$PROJECT_NAME" --branch "$CF_BRANCH"
 )
 
 git push origin "$BRANCH"
