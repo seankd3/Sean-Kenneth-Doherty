@@ -47,5 +47,7 @@ app/public/images/SKD-West-*.jpg
 
 # Large video files (if any)
 *.mp4
+# The game trailer ships with the site (21 MB, under the 25 MiB per-file limit).
+!app/public/play/orbital-mechanics/trailer/orbital-trailer.mp4
 *.mov
 *.avi

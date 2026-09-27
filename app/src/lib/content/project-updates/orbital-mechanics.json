@@ -1,5 +1,28 @@
 [
   {
+    "date": "2026-09-26",
+    "title": "The Trailer",
+    "summary": "A 2½-minute trailer recorded entirely from the game, flown live from Earth orbit to splashdown under the real Apollo 11 air-to-ground, with its own page and a link from the menu. A landed LM also no longer sits on bare ground.",
+    "commit": "5b8a2fd"
+  },
+  {
+    "date": "2026-09-23",
+    "title": "The Real Voices",
+    "summary": "Twenty lines of the real Apollo 11 air-to-ground play at the moments they happened, captioned: GO for TLI, the 1202s, 60 and 30 seconds, contact light, the Eagle has landed, and one small step.",
+    "commit": "c1271b8"
+  },
+  {
+    "date": "2026-09-23",
+    "title": "The Landing, As It Happened",
+    "summary": "Program alarms 1202, 1202 and 1201 on the way down, a boulder field at the computer's landing site, LPD redesignation, and the fuel calls.",
+    "commit": "18cd6dc"
+  },
+  {
+    "date": "2026-09-23",
+    "title": "V4.0: Apollo 11, Rewritten",
+    "summary": "A from-scratch rewrite around a nine-chapter campaign with flight-director cues: real targeting for every burn, E-guidance powered descent, ascent, rendezvous and docking, and a lifting entry, each graded 0-3 stars."
+  },
+  {
     "date": "2026-07-09",
     "title": "Full Apollo Stack: CSM + LM",
     "summary": "Two independently simulated craft: undock the LM, fly a powered descent to a lunar touchdown, jettison the descent stage, ride the APS back to orbit, rendezvous and hard-dock with the CSM. S-IVB third stage (real J-2 numbers) flies TLI and gets staged away. Verified end-to-end: landing at 278 kg of DPS fuel, ascent to a 331x296 km lunar orbit, crew transfer, TEI home.",
