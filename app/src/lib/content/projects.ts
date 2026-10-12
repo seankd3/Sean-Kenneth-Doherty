@@ -40,6 +40,31 @@ export const projectsPage = {
 
 export const projects: Project[] = [
   {
+    slug: 'tenfold',
+    title: 'Tenfold',
+    eyebrow: 'Interactive / History of Computing',
+    status: 'Live',
+    summary:
+      'Computing power, one factor of ten at a time. Each page is one rung: the machine that first reached that speed, what it made possible, and how long it took to get there, from three astronomers computing by hand in 1758 to the AI clusters of 2025.',
+    image: '/images/projects/tenfold.png',
+    imageAlt: 'Tenfold at the 10³ rung: ENIAC in 1945, with a field of base-ten blocks and the acceleration curve on punch-card paper.',
+    tags: ['React', 'TypeScript', 'Canvas', 'Data Story', 'History of Computing'],
+    highlights: [
+      '23 rungs, from 10⁻¹ to 10²¹ operations per second, plus four projected rungs bracketed by two paces.',
+      'Every figure is sourced: 28 record-holding machines, 33 unlocks and 56 sources, each one a tap away.',
+      'One rung took about 4.6 years across the electronic era, and about 2.5 in the AI era. The acceleration curve draws itself as you go.',
+      'The page wears its era: ten looks, from ledger paper to green phosphor to near-black glow, arriving faster toward the present.',
+      'Magnetic paging: one wheel notch, swipe, or key glides exactly one rung, with no resting between them.',
+    ],
+    updates: [],
+    links: [
+      {
+        label: 'Open App',
+        href: '/play/tenfold/',
+      },
+    ],
+  },
+  {
     slug: 'photoarchive',
     title: 'photoArchive',
     eyebrow: 'Software / Self-hosted',
