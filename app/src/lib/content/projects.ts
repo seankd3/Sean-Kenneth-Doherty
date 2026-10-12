@@ -54,7 +54,7 @@ export const projects: Project[] = [
       'Every figure is sourced: 28 record-holding machines, 33 unlocks and 56 sources, each one a tap away.',
       'One rung took about 4.6 years across the electronic era, and about 2.5 in the AI era. The acceleration curve draws itself as you go.',
       'The page wears its era: ten looks, from ledger paper to green phosphor to near-black glow, arriving faster toward the present.',
-      'Magnetic paging: one wheel notch, swipe, or key glides exactly one rung, with no resting between them.',
+      'Magnetic paging: one wheel notch, swipe, or key glides to the next machine, never resting in between. Rungs that history skipped fly past mid-glide.',
     ],
     updates: [],
     links: [
